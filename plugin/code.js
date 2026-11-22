@@ -1838,6 +1838,7 @@ async function buildLink(page) {
     const st = Object.assign({}, style('Link', 'state=default'), style('Link', `state=${state}`));
     const c = newComponent(page, `state=${state}`);
     stack(c, 'HORIZONTAL'); radius(c, 'sm'); c.clipsContent = false;
+    bind(c, 'paddingTop', 'space/xs'); bind(c, 'paddingBottom', 'space/xs'); // Klickfläche wie im Code
     const t = await text('Alle Rechnungen ansehen', 'body/md', st.fg, 'label'); t.textDecoration = 'UNDERLINE'; c.appendChild(t);
     if (state === 'focus') focusRing(c, 'md', st);
     comps.push(c);
