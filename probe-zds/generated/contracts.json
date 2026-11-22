@@ -1,0 +1,487 @@
+{
+  "$comment": "Generiert aus specs/system.json – nicht von Hand bearbeiten. Einzige Quelle für gültige Komponenten, Props, Werte und Tokens.",
+  "principles": [
+    {
+      "id": "principles/surface-and-line",
+      "text": "Trennung über Fläche und Linie. Keine Verläufe, keine Schlagschatten.",
+      "why": "Verläufe und Schatten haben keine Tokens.",
+      "check": "no-decoration"
+    },
+    {
+      "id": "principles/sentence-case",
+      "text": "Satzschreibung. Keine Versalien per text-transform.",
+      "why": "Hausregel.",
+      "check": "no-uppercase"
+    },
+    {
+      "id": "principles/action-says-what",
+      "text": "Aktionen sagen, was passiert.",
+      "why": "„Mehr erfahren“ verrät nicht, was nach dem Klick kommt.",
+      "check": "no-vague-action"
+    },
+    {
+      "id": "principles/spacing-from-scale",
+      "text": "Abstände kommen aus der Skala.",
+      "why": "Zwischenwerte lassen sich nicht gemeinsam ändern.",
+      "check": "no-raw-space"
+    },
+    {
+      "id": "principles/system-controls",
+      "text": "Bedienelemente kommen aus dem System.",
+      "why": "Nur Systemkomponenten bringen Fokus und Zustände mit.",
+      "check": "registered-only"
+    }
+  ],
+  "vagueActions": [
+    "mehr erfahren",
+    "hier klicken",
+    "klick hier",
+    "klicken",
+    "click me",
+    "weiter",
+    "ok",
+    "mehr",
+    "los",
+    "absenden",
+    "senden"
+  ],
+  "migrations": [],
+  "system": "ZDS-Probe",
+  "version": "0.1.0",
+  "cssPrefix": "z-ds",
+  "codePackage": "@zeit/zds-probe",
+  "tokens": {
+    "--z-ds-color-background-0": true,
+    "--z-ds-color-background-10": true,
+    "--z-ds-color-background-20": true,
+    "--z-ds-color-text-100": true,
+    "--z-ds-color-text-70": true,
+    "--z-ds-color-text-40": true,
+    "--z-ds-color-border-100": true,
+    "--z-ds-color-border-70": true,
+    "--z-ds-color-accent-100": true,
+    "--z-ds-color-accent-70": true,
+    "--z-ds-color-focus-100": true,
+    "--z-ds-color-general-white-100": true,
+    "--z-ds-space-2": true,
+    "--z-ds-space-4": true,
+    "--z-ds-space-8": true,
+    "--z-ds-space-10": true,
+    "--z-ds-space-16": true,
+    "--z-ds-space-24": true,
+    "--z-ds-space-32": true,
+    "--z-ds-space-48": true,
+    "--z-ds-radius-2": true,
+    "--z-ds-radius-4": true,
+    "--z-ds-radius-full": true,
+    "--z-ds-border-width-default": true,
+    "--z-ds-border-width-strong": true,
+    "--z-ds-size-checkbox": true,
+    "--z-ds-size-toggle-width": true,
+    "--z-ds-size-toggle-thumb": true,
+    "--z-ds-size-touch-target": true,
+    "--z-ds-size-panel": true,
+    "--z-ds-text-display": true,
+    "--z-ds-text-heading-lg": true,
+    "--z-ds-text-heading-md": true,
+    "--z-ds-text-body-md": true,
+    "--z-ds-text-body-sm": true,
+    "--z-ds-text-label-md": true,
+    "--z-ds-text-label-sm": true,
+    "--z-ds-text-caption": true
+  },
+  "tokenDescriptions": {
+    "--z-ds-color-background-0": "Seitengrund und Fläche der Checkbox. Beschriftung des Primary-Buttons.",
+    "--z-ds-color-background-10": "Fläche des Default-Buttons, Hover-Fläche der Checkbox.",
+    "--z-ds-color-background-20": "Hover-Fläche des Default-Buttons, Bahn des Toggles im Aus-Zustand.",
+    "--z-ds-color-text-100": "Text. Fläche des Primary-Buttons, der angehakten Checkbox und des Toggles im An-Zustand.",
+    "--z-ds-color-text-70": "Sekundärer Text. Hover-Fläche des Primary-Buttons und der angehakten Checkbox.",
+    "--z-ds-color-text-40": "Deaktivierter Text und deaktivierte angehakte Checkbox. Muss keinen Kontrast erfüllen.",
+    "--z-ds-color-border-100": "Rahmen der Checkbox.",
+    "--z-ds-color-border-70": "Rahmen der deaktivierten Checkbox.",
+    "--z-ds-color-accent-100": "ZEIT-Rot. Fläche des Z+-Buttons.",
+    "--z-ds-color-accent-70": "Hover-Fläche des Z+-Buttons.",
+    "--z-ds-color-focus-100": "Fokus-Outline, 2 px.",
+    "--z-ds-color-general-white-100": "Festes Weiß: Beschriftung des Z+-Buttons, Haken der Checkbox, Knopf des Toggles.",
+    "--z-ds-space-2": "Abstand des Toggle-Knopfs zum Rand.",
+    "--z-ds-space-4": "Feinabstand.",
+    "--z-ds-space-8": "Abstand zwischen Bedienelement und Beschriftung.",
+    "--z-ds-space-10": "Innenabstand Button vertikal (--z-ds-space-10).",
+    "--z-ds-space-16": "Innenabstand Button horizontal (--z-ds-space-16).",
+    "--z-ds-space-24": "Abstand zwischen Gruppen.",
+    "--z-ds-space-32": "Abstand zwischen Abschnitten.",
+    "--z-ds-space-48": "Seitenrand.",
+    "--z-ds-radius-2": "Checkbox (--z-ds-border-radius-2).",
+    "--z-ds-radius-4": "Button (--z-ds-border-radius-4).",
+    "--z-ds-radius-full": "Toggle.",
+    "--z-ds-border-width-default": "Rahmen der Checkbox.",
+    "--z-ds-border-width-strong": "Fokus-Outline und Haken.",
+    "--z-ds-size-checkbox": "Kantenlänge der Checkbox.",
+    "--z-ds-size-toggle-width": "Breite der Toggle-Bahn.",
+    "--z-ds-size-toggle-thumb": "Durchmesser des Toggle-Knopfs.",
+    "--z-ds-size-touch-target": "Mindesthöhe der Klickzeile aus Bedienelement und Beschriftung (Fundament-Regel).",
+    "--z-ds-size-panel": "Höchstbreite schmaler Module (Annahme der Probe).",
+    "--z-ds-text-display": "Modultitel (Annahme der Probe).",
+    "--z-ds-text-heading-lg": "Abschnittstitel (Annahme der Probe).",
+    "--z-ds-text-heading-md": "Gruppentitel (Annahme der Probe).",
+    "--z-ds-text-body-md": "Fließtext und Beschriftungen (Annahme der Probe).",
+    "--z-ds-text-body-sm": "Hilfstext (Annahme der Probe).",
+    "--z-ds-text-label-md": "Beschriftung des Buttons: Tablet Gothic Bold 16, Zeilenhöhe 20 (aus button.css).",
+    "--z-ds-text-label-sm": "Kleine Beschriftung (Annahme der Probe).",
+    "--z-ds-text-caption": "Metadaten (Annahme der Probe)."
+  },
+  "components": {
+    "Button": {
+      "class": "z-ds-button",
+      "kind": "component",
+      "status": "stable",
+      "version": "0.1.0",
+      "purpose": "Löst eine Aktion aus.",
+      "deprecated": null,
+      "booleans": [
+        "fullwidth",
+        "disabled"
+      ],
+      "attributes": {
+        "data-variant": {
+          "values": [
+            "default",
+            "primary",
+            "zplus"
+          ],
+          "default": "default"
+        },
+        "data-state": {
+          "values": [
+            "default",
+            "hover",
+            "focus"
+          ],
+          "default": "default"
+        }
+      },
+      "parts": [
+        "z-ds-button__label"
+      ],
+      "styles": {
+        "variant=default": {
+          "bg": "background/10",
+          "fg": "text/100"
+        },
+        "variant=default, state=hover": {
+          "bg": "background/20"
+        },
+        "variant=primary": {
+          "bg": "text/100",
+          "fg": "background/0"
+        },
+        "variant=primary, state=hover": {
+          "bg": "text/70"
+        },
+        "variant=zplus": {
+          "bg": "accent/100",
+          "fg": "general/white-100"
+        },
+        "variant=zplus, state=hover": {
+          "bg": "accent/70"
+        },
+        "state=focus": {
+          "ring": "focus/100",
+          "ringWidth": "strong"
+        }
+      },
+      "colorTokens": [
+        "--z-ds-color-background-10",
+        "--z-ds-color-text-100",
+        "--z-ds-color-background-20",
+        "--z-ds-color-background-0",
+        "--z-ds-color-text-70",
+        "--z-ds-color-accent-100",
+        "--z-ds-color-general-white-100",
+        "--z-ds-color-accent-70",
+        "--z-ds-color-focus-100"
+      ],
+      "slots": [],
+      "rules": [
+        {
+          "id": "button/one-primary",
+          "text": "Höchstens ein Primary-Button pro Ansicht.",
+          "why": "Mehrere primäre Aktionen konkurrieren um Aufmerksamkeit.",
+          "check": "max-per-view",
+          "herkunft": "Fundament-Regel, für ZDS noch zu bestätigen"
+        },
+        {
+          "id": "button/label-verb",
+          "text": "Beschriftung beginnt mit einem Verb und nennt das Ergebnis.",
+          "why": "Man weiß vor dem Klick, was passiert.",
+          "check": null,
+          "herkunft": "Fundament-Regel, für ZDS noch zu bestätigen"
+        },
+        {
+          "id": "button/zplus-only-paid",
+          "text": "variant=zplus nur für den Weg zu Z+-Inhalten oder zum Abo.",
+          "why": "ZEIT-Rot ist die Farbe des Bezahlangebots; überall sonst verliert es diese Bedeutung.",
+          "check": null,
+          "herkunft": "Annahme der Probe aus dem Variantennamen, für ZDS noch zu bestätigen"
+        }
+      ],
+      "a11y": "Als <button> umsetzen. :focus-visible zeigt eine 2-px-Outline in focus/100. Deaktiviert senkt die Deckkraft auf 50 %.",
+      "element": "z-ds-button",
+      "attrs": {
+        "variant": {
+          "type": "enum",
+          "values": [
+            "default",
+            "primary",
+            "zplus"
+          ],
+          "default": "default"
+        },
+        "fullwidth": {
+          "type": "boolean",
+          "default": false
+        },
+        "disabled": {
+          "type": "boolean",
+          "default": false
+        },
+        "state": {
+          "type": "enum",
+          "values": [
+            "default",
+            "hover",
+            "focus"
+          ],
+          "default": "default"
+        },
+        "label": {
+          "type": "text",
+          "default": "Speichern"
+        }
+      },
+      "passthrough": [
+        "type",
+        "name",
+        "value"
+      ],
+      "slotNames": []
+    },
+    "Checkbox": {
+      "class": "z-ds-checkbox",
+      "kind": "component",
+      "status": "stable",
+      "version": "0.1.0",
+      "purpose": "Auswahl einer unabhängigen Option.",
+      "deprecated": null,
+      "booleans": [
+        "checked",
+        "disabled"
+      ],
+      "attributes": {
+        "data-state": {
+          "values": [
+            "default",
+            "hover",
+            "focus"
+          ],
+          "default": "default"
+        }
+      },
+      "parts": [
+        "z-ds-checkbox__label",
+        "z-ds-checkbox__helper-text"
+      ],
+      "styles": {
+        "checked=false": {
+          "bg": "background/0",
+          "border": "border/100",
+          "borderWidth": "default",
+          "fg": "text/100",
+          "helper": "text/70"
+        },
+        "checked=false, state=hover": {
+          "bg": "background/10"
+        },
+        "checked=true": {
+          "bg": "text/100",
+          "mark": "general/white-100"
+        },
+        "checked=true, state=hover": {
+          "bg": "text/70"
+        },
+        "state=focus": {
+          "ring": "focus/100",
+          "ringWidth": "strong"
+        },
+        "disabled=true": {
+          "border": "border/70",
+          "fg": "text/40"
+        },
+        "checked=true, disabled=true": {
+          "bg": "text/40"
+        }
+      },
+      "colorTokens": [
+        "--z-ds-color-background-0",
+        "--z-ds-color-border-100",
+        "--z-ds-color-text-100",
+        "--z-ds-color-text-70",
+        "--z-ds-color-background-10",
+        "--z-ds-color-general-white-100",
+        "--z-ds-color-focus-100",
+        "--z-ds-color-border-70",
+        "--z-ds-color-text-40"
+      ],
+      "slots": [],
+      "rules": [
+        {
+          "id": "checkbox/needs-label",
+          "text": "Die Checkbox hat immer eine sichtbare Beschriftung; sie gehört zur Klickfläche.",
+          "why": "Die ZDS-Checkbox ist als Kästchen von 16 px dokumentiert. Allein ist sie zu klein und hat keinen Namen.",
+          "check": "required-prop",
+          "herkunft": "Lücke der ZDS-Doku, in der Probe ergänzt"
+        },
+        {
+          "id": "checkbox/disabled-reason",
+          "text": "Ist die Checkbox deaktiviert, erklärt helperText den Grund.",
+          "why": "Ohne Erklärung wirkt ein deaktiviertes Element wie ein Fehler.",
+          "check": "required-when-disabled",
+          "herkunft": "Fundament-Regel, für ZDS noch zu bestätigen"
+        }
+      ],
+      "a11y": "Natives <input type=\"checkbox\"> in einem <label>. Die ZDS-Doku beschreibt nur ein <span>; das ist nicht bedienbar.",
+      "element": "z-ds-checkbox",
+      "attrs": {
+        "checked": {
+          "type": "boolean",
+          "default": false
+        },
+        "disabled": {
+          "type": "boolean",
+          "default": false
+        },
+        "state": {
+          "type": "enum",
+          "values": [
+            "default",
+            "hover",
+            "focus"
+          ],
+          "default": "default"
+        },
+        "label": {
+          "type": "text",
+          "default": "Auch Angebote der ZEIT erhalten"
+        },
+        "helper-text": {
+          "type": "text",
+          "default": "Abbestellen ist jederzeit möglich."
+        },
+        "show-helper": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "passthrough": [
+        "name",
+        "value"
+      ],
+      "slotNames": []
+    },
+    "Toggle": {
+      "class": "z-ds-toggle",
+      "kind": "component",
+      "status": "stable",
+      "version": "0.1.0",
+      "purpose": "Schaltet eine Einstellung sofort ein oder aus.",
+      "deprecated": null,
+      "booleans": [
+        "checked"
+      ],
+      "attributes": {
+        "data-state": {
+          "values": [
+            "default",
+            "focus"
+          ],
+          "default": "default"
+        }
+      },
+      "parts": [
+        "z-ds-toggle__label",
+        "z-ds-toggle__helper-text"
+      ],
+      "styles": {
+        "checked=false": {
+          "bg": "background/20",
+          "thumb": "general/white-100",
+          "fg": "text/100",
+          "helper": "text/70"
+        },
+        "checked=true": {
+          "bg": "text/100"
+        },
+        "state=focus": {
+          "ring": "focus/100",
+          "ringWidth": "strong"
+        }
+      },
+      "colorTokens": [
+        "--z-ds-color-background-20",
+        "--z-ds-color-general-white-100",
+        "--z-ds-color-text-100",
+        "--z-ds-color-text-70",
+        "--z-ds-color-focus-100"
+      ],
+      "slots": [],
+      "rules": [
+        {
+          "id": "toggle/needs-label",
+          "text": "Der Toggle hat immer eine sichtbare Beschriftung; sie gehört zur Klickfläche.",
+          "why": "Die Bahn misst 26 × 16 px und ist allein zu klein. Die ZDS-Doku behilft sich mit aria-label.",
+          "check": "required-prop",
+          "herkunft": "Lücke der ZDS-Doku, in der Probe ergänzt"
+        },
+        {
+          "id": "toggle/immediate",
+          "text": "Nur für Einstellungen, die sofort wirken.",
+          "why": "Ein Schalter verspricht, dass die Änderung schon gilt.",
+          "check": null,
+          "herkunft": "Fundament-Regel, für ZDS noch zu bestätigen"
+        }
+      ],
+      "a11y": "Als <button role=\"switch\"> mit aria-checked. Einen deaktivierten Zustand gibt es im ZDS nicht.",
+      "element": "z-ds-toggle",
+      "attrs": {
+        "checked": {
+          "type": "boolean",
+          "default": false
+        },
+        "state": {
+          "type": "enum",
+          "values": [
+            "default",
+            "focus"
+          ],
+          "default": "default"
+        },
+        "label": {
+          "type": "text",
+          "default": "Was jetzt? Der Morgenüberblick"
+        },
+        "helper-text": {
+          "type": "text",
+          "default": "Montag bis Freitag um 6 Uhr."
+        },
+        "show-helper": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "passthrough": [
+        "name"
+      ],
+      "slotNames": []
+    }
+  }
+}

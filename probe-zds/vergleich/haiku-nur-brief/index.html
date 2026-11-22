@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Newsletter-Einstellungen · ZEIT ONLINE</title>
+<style>
+  :root {
+    --color-paper: #ffffff;
+    --color-text: #000000;
+    --color-text-soft: #4a4a4a;
+    --color-border: #d9d9d9;
+    --color-surface: #f4f4f2;
+    --color-accent: #b91109;
+    --color-accent-hover: #880d07;
+    --color-focus: #0b5cad;
+    --font-serif: "Tiemann", Georgia, "Times New Roman", serif;
+    --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--color-paper);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body { min-height: 100vh; }
+
+  .masthead {
+    border-bottom: 1px solid var(--color-text);
+    padding: 14px 16px;
+  }
+  .masthead-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .logo {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 24px;
+    letter-spacing: -0.01em;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  .section-label {
+    font-size: 13px;
+    color: var(--color-text-soft);
+  }
+
+  main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 32px 16px 64px;
+  }
+
+  h1 {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    margin: 0 0 12px;
+  }
+
+  .intro {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    line-height: 1.4;
+    color: var(--color-text-soft);
+    margin: 0 0 32px;
+  }
+
+  h2 {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 14px;
+    margin: 32px 0 8px;
+    padding-top: 8px;
+    border-top: 2px solid var(--color-text);
+  }
+
+  .newsletter-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .newsletter {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .newsletter-text { min-width: 0; }
+  .newsletter-title {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 1.25;
+    margin: 0 0 4px;
+  }
+  .newsletter-meta {
+    font-size: 14px;
+    color: var(--color-text-soft);
+    margin: 0;
+  }
+
+  /* Switch: native checkbox, visually a toggle */
+  .switch {
+    position: relative;
+    display: inline-block;
+    flex: 0 0 auto;
+    width: 52px;
+    height: 30px;
+    margin-top: 2px;
+  }
+  .switch input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 1;
+  }
+  .switch-track {
+    position: absolute;
+    inset: 0;
+    background: #bdbdbd;
+    border-radius: 15px;
+    transition: background-color 0.2s ease;
+    pointer-events: none;
+  }
+  .switch-track::after {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 24px;
+    height: 24px;
+    background: #ffffff;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+  }
+  .switch input:checked + .switch-track { background: var(--color-accent); }
+  .switch input:checked + .switch-track::after { transform: translateX(22px); }
+  .switch input:focus-visible + .switch-track {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+  .switch input:disabled { cursor: not-allowed; }
+  .switch input:disabled + .switch-track { opacity: 0.5; }
+
+  .state-text {
+    display: block;
+    font-size: 12px;
+    text-align: center;
+    color: var(--color-text-soft);
+    margin-top: 4px;
+  }
+
+  /* Checkboxes */
+  .options { margin-top: 8px; }
+  .option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .option input[type="checkbox"] {
+    flex: 0 0 auto;
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    accent-color: var(--color-accent);
+    cursor: pointer;
+  }
+  .option input[type="checkbox"]:disabled { cursor: not-allowed; }
+  .option label {
+    cursor: pointer;
+    font-size: 16px;
+  }
+  .option input[type="checkbox"]:disabled + label { cursor: not-allowed; color: var(--color-text-soft); }
+  .option-note {
+    display: block;
+    font-size: 14px;
+    color: var(--color-text-soft);
+    margin-top: 2px;
+  }
+
+  input:focus-visible,
+  button:focus-visible,
+  a:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  /* Actions */
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    background: var(--color-accent);
+    border: 0;
+    border-radius: 0;
+    padding: 12px 28px;
+    cursor: pointer;
+  }
+  .btn:hover { background: var(--color-accent-hover); }
+  .save-status {
+    font-size: 14px;
+    color: var(--color-text-soft);
+    min-height: 1.5em;
+  }
+
+  /* Z+ hint: light surface, no dark fill */
+  .zplus {
+    margin-top: 40px;
+    padding: 20px;
+    background: var(--color-surface);
+    border-top: 2px solid var(--color-text);
+  }
+  .zplus-title {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 20px;
+    margin: 0 0 6px;
+  }
+  .zplus-text {
+    margin: 0 0 12px;
+    font-size: 16px;
+    color: var(--color-text);
+  }
+  .zplus-link {
+    font-weight: 700;
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .zplus-link:hover { color: var(--color-accent-hover); }
+
+  @media (max-width: 480px) {
+    h1 { font-size: 32px; }
+    .intro { font-size: 18px; }
+    .newsletter-title { font-size: 18px; }
+    .btn { width: 100%; }
+    .actions { flex-direction: column; align-items: stretch; }
+    .save-status { text-align: center; }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --color-paper: #ffffff;
+      --color-text: #000000;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <a class="logo" href="#">ZEIT ONLINE</a>
+    <span class="section-label">Einstellungen</span>
+  </div>
+</header>
+
+<main>
+  <h1>Newsletter</h1>
+  <p class="intro">Wähle aus, was wir dir schicken.</p>
+
+  <form id="newsletter-form" novalidate>
+    <h2>Newsletter</h2>
+    <ul class="newsletter-list">
+
+      <li class="newsletter">
+        <div class="newsletter-text">
+          <p class="newsletter-title" id="nl-morgen-title">Was jetzt? Der Morgenüberblick</p>
+          <p class="newsletter-meta">Montag bis Freitag um 6 Uhr</p>
+        </div>
+        <label class="switch">
+          <input type="checkbox" name="morgenueberblick" aria-labelledby="nl-morgen-title" checked>
+          <span class="switch-track" aria-hidden="true"></span>
+        </label>
+      </li>
+
+      <li class="newsletter">
+        <div class="newsletter-text">
+          <p class="newsletter-title" id="nl-wochenende-title">ZEIT am Wochenende</p>
+          <p class="newsletter-meta">Jeden Samstag</p>
+        </div>
+        <label class="switch">
+          <input type="checkbox" name="wochenende" aria-labelledby="nl-wochenende-title">
+          <span class="switch-track" aria-hidden="true"></span>
+        </label>
+      </li>
+
+      <li class="newsletter">
+        <div class="newsletter-text">
+          <p class="newsletter-title" id="nl-wissen-title">Wissen³</p>
+          <p class="newsletter-meta">Jeden Donnerstag</p>
+        </div>
+        <label class="switch">
+          <input type="checkbox" name="wissen" aria-labelledby="nl-wissen-title">
+          <span class="switch-track" aria-hidden="true"></span>
+        </label>
+      </li>
+
+    </ul>
+
+    <h2>Angebote und Empfehlungen</h2>
+    <div class="options">
+      <div class="option">
+        <input type="checkbox" id="angebote" name="angebote">
+        <label for="angebote">Auch Angebote der ZEIT Verlagsgruppe erhalten</label>
+      </div>
+
+      <div class="option">
+        <input type="checkbox" id="empfehlungen" name="empfehlungen" checked disabled aria-describedby="empfehlungen-hinweis">
+        <label for="empfehlungen">
+          Personalisierte Empfehlungen
+          <span class="option-note" id="empfehlungen-hinweis">Ohne Abo lässt sich diese Einstellung nicht ändern.</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn" type="submit">Speichern</button>
+      <span class="save-status" id="save-status" role="status" aria-live="polite"></span>
+    </div>
+  </form>
+
+  <aside class="zplus" aria-labelledby="zplus-title">
+    <p class="zplus-title" id="zplus-title">Mit Z+ gibt es weitere Newsletter</p>
+    <p class="zplus-text">Mit einem Z+-Abo erhältst du zusätzliche Newsletter und personalisierte Empfehlungen.</p>
+    <a class="zplus-link" href="#abo">Zum Abo</a>
+  </aside>
+</main>
+
+<script>
+  (function () {
+    var form = document.getElementById('newsletter-form');
+    var status = document.getElementById('save-status');
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      status.textContent = 'Deine Einstellungen wurden gespeichert.';
+    });
+    form.addEventListener('change', function () {
+      status.textContent = '';
+    });
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!-- Generiert aus specs/leitfaden.json – nicht von Hand bearbeiten. -->
+# Leitfaden: So bleibt das System sicher für Agenten
+
+Was Fundament für KI-Agenten verlässlich macht und wie man neue Regeln, Tokens und Komponenten so ergänzt, dass es so bleibt. Stand 22.11.2026.
+
+## Die sieben Grundelemente
+
+Fällt eines weg, raten Agenten wieder.
+
+- **1 / Eine Quelle.** Alles steht in specs/system.json. Figma, Paket, Verträge, Doku und Prüfungen werden daraus erzeugt. Wer etwas ändern will, ändert die Spec und baut neu.
+- **2 / Namen wie im Code.** Eine Komponente heißt überall gleich: Button, <fd-button>, Ebene „label“, Attribut label. Tokens heißen nach ihrer Aufgabe (text/primary), nicht nach ihrem Aussehen (blue/600).
+- **3 / Jede Entscheidung hat ein Warum.** Tokens, Regeln und Grundsätze tragen eine Begründung. Mit ihr entscheidet ein Agent die Fälle, die niemand vorhergesehen hat.
+- **4 / Verträge statt Listen.** Gültige Elemente, Werte und Tokens stehen nur im erzeugten Vertrag. AGENTS.md beschreibt den Ablauf und nennt bewusst keinen einzigen Namen. Handgeschriebene Listen veralten.
+- **5 / Prüfen in der Schleife.** Der Agent prüft seine Arbeit selbst: check gegen den Vertrag, audit im gerenderten Zustand, dann die Rubrik. Höchstens drei Runden, danach berichtet er, was offen ist.
+- **6 / Lücken melden statt nachbauen.** Fehlt eine Komponente, ein Wert oder ein Slot, baut der Agent nichts darüber. Er meldet die Lücke. So wächst das System an den richtigen Stellen.
+- **7 / Messen.** Agentenläufe mit und ohne System, die gerenderte Prüfung und der Abgleich zwischen Figma und Spec zeigen, ob es wirkt. Was nicht gemessen ist, gilt als Annahme.
+
+## Eine neue Regel schreiben
+
+Sechs Schritte. Die Regel steht danach in der Spec, bei der Komponente oder bei den Grundsätzen.
+
+```json
+{
+  "id": "card/one-action",
+  "text": "Höchstens eine Aktion im Footer.",
+  "why": "Karten sind Einstiege, keine Formulare.",
+  "check": "max-children"
+}
+```
+
+- **1 / Mit einer Beobachtung anfangen.** Eine Regel entsteht aus einem Fehler, der wirklich passiert ist: in einer Messung, einem Review, einem Produkt. Regeln auf Vorrat liest niemand und prüft niemand.
+- **2 / Ein Satz, eine Sache, mit Zahl oder Ort.** „Höchstens ein primärer Button pro Ansicht“ lässt sich zählen. „Buttons sparsam einsetzen“ lässt sich nur auslegen.
+- **3 / Das Warum dazuschreiben.** Ein Satz, der sagt, wovor die Regel schützt. Ohne ihn wird sie in Grenzfällen wörtlich und falsch angewendet. lint lehnt Regeln ohne Begründung ab.
+- **4 / Entscheiden: Check oder Urteil.** Lässt sich die Regel automatisch prüfen, bekommt sie einen Check und die CLI setzt ihn um. Sonst steht check auf null, und die Regel gehört zum Urteil (DESIGN.md, Rubrik). lint meldet Checks, die versprochen, aber nicht gebaut sind.
+- **5 / Die Behebung in die Meldung schreiben.** Jeder Befund nennt, was zu tun ist und welche Werte erlaubt sind. Eine Meldung ohne Ausweg führt zum Raten.
+- **6 / Den Fehlerfall festhalten.** Ein Beispiel, das die Regel verletzt, kommt in tooling/fixtures. Der CLI-Test verlangt, dass die Regel dort anschlägt. Dann node tooling/verify.mjs.
+
+## Gut und schlecht formuliert
+
+| So nicht | So |
+|---|---|
+| Bedienelemente übersichtlich halten. | Höchstens eine Aktion im Footer. Warum: Karten sind Einstiege, keine Formulare. |
+| Verwende für Fehler den Ton error. | Kein Wert im Text. Der gültige Wert steht im Vertrag (tone), die Regel sagt nur, wann ein Alert nötig ist. |
+| Der Fokus muss gut sichtbar sein. | Hover und Fokus kommen aus der Komponente, nie selbst gestaltet. Warum: Der Fokusring ist eine Zusage an Tastaturnutzer:innen. |
+| Fehlt eine Komponente, improvisiere passend zum Stil. | Fehlt eine Komponente, nicht nachbauen. Die Lücke im Bericht benennen, mit dem Anlass. |
+
+## Wohin gehört was
+
+Jede Aussage hat genau einen Ort.
+
+- **Regel einer Komponente.** specs/system.json, bei der Komponente unter rules. Gilt nur dort.
+- **Grundsatz für alle Seiten.** specs/system.json unter principles, wenn er prüfbar ist. Sonst DESIGN.md.
+- **Wann ein Token gilt.** In der Beschreibung des Tokens (why): Einsatz und Grenze, bei Farben die erlaubten Flächen.
+- **Fragen an das fertige Ergebnis.** rubric.md. Ja-Nein-Fragen, die man am Screenshot beantworten kann.
+- **Ablauf für Agenten.** AGENTS.md. Nur Schritte und Dateipfade, keine Komponenten, keine Werte.
+- **Aussehen einer Variante.** specs/system.json unter styles. Daraus entstehen Figma, die erlaubten Farb-Tokens und die Prüfung des CSS.
+
+## Eine neue Komponente aufnehmen
+
+In dieser Reihenfolge. verify meldet, wenn ein Schritt fehlt.
+
+- **1 / Spec.** Zweck, Props mit Werten und Standard, styles je Variante, Regeln mit Warum, Barrierefreiheit, Do und Don't.
+- **2 / Bauen.** node build.mjs erzeugt Vertrag, Doku, Tokens. Der Build bricht ab, wenn ein Kontrastpaar durchfällt.
+- **3 / Umsetzen.** Element in ui/fundament.js, Styles in ui/components.css (nur Tokens aus dem Vertrag der Komponente), Builder im Plugin.
+- **4 / Prüfen.** node tooling/verify.mjs: Spec, Check, CLI-Test, Plugin, Verhalten im Browser, gerenderte Prüfung.
+- **5 / Figma.** Plugin in leerer Datei ausführen oder die Datei nachziehen, dann den Abgleich per Prüfsummen (tooling/figma-soll.mjs und figma-ist.js).
+- **6 / Messen.** Eine Aufgabe, die die neue Komponente braucht, in evals/tasks.md ergänzen und einen Lauf machen.
+
+## Was man lassen sollte
+
+- **Listen in Prosa.** Komponenten, Werte oder Tokens in AGENTS.md, Skills oder Prompts aufzählen. Ein veraltetes Wort genügt für Fehler in Serie.
+- **Regeln ohne Prüfer.** Eine Regel, die weder ein Check prüft noch die Rubrik abfragt, existiert nur auf dem Papier.
+- **Fehlende Fähigkeit mit Doku flicken.** Wenn eine Komponente etwas nicht kann, hilft kein Hinweistext. Die Komponente braucht den Slot, den Zustand oder das Verhalten.
+- **Tokens nach Aussehen am Einsatzort.** Zahlenrampen wie background/10 sagen nicht, wofür sie gedacht sind. Die ZDS-Probe zeigt das: Erst die Beschreibung macht sie benutzbar.
+- **Ausnahmen im Produkt.** Ein überschriebener Wert an einer Stelle ist eine Regeländerung ohne Entscheidung. Wiederholt sich die Ausnahme, fehlt eine Variante.
+- **Die Prüfung umgehen.** data-fd-specimen ist für Musterseiten. Wer es nutzt, um einen Befund loszuwerden, hat die Regel abgeschafft, nicht erfüllt.

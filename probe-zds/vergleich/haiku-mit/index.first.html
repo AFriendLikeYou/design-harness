@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Newsletter</title>
+  <link rel="stylesheet" href="../../ui/tokens.css">
+  <link rel="stylesheet" href="../../ui/components.css">
+  <script type="module" src="../../ui/fundament.js"></script>
+  <style>
+    body {
+      margin: 0;
+      background: var(--z-ds-color-background-0);
+      color: var(--z-ds-color-text-100);
+      font-family: inherit;
+    }
+    .modul {
+      box-sizing: border-box;
+      max-width: var(--z-ds-size-panel);
+      margin: 0 auto;
+      padding: var(--z-ds-space-48) var(--z-ds-space-16);
+    }
+    .modul h1 {
+      margin: 0 0 var(--z-ds-space-8);
+      font-size: var(--z-ds-text-display);
+      font-weight: 700;
+    }
+    .modul p {
+      margin: 0 0 var(--z-ds-space-24);
+      font-size: var(--z-ds-text-body-md);
+    }
+    .gruppe {
+      display: flex;
+      flex-direction: column;
+      gap: var(--z-ds-space-24);
+    }
+    .aktionen {
+      margin-top: var(--z-ds-space-32);
+      display: flex;
+      flex-direction: column;
+      gap: var(--z-ds-space-16);
+    }
+  </style>
+</head>
+<body>
+  <main class="modul">
+    <h1>Newsletter</h1>
+    <p>Wähle aus, was wir dir schicken.</p>
+
+    <form>
+      <div class="gruppe">
+        <z-ds-toggle
+          checked
+          label="Was jetzt? Der Morgenüberblick"
+          helper-text="Montag bis Freitag um 6 Uhr."
+          show-helper></z-ds-toggle>
+
+        <z-ds-toggle
+          label="ZEIT am Wochenende"
+          helper-text="Jeden Samstag."
+          show-helper></z-ds-toggle>
+
+        <z-ds-toggle
+          label="Wissen³"
+          helper-text="Jeden Donnerstag."
+          show-helper></z-ds-toggle>
+
+        <z-ds-checkbox
+          label="Auch Angebote der ZEIT Verlagsgruppe erhalten"></z-ds-checkbox>
+
+        <z-ds-checkbox
+          checked
+          disabled
+          label="Personalisierte Empfehlungen"
+          helper-text="Ohne Abo lässt sich das nicht ändern."
+          show-helper></z-ds-checkbox>
+      </div>
+
+      <div class="aktionen">
+        <z-ds-button variant="primary" label="Einstellungen speichern"></z-ds-button>
+        <p>Mit Z+ gibt es weitere Newsletter. Du kannst dafür ein Abo abschließen.</p>
+        <z-ds-button variant="zplus" label="Z+ Abo ansehen"></z-ds-button>
+      </div>
+    </form>
+  </main>
+</body>
+</html>

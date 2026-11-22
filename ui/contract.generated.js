@@ -1,5 +1,6 @@
 // Generiert aus specs/system.json – nicht von Hand bearbeiten.
 export const VERSION = "1.4.0";
+export const PREFIX = "fd";
 export const ELEMENTS = {
   "fd-button": {
     "name": "Button",

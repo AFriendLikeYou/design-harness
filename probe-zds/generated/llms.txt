@@ -1,0 +1,19 @@
+# ZDS-Probe Design System 0.1.0
+
+> Komponenten und Tokens. Quelle: specs/system.json. Code-Paket: @zeit/zds-probe.
+
+## Komponenten
+
+- [Button](components/button.md): Löst eine Aktion aus.
+- [Checkbox](components/checkbox.md): Auswahl einer unabhängigen Option.
+- [Toggle](components/toggle.md): Schaltet eine Einstellung sofort ein oder aus.
+
+## Tokens
+
+- [Primitive](tokens/primitive.json): nicht direkt verwenden
+- [Semantisch light](tokens/semantic.light.json), [dark](tokens/semantic.dark.json), [Abstände und Radien](tokens/semantic.shared.json)
+
+## Verträge und Prüfung
+
+- [Verträge](contracts.json): gültige Komponenten, Attribute, Werte, Regeln und Tokens, maschinenlesbar
+- Prüfen: node validate.mjs <Pfad> --json, Befunde beheben, wiederholen bis ok

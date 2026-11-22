@@ -1,11 +1,14 @@
 // Baut aus specs/system.json: Figma-Plugin, DTCG-Tokens, Komponenten-Markdown, llms.txt
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+const HOME = new URL('.', import.meta.url).pathname; // Vorlagen (Plugin, Web Components) kommen immer aus dem Hauptprojekt
+if (process.argv[2]) process.chdir(process.argv[2]);
 const spec = JSON.parse(readFileSync('specs/system.json', 'utf8'));
 const kebab = (s) => s.replace(/([a-z0-9])([A-Z])/g, '$1-$2').replace(/[\/ ]+/g, '-').toLowerCase();
 const FLOAT_GROUPS = ['space', 'radius', 'border-width', 'size'].filter((g) => spec.semantic[g]);
 
 // 1) Plugin
-const tpl = readFileSync('plugin/code.template.js', 'utf8');
+mkdirSync('plugin', { recursive: true }); mkdirSync('generated/components', { recursive: true });
+const tpl = readFileSync(HOME + 'plugin/code.template.js', 'utf8');
 writeFileSync('plugin/code.js', tpl.replace('__SPEC__', JSON.stringify(spec, null, 2)));
 
 // 2) DTCG-Tokens
@@ -62,7 +65,7 @@ const css = [
   `/* Generiert aus specs/system.json – nicht von Hand bearbeiten. */`,
   `:root {\n  color-scheme: light dark;\n${colorVars('light')}`,
   ...FLOAT_GROUPS.flatMap((g) => Object.entries(spec.semantic[g]).map(([n, t]) => `  --${spec.cssPrefix}-${g}-${n}: ${t.value}px;`)),
-  ...spec.textStyles.map((t) => `  --${spec.cssPrefix}-text-${kebab(t.name)}: ${weights[t.weight]} ${t.size}px/${t.line}px Inter, system-ui, sans-serif;`),
+  ...spec.textStyles.map((t) => `  --${spec.cssPrefix}-text-${kebab(t.name)}: ${weights[t.weight]} ${t.size}px/${t.line}px ${spec.fontFamily || 'Inter, system-ui, sans-serif'};`),
   `}`,
   `@media (prefers-color-scheme: dark) {\n  :root:not([data-theme="light"]) {\n${colorVars('dark').replace(/^/gm, '  ')}\n  }\n}`,
   `:root[data-theme="dark"], [data-theme="dark"] {\n${colorVars('dark')}\n}`,
@@ -112,16 +115,18 @@ const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p);
 const pairs = [];
 for (const p of spec.contrast || []) for (const on of p.on) for (const mode of ['light', 'dark']) {
   const r = ratio(primHex(spec.semantic.color[p.fg][mode]), primHex(spec.semantic.color[on][mode]));
-  pairs.push({ fg: p.fg, on, mode, ratio: +r.toFixed(2), min: p.min, pass: r >= p.min, why: p.why });
+  pairs.push({ fg: p.fg, on, mode, ratio: +r.toFixed(2), min: p.min, pass: r >= p.min, why: p.why, ...(p.accept && r < p.min ? { accepted: p.accept } : {}) });
 }
 writeFileSync('generated/contrast.json', JSON.stringify({ $comment: 'Generiert. Geprüfte Text/Fläche-Paare je Mode nach WCAG 2.x.', pairs }, null, 2) + '\n');
-const failed = pairs.filter((p) => !p.pass);
+// Paare mit "accept" in der Spec sind bekannte, bewusst offene Verstöße: Sie werden gemeldet, brechen den Build aber nicht ab
+const failed = pairs.filter((p) => !p.pass && !p.accepted); const known = pairs.filter((p) => p.accepted);
+if (known.length) console.log('Kontrast: bekannte Verstöße:', known.map((p) => `${p.mode} ${p.fg} auf ${p.on} = ${p.ratio} (min ${p.min})`).join('; '));
 console.log('Kontrast:', pairs.length, 'Paare geprüft,', failed.length, 'durchgefallen');
 if (failed.length) { for (const f of failed) console.error(`  ${f.mode}: ${f.fg} auf ${f.on} = ${f.ratio} (mindestens ${f.min})`); process.exit(1); }
 
 // 7) Web Components: Vertrag für die Elemente (ui/contract.generated.js) und Elementangaben in contracts.json
 // Attribute, die ein Element an sein inneres natives Element durchreicht (Umsetzungsdetail des Pakets)
-const PASSTHROUGH = { Link: ['href', 'target', 'rel'], Button: ['type', 'name', 'value'], TextField: ['name', 'type', 'autocomplete', 'inputmode', 'required'], Checkbox: ['name', 'value'], Switch: ['name'], SignInForm: [] };
+const PASSTHROUGH = { Link: ['href', 'target', 'rel'], Button: ['type', 'name', 'value'], TextField: ['name', 'type', 'autocomplete', 'inputmode', 'required'], Checkbox: ['name', 'value'], Switch: ['name'], Toggle: ['name'], SignInForm: [] };
 for (const c of spec.components) {
   const k = contracts.components[c.name];
   k.element = `${spec.cssPrefix}-${kebab(c.name)}`;
@@ -131,87 +136,24 @@ for (const c of spec.components) {
 }
 writeFileSync('generated/contracts.json', JSON.stringify(contracts, null, 2) + '\n');
 const elements = Object.fromEntries(Object.entries(contracts.components).map(([name, k]) => [k.element, { name, status: k.status, deprecated: k.deprecated, attrs: k.attrs, passthrough: k.passthrough, slots: k.slotNames }]));
-writeFileSync('ui/contract.generated.js', `// Generiert aus specs/system.json – nicht von Hand bearbeiten.\nexport const VERSION = ${JSON.stringify(spec.version)};\nexport const ELEMENTS = ${JSON.stringify(elements, null, 2)};\n`);
+writeFileSync('ui/contract.generated.js', `// Generiert aus specs/system.json – nicht von Hand bearbeiten.\nexport const VERSION = ${JSON.stringify(spec.version)};\nexport const PREFIX = ${JSON.stringify(spec.cssPrefix)};\nexport const ELEMENTS = ${JSON.stringify(elements, null, 2)};\n`);
 writeFileSync('ui/package.json', JSON.stringify({ name: spec.codePackage, version: spec.version, description: `${spec.name} Design System als Web Components`, type: 'module', main: './fundament.js', exports: { '.': './fundament.js', './tokens.css': './tokens.css', './components.css': './components.css', './contract': './contract.generated.js' }, files: ['fundament.js', 'contract.generated.js', 'tokens.css', 'components.css'], sideEffects: true }, null, 2) + '\n');
 console.log('gebaut: ui/contract.generated.js, ui/package.json,', Object.keys(elements).length, 'Elemente');
 
 // 8) Doku-Site für Menschen (docs/index.html), vollständig aus der Spec; nutzt die echten Web Components
-{
-  const e = (s) => String(s ?? '').replace(/[&<>"]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
-  const P = spec.cssPrefix;
-  const demo = (c) => {
-    if (c.kind === 'pattern' || !c.props.length) return [usage(c)];
-    const en = c.props.filter((p) => p.type === 'variant' && !isBool(p));
-    if (c.name === 'TextField') return [...en[0].values.map((v) => usage(c, { state: v })), `<${P}-text-field label="Passwort" type="password" value="geheim-geheim" show-helper="false" show-trailing trailing-action="reveal"><${P}-button slot="trailing" variant="ghost" size="sm" label="Anzeigen"></${P}-button></${P}-text-field>`];
-    if (c.name === 'Card') return [`<${P}-card title="Plus" body="Für kleine Teams." show-badge><${P}-badge slot="badge" tone="info" label="Aktuell"></${P}-badge><${P}-button slot="action" variant="secondary" label="Tarif verwalten"></${P}-button></${P}-card>`];
-    const out = [];
-    if (!en.length) out.push(usage(c));
-    for (const p of en) for (const v of p.values) out.push(usage(c, { [p.name]: v, ...(c.name === 'TextField' && v !== 'error' ? {} : {}) }));
-    for (const p of c.props.filter((x) => x.type === 'variant' && isBool(x))) out.push(usage(c, { [p.name]: 'true', ...(c.props.some((x) => x.name === 'showHelper') && p.name === 'disabled' ? { showHelper: true } : {}) }));
-    return [...new Set(out)];
-  };
-  const comp = (c) => `<section class="doc" id="${kebab(c.name)}"><h2>${e(c.name)} <span class="meta">${e(c.status)} / v${e(c.version)} / &lt;${P}-${kebab(c.name)}&gt;</span></h2>
-<p class="lead">${e(c.purpose)}</p>${c.deprecated ? `<p class="note">Veraltet seit ${e(c.deprecated.since)}. Stattdessen: ${e(c.deprecated.use)}.</p>` : ''}
-${c.status === 'deprecated' ? '' : `<div class="stage">${demo(c).map((h) => `<div class="cell">${h}</div>`).join('')}</div><pre>${e(demo(c)[0])}</pre>`}
-${c.props.length ? `<h3>Attribute</h3><div class="scroll"><table><thead><tr><th>Attribut</th><th>Typ</th><th>Werte</th><th>Standard</th></tr></thead><tbody>${c.props.map((p) => `<tr><td><code>${kebab(p.name)}</code></td><td>${p.type === 'instance' ? 'Slot' : p.type === 'behavior' ? 'Verhalten (nur Code)' : p.type === 'codeText' ? 'text (nur Code)' : p.type === 'variant' && isBool(p) ? 'boolean' : e(p.type)}</td><td>${p.values && !isBool(p) ? p.values.map(e).join(', ') : ''}</td><td>${e(p.default)}</td></tr>`).join('')}</tbody></table></div>` : ''}
-${c.rules.length ? `<h3>Regeln</h3><ul>${c.rules.map((r) => `<li><strong>${e(r.text)}</strong> ${e(r.why)} <span class="meta">${e(r.id)} / ${r.check ? 'automatisch geprüft' : 'Urteil'}</span></li>`).join('')}</ul>` : ''}
-<h3>Barrierefreiheit</h3><p>${e(c.a11y)}</p>
-${c.do.length || c.dont.length ? `<div class="dodont"><div><h3>Do</h3><ul>${c.do.map((d) => `<li>${e(d)}</li>`).join('')}</ul></div><div><h3>Don't</h3><ul>${c.dont.map((d) => `<li>${e(d)}</li>`).join('')}</ul></div></div>` : ''}</section>`;
-  const tokenRows = (group, entries, sample) => Object.entries(entries).map(([n, t]) => `<tr><td>${sample(n, t)}</td><td><code>--${P}-${group}-${kebab(n)}</code></td><td>${e(t.why)}</td></tr>`).join('');
-  const page = `<!doctype html>
-<html lang="de" data-fd-specimen>
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${e(spec.name)} Design System ${e(spec.version)}</title>
-<!-- Generiert aus specs/system.json – nicht von Hand bearbeiten. -->
-<link rel="stylesheet" href="../ui/tokens.css">
-<link rel="stylesheet" href="../ui/components.css">
-<script type="module" src="../ui/fundament.js"></script>
-<style>
-  body { margin: 0; background: var(--${P}-color-bg-canvas); color: var(--${P}-color-text-primary); font: var(--${P}-text-body-md); }
-  .layout { display: grid; grid-template-columns: minmax(0, 220px) minmax(0, 1fr); gap: var(--${P}-space-2xl); max-width: 1180px; margin: 0 auto; padding: var(--${P}-space-2xl) var(--${P}-space-lg); }
-  nav { position: sticky; top: var(--${P}-space-lg); align-self: start; display: flex; flex-direction: column; gap: var(--${P}-space-xs); font: var(--${P}-text-body-sm); }
-  nav strong { margin-top: var(--${P}-space-md); font: var(--${P}-text-label-md); }
-  main { display: flex; flex-direction: column; gap: var(--${P}-space-3xl); min-width: 0; }
-  h1 { font: var(--${P}-text-display); margin: 0; } h2 { font: var(--${P}-text-heading-lg); margin: 0; } h3 { font: var(--${P}-text-label-md); margin: var(--${P}-space-lg) 0 var(--${P}-space-xs); }
-  p, ul { margin: 0; } ul { padding-left: var(--${P}-space-xl); } li { margin-bottom: var(--${P}-space-xs); }
-  .lead { color: var(--${P}-color-text-secondary); margin-top: var(--${P}-space-xs); }
-  .meta { font: var(--${P}-text-caption); color: var(--${P}-color-text-secondary); }
-  .note { margin-top: var(--${P}-space-sm); color: var(--${P}-color-feedback-warning-fg); }
-  .doc { padding: var(--${P}-space-xl); border: var(--${P}-border-width-default) solid var(--${P}-color-border-default); border-radius: var(--${P}-radius-lg); background: var(--${P}-color-bg-surface); }
-  .stage { display: flex; flex-wrap: wrap; align-items: flex-start; gap: var(--${P}-space-lg); margin-top: var(--${P}-space-lg); padding: var(--${P}-space-lg); border-radius: var(--${P}-radius-md); background: var(--${P}-color-bg-canvas); }
-  .cell { min-width: 0; max-width: var(--${P}-size-panel); }
-  pre { margin: var(--${P}-space-sm) 0 0; padding: var(--${P}-space-md); border-radius: var(--${P}-radius-md); background: var(--${P}-color-bg-subtle); font: var(--${P}-text-body-sm); white-space: pre-wrap; overflow-wrap: anywhere; }
-  code { font: var(--${P}-text-body-sm); overflow-wrap: anywhere; }
-  .scroll { overflow-x: auto; } table { width: 100%; border-collapse: collapse; font: var(--${P}-text-body-sm); }
-  th, td { text-align: left; vertical-align: top; padding: var(--${P}-space-sm); border-bottom: var(--${P}-border-width-default) solid var(--${P}-color-border-default); }
-  th { font: var(--${P}-text-label-md); }
-  .sw { display: inline-block; width: var(--${P}-size-touch-target); height: var(--${P}-space-xl); border: var(--${P}-border-width-default) solid var(--${P}-color-border-default); border-radius: var(--${P}-radius-sm); }
-  .bar { display: inline-block; height: var(--${P}-space-md); background: var(--${P}-color-action-primary); }
-  .dodont { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--${P}-space-lg); }
-  @media (max-width: 760px) { .layout { grid-template-columns: minmax(0, 1fr); } nav { position: static; flex-direction: row; flex-wrap: wrap; gap: var(--${P}-space-sm); } nav strong { width: 100%; } }
-</style>
-</head>
-<body>
-<div class="layout">
-<nav aria-label="Inhalt"><strong>Grundlagen</strong>${[['start', 'Start'], ['grundsaetze', 'Grundsätze'], ['farben', 'Farben'], ['masse', 'Maße'], ['typo', 'Typografie'], ['kontrast', 'Kontrast']].map(([h, l]) => `<${P}-link href="#${h}" label="${l}"></${P}-link>`).join('')}<strong>Komponenten</strong>${spec.components.map((c) => `<${P}-link href="#${kebab(c.name)}" label="${e(c.name)}"></${P}-link>`).join('')}</nav>
-<main>
-<section id="start"><h1>${e(spec.name)} Design System</h1><p class="lead">Version ${e(spec.version)}. Diese Seite ist aus specs/system.json erzeugt und zeigt die echten Web Components aus ${e(spec.codePackage)}.</p>
-<h3>Einbinden</h3><pre>${e(`<link rel="stylesheet" href="tokens.css">\n<link rel="stylesheet" href="components.css">\n<script type="module" src="fundament.js"></script>`)}</pre>
-<h3>Changelog</h3><ul>${(spec.changelog || []).map((x) => `<li><strong>${e(x.version)}</strong> ${e(x.text)}</li>`).join('')}</ul></section>
-<section class="doc" id="grundsaetze"><h2>Grundsätze</h2><ul>${(spec.principles || []).map((r) => `<li><strong>${e(r.text)}</strong> ${e(r.why)} <span class="meta">${e(r.id)} / automatisch geprüft</span></li>`).join('')}</ul><p class="lead">Weitere Grundsätze für Urteilsfragen stehen in DESIGN.md.</p></section>
-<section class="doc" id="farben"><h2>Farben</h2><div class="scroll"><table><thead><tr><th>Muster</th><th>Token</th><th>Einsatz</th></tr></thead><tbody>${tokenRows('color', spec.semantic.color, (n) => `<span class="sw" style="background: var(--${P}-color-${kebab(n)})"></span>`)}</tbody></table></div></section>
-<section class="doc" id="masse"><h2>Maße</h2><div class="scroll"><table><thead><tr><th>Muster</th><th>Token</th><th>Einsatz</th></tr></thead><tbody>${FLOAT_GROUPS.map((g) => tokenRows(g, spec.semantic[g], (n, t) => g === 'space' ? `<span class="bar" style="width: var(--${P}-space-${n})"></span> ${t.value} px` : `${t.value} px`)).join('')}</tbody></table></div></section>
-<section class="doc" id="typo"><h2>Typografie</h2>${spec.textStyles.map((t) => `<p style="font: var(--${P}-text-${kebab(t.name)})">${e(t.name)} / ${t.size}/${t.line} ${e(t.weight)}</p><p class="meta">${e(t.why)} <code>--${P}-text-${kebab(t.name)}</code></p>`).join('')}</section>
-<section class="doc" id="kontrast"><h2>Kontrast</h2><p class="lead">Geprüfte Paare. Nur diese Paarungen sind zugesagt; der Build bricht ab, wenn eines durchfällt.</p><div class="scroll"><table><thead><tr><th>Vordergrund</th><th>auf</th><th>light</th><th>dark</th><th>mindestens</th><th>wofür</th></tr></thead><tbody>${pairs.filter((p) => p.mode === 'light').map((p) => `<tr><td>${e(p.fg)}</td><td>${e(p.on)}</td><td>${p.ratio}</td><td>${pairs.find((d) => d.mode === 'dark' && d.fg === p.fg && d.on === p.on).ratio}</td><td>${p.min}</td><td>${e(p.why)}</td></tr>`).join('')}</tbody></table></div></section>
-${spec.components.map(comp).join('\n')}
-</main>
-</div>
-</body>
-</html>
-`;
+// Das Layout der Doku-Site nutzt die Rollen-Tokens von Fundament. Systeme mit anderem Token-Schema (z. B. die ZDS-Probe) bekommen keine.
+if (!spec.semantic.color['bg/canvas']) console.log('übersprungen: docs/index.html (Token-Schema ohne bg/canvas)');
+else {
+  const { renderDocs } = await import(HOME + 'tooling/docs-site.mjs');
+  let guide = null; try { guide = JSON.parse(readFileSync('specs/leitfaden.json', 'utf8')); } catch {}
   mkdirSync('docs', { recursive: true });
-  writeFileSync('docs/index.html', page);
+  writeFileSync('docs/index.html', renderDocs({ spec, pairs, usage, kebab, isBool, floatGroups: FLOAT_GROUPS, guide }));
   console.log('gebaut: docs/index.html');
 }
+
+// 9) Leitfaden als Markdown (LEITFADEN.md) aus specs/leitfaden.json; dieselbe Datei speist die Figma-Seite
+try {
+  const g = JSON.parse(readFileSync('specs/leitfaden.json', 'utf8')); const L = ['<!-- Generiert aus specs/leitfaden.json – nicht von Hand bearbeiten. -->', '# ' + g.title, '', g.intro, ''];
+  for (const s of g.sections) { L.push('## ' + s.title, ''); if (s.intro) L.push(s.intro, ''); if (s.code) L.push('```json', s.code, '```', ''); for (const [t, x] of s.items || []) L.push(`- **${t}.** ${x}`); if (s.compare) { L.push('| So nicht | So |', '|---|---|'); for (const [a, c] of s.compare) L.push(`| ${a} | ${c} |`); } L.push(''); }
+  writeFileSync('LEITFADEN.md', L.join('\n')); console.log('gebaut: LEITFADEN.md');
+} catch (e) { if (e.code !== 'ENOENT') throw e; }

@@ -8,8 +8,12 @@
 import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs';
 import { join, extname, basename } from 'node:path';
 
-const ROOT = new URL('..', import.meta.url);
+// --root <Ordner> oder FUNDAMENT_ROOT wählt ein anderes System (z. B. probe-zds); Standard ist dieses Projekt
+const rootArg = process.argv.indexOf('--root'); const rootDir = rootArg > 0 ? process.argv[rootArg + 1] : process.env.FUNDAMENT_ROOT;
+if (rootArg > 0) process.argv.splice(rootArg, 2);
+const ROOT = rootDir ? new URL(rootDir.replace(/\/?$/, '/'), `file://${process.cwd()}/`) : new URL('..', import.meta.url);
 const read = (p) => JSON.parse(readFileSync(new URL(p, ROOT), 'utf8'));
+export const systemRoot = ROOT;
 // Checks, die diese CLI wirklich umsetzt. lint meldet Regeln, die einen anderen Check versprechen.
 export const IMPLEMENTED = ['max-per-view', 'no-raw-color', 'required-prop', 'slot-content', 'max-words', 'max-per-parent', 'max-children', 'no-nesting', 'registered-only', 'required-when-disabled', 'no-decoration', 'no-uppercase', 'no-vague-action', 'no-raw-space'];
 
@@ -102,7 +106,7 @@ export function check(files, C = read('generated/contracts.json')) {
     const clean = src.replace(/\/\*[\s\S]*?\*\//g, (c) => c.replace(/[^\n]/g, ' '));
     for (const m of clean.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
       const start = m.index + m[1].length + 1;
-      const comps = [...new Set([...m[1].matchAll(new RegExp(`\\.(${P}-[a-z0-9-]+?)(?=__|[^a-z0-9-]|$)`, 'g'))].map((x) => x[1].replace(/-(checkbox|switch)-field$/, '-$1')))];
+      const comps = [...new Set([...m[1].matchAll(new RegExp(`\\.(${P}-[a-z0-9-]+?)(?=__|[^a-z0-9-]|$)`, 'g'))].map((x) => (x[1].endsWith('-field') && byClass[x[1].slice(0, -6)] ? x[1].slice(0, -6) : x[1])))];
       for (const c of comps) if (!byClass[c]) add(file, L(m.index), 'components/unknown', `Klasse „${c}“ gehört zu keiner Komponente.`, 'Nur Klassen der Komponenten aus dem Vertrag gestalten.');
       const known = comps.filter((c) => byClass[c]);
       decl(file, m[2], (i) => L(start + i), known.length ? new Set(known.flatMap((c) => byClass[c].colorTokens)) : null, known.map((c) => byClass[c].name).join(' / '));
@@ -120,7 +124,7 @@ export function check(files, C = read('generated/contracts.json')) {
       const line = L(m.index); const parent = stack[stack.length - 1]; const pc = parent?.comp;
       if (typeof attrs.style === 'string') decl(file, attrs.style, () => line, null, '');
       if (typeof attrs.class === 'string' && attrs.class.split(/\s+/).some((c) => c.startsWith(P + '-'))) add(file, line, 'components/internal-class', `Interne Klasse in class="${attrs.class}".`, `Die Klassen gehören dem Paket. Das Element verwenden: ${elList}.`);
-      if (!t.startsWith(P + '-') && ['button', 'input', 'select', 'textarea', 'a'].includes(t) && attrs.type !== 'hidden') add(file, line, 'principles/system-controls', `Nacktes <${t}>.`, `Systemkomponente verwenden: ${elList}. Fehlt eine passende, die Lücke melden statt nachzubauen.`);
+      if (!t.startsWith(P + '-') && ['button', 'input', 'select', 'textarea', ...(C.components.Link ? ['a'] : [])].includes(t) && attrs.type !== 'hidden') add(file, line, 'principles/system-controls', `Nacktes <${t}>.`, `Systemkomponente verwenden: ${elList}. Fehlt eine passende, die Lücke melden statt nachzubauen.`);
       let comp = null;
       if (t.startsWith(P + '-')) {
         comp = byEl[t];

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Newsletter</title>
+<link rel="stylesheet" href="../../ui/tokens.css">
+<link rel="stylesheet" href="../../ui/components.css">
+<script type="module" src="../../ui/fundament.js"></script>
+<style>
+  body { margin: 0; padding: var(--z-ds-space-24); background: var(--z-ds-color-background-0); color: var(--z-ds-color-text-100); font: var(--z-ds-text-body-md); }
+  main { display: flex; flex-direction: column; gap: var(--z-ds-space-32); max-width: var(--z-ds-size-panel); margin: 0 auto; }
+  h1 { font: var(--z-ds-text-display); margin: 0; }
+  p { margin: 0; }
+  .intro { color: var(--z-ds-color-text-70); }
+  .head { display: flex; flex-direction: column; gap: var(--z-ds-space-8); }
+  .group { display: flex; flex-direction: column; gap: var(--z-ds-space-16); }
+  .hint { display: flex; flex-direction: column; align-items: flex-start; gap: var(--z-ds-space-16); }
+</style>
+</head>
+<body>
+<main>
+  <div class="head">
+    <h1>Newsletter</h1>
+    <p class="intro">Wähle aus, was wir dir schicken.</p>
+  </div>
+  <section class="group">
+    <z-ds-toggle checked label="Was jetzt? Der Morgenüberblick" show-helper helper-text="Montag bis Freitag um 6 Uhr."></z-ds-toggle>
+    <z-ds-toggle label="ZEIT am Wochenende" show-helper helper-text="Jeden Samstag."></z-ds-toggle>
+    <z-ds-toggle label="Wissen³" show-helper helper-text="Jeden Donnerstag."></z-ds-toggle>
+  </section>
+  <section class="group">
+    <z-ds-checkbox name="angebote" label="Auch Angebote der ZEIT Verlagsgruppe erhalten"></z-ds-checkbox>
+    <z-ds-checkbox checked disabled name="empfehlungen" label="Personalisierte Empfehlungen" show-helper helper-text="Ohne Abo lässt sich das nicht ändern."></z-ds-checkbox>
+  </section>
+  <z-ds-button variant="primary" fullwidth label="Einstellungen speichern"></z-ds-button>
+  <section class="hint">
+    <p>Mit Z+ bekommst du weitere Newsletter.</p>
+    <z-ds-button variant="zplus" label="Z+ abonnieren"></z-ds-button>
+  </section>
+</main>
+</body>
+</html>

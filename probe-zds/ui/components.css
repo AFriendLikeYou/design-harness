@@ -1,0 +1,56 @@
+/* ZDS-Probe – Styles der drei Komponenten, übertragen aus dem echten ZDS-CSS
+   (packages/components/src/{button,checkbox,toggle} im Repo designsystem-dokumentation, Stand 22.11.2026).
+   Farben und Abstände nutzen die echten Token-Namen (--z-ds-color-…, --z-ds-space-…).
+   Abweichungen vom Original sind markiert: [Probe] = von der Probe ergänzt, weil im ZDS nicht vorhanden. */
+
+z-ds-button, z-ds-checkbox { display: inline-block; }
+z-ds-toggle { display: block; }
+z-ds-button[fullwidth]:not([fullwidth="false"]) { display: block; }
+[hidden] { display: none !important; }
+
+/* ---------- Button (z-button) ---------- */
+.z-ds-button {
+  display: inline-block; margin: 0; padding: var(--z-ds-space-10) var(--z-ds-space-16); border: none; border-radius: var(--z-ds-radius-4);
+  background-color: var(--z-ds-color-background-10); color: var(--z-ds-color-text-100);
+  font: var(--z-ds-text-label-md); text-align: center; white-space: nowrap; cursor: pointer; transition: background-color 200ms ease-out;
+}
+.z-ds-button:hover, .z-ds-button[data-state="hover"] { background-color: var(--z-ds-color-background-20); }
+.z-ds-button[data-fullwidth] { width: 100%; }
+.z-ds-button[data-variant="primary"] { background-color: var(--z-ds-color-text-100); color: var(--z-ds-color-background-0); }
+.z-ds-button[data-variant="primary"]:hover, .z-ds-button[data-variant="primary"][data-state="hover"] { background-color: var(--z-ds-color-text-70); }
+.z-ds-button[data-variant="zplus"] { background-color: var(--z-ds-color-accent-100); color: var(--z-ds-color-general-white-100); }
+.z-ds-button[data-variant="zplus"]:hover, .z-ds-button[data-variant="zplus"][data-state="hover"] { background-color: var(--z-ds-color-accent-70); }
+.z-ds-button:focus-visible, .z-ds-button[data-state="focus"] { outline: var(--z-ds-border-width-strong) solid var(--z-ds-color-focus-100); outline-offset: var(--z-ds-border-width-strong); }
+.z-ds-button:disabled { pointer-events: none; opacity: 0.5; }
+@media (prefers-reduced-motion: reduce) { .z-ds-button { transition: none; } }
+
+/* ---------- Checkbox (z-checkbox) ----------
+   [Probe] Das ZDS dokumentiert nur das Kästchen als <span>. Hier: natives <input> in einem <label> mit Beschriftung und Klickzeile. */
+.z-ds-checkbox-field { display: flex; flex-direction: column; }
+.z-ds-checkbox { display: inline-flex; align-items: center; gap: var(--z-ds-space-8); min-height: var(--z-ds-size-touch-target); font: var(--z-ds-text-body-md); color: var(--z-ds-color-text-100); cursor: pointer; }
+.z-ds-checkbox__box {
+  appearance: none; display: grid; place-content: center; flex: none; width: var(--z-ds-size-checkbox); height: var(--z-ds-size-checkbox); margin: 0;
+  border: var(--z-ds-border-width-default) solid var(--z-ds-color-border-100); border-radius: var(--z-ds-radius-2); background-color: var(--z-ds-color-background-0); cursor: inherit;
+}
+.z-ds-checkbox:hover .z-ds-checkbox__box:not(:disabled), .z-ds-checkbox[data-state="hover"] .z-ds-checkbox__box { background-color: var(--z-ds-color-background-10); }
+.z-ds-checkbox__box:checked { background-color: var(--z-ds-color-text-100); border-color: var(--z-ds-color-text-100); }
+.z-ds-checkbox:hover .z-ds-checkbox__box:checked:not(:disabled), .z-ds-checkbox[data-state="hover"] .z-ds-checkbox__box:checked { background-color: var(--z-ds-color-text-70); border-color: var(--z-ds-color-text-70); }
+.z-ds-checkbox__box:checked::after { content: ""; width: 4px; height: 8px; border: solid var(--z-ds-color-general-white-100); border-width: 0 var(--z-ds-border-width-strong) var(--z-ds-border-width-strong) 0; transform: translateY(-1px) rotate(45deg); }
+.z-ds-checkbox__box:focus-visible, .z-ds-checkbox[data-state="focus"] .z-ds-checkbox__box { outline: var(--z-ds-border-width-strong) solid var(--z-ds-color-focus-100); outline-offset: var(--z-ds-border-width-strong); }
+.z-ds-checkbox__box:disabled { border-color: var(--z-ds-color-border-70); }
+.z-ds-checkbox__box:disabled:checked { background-color: var(--z-ds-color-text-40); border-color: var(--z-ds-color-text-40); }
+.z-ds-checkbox:has(.z-ds-checkbox__box:disabled) { color: var(--z-ds-color-text-40); cursor: not-allowed; }
+.z-ds-checkbox__helper-text { padding-left: calc(var(--z-ds-size-checkbox) + var(--z-ds-space-8)); font: var(--z-ds-text-body-sm); color: var(--z-ds-color-text-70); }
+
+/* ---------- Toggle (z-switch) ----------
+   [Probe] Im ZDS steht die Bahn allein mit aria-label. Hier: Bahn und Beschriftung in einem <label> als Klickzeile. */
+.z-ds-toggle-field { display: flex; flex-direction: column; }
+.z-ds-toggle { display: inline-flex; align-items: center; gap: var(--z-ds-space-8); min-height: var(--z-ds-size-touch-target); cursor: pointer; }
+.z-ds-toggle__track { position: relative; flex: none; width: var(--z-ds-size-toggle-width); height: var(--z-ds-size-checkbox); margin: 0; padding: 0; border: 0; border-radius: var(--z-ds-radius-full); background-color: var(--z-ds-color-background-20); cursor: pointer; transition: background-color 160ms cubic-bezier(0.23, 1, 0.32, 1); }
+.z-ds-toggle__thumb { position: absolute; top: var(--z-ds-space-2); left: var(--z-ds-space-2); width: var(--z-ds-size-toggle-thumb); height: var(--z-ds-size-toggle-thumb); border-radius: var(--z-ds-radius-full); background-color: var(--z-ds-color-general-white-100); transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1); }
+.z-ds-toggle__track[aria-checked="true"] { background-color: var(--z-ds-color-text-100); }
+.z-ds-toggle__track[aria-checked="true"] .z-ds-toggle__thumb { transform: translateX(var(--z-ds-space-10)); }
+.z-ds-toggle__track:focus-visible, .z-ds-toggle__track[data-state="focus"] { outline: var(--z-ds-border-width-strong) solid var(--z-ds-color-focus-100); outline-offset: var(--z-ds-border-width-strong); }
+.z-ds-toggle__label { font: var(--z-ds-text-body-md); color: var(--z-ds-color-text-100); }
+.z-ds-toggle__helper-text { padding-left: calc(var(--z-ds-size-toggle-width) + var(--z-ds-space-8)); font: var(--z-ds-text-body-sm); color: var(--z-ds-color-text-70); }
+@media (prefers-reduced-motion: reduce) { .z-ds-toggle__track, .z-ds-toggle__thumb { transition: none; } }

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="de" data-fd-specimen>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ZDS-Probe: Zustände</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../components.css">
+<script type="module" src="../fundament.js"></script>
+<style>
+  body { margin: 0; padding: var(--z-ds-space-48); background: var(--z-ds-color-background-0); color: var(--z-ds-color-text-100); font: var(--z-ds-text-body-md); }
+  main { display: flex; flex-direction: column; gap: var(--z-ds-space-32); max-width: 900px; }
+  h1 { font: var(--z-ds-text-display); margin: 0; }
+  h2 { font: var(--z-ds-text-heading-lg); margin: 0 0 var(--z-ds-space-16); }
+  .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--z-ds-space-16); margin-bottom: var(--z-ds-space-16); }
+  .col { display: flex; flex-direction: column; }
+</style>
+</head>
+<body>
+<main>
+  <h1>ZDS-Probe: Zustände</h1>
+  <section><h2>Button</h2>
+    <div class="row"><z-ds-button label="Speichern"></z-ds-button><z-ds-button state="hover" label="Speichern"></z-ds-button><z-ds-button state="focus" label="Speichern"></z-ds-button><z-ds-button disabled label="Speichern"></z-ds-button></div>
+    <div class="row"><z-ds-button variant="primary" label="Speichern"></z-ds-button><z-ds-button variant="primary" state="hover" label="Speichern"></z-ds-button><z-ds-button variant="primary" state="focus" label="Speichern"></z-ds-button><z-ds-button variant="primary" disabled label="Speichern"></z-ds-button></div>
+    <div class="row"><z-ds-button variant="zplus" label="Z+ abonnieren"></z-ds-button><z-ds-button variant="zplus" state="hover" label="Z+ abonnieren"></z-ds-button><z-ds-button variant="zplus" state="focus" label="Z+ abonnieren"></z-ds-button><z-ds-button variant="zplus" disabled label="Z+ abonnieren"></z-ds-button></div>
+    <z-ds-button variant="primary" fullwidth label="Einstellungen speichern"></z-ds-button>
+  </section>
+  <section><h2>Checkbox</h2><div class="col">
+    <z-ds-checkbox label="Auch Angebote der ZEIT erhalten"></z-ds-checkbox><z-ds-checkbox checked label="Auch Angebote der ZEIT erhalten"></z-ds-checkbox>
+    <z-ds-checkbox state="hover" label="Hover"></z-ds-checkbox><z-ds-checkbox checked state="hover" label="Hover, angehakt"></z-ds-checkbox>
+    <z-ds-checkbox state="focus" label="Fokus"></z-ds-checkbox>
+    <z-ds-checkbox disabled show-helper helper-text="Nur mit Abo änderbar." label="Deaktiviert"></z-ds-checkbox><z-ds-checkbox checked disabled show-helper helper-text="Nur mit Abo änderbar." label="Deaktiviert, angehakt"></z-ds-checkbox>
+  </div></section>
+  <section><h2>Toggle</h2><div class="col">
+    <z-ds-toggle label="Was jetzt? Der Morgenüberblick"></z-ds-toggle><z-ds-toggle checked label="Was jetzt? Der Morgenüberblick" show-helper helper-text="Montag bis Freitag um 6 Uhr."></z-ds-toggle><z-ds-toggle state="focus" label="Fokus"></z-ds-toggle>
+  </div></section>
+</main>
+</body>
+</html>

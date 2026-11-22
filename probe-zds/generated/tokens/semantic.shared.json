@@ -1,0 +1,89 @@
+{
+  "space": {
+    "2": {
+      "$value": "{dimension.2}",
+      "$description": "Abstand des Toggle-Knopfs zum Rand."
+    },
+    "4": {
+      "$value": "{dimension.4}",
+      "$description": "Feinabstand."
+    },
+    "8": {
+      "$value": "{dimension.8}",
+      "$description": "Abstand zwischen Bedienelement und Beschriftung."
+    },
+    "10": {
+      "$value": "{dimension.10}",
+      "$description": "Innenabstand Button vertikal (--z-ds-space-10)."
+    },
+    "16": {
+      "$value": "{dimension.16}",
+      "$description": "Innenabstand Button horizontal (--z-ds-space-16)."
+    },
+    "24": {
+      "$value": "{dimension.24}",
+      "$description": "Abstand zwischen Gruppen."
+    },
+    "32": {
+      "$value": "{dimension.32}",
+      "$description": "Abstand zwischen Abschnitten."
+    },
+    "48": {
+      "$value": "{dimension.48}",
+      "$description": "Seitenrand."
+    },
+    "$type": "dimension"
+  },
+  "radius": {
+    "2": {
+      "$value": "{dimension.2}",
+      "$description": "Checkbox (--z-ds-border-radius-2)."
+    },
+    "4": {
+      "$value": "{dimension.4}",
+      "$description": "Button (--z-ds-border-radius-4)."
+    },
+    "$type": "dimension",
+    "full": {
+      "$value": {
+        "value": 999,
+        "unit": "px"
+      },
+      "$description": "Toggle."
+    }
+  },
+  "border-width": {
+    "$type": "dimension",
+    "default": {
+      "$value": "{dimension.1}",
+      "$description": "Rahmen der Checkbox."
+    },
+    "strong": {
+      "$value": "{dimension.2}",
+      "$description": "Fokus-Outline und Haken."
+    }
+  },
+  "size": {
+    "$type": "dimension",
+    "checkbox": {
+      "$value": "{dimension.16}",
+      "$description": "Kantenlänge der Checkbox."
+    },
+    "toggle-width": {
+      "$value": "{dimension.26}",
+      "$description": "Breite der Toggle-Bahn."
+    },
+    "toggle-thumb": {
+      "$value": "{dimension.12}",
+      "$description": "Durchmesser des Toggle-Knopfs."
+    },
+    "touch-target": {
+      "$value": "{dimension.44}",
+      "$description": "Mindesthöhe der Klickzeile aus Bedienelement und Beschriftung (Fundament-Regel)."
+    },
+    "panel": {
+      "$value": "{dimension.360}",
+      "$description": "Höchstbreite schmaler Module (Annahme der Probe)."
+    }
+  }
+}

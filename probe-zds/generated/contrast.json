@@ -1,0 +1,227 @@
+{
+  "$comment": "Generiert. Geprüfte Text/Fläche-Paare je Mode nach WCAG 2.x.",
+  "pairs": [
+    {
+      "fg": "text/100",
+      "on": "background/0",
+      "mode": "light",
+      "ratio": 15.33,
+      "min": 4.5,
+      "pass": true,
+      "why": "Text und Beschriftung des Default-Buttons"
+    },
+    {
+      "fg": "text/100",
+      "on": "background/0",
+      "mode": "dark",
+      "ratio": 18.73,
+      "min": 4.5,
+      "pass": true,
+      "why": "Text und Beschriftung des Default-Buttons"
+    },
+    {
+      "fg": "text/100",
+      "on": "background/10",
+      "mode": "light",
+      "ratio": 13.21,
+      "min": 4.5,
+      "pass": true,
+      "why": "Text und Beschriftung des Default-Buttons"
+    },
+    {
+      "fg": "text/100",
+      "on": "background/10",
+      "mode": "dark",
+      "ratio": 15.72,
+      "min": 4.5,
+      "pass": true,
+      "why": "Text und Beschriftung des Default-Buttons"
+    },
+    {
+      "fg": "text/100",
+      "on": "background/20",
+      "mode": "light",
+      "ratio": 11.52,
+      "min": 4.5,
+      "pass": true,
+      "why": "Text und Beschriftung des Default-Buttons"
+    },
+    {
+      "fg": "text/100",
+      "on": "background/20",
+      "mode": "dark",
+      "ratio": 13.58,
+      "min": 4.5,
+      "pass": true,
+      "why": "Text und Beschriftung des Default-Buttons"
+    },
+    {
+      "fg": "text/70",
+      "on": "background/0",
+      "mode": "light",
+      "ratio": 9.74,
+      "min": 4.5,
+      "pass": true,
+      "why": "Hilfstext"
+    },
+    {
+      "fg": "text/70",
+      "on": "background/0",
+      "mode": "dark",
+      "ratio": 9.65,
+      "min": 4.5,
+      "pass": true,
+      "why": "Hilfstext"
+    },
+    {
+      "fg": "background/0",
+      "on": "text/100",
+      "mode": "light",
+      "ratio": 15.33,
+      "min": 4.5,
+      "pass": true,
+      "why": "Beschriftung des Primary-Buttons, auch im Hover"
+    },
+    {
+      "fg": "background/0",
+      "on": "text/100",
+      "mode": "dark",
+      "ratio": 18.73,
+      "min": 4.5,
+      "pass": true,
+      "why": "Beschriftung des Primary-Buttons, auch im Hover"
+    },
+    {
+      "fg": "background/0",
+      "on": "text/70",
+      "mode": "light",
+      "ratio": 9.74,
+      "min": 4.5,
+      "pass": true,
+      "why": "Beschriftung des Primary-Buttons, auch im Hover"
+    },
+    {
+      "fg": "background/0",
+      "on": "text/70",
+      "mode": "dark",
+      "ratio": 9.65,
+      "min": 4.5,
+      "pass": true,
+      "why": "Beschriftung des Primary-Buttons, auch im Hover"
+    },
+    {
+      "fg": "general/white-100",
+      "on": "accent/100",
+      "mode": "light",
+      "ratio": 6.67,
+      "min": 4.5,
+      "pass": true,
+      "why": "Beschriftung des Z+-Buttons"
+    },
+    {
+      "fg": "general/white-100",
+      "on": "accent/100",
+      "mode": "dark",
+      "ratio": 4.12,
+      "min": 4.5,
+      "pass": false,
+      "why": "Beschriftung des Z+-Buttons",
+      "accepted": "Im Dark Mode liegt Weiß auf #eb362e unter 4,5:1. Offen für ZDS."
+    },
+    {
+      "fg": "general/white-100",
+      "on": "accent/70",
+      "mode": "light",
+      "ratio": 9.96,
+      "min": 4.5,
+      "pass": true,
+      "why": "Beschriftung des Z+-Buttons im Hover"
+    },
+    {
+      "fg": "general/white-100",
+      "on": "accent/70",
+      "mode": "dark",
+      "ratio": 9.96,
+      "min": 4.5,
+      "pass": true,
+      "why": "Beschriftung des Z+-Buttons im Hover"
+    },
+    {
+      "fg": "general/white-100",
+      "on": "text/100",
+      "mode": "light",
+      "ratio": 15.33,
+      "min": 3,
+      "pass": true,
+      "why": "Haken der Checkbox, Knopf des Toggles im An-Zustand"
+    },
+    {
+      "fg": "general/white-100",
+      "on": "text/100",
+      "mode": "dark",
+      "ratio": 1,
+      "min": 3,
+      "pass": false,
+      "why": "Haken der Checkbox, Knopf des Toggles im An-Zustand",
+      "accepted": "Im Dark Mode ist text/100 selbst Weiß: Haken und Knopf sind dann nicht sichtbar. Offen für ZDS."
+    },
+    {
+      "fg": "border/100",
+      "on": "background/0",
+      "mode": "light",
+      "ratio": 1.6,
+      "min": 3,
+      "pass": false,
+      "why": "Rahmen der Checkbox",
+      "accepted": "Border/100 erreicht rund 1,6:1 statt 3:1 (WCAG 1.4.11). Bekannter offener Punkt im ZDS."
+    },
+    {
+      "fg": "border/100",
+      "on": "background/0",
+      "mode": "dark",
+      "ratio": 1.55,
+      "min": 3,
+      "pass": false,
+      "why": "Rahmen der Checkbox",
+      "accepted": "Border/100 erreicht rund 1,6:1 statt 3:1 (WCAG 1.4.11). Bekannter offener Punkt im ZDS."
+    },
+    {
+      "fg": "background/20",
+      "on": "background/0",
+      "mode": "light",
+      "ratio": 1.33,
+      "min": 3,
+      "pass": false,
+      "why": "Toggle-Bahn im Aus-Zustand gegen den Seitengrund",
+      "accepted": "Die Bahn hebt sich mit rund 1,3:1 kaum vom Grund ab (WCAG 1.4.11). Offen für ZDS."
+    },
+    {
+      "fg": "background/20",
+      "on": "background/0",
+      "mode": "dark",
+      "ratio": 1.38,
+      "min": 3,
+      "pass": false,
+      "why": "Toggle-Bahn im Aus-Zustand gegen den Seitengrund",
+      "accepted": "Die Bahn hebt sich mit rund 1,3:1 kaum vom Grund ab (WCAG 1.4.11). Offen für ZDS."
+    },
+    {
+      "fg": "focus/100",
+      "on": "background/0",
+      "mode": "light",
+      "ratio": 5.98,
+      "min": 3,
+      "pass": true,
+      "why": "Fokus-Outline"
+    },
+    {
+      "fg": "focus/100",
+      "on": "background/0",
+      "mode": "dark",
+      "ratio": 7.18,
+      "min": 3,
+      "pass": true,
+      "why": "Fokus-Outline"
+    }
+  ]
+}

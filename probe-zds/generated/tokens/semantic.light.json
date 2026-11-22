@@ -1,0 +1,65 @@
+{
+  "color": {
+    "$type": "color",
+    "background": {
+      "0": {
+        "$value": "{color.light.background-0}",
+        "$description": "Seitengrund und Fläche der Checkbox. Beschriftung des Primary-Buttons."
+      },
+      "10": {
+        "$value": "{color.light.background-10}",
+        "$description": "Fläche des Default-Buttons, Hover-Fläche der Checkbox."
+      },
+      "20": {
+        "$value": "{color.light.background-20}",
+        "$description": "Hover-Fläche des Default-Buttons, Bahn des Toggles im Aus-Zustand."
+      }
+    },
+    "text": {
+      "40": {
+        "$value": "{color.light.text-40}",
+        "$description": "Deaktivierter Text und deaktivierte angehakte Checkbox. Muss keinen Kontrast erfüllen."
+      },
+      "70": {
+        "$value": "{color.light.text-70}",
+        "$description": "Sekundärer Text. Hover-Fläche des Primary-Buttons und der angehakten Checkbox."
+      },
+      "100": {
+        "$value": "{color.light.text-100}",
+        "$description": "Text. Fläche des Primary-Buttons, der angehakten Checkbox und des Toggles im An-Zustand."
+      }
+    },
+    "border": {
+      "70": {
+        "$value": "{color.light.border-70}",
+        "$description": "Rahmen der deaktivierten Checkbox."
+      },
+      "100": {
+        "$value": "{color.light.border-100}",
+        "$description": "Rahmen der Checkbox."
+      }
+    },
+    "accent": {
+      "70": {
+        "$value": "{color.light.accent-70}",
+        "$description": "Hover-Fläche des Z+-Buttons."
+      },
+      "100": {
+        "$value": "{color.light.accent-100}",
+        "$description": "ZEIT-Rot. Fläche des Z+-Buttons."
+      }
+    },
+    "focus": {
+      "100": {
+        "$value": "{color.light.focus-100}",
+        "$description": "Fokus-Outline, 2 px."
+      }
+    },
+    "general": {
+      "white-100": {
+        "$value": "{color.light.general-white-100}",
+        "$description": "Festes Weiß: Beschriftung des Z+-Buttons, Haken der Checkbox, Knopf des Toggles."
+      }
+    }
+  }
+}

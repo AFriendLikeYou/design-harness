@@ -9,8 +9,11 @@ const rgb = (s) => { const m = s.match(/rgba?\\(([^)]+)\\)/); if (!m) return nul
 const where = (el) => { const host = el.closest('[class]') || el; const tag = (el.getRootNode().host || el).localName; return (el.closest('fd-button,fd-text-field,fd-checkbox,fd-switch,fd-badge,fd-alert,fd-card,fd-link,fd-sign-in-form,fd-confirm-action')?.localName || el.localName) + (el.id ? '#' + el.id : ''); };
 for (const [w, theme] of [[360, 'light'], [360, 'dark'], [1280, 'light'], [1280, 'dark']]) {
   const f = document.createElement('iframe'); f.style.cssText = 'border:0;height:900px;width:' + w + 'px'; f.src = file; document.body.append(f);
-  await new Promise((r) => { f.onload = r; }); const d = f.contentDocument; d.documentElement.dataset.theme = theme;
-  await new Promise((r) => setTimeout(r, 250));
+  await new Promise((r) => { f.onload = r; }); const d = f.contentDocument;
+  // Übergänge abschalten: Headless-Chrome spielt sie nicht zu Ende, man würde Zwischenfarben messen
+  const still = d.createElement('style'); still.textContent = '*, *::before, *::after { transition: none !important; animation: none !important; }'; d.head.append(still);
+  d.documentElement.dataset.theme = theme; d.documentElement.classList.remove('color-scheme-light', 'color-scheme-dark'); d.documentElement.classList.add('color-scheme-' + theme); // zweite Schreibweise: so schaltet zeit.de
+  await new Promise((r) => setTimeout(r, 300));
   const add = (id, message, el) => out.push({ id, message, at: el ? where(el) : '', width: w, theme });
   if (d.documentElement.scrollWidth > w + 1) { const wide = [...d.body.querySelectorAll('*')].filter((e) => e.getBoundingClientRect().right > w + 1).pop(); add('render/overflow', 'Inhalt ist ' + (d.documentElement.scrollWidth - w) + ' px breiter als ' + w + ' px.', wide); }
   const win = f.contentWindow; const seen = new Set();
@@ -19,7 +22,7 @@ for (const [w, theme] of [[360, 'light'], [360, 'dark'], [1280, 'light'], [1280,
     const r = el.getBoundingClientRect(); if (!r.width || !r.height) continue;
     const text = [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim());
     // Deaktivierte Bedienelemente und ihre Beschriftung sind vom Kontrast ausgenommen (WCAG 1.4.3, inaktive Komponenten)
-    const inactive = el.closest(':disabled, [data-state="disabled"]') || (el.closest('.fd-checkbox, .fd-switch')?.querySelector(':disabled') && !el.matches('[class*="helper-text"]'));
+    const inactive = el.closest(':disabled, [data-state="disabled"]') || (el.closest('label')?.querySelector(':disabled') && !el.matches('[class*="helper-text"]'));
     if (text && !inactive && w === 1280) {
       const fg = rgb(cs.color); let bgEl = el, bg = null; while (bgEl) { const b = rgb(win.getComputedStyle(bgEl).backgroundColor); if (b && b.a >= 1) { bg = b; break; } bgEl = bgEl.parentElement; } if (!bg) bg = rgb(win.getComputedStyle(d.documentElement).backgroundColor) || { c: [255, 255, 255] };
       if (fg && fg.a >= 1) { const a = lum(fg.c), b = lum(bg.c); const ratio = (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05); const size = parseFloat(cs.fontSize); const large = size >= 24 || (size >= 18.66 && parseInt(cs.fontWeight) >= 700); const min = large ? 3 : 4.5; const key = where(el) + cs.color + bg.c;

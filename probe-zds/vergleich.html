@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ZDS-Probe: mit und ohne System</title>
+<!-- Generiert von vergleich.mjs – nicht von Hand bearbeiten. Über http ansehen (node ../tooling/serve.mjs), damit der Hell/Dunkel-Schalter die eingebetteten Seiten erreicht. -->
+<link rel="stylesheet" href="ui/tokens.css">
+<style>
+  body { margin: 0; padding: var(--z-ds-space-32) var(--z-ds-space-24); background: var(--z-ds-color-background-0); color: var(--z-ds-color-text-100); font: var(--z-ds-text-body-md); }
+  h1 { font: var(--z-ds-text-display); margin: 0 0 var(--z-ds-space-8); } h2 { font: var(--z-ds-text-heading-lg); margin: var(--z-ds-space-32) 0 var(--z-ds-space-16); }
+  p { margin: 0 0 var(--z-ds-space-16); max-width: 70ch; color: var(--z-ds-color-text-70); }
+  .scroll { overflow-x: auto; } table { border-collapse: collapse; font: var(--z-ds-text-body-sm); min-width: 100%; }
+  th, td { padding: var(--z-ds-space-8); border-bottom: var(--z-ds-border-width-default) solid var(--z-ds-color-border-100); text-align: right; vertical-align: top; } th:first-child, td:first-child { text-align: left; } th { font: var(--z-ds-text-label-sm); }
+  td.bad { font-weight: 700; } td.ok { color: var(--z-ds-color-text-70); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: var(--z-ds-space-24); }
+  figure { margin: 0; min-width: 0; } figcaption { font: var(--z-ds-text-label-md); margin-bottom: var(--z-ds-space-8); }
+  iframe { width: 100%; height: 760px; border: var(--z-ds-border-width-default) solid var(--z-ds-color-border-100); border-radius: var(--z-ds-radius-4); background: var(--z-ds-color-background-0); }
+  .bar { display: flex; gap: var(--z-ds-space-16); align-items: center; margin-bottom: var(--z-ds-space-16); font: var(--z-ds-text-body-sm); }
+  ul { margin: var(--z-ds-space-8) 0 0; padding-left: var(--z-ds-space-16); font: var(--z-ds-text-body-sm); color: var(--z-ds-color-text-70); }
+</style>
+</head>
+<body>
+<h1>ZDS-Probe: mit und ohne System</h1>
+<p>Derselbe Brief (Newsletter-Einstellungen), drei Bedingungen, zwei Modelle. „Nur Brief“: Der Agent kennt nur die Aufgabe. „Lose ZDS-Dateien“: dazu das echte CSS und die Tokens des ZDS, wie sie heute vorliegen. „Mit System“: die drei Komponenten als Elemente mit Vertrag, Check und Schleife.</p>
+<h2>Zahlen</h2>
+<div class="scroll"><table><thead><tr><th>Messgröße</th><th>Sonnet / nur Brief</th><th>Sonnet / lose ZDS-Dateien</th><th>Sonnet / mit System</th><th>Haiku / nur Brief</th><th>Haiku / lose ZDS-Dateien</th><th>Haiku / mit System</th></tr></thead><tbody>
+<tr><td>Zeilen eigenes CSS</td><td class="bad">50</td><td class="bad">24</td><td class="bad">8</td><td class="bad">254</td><td class="bad">130</td><td class="bad">29</td></tr>
+<tr><td>Zeilen eigenes Skript</td><td class="bad">7</td><td class="bad">17</td><td class="ok">0</td><td class="bad">11</td><td class="bad">21</td><td class="ok">0</td></tr>
+<tr><td>feste Farbwerte</td><td class="bad">16</td><td class="ok">0</td><td class="ok">0</td><td class="bad">13</td><td class="ok">0</td><td class="ok">0</td></tr>
+<tr><td>feste Abstände</td><td class="bad">21</td><td class="bad">1</td><td class="ok">0</td><td class="bad">23</td><td class="bad">1</td><td class="ok">0</td></tr>
+<tr><td>erfundene Tokens</td><td class="ok">0</td><td class="ok">0</td><td class="ok">0</td><td class="ok">0</td><td class="ok">0</td><td class="ok">0</td></tr>
+<tr><td>Verläufe, Schatten, Versalien</td><td class="ok">0</td><td class="ok">0</td><td class="ok">0</td><td class="ok">0</td><td class="ok">0</td><td class="ok">0</td></tr>
+<tr><td>selbst gebaute Bedienelemente</td><td class="bad">6</td><td class="bad">6</td><td class="ok">0</td><td class="bad">6</td><td class="bad">6</td><td class="ok">0</td></tr>
+<tr><td>gerendert: Kontrast</td><td class="ok">0</td><td class="bad">1</td><td class="bad">1</td><td class="ok">0</td><td class="ok">0</td><td class="bad">1</td></tr>
+<tr><td>gerendert: Klickfläche zu klein</td><td class="bad">1</td><td class="bad">3</td><td class="ok">0</td><td class="bad">2</td><td class="bad">3</td><td class="ok">0</td></tr>
+<tr><td>gerendert: ohne Namen</td><td class="ok">0</td><td class="bad">3</td><td class="ok">0</td><td class="bad">3</td><td class="bad">3</td><td class="ok">0</td></tr>
+<tr><td>gerendert: Überlauf bei 360 px</td><td class="ok">0</td><td class="ok">0</td><td class="ok">0</td><td class="ok">0</td><td class="ok">0</td><td class="ok">0</td></tr>
+<tr><td>Check gegen Vertrag</td><td class="ok"></td><td class="ok"></td><td class="ok">0</td><td class="ok"></td><td class="ok"></td><td class="ok">0</td></tr>
+<tr><td>Check, erster Versuch</td><td class="ok"></td><td class="ok"></td><td class="ok">0</td><td class="ok"></td><td class="ok"></td><td class="ok">0</td></tr>
+</tbody></table></div>
+<h2>Die Seiten</h2>
+<div class="bar"><label><input type="checkbox" id="dark"> dunkel anzeigen</label><span>Jede Seite ist das unveränderte Ergebnis des Laufs.</span></div>
+<div class="grid">
+<figure><figcaption>Sonnet / nur Brief</figcaption><iframe src="vergleich/sonnet-nur-brief/index.html" title="Sonnet / nur Brief"></iframe><ul><li>Klickfläche 65 × 22 px, mindestens 24 × 24. (360 px, light, bei &lt;a&gt;)</li></ul></figure>
+<figure><figcaption>Sonnet / lose ZDS-Dateien</figcaption><iframe src="vergleich/sonnet-lose-dateien/index.html" title="Sonnet / lose ZDS-Dateien"></iframe><ul><li>Bedienelement ohne zugänglichen Namen. (360 px, light, bei &lt;button&gt;)</li><li>Klickfläche 26 × 16 px, mindestens 24 × 24. (360 px, light, bei &lt;button&gt;)</li><li>Text „Zum Abo“ hat 4.12 : 1 (mindestens 4.5). (1280 px, dark, bei &lt;a&gt;)</li></ul></figure>
+<figure><figcaption>Sonnet / mit System</figcaption><iframe src="vergleich/sonnet-mit/index.html" title="Sonnet / mit System"></iframe><ul><li>Text „Z+ abonnieren“ hat 4.12 : 1 (mindestens 4.5). (1280 px, dark, bei &lt;span&gt;)</li></ul></figure>
+<figure><figcaption>Haiku / nur Brief</figcaption><iframe src="vergleich/haiku-nur-brief/index.html" title="Haiku / nur Brief"></iframe><ul><li>Bedienelement ohne zugänglichen Namen. (360 px, light, bei &lt;input&gt;)</li><li>Klickfläche 22 × 22 px, mindestens 24 × 24. (360 px, light, bei &lt;input#angebote&gt;)</li><li>Klickfläche 69 × 19 px, mindestens 24 × 24. (360 px, light, bei &lt;a&gt;)</li></ul></figure>
+<figure><figcaption>Haiku / lose ZDS-Dateien</figcaption><iframe src="vergleich/haiku-lose-dateien/index.html" title="Haiku / lose ZDS-Dateien"></iframe><ul><li>Bedienelement ohne zugänglichen Namen. (360 px, light, bei &lt;button&gt;)</li><li>Klickfläche 26 × 16 px, mindestens 24 × 24. (360 px, light, bei &lt;button&gt;)</li></ul></figure>
+<figure><figcaption>Haiku / mit System</figcaption><iframe src="vergleich/haiku-mit/index.html" title="Haiku / mit System"></iframe><ul><li>Text „Z+ Abo ansehen“ hat 4.12 : 1 (mindestens 4.5). (1280 px, dark, bei &lt;span&gt;)</li></ul></figure>
+</div>
+<script>
+const set = () => { const t = document.getElementById('dark').checked ? 'dark' : 'light'; document.documentElement.dataset.theme = t; for (const f of document.querySelectorAll('iframe')) { try { const d = f.contentDocument.documentElement; d.dataset.theme = t; d.classList.remove('color-scheme-light', 'color-scheme-dark'); d.classList.add('color-scheme-' + t); } catch {} } };
+document.getElementById('dark').addEventListener('change', set); for (const f of document.querySelectorAll('iframe')) f.addEventListener('load', set);
+</script>
+</body>
+</html>

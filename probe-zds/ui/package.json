@@ -1,0 +1,20 @@
+{
+  "name": "@zeit/zds-probe",
+  "version": "0.1.0",
+  "description": "ZDS-Probe Design System als Web Components",
+  "type": "module",
+  "main": "./fundament.js",
+  "exports": {
+    ".": "./fundament.js",
+    "./tokens.css": "./tokens.css",
+    "./components.css": "./components.css",
+    "./contract": "./contract.generated.js"
+  },
+  "files": [
+    "fundament.js",
+    "contract.generated.js",
+    "tokens.css",
+    "components.css"
+  ],
+  "sideEffects": true
+}

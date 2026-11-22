@@ -1,0 +1,123 @@
+[
+  {
+    "lauf": "sonnet-nur-brief",
+    "Zeilen eigenes CSS": 50,
+    "Zeilen eigenes Skript": 7,
+    "feste Farbwerte": 16,
+    "feste Abstände": 21,
+    "erfundene Tokens": 0,
+    "Verläufe, Schatten, Versalien": 0,
+    "selbst gebaute Bedienelemente": 6,
+    "gerendert: Kontrast": 0,
+    "gerendert: Klickfläche zu klein": 1,
+    "gerendert: ohne Namen": 0,
+    "gerendert: Überlauf bei 360 px": 0,
+    "details": [
+      "Klickfläche 65 × 22 px, mindestens 24 × 24. (360 px, light, bei <a>)"
+    ]
+  },
+  {
+    "lauf": "sonnet-lose-dateien",
+    "Zeilen eigenes CSS": 24,
+    "Zeilen eigenes Skript": 17,
+    "feste Farbwerte": 0,
+    "feste Abstände": 1,
+    "erfundene Tokens": 0,
+    "Verläufe, Schatten, Versalien": 0,
+    "selbst gebaute Bedienelemente": 6,
+    "gerendert: Kontrast": 1,
+    "gerendert: Klickfläche zu klein": 3,
+    "gerendert: ohne Namen": 3,
+    "gerendert: Überlauf bei 360 px": 0,
+    "details": [
+      "Bedienelement ohne zugänglichen Namen. (360 px, light, bei <button>)",
+      "Klickfläche 26 × 16 px, mindestens 24 × 24. (360 px, light, bei <button>)",
+      "Bedienelement ohne zugänglichen Namen. (360 px, light, bei <button>)",
+      "Klickfläche 26 × 16 px, mindestens 24 × 24. (360 px, light, bei <button>)",
+      "Bedienelement ohne zugänglichen Namen. (360 px, light, bei <button>)",
+      "Klickfläche 26 × 16 px, mindestens 24 × 24. (360 px, light, bei <button>)",
+      "Text „Zum Abo“ hat 4.12 : 1 (mindestens 4.5). (1280 px, dark, bei <a>)"
+    ]
+  },
+  {
+    "lauf": "sonnet-mit",
+    "Zeilen eigenes CSS": 8,
+    "Zeilen eigenes Skript": 0,
+    "feste Farbwerte": 0,
+    "feste Abstände": 0,
+    "erfundene Tokens": 0,
+    "Verläufe, Schatten, Versalien": 0,
+    "selbst gebaute Bedienelemente": 0,
+    "gerendert: Kontrast": 1,
+    "gerendert: Klickfläche zu klein": 0,
+    "gerendert: ohne Namen": 0,
+    "gerendert: Überlauf bei 360 px": 0,
+    "Check gegen Vertrag": 0,
+    "Check, erster Versuch": 0,
+    "details": [
+      "Text „Z+ abonnieren“ hat 4.12 : 1 (mindestens 4.5). (1280 px, dark, bei <span>)"
+    ]
+  },
+  {
+    "lauf": "haiku-nur-brief",
+    "Zeilen eigenes CSS": 254,
+    "Zeilen eigenes Skript": 11,
+    "feste Farbwerte": 13,
+    "feste Abstände": 23,
+    "erfundene Tokens": 0,
+    "Verläufe, Schatten, Versalien": 0,
+    "selbst gebaute Bedienelemente": 6,
+    "gerendert: Kontrast": 0,
+    "gerendert: Klickfläche zu klein": 2,
+    "gerendert: ohne Namen": 3,
+    "gerendert: Überlauf bei 360 px": 0,
+    "details": [
+      "Bedienelement ohne zugänglichen Namen. (360 px, light, bei <input>)",
+      "Bedienelement ohne zugänglichen Namen. (360 px, light, bei <input>)",
+      "Bedienelement ohne zugänglichen Namen. (360 px, light, bei <input>)",
+      "Klickfläche 22 × 22 px, mindestens 24 × 24. (360 px, light, bei <input#angebote>)",
+      "Klickfläche 69 × 19 px, mindestens 24 × 24. (360 px, light, bei <a>)"
+    ]
+  },
+  {
+    "lauf": "haiku-lose-dateien",
+    "Zeilen eigenes CSS": 130,
+    "Zeilen eigenes Skript": 21,
+    "feste Farbwerte": 0,
+    "feste Abstände": 1,
+    "erfundene Tokens": 0,
+    "Verläufe, Schatten, Versalien": 0,
+    "selbst gebaute Bedienelemente": 6,
+    "gerendert: Kontrast": 0,
+    "gerendert: Klickfläche zu klein": 3,
+    "gerendert: ohne Namen": 3,
+    "gerendert: Überlauf bei 360 px": 0,
+    "details": [
+      "Bedienelement ohne zugänglichen Namen. (360 px, light, bei <button>)",
+      "Klickfläche 26 × 16 px, mindestens 24 × 24. (360 px, light, bei <button>)",
+      "Bedienelement ohne zugänglichen Namen. (360 px, light, bei <button>)",
+      "Klickfläche 26 × 16 px, mindestens 24 × 24. (360 px, light, bei <button>)",
+      "Bedienelement ohne zugänglichen Namen. (360 px, light, bei <button>)",
+      "Klickfläche 26 × 16 px, mindestens 24 × 24. (360 px, light, bei <button>)"
+    ]
+  },
+  {
+    "lauf": "haiku-mit",
+    "Zeilen eigenes CSS": 29,
+    "Zeilen eigenes Skript": 0,
+    "feste Farbwerte": 0,
+    "feste Abstände": 0,
+    "erfundene Tokens": 0,
+    "Verläufe, Schatten, Versalien": 0,
+    "selbst gebaute Bedienelemente": 0,
+    "gerendert: Kontrast": 1,
+    "gerendert: Klickfläche zu klein": 0,
+    "gerendert: ohne Namen": 0,
+    "gerendert: Überlauf bei 360 px": 0,
+    "Check gegen Vertrag": 0,
+    "Check, erster Versuch": 0,
+    "details": [
+      "Text „Z+ Abo ansehen“ hat 4.12 : 1 (mindestens 4.5). (1280 px, dark, bei <span>)"
+    ]
+  }
+]

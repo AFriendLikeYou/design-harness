@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Newsletter</title>
+<link rel="stylesheet" href="zds/styles-zds.css">
+<link rel="stylesheet" href="zds/button.css">
+<link rel="stylesheet" href="zds/checkbox.css">
+<link rel="stylesheet" href="zds/toggle.css">
+<style>
+  body { margin: 0; background: var(--z-ds-color-background-0); color: var(--z-ds-color-text-100);
+    font-family: "Helvetica Neue", Arial, sans-serif; font-size: var(--z-ds-fontsize-16); line-height: var(--z-ds-lineheight-15); }
+  .nl { max-width: 36rem; margin: 0 auto; padding: var(--z-ds-space-32) var(--z-ds-space-16); }
+  h1 { font-family: Georgia, serif; font-size: var(--z-ds-fontsize-32); line-height: var(--z-ds-lineheight-11); margin: 0 0 var(--z-ds-space-8); }
+  .nl__intro { margin: 0 0 var(--z-ds-space-24); color: var(--z-ds-color-text-70); }
+  ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--z-ds-color-border-70); }
+  .row { display: flex; align-items: center; justify-content: space-between; gap: var(--z-ds-space-16);
+    padding: var(--z-ds-space-16) 0; border-bottom: 1px solid var(--z-ds-color-border-70); }
+  .row__title { font-weight: bold; display: block; }
+  .row__meta { font-size: var(--z-ds-fontsize-14); color: var(--z-ds-color-text-55); display: block; }
+  .opts { margin: var(--z-ds-space-24) 0; display: grid; gap: var(--z-ds-space-16); }
+  .opt { display: flex; gap: var(--z-ds-space-12); align-items: flex-start; cursor: pointer; }
+  .opt .z-checkbox { flex: none; margin-top: 4px; }
+  .opt input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .opt input:focus-visible + .z-checkbox { outline: 2px solid var(--z-ds-color-focus-100); outline-offset: 2px; }
+  .opt:hover input:not(:disabled) + .z-checkbox:not(.z-checkbox--checked) { background-color: var(--z-ds-color-background-10); }
+  .opt--locked { cursor: default; color: var(--z-ds-color-text-70); }
+  .opt__hint { display: block; font-size: var(--z-ds-fontsize-14); color: var(--z-ds-color-text-55); }
+  .actions { display: flex; align-items: center; gap: var(--z-ds-space-16); }
+  .status { font-size: var(--z-ds-fontsize-14); color: var(--z-ds-color-text-70); }
+  .zplus { margin-top: var(--z-ds-space-32); padding: var(--z-ds-space-16); background: var(--z-ds-color-background-10);
+    border-radius: var(--z-ds-border-radius-4); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--z-ds-space-12); }
+  .zplus p { margin: 0; flex: 1 1 14rem; font-size: var(--z-ds-fontsize-14); }
+  a.z-button { text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="nl">
+  <h1>Newsletter</h1>
+  <p class="nl__intro">Wähle aus, was wir dir schicken.</p>
+
+  <ul>
+    <li class="row">
+      <span><span class="row__title" id="n1">Was jetzt? Der Morgenüberblick</span><span class="row__meta">Montag bis Freitag um 6 Uhr</span></span>
+      <button type="button" class="z-switch z-switch--on" role="switch" aria-checked="true" aria-labelledby="n1"><span class="z-switch__thumb"></span></button>
+    </li>
+    <li class="row">
+      <span><span class="row__title" id="n2">ZEIT am Wochenende</span><span class="row__meta">Jeden Samstag</span></span>
+      <button type="button" class="z-switch" role="switch" aria-checked="false" aria-labelledby="n2"><span class="z-switch__thumb"></span></button>
+    </li>
+    <li class="row">
+      <span><span class="row__title" id="n3">Wissen³</span><span class="row__meta">Jeden Donnerstag</span></span>
+      <button type="button" class="z-switch" role="switch" aria-checked="false" aria-labelledby="n3"><span class="z-switch__thumb"></span></button>
+    </li>
+  </ul>
+
+  <div class="opts">
+    <label class="opt">
+      <input type="checkbox" id="offers">
+      <span class="z-checkbox"><span class="z-checkbox__check"></span></span>
+      <span>Auch Angebote der ZEIT Verlagsgruppe erhalten</span>
+    </label>
+    <label class="opt opt--locked">
+      <input type="checkbox" id="personal" checked disabled aria-describedby="lockhint">
+      <span class="z-checkbox z-checkbox--checked z-checkbox--disabled"><span class="z-checkbox__check"></span></span>
+      <span>Personalisierte Empfehlungen
+        <span class="opt__hint" id="lockhint">Ohne Abo lässt sich das nicht ändern.</span></span>
+    </label>
+  </div>
+
+  <div class="actions">
+    <button type="button" class="z-button z-button--primary" id="save">Speichern</button>
+    <span class="status" id="status" role="status"></span>
+  </div>
+
+  <aside class="zplus">
+    <p>Mit Z+ erhältst du weitere Newsletter.</p>
+    <a class="z-button z-button--zplus" href="https://www.zeit.de/angebote/abo">Zum Abo</a>
+  </aside>
+</main>
+<script>
+  document.querySelectorAll('.z-switch').forEach(function (s) {
+    s.addEventListener('click', function () {
+      var on = s.getAttribute('aria-checked') !== 'true';
+      s.setAttribute('aria-checked', on);
+      s.classList.toggle('z-switch--on', on);
+    });
+  });
+  document.getElementById('offers').addEventListener('change', function (e) {
+    e.target.nextElementSibling.classList.toggle('z-checkbox--checked', e.target.checked);
+  });
+  document.getElementById('save').addEventListener('click', function () {
+    document.getElementById('status').textContent = 'Gespeichert.';
+  });
+  document.querySelectorAll('.z-switch, #offers').forEach(function (el) {
+    el.addEventListener('change', clear); el.addEventListener('click', clear);
+  });
+  function clear() { document.getElementById('status').textContent = ''; }
+</script>
+</body>
+</html>

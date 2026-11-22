@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Newsletter | ZEIT ONLINE</title>
+<style>
+:root{
+  --bg:#fff; --text:#1a1a1a; --muted:#666; --rule:#d9d9d9; --rule-strong:#1a1a1a;
+  --red:#b91109; --red-hover:#880d07; --surface:#f5f3ef; --off:#b8b8b8;
+  --serif:"Tiemann","Tiemann Schmal",Georgia,"Times New Roman",serif;
+  --sans:"Tablet Gothic","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+main{max-width:640px;margin:0 auto;padding:32px 16px 64px}
+h1{font:700 40px/1.1 var(--serif);letter-spacing:-.01em;margin:0 0 8px;padding-top:12px;border-top:4px solid var(--rule-strong)}
+.intro{font:400 20px/1.4 var(--serif);color:var(--muted);margin:0 0 32px}
+form{margin:0}
+.list{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule-strong)}
+.list li{border-bottom:1px solid var(--rule)}
+.row{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:16px 0;cursor:pointer}
+.row .t{display:block;font:700 20px/1.25 var(--serif)}
+.row .s{display:block;font-size:14px;color:var(--muted);margin-top:4px}
+/* switch */
+.sw{position:absolute;opacity:0;width:1px;height:1px}
+.track{flex:none;width:48px;height:28px;border-radius:14px;background:var(--off);position:relative;transition:background .2s}
+.track::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform .2s}
+.sw:checked + .track{background:var(--red)}
+.sw:checked + .track::after{transform:translateX(20px)}
+.sw:focus-visible + .track,.cb:focus-visible{outline:3px solid var(--text);outline-offset:2px}
+.row:hover .sw:not(:checked) + .track{background:#999}
+.row:hover .sw:checked + .track{background:var(--red-hover)}
+h2{font:700 20px/1.2 var(--serif);margin:40px 0 0;padding-bottom:8px}
+/* checkboxes */
+.opts{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule-strong)}
+.opts li{border-bottom:1px solid var(--rule)}
+.opt{display:flex;gap:12px;align-items:flex-start;padding:16px 0;cursor:pointer}
+.cb{flex:none;appearance:none;-webkit-appearance:none;width:22px;height:22px;margin:1px 0 0;border:2px solid var(--text);border-radius:2px;background:#fff;display:grid;place-content:center;cursor:inherit}
+.cb::after{content:"";width:6px;height:11px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px);opacity:0}
+.cb:checked{background:var(--red);border-color:var(--red)}
+.cb:checked::after{opacity:1}
+.cb:disabled{background:#c9c9c9;border-color:#c9c9c9}
+.opt.locked{cursor:default;color:var(--text)}
+.opt .s{display:block;font-size:14px;color:var(--muted);margin-top:2px}
+.actions{margin-top:32px}
+button{font:700 16px/1 var(--sans);background:var(--red);color:#fff;border:0;border-radius:2px;padding:16px 32px;cursor:pointer}
+button:hover{background:var(--red-hover)}
+button:focus-visible{outline:3px solid var(--text);outline-offset:2px}
+.status{margin:16px 0 0;font-size:14px;color:var(--muted);min-height:21px}
+.zplus{margin-top:48px;padding:24px;background:var(--surface);border-top:2px solid var(--red)}
+.zplus strong{display:block;font:700 20px/1.25 var(--serif);margin-bottom:8px}
+.zplus p{margin:0 0 12px}
+.zplus a{color:var(--red);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.zplus a:hover{color:var(--red-hover)}
+@media (min-width:640px){main{padding-top:48px}h1{font-size:52px}}
+@media (prefers-reduced-motion:reduce){.track,.track::after{transition:none}}
+</style>
+</head>
+<body>
+<main>
+  <h1>Newsletter</h1>
+  <p class="intro">Wähle aus, was wir dir schicken.</p>
+
+  <form id="f">
+    <ul class="list">
+      <li><label class="row">
+        <span><span class="t">Was jetzt? Der Morgenüberblick</span><span class="s">Montag bis Freitag um 6 Uhr</span></span>
+        <input class="sw" type="checkbox" role="switch" name="morgen" checked><span class="track" aria-hidden="true"></span>
+      </label></li>
+      <li><label class="row">
+        <span><span class="t">ZEIT am Wochenende</span><span class="s">Jeden Samstag</span></span>
+        <input class="sw" type="checkbox" role="switch" name="wochenende"><span class="track" aria-hidden="true"></span>
+      </label></li>
+      <li><label class="row">
+        <span><span class="t">Wissen³</span><span class="s">Jeden Donnerstag</span></span>
+        <input class="sw" type="checkbox" role="switch" name="wissen"><span class="track" aria-hidden="true"></span>
+      </label></li>
+    </ul>
+
+    <h2>Weitere Einstellungen</h2>
+    <ul class="opts">
+      <li><label class="opt">
+        <input class="cb" type="checkbox" name="angebote">
+        <span>Auch Angebote der ZEIT Verlagsgruppe erhalten</span>
+      </label></li>
+      <li><label class="opt locked">
+        <input class="cb" type="checkbox" name="empfehlungen" checked disabled aria-describedby="emp-hint">
+        <span>Personalisierte Empfehlungen<span class="s" id="emp-hint">Ohne Abo lässt sich diese Einstellung nicht ändern.</span></span>
+      </label></li>
+    </ul>
+
+    <div class="actions">
+      <button type="submit">Speichern</button>
+      <p class="status" id="st" role="status" aria-live="polite"></p>
+    </div>
+  </form>
+
+  <aside class="zplus" aria-labelledby="zp">
+    <strong id="zp">Mehr Newsletter mit Z+</strong>
+    <p>Mit Z+ bekommst du weitere Newsletter von der ZEIT-Redaktion.</p>
+    <a href="https://www.zeit.de/abo">Zum Abo</a>
+  </aside>
+</main>
+<script>
+document.getElementById('f').addEventListener('submit',function(e){
+  e.preventDefault();
+  document.getElementById('st').textContent='Deine Auswahl wurde gespeichert.';
+});
+document.getElementById('f').addEventListener('change',function(){
+  document.getElementById('st').textContent='';
+});
+</script>
+</body>
+</html>

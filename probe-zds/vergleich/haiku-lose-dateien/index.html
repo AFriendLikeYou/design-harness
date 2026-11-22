@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Newsletter · zeit.de</title>
+<link rel="stylesheet" href="zds/styles-zds.css">
+<link rel="stylesheet" href="zds/button.css">
+<link rel="stylesheet" href="zds/checkbox.css">
+<link rel="stylesheet" href="zds/toggle.css">
+<style>
+  html, body { margin: 0; }
+  body {
+    background-color: var(--z-ds-color-background-0);
+    color: var(--z-ds-color-text-100);
+    font-size: var(--z-ds-fontsize-16);
+    line-height: var(--z-ds-lineheight-15);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+
+  .nl {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: var(--z-ds-space-24) var(--z-ds-space-16);
+  }
+
+  /* Page-level: headline and lead (no DS classes for these) */
+  .nl__title {
+    margin: 0 0 var(--z-ds-space-12);
+    font-size: var(--z-ds-fontsize-32);
+    font-weight: bold;
+    line-height: var(--z-ds-lineheight-11);
+  }
+  .nl__lead {
+    margin: 0 0 var(--z-ds-space-32);
+    font-size: var(--z-ds-fontsize-18);
+    color: var(--z-ds-color-text-70);
+  }
+
+  /* Newsletter rows: title + schedule on the left, switch on the right */
+  .rows {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--z-ds-color-border-70);
+  }
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--z-ds-space-16);
+    padding: var(--z-ds-space-16) 0;
+    border-bottom: 1px solid var(--z-ds-color-border-70);
+  }
+  .row__title {
+    display: block;
+    font-weight: bold;
+  }
+  .row__meta {
+    display: block;
+    margin-top: var(--z-ds-space-4);
+    font-size: var(--z-ds-fontsize-14);
+    color: var(--z-ds-color-text-55);
+  }
+
+  /* Consent checkboxes */
+  .consent {
+    margin-top: var(--z-ds-space-32);
+  }
+  .opt {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--z-ds-space-12);
+    padding: var(--z-ds-space-8) 0;
+    cursor: pointer;
+  }
+  .opt--disabled {
+    cursor: default;
+    color: var(--z-ds-color-text-55);
+  }
+  .opt .z-checkbox {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .opt:not(.opt--disabled):hover .z-checkbox:not(.z-checkbox--checked) {
+    background-color: var(--z-ds-color-background-10);
+  }
+  .opt__note {
+    display: block;
+    margin-top: var(--z-ds-space-4);
+    font-size: var(--z-ds-fontsize-14);
+    color: var(--z-ds-color-text-55);
+  }
+  /* Real input stays focusable; the visual box shows the focus ring */
+  .opt input[type="checkbox"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .opt input:focus-visible + .z-checkbox {
+    outline: 2px solid var(--z-ds-color-focus-100);
+    outline-offset: 2px;
+  }
+  .opt { position: relative; }
+
+  /* Actions and status */
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--z-ds-space-16);
+    margin-top: var(--z-ds-space-32);
+  }
+  .status {
+    font-size: var(--z-ds-fontsize-14);
+    color: var(--z-ds-color-text-55);
+  }
+
+  /* Z+ hint */
+  .zplus {
+    margin: var(--z-ds-space-32) 0 0;
+    padding: var(--z-ds-space-16);
+    border: 1px solid var(--z-ds-color-border-70);
+    border-radius: var(--z-ds-border-radius-8);
+    font-size: var(--z-ds-fontsize-14);
+    color: var(--z-ds-color-text-70);
+  }
+  .zplus a {
+    color: var(--z-ds-color-text-100);
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  .zplus a:focus-visible {
+    outline: 2px solid var(--z-ds-color-focus-100);
+    outline-offset: 2px;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+<main class="nl">
+  <h1 class="nl__title">Newsletter</h1>
+  <p class="nl__lead">Wähle aus, was wir dir schicken.</p>
+
+  <ul class="rows">
+    <li class="row">
+      <span>
+        <span class="row__title" id="nl-morgen">Was jetzt? Der Morgenüberblick</span>
+        <span class="row__meta">Montag bis Freitag, 6 Uhr</span>
+      </span>
+      <button type="button" role="switch" aria-checked="true" aria-labelledby="nl-morgen" class="z-switch z-switch--on" data-switch>
+        <span class="z-switch__thumb"></span>
+      </button>
+    </li>
+    <li class="row">
+      <span>
+        <span class="row__title" id="nl-wochenende">ZEIT am Wochenende</span>
+        <span class="row__meta">Jeden Samstag</span>
+      </span>
+      <button type="button" role="switch" aria-checked="false" aria-labelledby="nl-wochenende" class="z-switch" data-switch>
+        <span class="z-switch__thumb"></span>
+      </button>
+    </li>
+    <li class="row">
+      <span>
+        <span class="row__title" id="nl-wissen">Wissen³</span>
+        <span class="row__meta">Jeden Donnerstag</span>
+      </span>
+      <button type="button" role="switch" aria-checked="false" aria-labelledby="nl-wissen" class="z-switch" data-switch>
+        <span class="z-switch__thumb"></span>
+      </button>
+    </li>
+  </ul>
+
+  <div class="consent">
+    <label class="opt">
+      <input type="checkbox" id="c-angebote">
+      <span class="z-checkbox" aria-hidden="true"><span class="z-checkbox__check"></span></span>
+      <span>Auch Angebote der ZEIT Verlagsgruppe erhalten.</span>
+    </label>
+
+    <label class="opt opt--disabled">
+      <input type="checkbox" id="c-empfehlungen" checked disabled>
+      <span class="z-checkbox z-checkbox--checked z-checkbox--disabled" aria-hidden="true"><span class="z-checkbox__check"></span></span>
+      <span>
+        Personalisierte Empfehlungen.
+        <span class="opt__note">Nur mit Abo änderbar.</span>
+      </span>
+    </label>
+  </div>
+
+  <div class="actions">
+    <button type="button" class="z-button z-button--primary" id="save">Speichern</button>
+    <span class="status" role="status" aria-live="polite" id="status"></span>
+  </div>
+
+  <p class="zplus">
+    Mit Z+ gibt es weitere Newsletter.
+    <a href="/abo">Z+ abonnieren</a>
+  </p>
+</main>
+
+<script>
+  // Switches: toggle on click, keep aria-checked and modifier class in sync.
+  document.querySelectorAll('[data-switch]').forEach(function (sw) {
+    sw.addEventListener('click', function () {
+      var on = sw.getAttribute('aria-checked') !== 'true';
+      sw.setAttribute('aria-checked', String(on));
+      sw.classList.toggle('z-switch--on', on);
+    });
+  });
+
+  // Checkboxes: mirror the native input state onto the visual .z-checkbox box.
+  document.querySelectorAll('.opt input[type="checkbox"]').forEach(function (input) {
+    var box = input.parentElement.querySelector('.z-checkbox');
+    var sync = function () {
+      box.classList.toggle('z-checkbox--checked', input.checked);
+    };
+    input.addEventListener('change', sync);
+    sync();
+  });
+
+  // Save: no backend in this module, only confirm.
+  document.getElementById('save').addEventListener('click', function () {
+    document.getElementById('status').textContent = 'Gespeichert.';
+  });
+</script>
+</body>
+</html>
