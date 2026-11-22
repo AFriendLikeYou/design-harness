@@ -17,7 +17,7 @@ Diese Datei nennt bewusst keine Komponenten, Attribute, Werte oder Tokens. Solch
 1. **Kontext laden.** Vertrag und `DESIGN.md` lesen. Nichts verwenden, was im Vertrag nicht steht.
 2. **Nur komponieren.** Seiten bestehen aus den Elementen des Systems. Eigenes CSS nur für Seitenlayout und nur mit Tokens. Keine internen Klassen, keine nackten Bedienelemente.
 3. **Prüfen.** `node cli/fundament.mjs check <Pfad> --json` (oder das MCP-Tool `check`). Jeden Befund mit der genannten Behebung korrigieren.
-4. **Kritisieren.** Wenn der Check sauber ist: `rubric.md` beantworten, möglichst am Screenshot. Jedes Nein umsetzen, dann zurück zu 3.
+4. **Kritisieren.** Wenn der Check sauber ist: `node cli/fundament.mjs audit <Pfad> --json` ausführen (misst gerendert: Überlauf bei 360 px, Kontrast, Namen, Klickflächen) und `rubric.md` beantworten, möglichst am Screenshot. Jedes Nein umsetzen, dann zurück zu 3.
 5. **Begrenzen.** Höchstens drei Runden aus Prüfen und Kritisieren. Danach berichten, was offen bleibt, statt weiter zu raten.
 6. **Lücken melden.** Fehlt eine Komponente, ein Wert oder ein Slot: nicht nachbauen. Die Lücke im Bericht benennen, mit dem Anlass. Eine fehlende API ist kein Dokumentationsproblem.
 

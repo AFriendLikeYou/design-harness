@@ -36,7 +36,7 @@ const s = $('#s'); let changed = 0; s.addEventListener('change', () => changed++
 ok('switch rolle', s.querySelector('button').getAttribute('role') === 'switch' && s.querySelector('button').getAttribute('aria-checked') === 'false');
 s.querySelector('button').click();
 ok('switch schaltet und meldet change', s.checked === true && s.querySelector('button').getAttribute('aria-checked') === 'true' && changed === 1);
-s.querySelector('label').click();
+s.querySelector('.fd-switch__label').click();
 ok('switch label schaltet', s.checked === false && changed === 2);
 ok('alert rolle alert', $('#a .fd-alert').getAttribute('role') === 'alert' && $('#a2 .fd-alert').getAttribute('role') === 'status');
 ok('alert title ohne tooltip', !$('#a').hasAttribute('title') && $('#a .fd-alert__title').textContent === 'Titel');

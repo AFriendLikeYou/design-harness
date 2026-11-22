@@ -1,6 +1,6 @@
 // Ein Befehl für alles: bauen, Spec prüfen, eigene Dateien prüfen, CLI-Test, Plugin gegen Attrappe, Web Components im Browser.
 import { spawnSync } from 'node:child_process';
-const steps = [['Build + Kontrast', ['build.mjs']], ['Spec (lint)', ['cli/fundament.mjs', 'lint']], ['Eigene Dateien (check)', ['cli/fundament.mjs', 'check', 'ui', 'docs']], ['CLI-Test', ['tooling/test-cli.mjs']], ['Plugin gegen Attrappe', ['tooling/mock-run.mjs']], ['Web Components im Browser', ['tooling/test-ui.mjs']]];
+const steps = [['Build + Kontrast', ['build.mjs']], ['Spec (lint)', ['cli/fundament.mjs', 'lint']], ['Eigene Dateien (check)', ['cli/fundament.mjs', 'check', 'ui', 'docs']], ['CLI-Test', ['tooling/test-cli.mjs']], ['Plugin gegen Attrappe', ['tooling/mock-run.mjs']], ['Web Components im Browser', ['tooling/test-ui.mjs']], ['Gerendert (audit)', ['cli/fundament.mjs', 'audit', 'ui/examples', 'docs']]];
 let failed = 0;
 for (const [name, args] of steps) { const r = spawnSync('node', args, { encoding: 'utf8', cwd: new URL('..', import.meta.url).pathname }); const ok = r.status === 0; if (!ok) failed++; const last = (r.stdout || '').trim().split('\n').filter((l) => !l.startsWith('{') && !l.startsWith(' ') && !l.startsWith('}') && !l.startsWith(']')).pop() || ''; console.log(`${ok ? 'ok  ' : 'FEHL'}  ${name}${last ? ': ' + last : ''}`); if (!ok) console.log((r.stdout + r.stderr).trim().split('\n').slice(-12).join('\n')); }
 console.log(failed ? `\n${failed} Schritte fehlgeschlagen.` : '\nAlles bestanden.');

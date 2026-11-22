@@ -2,6 +2,7 @@
 // Fundament-CLI. Liest ausschließlich specs/system.json und generated/contracts.json.
 //   fundament lint                      prüft die Spec selbst (Verweise, Eindeutigkeit, Regeln mit Check)
 //   fundament check <Pfad …> [--json]   prüft HTML/CSS gegen Verträge, Regeln und Grundsätze
+//   fundament audit <Pfad …> [--json]   prüft gerendert in Chrome: Überlauf bei 360 px, Kontrast, Namen, Klickflächen
 //   fundament migrate <Pfad …> [--write] ersetzt Veraltetes laut migrations in der Spec
 // Exit 0 = sauber, 1 = Befunde, 2 = falscher Aufruf.
 import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs';
@@ -14,6 +15,40 @@ export const IMPLEMENTED = ['max-per-view', 'no-raw-color', 'required-prop', 'sl
 
 const collect = (paths, exts) => { const files = []; const walk = (p) => { const s = statSync(p); if (s.isDirectory()) readdirSync(p).forEach((f) => walk(join(p, f))); else if (exts.includes(extname(p))) files.push(p); }; paths.forEach(walk); return files; };
 const lineOf = (src, i) => src.slice(0, i).split('\n').length;
+
+// ---------- HTML-Tokenizer ----------
+// Zustandsautomat nach dem Muster des HTML-Standards, reduziert auf das, was der Check braucht: Start- und End-Tags mit Attributen.
+// Kommentare, Doctype und der Inhalt von <script>, <style>, <textarea>, <title> werden übersprungen (dort stehendes Markup zählt nicht).
+export function tokenize(src) {
+  const out = []; const n = src.length; let i = 0; const RAW = new Set(['script', 'style', 'textarea', 'title']);
+  const ws = (ch) => ch === ' ' || ch === '\n' || ch === '\t' || ch === '\r' || ch === '\f';
+  while (i < n) {
+    const lt = src.indexOf('<', i); if (lt < 0) break; i = lt;
+    if (src.startsWith('<!--', i)) { const e = src.indexOf('-->', i + 4); i = e < 0 ? n : e + 3; continue; }
+    if (src[i + 1] === '!' || src[i + 1] === '?') { const e = src.indexOf('>', i); i = e < 0 ? n : e + 1; continue; }
+    const close = src[i + 1] === '/'; let j = i + (close ? 2 : 1);
+    if (!/[a-zA-Z]/.test(src[j] || '')) { i++; continue; }
+    let k = j; while (k < n && !ws(src[k]) && src[k] !== '>' && src[k] !== '/') k++;
+    const tag = src.slice(j, k).toLowerCase(); const attrs = {}; let selfClosing = false; j = k;
+    while (j < n && src[j] !== '>') {
+      if (ws(src[j])) { j++; continue; }
+      if (src[j] === '/') { selfClosing = src[j + 1] === '>'; j++; continue; }
+      let a = j; while (j < n && !ws(src[j]) && src[j] !== '=' && src[j] !== '>' && !(src[j] === '/' && src[j + 1] === '>')) j++;
+      const name = src.slice(a, j).toLowerCase(); let m = j; while (m < n && ws(src[m])) m++;
+      if (src[m] !== '=') { if (name) attrs[name] = true; continue; }
+      j = m + 1; while (j < n && ws(src[j])) j++;
+      let value; if (src[j] === '"' || src[j] === "'") { const q = src[j]; const e = src.indexOf(q, j + 1); value = src.slice(j + 1, e < 0 ? n : e); j = e < 0 ? n : e + 1; }
+      else if (src[j] === '{') { let depth = 0; a = j; while (j < n) { if (src[j] === '{') depth++; else if (src[j] === '}' && --depth === 0) { j++; break; } j++; } value = src.slice(a, j); }
+      else { a = j; while (j < n && !ws(src[j]) && src[j] !== '>') j++; value = src.slice(a, j); }
+      if (name) attrs[name] = value;
+    }
+    const end = j < n ? j + 1 : n;
+    out.push({ close, tag, attrs: close ? {} : attrs, index: i, end, selfClosing });
+    i = end;
+    if (!close && RAW.has(tag)) { const re = new RegExp(`</${tag}\\s*>`, 'i'); const m = re.exec(src.slice(i)); if (!m) break; out.push({ close: true, tag, attrs: {}, index: i + m.index, end: i + m.index + m[0].length, selfClosing: false }); i += m.index + m[0].length; }
+  }
+  return out;
+}
 
 // ---------- lint ----------
 export function lint(spec = read('specs/system.json')) {
@@ -67,7 +102,7 @@ export function check(files, C = read('generated/contracts.json')) {
     const clean = src.replace(/\/\*[\s\S]*?\*\//g, (c) => c.replace(/[^\n]/g, ' '));
     for (const m of clean.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
       const start = m.index + m[1].length + 1;
-      const comps = [...new Set([...m[1].matchAll(new RegExp(`\\.(${P}-[a-z0-9-]+?)(?=__|[^a-z0-9-]|$)`, 'g'))].map((x) => x[1] === `${P}-checkbox-field` ? `${P}-checkbox` : x[1]))];
+      const comps = [...new Set([...m[1].matchAll(new RegExp(`\\.(${P}-[a-z0-9-]+?)(?=__|[^a-z0-9-]|$)`, 'g'))].map((x) => x[1].replace(/-(checkbox|switch)-field$/, '-$1')))];
       for (const c of comps) if (!byClass[c]) add(file, L(m.index), 'components/unknown', `Klasse „${c}“ gehört zu keiner Komponente.`, 'Nur Klassen der Komponenten aus dem Vertrag gestalten.');
       const known = comps.filter((c) => byClass[c]);
       decl(file, m[2], (i) => L(start + i), known.length ? new Set(known.flatMap((c) => byClass[c].colorTokens)) : null, known.map((c) => byClass[c].name).join(' / '));
@@ -75,14 +110,13 @@ export function check(files, C = read('generated/contracts.json')) {
   }
   function html(file, src) {
     const L = (i) => lineOf(src, i);
-    for (const m of src.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)) css(file, m[1], L(m.index) - 1);
-    const specimen = /<html\b[^>]*\bdata-fd-specimen\b/.test(src);
-    const body = src.replace(/<(script|style)\b[\s\S]*?<\/\1>/g, (x) => x.replace(/[^\n]/g, ' '));
+    const toks = tokenize(src);
+    toks.forEach((tk, i) => { if (!tk.close && tk.tag === 'style' && toks[i + 1]?.close) css(file, src.slice(tk.end, toks[i + 1].index), L(tk.index) - 1); });
+    const specimen = toks.some((tk) => !tk.close && tk.tag === 'html' && 'data-fd-specimen' in tk.attrs);
     const VOID = new Set(['input', 'br', 'img', 'meta', 'link', 'hr']); const stack = []; let primary = 0; const alerts = new Map();
-    for (const m of body.matchAll(/<(\/)?([a-zA-Z][\w-]*)((?:"[^"]*"|'[^']*'|[^>"'])*)>/g)) {
-      const [, close, tag, rest] = m; const t = tag.toLowerCase();
+    for (const m of toks) {
+      const { close, tag: t, attrs } = m;
       if (close) { for (let i = stack.length - 1; i >= 0; i--) if (stack[i].tag === t) { stack.length = i; break; } continue; }
-      const attrs = {}; for (const a of rest.matchAll(/([\w:-]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|(\S+)))?/g)) attrs[a[1].toLowerCase()] = a[2] ?? a[3] ?? a[4] ?? true;
       const line = L(m.index); const parent = stack[stack.length - 1]; const pc = parent?.comp;
       if (typeof attrs.style === 'string') decl(file, attrs.style, () => line, null, '');
       if (typeof attrs.class === 'string' && attrs.class.split(/\s+/).some((c) => c.startsWith(P + '-'))) add(file, line, 'components/internal-class', `Interne Klasse in class="${attrs.class}".`, `Die Klassen gehören dem Paket. Das Element verwenden: ${elList}.`);
@@ -136,7 +170,7 @@ export function check(files, C = read('generated/contracts.json')) {
           if (pc.attrs[sd.show] && !parent.shown.includes(sd.show)) add(file, line, rid, `Slot ${slot} ist gefüllt, aber ${sd.show} fehlt.`, `${sd.show} am <${pc.element}> setzen, sonst bleibt der Slot unsichtbar.`);
         }
       }
-      if (!VOID.has(t) && !rest.trim().endsWith('/')) stack.push({ tag: t, comp, id: m.index, slots: {}, shown: Object.keys(attrs).filter((a) => a.startsWith('show-') && attrs[a] !== 'false') });
+      if (!VOID.has(t) && !m.selfClosing) stack.push({ tag: t, comp, id: m.index, slots: {}, shown: Object.keys(attrs).filter((a) => a.startsWith('show-') && attrs[a] !== 'false') });
     }
   }
   for (const f of files) { if (/^(tokens\.css|contract\.generated\.js)$/.test(basename(f))) continue; const src = readFileSync(f, 'utf8'); extname(f) === '.css' ? css(f, src) : html(f, src); }
@@ -164,7 +198,8 @@ if (import.meta.url === `file://${process.argv[1]}` || process.argv[1]?.endsWith
   try {
     if (cmd === 'lint') print(lint(), 1);
     else if (cmd === 'check' && paths.length) { const files = collect(paths, ['.html', '.htm', '.css', '.svelte']); if (!files.length) throw new Error('Keine HTML-, CSS- oder Svelte-Dateien gefunden.'); print(check(files), files.length); }
+    else if (cmd === 'audit' && paths.length) { const files = collect(paths, ['.html', '.htm']).map((f) => new URL(f, `file://${process.cwd()}/`).pathname); const { audit } = await import('./audit.mjs'); print(await audit(files), files.length); }
     else if (cmd === 'migrate' && paths.length) { const ch = migrate(collect(paths, ['.html', '.htm', '.svelte']), flags.includes('--write')); for (const c of ch) console.log(`${c.file}:${c.line}  ${c.from} → ${c.to}  (${c.why})`); console.log(ch.length ? `\n${ch.length} Ersetzungen${flags.includes('--write') ? ' geschrieben' : ' möglich; mit --write ausführen'}.` : 'Nichts zu migrieren.'); }
-    else { console.error('Aufruf:\n  node cli/fundament.mjs lint\n  node cli/fundament.mjs check <Pfad …> [--json]\n  node cli/fundament.mjs migrate <Pfad …> [--write]'); process.exit(2); }
+    else { console.error('Aufruf:\n  node cli/fundament.mjs lint\n  node cli/fundament.mjs check <Pfad …> [--json]\n  node cli/fundament.mjs audit <Pfad …> [--json]   (gerendert, braucht Chrome)\n  node cli/fundament.mjs migrate <Pfad …> [--write]'); process.exit(2); }
   } catch (e) { console.error('Fehler: ' + e.message); process.exit(2); }
 }
