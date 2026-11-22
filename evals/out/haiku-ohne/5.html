@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Suche</title>
+<link rel="stylesheet" href="../../../ui/tokens.css">
+<link rel="stylesheet" href="../../../ui/components.css">
+<script type="module" src="../../../ui/fundament.js"></script>
+<style>
+  body { margin: 0; background: var(--fd-color-bg-canvas); color: var(--fd-color-text-primary); font: var(--fd-text-body-md); }
+  main { max-width: 640px; margin: 0 auto; padding: var(--fd-space-2xl) var(--fd-space-lg); display: flex; flex-direction: column; gap: var(--fd-space-xl); }
+  h1 { font: var(--fd-text-heading-lg); margin: 0; color: var(--fd-color-text-primary); }
+  .count { margin: 0; font: var(--fd-text-body-sm); color: var(--fd-color-text-secondary); }
+  .results { display: flex; flex-direction: column; gap: var(--fd-space-md); margin: 0; padding: 0; list-style: none; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Suche</h1>
+  <fd-text-field id="search" label="Suchbegriff" name="q" type="search" autocomplete="off" value="Klimaschutz" show-helper="false" show-trailing>
+    <fd-button slot="trailing" id="clear" type="button" variant="ghost" size="sm" label="Leeren" hidden></fd-button>
+  </fd-text-field>
+  <p class="count">3 Treffer</p>
+  <ul class="results">
+    <li><fd-card title="Klimaschutz im Alltag" body="Wie Haushalte ihren Energieverbrauch senken können, mit konkreten Beispielen."><fd-button slot="action" variant="secondary" size="sm" label="Artikel öffnen"></fd-button></fd-card></li>
+    <li><fd-card title="Neue Klimaziele der Stadt" body="Was der Stadtrat beschlossen hat und welche Maßnahmen bis 2030 folgen."><fd-button slot="action" variant="secondary" size="sm" label="Artikel öffnen"></fd-button></fd-card></li>
+    <li><fd-card title="Klimaschutz in der Landwirtschaft" body="Warum Betriebe auf Bodenpflege setzen und welche Förderungen es gibt."><fd-button slot="action" variant="secondary" size="sm" label="Artikel öffnen"></fd-button></fd-card></li>
+  </ul>
+</main>
+<script type="module">
+  const field = document.getElementById('search');
+  const clear = document.getElementById('clear');
+  const sync = () => { clear.hidden = field.input.value === ''; };
+  field.input.addEventListener('input', sync);
+  clear.addEventListener('click', () => { field.value = ''; sync(); field.input.focus(); });
+  sync();
+</script>
+</body>
+</html>

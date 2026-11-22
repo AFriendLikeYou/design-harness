@@ -1,0 +1,1072 @@
+{
+  "$comment": "Generiert aus specs/system.json – nicht von Hand bearbeiten. Einzige Quelle für gültige Komponenten, Props, Werte und Tokens.",
+  "principles": [
+    {
+      "id": "principles/surface-and-line",
+      "text": "Trennung über Fläche und Linie. Keine Verläufe, keine Schlagschatten.",
+      "why": "Verläufe und Schatten haben keine Tokens und brechen im Dark Mode.",
+      "check": "no-decoration"
+    },
+    {
+      "id": "principles/sentence-case",
+      "text": "Satzschreibung. Keine Versalien per text-transform.",
+      "why": "Versalien sind schwerer zu lesen und wirken wie Werbung.",
+      "check": "no-uppercase"
+    },
+    {
+      "id": "principles/action-says-what",
+      "text": "Aktionen sagen, was passiert.",
+      "why": "„Mehr erfahren“ oder „Hier klicken“ verraten nicht, was nach dem Klick kommt.",
+      "check": "no-vague-action"
+    },
+    {
+      "id": "principles/spacing-from-scale",
+      "text": "Abstände kommen aus der Skala.",
+      "why": "Zwischenwerte zerstören den Rhythmus und lassen sich nicht gemeinsam ändern.",
+      "check": "no-raw-space"
+    },
+    {
+      "id": "principles/system-controls",
+      "text": "Bedienelemente kommen aus dem System, keine nackten <button> oder <input>.",
+      "why": "Nur Systemkomponenten bringen Fokus, Zustände und Barrierefreiheit mit.",
+      "check": "registered-only"
+    }
+  ],
+  "vagueActions": [
+    "mehr erfahren",
+    "hier klicken",
+    "klick hier",
+    "klicken",
+    "weiter",
+    "ok",
+    "mehr",
+    "los",
+    "absenden",
+    "senden"
+  ],
+  "migrations": [
+    {
+      "since": "1.0.0",
+      "from": "fd-link-button",
+      "to": "fd-button",
+      "set": {
+        "variant": "ghost"
+      },
+      "why": "LinkButton ist veraltet."
+    }
+  ],
+  "system": "Fundament",
+  "version": "1.3.0",
+  "cssPrefix": "fd",
+  "codePackage": "@fundament/ui",
+  "tokens": {
+    "--fd-color-bg-canvas": true,
+    "--fd-color-bg-surface": true,
+    "--fd-color-bg-subtle": true,
+    "--fd-color-bg-disabled": true,
+    "--fd-color-text-primary": true,
+    "--fd-color-text-secondary": true,
+    "--fd-color-text-disabled": true,
+    "--fd-color-text-on-action": true,
+    "--fd-color-border-default": true,
+    "--fd-color-border-input": true,
+    "--fd-color-action-primary": true,
+    "--fd-color-action-primary-hover": true,
+    "--fd-color-action-danger": true,
+    "--fd-color-action-danger-hover": true,
+    "--fd-color-focus-ring": true,
+    "--fd-color-feedback-info-bg": true,
+    "--fd-color-feedback-info-fg": true,
+    "--fd-color-feedback-success-bg": true,
+    "--fd-color-feedback-success-fg": true,
+    "--fd-color-feedback-warning-bg": true,
+    "--fd-color-feedback-warning-fg": true,
+    "--fd-color-feedback-danger-bg": true,
+    "--fd-color-feedback-danger-fg": true,
+    "--fd-space-2xs": true,
+    "--fd-space-xs": true,
+    "--fd-space-sm": true,
+    "--fd-space-md": true,
+    "--fd-space-lg": true,
+    "--fd-space-xl": true,
+    "--fd-space-2xl": true,
+    "--fd-space-3xl": true,
+    "--fd-radius-sm": true,
+    "--fd-radius-md": true,
+    "--fd-radius-lg": true,
+    "--fd-radius-full": true,
+    "--fd-border-width-default": true,
+    "--fd-border-width-strong": true,
+    "--fd-border-width-accent": true,
+    "--fd-size-checkbox": true,
+    "--fd-size-touch-target": true,
+    "--fd-size-switch-width": true,
+    "--fd-size-switch-thumb": true,
+    "--fd-size-field": true,
+    "--fd-size-panel": true,
+    "--fd-text-display": true,
+    "--fd-text-heading-lg": true,
+    "--fd-text-heading-md": true,
+    "--fd-text-body-md": true,
+    "--fd-text-body-sm": true,
+    "--fd-text-label-md": true,
+    "--fd-text-label-sm": true,
+    "--fd-text-caption": true
+  },
+  "tokenDescriptions": {
+    "--fd-color-bg-canvas": "Grundfläche jeder Seite.",
+    "--fd-color-bg-surface": "Karten, Eingabefelder und andere abgesetzte Flächen.",
+    "--fd-color-bg-subtle": "Neutrale Hervorhebung, z. B. neutrales Badge oder Hover von sekundären und Ghost-Buttons. Nicht für deaktivierte Elemente, dafür bg/disabled.",
+    "--fd-color-bg-disabled": "Fläche deaktivierter Bedienelemente. Heute gleicher Wert wie bg/subtle, aber eigene Rolle: nur für Deaktiviertes.",
+    "--fd-color-text-primary": "Fließtext und Überschriften. Besteht 4,5:1 auf allen bg-Tokens.",
+    "--fd-color-text-secondary": "Hilfstexte und Metadaten. Besteht 4,5:1 auf allen bg-Tokens.",
+    "--fd-color-text-disabled": "Nur für deaktivierte Elemente; muss keinen Kontrast erfüllen.",
+    "--fd-color-text-on-action": "Text und Icons auf action/primary und action/danger.",
+    "--fd-color-border-default": "Trennlinien und Kartenrahmen.",
+    "--fd-color-border-input": "Rahmen von Eingabefeldern. Besteht 3:1 für Bedienelemente.",
+    "--fd-color-action-primary": "Eine primäre Aktion pro Ansicht. Besteht 4,5:1 mit text/on-action.",
+    "--fd-color-action-primary-hover": "Hover-Zustand der primären Aktion.",
+    "--fd-color-action-danger": "Aktion, die etwas unwiderruflich löscht oder beendet. Besteht 4,5:1 mit text/on-action.",
+    "--fd-color-action-danger-hover": "Hover-Zustand der gefährlichen Aktion.",
+    "--fd-color-focus-ring": "Sichtbarer Tastaturfokus, nie entfernen.",
+    "--fd-color-feedback-info-bg": "Hintergrund für Hinweise.",
+    "--fd-color-feedback-info-fg": "Text und Akzent für Hinweise.",
+    "--fd-color-feedback-success-bg": "Hintergrund für Erfolgsmeldungen.",
+    "--fd-color-feedback-success-fg": "Text und Akzent für Erfolg.",
+    "--fd-color-feedback-warning-bg": "Hintergrund für Warnungen.",
+    "--fd-color-feedback-warning-fg": "Text und Akzent für Warnungen.",
+    "--fd-color-feedback-danger-bg": "Hintergrund für Fehler.",
+    "--fd-color-feedback-danger-fg": "Text und Akzent für Fehler, auch Fehlerrahmen.",
+    "--fd-space-2xs": "Feinabstand, z. B. Label zu Feld.",
+    "--fd-space-xs": "Abstand innerhalb kleiner Elemente.",
+    "--fd-space-sm": "Standardabstand zwischen verwandten Elementen.",
+    "--fd-space-md": "Innenabstand kleiner Bedienelemente.",
+    "--fd-space-lg": "Innenabstand Bedienelemente, Abstand zwischen Feldern.",
+    "--fd-space-xl": "Innenabstand Karten, Abstand zwischen Gruppen.",
+    "--fd-space-2xl": "Abstand zwischen Abschnitten.",
+    "--fd-space-3xl": "Seitenränder auf großen Viewports.",
+    "--fd-radius-sm": "Checkboxen und kleine Flächen.",
+    "--fd-radius-md": "Buttons und Eingabefelder.",
+    "--fd-radius-lg": "Karten und Hinweise.",
+    "--fd-radius-full": "Badges und Pillen.",
+    "--fd-border-width-default": "Rahmen von Feldern, Karten und sekundären Buttons.",
+    "--fd-border-width-strong": "Fehlerrahmen und Fokusring.",
+    "--fd-border-width-accent": "Akzentkante von Hinweisen.",
+    "--fd-size-checkbox": "Kantenlänge der Checkbox.",
+    "--fd-size-touch-target": "Mindesthöhe der Klickfläche von Bedienelementen mit kleiner Darstellung.",
+    "--fd-size-switch-width": "Breite der Schalterbahn.",
+    "--fd-size-switch-thumb": "Durchmesser des Schalterknopfs.",
+    "--fd-size-field": "Vorschaubreite eines Eingabefelds; im Layout füllt das Feld seinen Container.",
+    "--fd-size-panel": "Höchstbreite schmaler Formulare und Hinweise.",
+    "--fd-text-display": "Seitentitel. Einmal pro Seite.",
+    "--fd-text-heading-lg": "Abschnittsüberschriften.",
+    "--fd-text-heading-md": "Karten- und Gruppenüberschriften.",
+    "--fd-text-body-md": "Standard-Fließtext.",
+    "--fd-text-body-sm": "Hilfstexte und dichte Ansichten.",
+    "--fd-text-label-md": "Beschriftung von Buttons und Feldern.",
+    "--fd-text-label-sm": "Badges und kompakte Labels.",
+    "--fd-text-caption": "Metadaten, Bildunterschriften."
+  },
+  "components": {
+    "Button": {
+      "class": "fd-button",
+      "kind": "component",
+      "status": "stable",
+      "version": "1.4.0",
+      "purpose": "Löst eine Aktion aus. Für Navigation zu einer anderen Seite einen Link verwenden.",
+      "deprecated": null,
+      "booleans": [
+        "disabled"
+      ],
+      "attributes": {
+        "data-variant": {
+          "values": [
+            "primary",
+            "secondary",
+            "ghost",
+            "danger"
+          ],
+          "default": "primary"
+        },
+        "data-size": {
+          "values": [
+            "md",
+            "sm"
+          ],
+          "default": "md"
+        },
+        "data-state": {
+          "values": [
+            "default",
+            "hover",
+            "focus"
+          ],
+          "default": "default"
+        }
+      },
+      "parts": [
+        "fd-button__label"
+      ],
+      "styles": {
+        "variant=primary": {
+          "bg": "action/primary",
+          "fg": "text/on-action"
+        },
+        "variant=primary, state=hover": {
+          "bg": "action/primary-hover"
+        },
+        "variant=secondary": {
+          "bg": "bg/surface",
+          "fg": "text/primary",
+          "border": "border/input",
+          "borderWidth": "default"
+        },
+        "variant=secondary, state=hover": {
+          "bg": "bg/subtle"
+        },
+        "variant=ghost": {
+          "fg": "feedback/info-fg"
+        },
+        "variant=ghost, state=hover": {
+          "bg": "bg/subtle"
+        },
+        "variant=danger": {
+          "bg": "action/danger",
+          "fg": "text/on-action"
+        },
+        "variant=danger, state=hover": {
+          "bg": "action/danger-hover"
+        },
+        "state=focus": {
+          "ring": "focus/ring",
+          "ringWidth": "strong"
+        },
+        "disabled=true": {
+          "bg": "bg/disabled",
+          "fg": "text/disabled"
+        }
+      },
+      "colorTokens": [
+        "--fd-color-action-primary",
+        "--fd-color-text-on-action",
+        "--fd-color-action-primary-hover",
+        "--fd-color-bg-surface",
+        "--fd-color-text-primary",
+        "--fd-color-border-input",
+        "--fd-color-bg-subtle",
+        "--fd-color-feedback-info-fg",
+        "--fd-color-action-danger",
+        "--fd-color-action-danger-hover",
+        "--fd-color-focus-ring",
+        "--fd-color-bg-disabled",
+        "--fd-color-text-disabled"
+      ],
+      "slots": [],
+      "rules": [
+        {
+          "id": "button/one-primary",
+          "text": "Höchstens ein primärer Button pro Ansicht; ein danger-Button zählt als primär.",
+          "why": "Mehrere primäre Aktionen konkurrieren um Aufmerksamkeit.",
+          "check": "max-per-view"
+        },
+        {
+          "id": "button/label-verb",
+          "text": "Beschriftung beginnt mit einem Verb und nennt das Ergebnis.",
+          "why": "Nutzer:innen wissen vor dem Klick, was passiert.",
+          "check": null
+        },
+        {
+          "id": "button/no-custom-colors",
+          "text": "Farbe nur über variant, nie eigene Füllungen.",
+          "why": "Sonst brechen Dark Mode und Kontrastgarantie.",
+          "check": "no-raw-color"
+        },
+        {
+          "id": "button/states-from-system",
+          "text": "Hover und Fokus kommen aus der Komponente, nie selbst gestaltet.",
+          "why": "Der Fokusring ist eine Zusage an Tastaturnutzer:innen und muss überall gleich aussehen.",
+          "check": null
+        },
+        {
+          "id": "button/danger-confirm",
+          "text": "variant=danger nur für Aktionen, die etwas unwiderruflich löschen oder beenden, und nie als einzige Absicherung.",
+          "why": "Rot warnt, schützt aber nicht vor einem versehentlichen Klick; es braucht zusätzlich eine Bestätigung.",
+          "check": null
+        }
+      ],
+      "a11y": "Immer als <button> umsetzen. Deaktiviert nur, wenn ein Hinweis erklärt, warum.",
+      "element": "fd-button",
+      "attrs": {
+        "variant": {
+          "type": "enum",
+          "values": [
+            "primary",
+            "secondary",
+            "ghost",
+            "danger"
+          ],
+          "default": "primary"
+        },
+        "size": {
+          "type": "enum",
+          "values": [
+            "md",
+            "sm"
+          ],
+          "default": "md"
+        },
+        "disabled": {
+          "type": "boolean",
+          "default": false
+        },
+        "state": {
+          "type": "enum",
+          "values": [
+            "default",
+            "hover",
+            "focus"
+          ],
+          "default": "default"
+        },
+        "label": {
+          "type": "text",
+          "default": "Speichern"
+        }
+      },
+      "passthrough": [
+        "type",
+        "name",
+        "value"
+      ],
+      "slotNames": []
+    },
+    "TextField": {
+      "class": "fd-text-field",
+      "kind": "component",
+      "status": "stable",
+      "version": "1.3.0",
+      "purpose": "Einzeilige Texteingabe mit sichtbarem Label und optionalem Hilfstext.",
+      "deprecated": null,
+      "booleans": [],
+      "attributes": {
+        "data-state": {
+          "values": [
+            "default",
+            "focus",
+            "error",
+            "disabled"
+          ],
+          "default": "default"
+        }
+      },
+      "parts": [
+        "fd-text-field__label",
+        "fd-text-field__value",
+        "fd-text-field__helper-text",
+        "fd-text-field__error-text"
+      ],
+      "styles": {
+        "state=default": {
+          "bg": "bg/surface",
+          "fg": "text/primary",
+          "border": "border/input",
+          "borderWidth": "default",
+          "helper": "text/secondary"
+        },
+        "state=focus": {
+          "ring": "focus/ring",
+          "ringWidth": "strong"
+        },
+        "state=error": {
+          "border": "feedback/danger-fg",
+          "borderWidth": "strong",
+          "helper": "feedback/danger-fg"
+        },
+        "state=disabled": {
+          "bg": "bg/disabled",
+          "fg": "text/disabled"
+        }
+      },
+      "colorTokens": [
+        "--fd-color-bg-surface",
+        "--fd-color-text-primary",
+        "--fd-color-border-input",
+        "--fd-color-text-secondary",
+        "--fd-color-focus-ring",
+        "--fd-color-feedback-danger-fg",
+        "--fd-color-bg-disabled",
+        "--fd-color-text-disabled"
+      ],
+      "slots": [
+        {
+          "name": "trailing",
+          "class": "fd-text-field__trailing",
+          "default": "Button",
+          "element": "fd-button",
+          "show": "show-trailing"
+        }
+      ],
+      "rules": [
+        {
+          "id": "textfield/visible-label",
+          "text": "Label ist immer sichtbar, nie nur als Platzhalter.",
+          "why": "Platzhalter verschwinden beim Tippen und sind für Screenreader unzuverlässig.",
+          "check": "required-prop"
+        },
+        {
+          "id": "textfield/error-text",
+          "text": "Im Fehlerzustand ersetzt errorText den Hilfstext und erklärt, wie man den Fehler behebt.",
+          "why": "Rot allein sagt nicht, was zu tun ist.",
+          "check": null
+        },
+        {
+          "id": "textfield/trailing-slot",
+          "text": "Aktionen im Feld (Passwort anzeigen, Eingabe leeren) nur über den Slot trailing, mit einem Button variant=ghost size=sm.",
+          "why": "Selbst über das Feld gelegte Knöpfe verlieren Fokusreihenfolge und Abstände.",
+          "check": "slot-content"
+        },
+        {
+          "id": "textfield/trailing-behavior",
+          "text": "Passwort anzeigen und Eingabe leeren kommen über trailingAction (reveal, clear), nicht über eigenes Skript.",
+          "why": "Nur so stimmen Beschriftung, aria-pressed und Fokus bei jedem Feld überein.",
+          "check": null
+        }
+      ],
+      "a11y": "Label per <label for> verknüpfen, Hilfs- und Fehlertext per aria-describedby; Fehler mit aria-invalid.",
+      "element": "fd-text-field",
+      "attrs": {
+        "state": {
+          "type": "enum",
+          "values": [
+            "default",
+            "focus",
+            "error",
+            "disabled"
+          ],
+          "default": "default"
+        },
+        "label": {
+          "type": "text",
+          "default": "E-Mail-Adresse"
+        },
+        "value": {
+          "type": "text",
+          "default": "name@beispiel.de"
+        },
+        "helper-text": {
+          "type": "text",
+          "default": "Wir senden dir einen Bestätigungslink."
+        },
+        "show-helper": {
+          "type": "boolean",
+          "default": true
+        },
+        "error-text": {
+          "type": "text",
+          "default": "Bitte gib eine gültige E-Mail-Adresse ein."
+        },
+        "show-trailing": {
+          "type": "boolean",
+          "default": false
+        },
+        "trailing-action": {
+          "type": "enum",
+          "values": [
+            "none",
+            "reveal",
+            "clear"
+          ],
+          "default": "none"
+        }
+      },
+      "passthrough": [
+        "name",
+        "type",
+        "autocomplete",
+        "inputmode",
+        "required"
+      ],
+      "slotNames": [
+        "trailing"
+      ]
+    },
+    "Checkbox": {
+      "class": "fd-checkbox",
+      "kind": "component",
+      "status": "stable",
+      "version": "1.2.0",
+      "purpose": "Auswahl einer unabhängigen Option, die man an- oder abwählen kann.",
+      "deprecated": null,
+      "booleans": [
+        "checked",
+        "disabled"
+      ],
+      "attributes": {
+        "data-state": {
+          "values": [
+            "default",
+            "focus"
+          ],
+          "default": "default"
+        }
+      },
+      "parts": [
+        "fd-checkbox__label",
+        "fd-checkbox__helper-text"
+      ],
+      "styles": {
+        "checked=false": {
+          "bg": "bg/surface",
+          "fg": "text/primary",
+          "border": "border/input",
+          "borderWidth": "default",
+          "helper": "text/secondary"
+        },
+        "checked=true": {
+          "bg": "action/primary",
+          "mark": "text/on-action"
+        },
+        "state=focus": {
+          "ring": "focus/ring",
+          "ringWidth": "strong"
+        },
+        "disabled=true": {
+          "bg": "bg/disabled",
+          "fg": "text/disabled",
+          "mark": "text/disabled"
+        }
+      },
+      "colorTokens": [
+        "--fd-color-bg-surface",
+        "--fd-color-text-primary",
+        "--fd-color-border-input",
+        "--fd-color-text-secondary",
+        "--fd-color-action-primary",
+        "--fd-color-text-on-action",
+        "--fd-color-focus-ring",
+        "--fd-color-bg-disabled",
+        "--fd-color-text-disabled"
+      ],
+      "slots": [],
+      "rules": [
+        {
+          "id": "checkbox/label-clickable",
+          "text": "Das Label ist Teil der Klickfläche.",
+          "why": "Die Box allein ist mit 20 px zu klein für Touch.",
+          "check": null
+        },
+        {
+          "id": "checkbox/disabled-reason",
+          "text": "Ist die Checkbox deaktiviert, erklärt helperText den Grund.",
+          "why": "Ohne Erklärung wirkt ein deaktiviertes Element wie ein Fehler.",
+          "check": "required-when-disabled"
+        }
+      ],
+      "a11y": "Natives <input type=\"checkbox\"> mit <label>; Klickfläche mindestens 44 × 44 px.",
+      "element": "fd-checkbox",
+      "attrs": {
+        "checked": {
+          "type": "boolean",
+          "default": false
+        },
+        "disabled": {
+          "type": "boolean",
+          "default": false
+        },
+        "state": {
+          "type": "enum",
+          "values": [
+            "default",
+            "focus"
+          ],
+          "default": "default"
+        },
+        "label": {
+          "type": "text",
+          "default": "Angemeldet bleiben"
+        },
+        "helper-text": {
+          "type": "text",
+          "default": "Du kannst das später ändern."
+        },
+        "show-helper": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "passthrough": [
+        "name",
+        "value"
+      ],
+      "slotNames": []
+    },
+    "Switch": {
+      "class": "fd-switch",
+      "kind": "component",
+      "status": "stable",
+      "version": "1.0.0",
+      "purpose": "Schaltet eine Einstellung sofort ein oder aus, ohne Speichern.",
+      "deprecated": null,
+      "booleans": [
+        "checked",
+        "disabled"
+      ],
+      "attributes": {
+        "data-state": {
+          "values": [
+            "default",
+            "focus"
+          ],
+          "default": "default"
+        }
+      },
+      "parts": [
+        "fd-switch__label",
+        "fd-switch__helper-text"
+      ],
+      "styles": {
+        "checked=false": {
+          "bg": "border/input",
+          "thumb": "text/on-action",
+          "fg": "text/primary",
+          "helper": "text/secondary"
+        },
+        "checked=true": {
+          "bg": "action/primary"
+        },
+        "state=focus": {
+          "ring": "focus/ring",
+          "ringWidth": "strong"
+        },
+        "disabled=true": {
+          "bg": "bg/disabled",
+          "thumb": "text/disabled",
+          "fg": "text/disabled"
+        }
+      },
+      "colorTokens": [
+        "--fd-color-border-input",
+        "--fd-color-text-on-action",
+        "--fd-color-text-primary",
+        "--fd-color-text-secondary",
+        "--fd-color-action-primary",
+        "--fd-color-focus-ring",
+        "--fd-color-bg-disabled",
+        "--fd-color-text-disabled"
+      ],
+      "slots": [],
+      "rules": [
+        {
+          "id": "switch/immediate",
+          "text": "Nur für Einstellungen, die sofort wirken. Braucht es Speichern, eine Checkbox verwenden.",
+          "why": "Ein Schalter verspricht, dass die Änderung schon gilt.",
+          "check": null
+        },
+        {
+          "id": "switch/disabled-reason",
+          "text": "Ist der Schalter deaktiviert, erklärt helperText den Grund.",
+          "why": "Ohne Erklärung wirkt ein deaktiviertes Element wie ein Fehler.",
+          "check": "required-when-disabled"
+        }
+      ],
+      "a11y": "Als <button role=\"switch\"> mit aria-checked umsetzen; das Label benennt die Einstellung, nicht den Zustand.",
+      "element": "fd-switch",
+      "attrs": {
+        "checked": {
+          "type": "boolean",
+          "default": false
+        },
+        "disabled": {
+          "type": "boolean",
+          "default": false
+        },
+        "state": {
+          "type": "enum",
+          "values": [
+            "default",
+            "focus"
+          ],
+          "default": "default"
+        },
+        "label": {
+          "type": "text",
+          "default": "E-Mail-Benachrichtigungen"
+        },
+        "helper-text": {
+          "type": "text",
+          "default": "Wir schreiben dir höchstens einmal pro Woche."
+        },
+        "show-helper": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "passthrough": [
+        "name"
+      ],
+      "slotNames": []
+    },
+    "Badge": {
+      "class": "fd-badge",
+      "kind": "component",
+      "status": "stable",
+      "version": "1.0.0",
+      "purpose": "Kurzer Status oder Kategorie, nicht interaktiv.",
+      "deprecated": null,
+      "booleans": [],
+      "attributes": {
+        "data-tone": {
+          "values": [
+            "neutral",
+            "info",
+            "success",
+            "warning",
+            "danger"
+          ],
+          "default": "neutral"
+        }
+      },
+      "parts": [
+        "fd-badge__label"
+      ],
+      "styles": {
+        "tone=neutral": {
+          "bg": "bg/subtle",
+          "fg": "text/secondary"
+        },
+        "tone=info": {
+          "bg": "feedback/info-bg",
+          "fg": "feedback/info-fg"
+        },
+        "tone=success": {
+          "bg": "feedback/success-bg",
+          "fg": "feedback/success-fg"
+        },
+        "tone=warning": {
+          "bg": "feedback/warning-bg",
+          "fg": "feedback/warning-fg"
+        },
+        "tone=danger": {
+          "bg": "feedback/danger-bg",
+          "fg": "feedback/danger-fg"
+        }
+      },
+      "colorTokens": [
+        "--fd-color-bg-subtle",
+        "--fd-color-text-secondary",
+        "--fd-color-feedback-info-bg",
+        "--fd-color-feedback-info-fg",
+        "--fd-color-feedback-success-bg",
+        "--fd-color-feedback-success-fg",
+        "--fd-color-feedback-warning-bg",
+        "--fd-color-feedback-warning-fg",
+        "--fd-color-feedback-danger-bg",
+        "--fd-color-feedback-danger-fg"
+      ],
+      "slots": [],
+      "rules": [
+        {
+          "id": "badge/short-label",
+          "text": "Höchstens zwei Wörter.",
+          "why": "Badges werden überflogen, nicht gelesen.",
+          "check": "max-words"
+        },
+        {
+          "id": "badge/not-interactive",
+          "text": "Nie klickbar; für Filter einen Chip verwenden.",
+          "why": "Badges sehen nicht nach Bedienelement aus.",
+          "check": null
+        }
+      ],
+      "a11y": "Bedeutung steht im Text, nicht nur in der Farbe.",
+      "element": "fd-badge",
+      "attrs": {
+        "tone": {
+          "type": "enum",
+          "values": [
+            "neutral",
+            "info",
+            "success",
+            "warning",
+            "danger"
+          ],
+          "default": "neutral"
+        },
+        "label": {
+          "type": "text",
+          "default": "Neu"
+        }
+      },
+      "passthrough": [],
+      "slotNames": []
+    },
+    "Alert": {
+      "class": "fd-alert",
+      "kind": "component",
+      "status": "stable",
+      "version": "1.0.1",
+      "purpose": "Hinweis im Seitenfluss zu Status, Erfolg, Warnung oder Fehler.",
+      "deprecated": null,
+      "booleans": [],
+      "attributes": {
+        "data-tone": {
+          "values": [
+            "info",
+            "success",
+            "warning",
+            "danger"
+          ],
+          "default": "info"
+        }
+      },
+      "parts": [
+        "fd-alert__title",
+        "fd-alert__description"
+      ],
+      "styles": {
+        "tone=info": {
+          "bg": "feedback/info-bg",
+          "fg": "feedback/info-fg",
+          "body": "text/primary",
+          "border": "feedback/info-fg",
+          "borderWidth": "accent"
+        },
+        "tone=success": {
+          "bg": "feedback/success-bg",
+          "fg": "feedback/success-fg",
+          "body": "text/primary",
+          "border": "feedback/success-fg",
+          "borderWidth": "accent"
+        },
+        "tone=warning": {
+          "bg": "feedback/warning-bg",
+          "fg": "feedback/warning-fg",
+          "body": "text/primary",
+          "border": "feedback/warning-fg",
+          "borderWidth": "accent"
+        },
+        "tone=danger": {
+          "bg": "feedback/danger-bg",
+          "fg": "feedback/danger-fg",
+          "body": "text/primary",
+          "border": "feedback/danger-fg",
+          "borderWidth": "accent"
+        }
+      },
+      "colorTokens": [
+        "--fd-color-feedback-info-bg",
+        "--fd-color-feedback-info-fg",
+        "--fd-color-text-primary",
+        "--fd-color-feedback-success-bg",
+        "--fd-color-feedback-success-fg",
+        "--fd-color-feedback-warning-bg",
+        "--fd-color-feedback-warning-fg",
+        "--fd-color-feedback-danger-bg",
+        "--fd-color-feedback-danger-fg"
+      ],
+      "slots": [],
+      "rules": [
+        {
+          "id": "alert/one-per-area",
+          "text": "Höchstens ein Alert pro Bereich.",
+          "why": "Mehrere Hinweise übereinander werden ignoriert.",
+          "check": "max-per-parent"
+        },
+        {
+          "id": "alert/title-states-outcome",
+          "text": "Titel nennt das Ergebnis, Beschreibung den nächsten Schritt.",
+          "why": "Man soll den Titel allein verstehen können.",
+          "check": null
+        }
+      ],
+      "a11y": "Fehler und Warnungen mit role=\"alert\", Info und Erfolg mit role=\"status\".",
+      "element": "fd-alert",
+      "attrs": {
+        "tone": {
+          "type": "enum",
+          "values": [
+            "info",
+            "success",
+            "warning",
+            "danger"
+          ],
+          "default": "info"
+        },
+        "title": {
+          "type": "text",
+          "default": "Änderungen gespeichert"
+        },
+        "description": {
+          "type": "text",
+          "default": "Deine Einstellungen gelten ab sofort."
+        }
+      },
+      "passthrough": [],
+      "slotNames": []
+    },
+    "Card": {
+      "class": "fd-card",
+      "kind": "component",
+      "status": "stable",
+      "version": "1.1.0",
+      "purpose": "Gruppiert zusammengehörige Inhalte mit optionaler Aktion.",
+      "deprecated": null,
+      "booleans": [],
+      "attributes": {},
+      "parts": [
+        "fd-card__title",
+        "fd-card__body"
+      ],
+      "styles": {
+        "default": {
+          "bg": "bg/surface",
+          "fg": "text/primary",
+          "body": "text/secondary",
+          "border": "border/default",
+          "borderWidth": "default"
+        }
+      },
+      "colorTokens": [
+        "--fd-color-bg-surface",
+        "--fd-color-text-primary",
+        "--fd-color-text-secondary",
+        "--fd-color-border-default"
+      ],
+      "slots": [
+        {
+          "name": "action",
+          "class": "fd-card__action",
+          "default": "Button",
+          "element": "fd-button",
+          "show": "show-action"
+        },
+        {
+          "name": "badge",
+          "class": "fd-card__badge",
+          "default": "Badge",
+          "element": "fd-badge",
+          "show": "show-badge"
+        }
+      ],
+      "rules": [
+        {
+          "id": "card/one-action",
+          "text": "Höchstens eine Aktion im Footer.",
+          "why": "Karten sind Einstiege, keine Formulare.",
+          "check": "max-children"
+        },
+        {
+          "id": "card/no-nesting",
+          "text": "Keine Karten in Karten.",
+          "why": "Verschachtelte Rahmen zerstören die Hierarchie.",
+          "check": "no-nesting"
+        },
+        {
+          "id": "card/badge-slot",
+          "text": "Eine Kennzeichnung der Karte (z. B. „Aktuell“) gehört in den Slot badge, nicht daneben oder darüber.",
+          "why": "Nur im Slot bleibt die Kennzeichnung beim Umbruch an der Karte.",
+          "check": "slot-content"
+        }
+      ],
+      "a11y": "Titel als Überschrift passender Ebene; ist die ganze Karte klickbar, nur ein Link darin.",
+      "element": "fd-card",
+      "attrs": {
+        "title": {
+          "type": "text",
+          "default": "Kartentitel"
+        },
+        "body": {
+          "type": "text",
+          "default": "Kurze Beschreibung des Inhalts in ein bis zwei Sätzen."
+        },
+        "show-footer": {
+          "type": "boolean",
+          "default": true
+        },
+        "show-badge": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "passthrough": [],
+      "slotNames": [
+        "action",
+        "badge"
+      ]
+    },
+    "SignInForm": {
+      "class": "fd-sign-in-form",
+      "kind": "pattern",
+      "status": "stable",
+      "version": "1.0.2",
+      "purpose": "Vollständiges Anmeldeformular aus TextField, Checkbox und Button. Als Ganzes verwenden statt neu zusammenzubauen.",
+      "deprecated": null,
+      "booleans": [],
+      "attributes": {},
+      "parts": [],
+      "styles": {
+        "default": {
+          "bg": "bg/surface",
+          "fg": "text/primary",
+          "border": "border/default",
+          "borderWidth": "default"
+        }
+      },
+      "colorTokens": [
+        "--fd-color-bg-surface",
+        "--fd-color-text-primary",
+        "--fd-color-border-default"
+      ],
+      "slots": [],
+      "rules": [
+        {
+          "id": "signinform/compose-from-system",
+          "text": "Nur aus Systemkomponenten zusammensetzen.",
+          "why": "Muster zeigen Agenten und Menschen, wie Bausteine kombiniert werden.",
+          "check": "registered-only"
+        }
+      ],
+      "a11y": "Fehlermeldungen oberhalb der Felder zusammenfassen und fokussieren.",
+      "element": "fd-sign-in-form",
+      "attrs": {},
+      "passthrough": [],
+      "slotNames": []
+    },
+    "LinkButton": {
+      "class": "fd-link-button",
+      "kind": "component",
+      "status": "deprecated",
+      "version": "0.9.0",
+      "purpose": "Veraltet seit 1.0. Ersetzt durch Button variant=ghost.",
+      "deprecated": {
+        "since": "1.0.0",
+        "use": "Button variant=ghost"
+      },
+      "booleans": [],
+      "attributes": {},
+      "parts": [
+        "fd-link-button__label"
+      ],
+      "styles": {
+        "default": {
+          "fg": "feedback/info-fg"
+        }
+      },
+      "colorTokens": [
+        "--fd-color-feedback-info-fg"
+      ],
+      "slots": [],
+      "rules": [],
+      "a11y": "–",
+      "element": "fd-link-button",
+      "attrs": {
+        "label": {
+          "type": "text",
+          "default": "Mehr"
+        }
+      },
+      "passthrough": [],
+      "slotNames": []
+    }
+  }
+}

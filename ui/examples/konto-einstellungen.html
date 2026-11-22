@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Konto-Einstellungen</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../components.css">
+<script type="module" src="../fundament.js"></script>
+<style>
+  body { margin: 0; padding: var(--fd-space-3xl); background: var(--fd-color-bg-canvas); }
+  main { display: flex; flex-direction: column; gap: var(--fd-space-2xl); max-width: 784px; }
+  h1 { font: var(--fd-text-display); color: var(--fd-color-text-primary); margin: 0; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--fd-space-lg); }
+  .status { display: flex; gap: var(--fd-space-sm); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Konto-Einstellungen</h1>
+  <fd-alert tone="success" title="Änderungen gespeichert" description="Deine Einstellungen gelten ab sofort."></fd-alert>
+  <div class="cards">
+    <fd-card title="Profil" body="Name, Foto und öffentliche Angaben." show-badge>
+      <fd-badge slot="badge" tone="success" label="Vollständig"></fd-badge>
+      <fd-button slot="action" variant="secondary" label="Profil bearbeiten"></fd-button>
+    </fd-card>
+    <fd-card title="Benachrichtigungen" body="Lege fest, wann wir dir schreiben.">
+      <fd-button slot="action" variant="secondary" label="Benachrichtigungen ändern"></fd-button>
+    </fd-card>
+  </div>
+  <div class="status">
+    <fd-badge tone="success" label="Verifiziert"></fd-badge>
+    <fd-badge tone="neutral" label="Basis-Tarif"></fd-badge>
+  </div>
+  <fd-switch label="E-Mail-Benachrichtigungen" checked show-helper helper-text="Wir schreiben dir höchstens einmal pro Woche."></fd-switch>
+  <fd-sign-in-form></fd-sign-in-form>
+</main>
+</body>
+</html>

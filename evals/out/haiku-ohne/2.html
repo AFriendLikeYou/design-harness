@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tarif</title>
+<link rel="stylesheet" href="../../../ui/tokens.css">
+<link rel="stylesheet" href="../../../ui/components.css">
+<script type="module" src="../../../ui/fundament.js"></script>
+<style>
+  body { margin: 0; background: var(--fd-color-bg-canvas); color: var(--fd-color-text-primary); font: var(--fd-text-body-md); }
+  main { max-width: 960px; margin: 0 auto; padding: var(--fd-space-2xl) var(--fd-space-lg); display: flex; flex-direction: column; gap: var(--fd-space-xl); }
+  h1 { font: var(--fd-text-heading-lg); margin: 0; color: var(--fd-color-text-primary); }
+  .p { margin: 0; font: var(--fd-text-body-sm); color: var(--fd-color-text-secondary); }
+  .tarife { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--fd-space-lg); align-items: start; }
+  .tarif { display: flex; flex-direction: column; gap: var(--fd-space-sm); }
+  .tarif fd-badge { align-self: flex-start; }
+  @media (max-width: 760px) { .tarife { grid-template-columns: minmax(0, 1fr); } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Tarif</h1>
+  <p class="p">Du kannst deinen Tarif jederzeit wechseln. Die Änderung gilt ab dem nächsten Abrechnungstermin.</p>
+  <div class="tarife">
+    <div class="tarif">
+      <fd-card title="Basis" body="4,90 € im Monat. Werbefrei lesen auf einem Gerät.">
+        <fd-button slot="action" variant="secondary" label="Auf Basis wechseln"></fd-button>
+      </fd-card>
+    </div>
+    <div class="tarif">
+      <fd-badge tone="success" label="Aktueller Tarif"></fd-badge>
+      <fd-card title="Plus" body="9,90 € im Monat. Werbefrei auf allen Geräten, Archiv inklusive.">
+        <fd-button slot="action" variant="secondary" label="Tarif verwalten"></fd-button>
+      </fd-card>
+    </div>
+    <div class="tarif">
+      <fd-card title="Premium" body="14,90 € im Monat. Alles aus Plus, dazu Familienzugang für bis zu vier Personen.">
+        <fd-button slot="action" variant="primary" label="Auf Premium wechseln"></fd-button>
+      </fd-card>
+    </div>
+  </div>
+</main>
+</body>
+</html>

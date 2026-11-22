@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tarif</title>
+<link rel="stylesheet" href="../../../ui/tokens.css">
+<link rel="stylesheet" href="../../../ui/components.css">
+<style>
+  body { margin: 0; background: var(--fd-color-bg-canvas); color: var(--fd-color-text-primary); font: var(--fd-text-body-md); }
+  main { display: flex; flex-direction: column; gap: var(--fd-space-xl); max-width: 1024px; margin: 0 auto; padding: var(--fd-space-3xl) var(--fd-space-lg); }
+  h1 { font: var(--fd-text-heading-lg); margin: 0; }
+  p { margin: 0; font: var(--fd-text-body-md); color: var(--fd-color-text-secondary); }
+  .tarife { display: grid; grid-template-columns: repeat(auto-fit, minmax(var(--fd-size-field), 1fr)); gap: var(--fd-space-lg); align-items: stretch; }
+  .tarife fd-card { height: 100%; box-sizing: border-box; }
+</style>
+<script type="module" src="../../../ui/fundament.js"></script>
+</head>
+<body>
+<main>
+  <h1>Tarif</h1>
+  <p>Du kannst jederzeit wechseln. Änderungen gelten ab dem nächsten Abrechnungstag.</p>
+  <div class="tarife">
+    <fd-card title="Basis" body="4,99 € im Monat. Zugang zu allen Artikeln, mit Werbung.">
+      <fd-button slot="action" variant="secondary" label="Auf Basis wechseln"></fd-button>
+    </fd-card>
+    <fd-card title="Plus" body="9,99 € im Monat. Alle Artikel ohne Werbung und das E-Paper.">
+      <fd-badge slot="action" tone="success" label="Aktueller Tarif"></fd-badge>
+      <fd-button slot="action" variant="secondary" label="Tarif verwalten"></fd-button>
+    </fd-card>
+    <fd-card title="Premium" body="14,99 € im Monat. Plus mit Hintergrundberichten und Archiv seit 1946.">
+      <fd-button slot="action" label="Auf Premium wechseln"></fd-button>
+    </fd-card>
+  </div>
+</main>
+</body>
+</html>

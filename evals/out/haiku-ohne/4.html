@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Benachrichtigungen</title>
+<link rel="stylesheet" href="../../../ui/tokens.css">
+<link rel="stylesheet" href="../../../ui/components.css">
+<script type="module" src="../../../ui/fundament.js"></script>
+<style>
+  body { margin: 0; background: var(--fd-color-bg-canvas); color: var(--fd-color-text-primary); font: var(--fd-text-body-md); }
+  main { max-width: 640px; margin: 0 auto; padding: var(--fd-space-2xl) var(--fd-space-lg); display: flex; flex-direction: column; gap: var(--fd-space-xl); }
+  h1 { font: var(--fd-text-heading-lg); margin: 0; color: var(--fd-color-text-primary); }
+  .panel { display: flex; flex-direction: column; gap: var(--fd-space-lg); padding: var(--fd-space-xl); border: var(--fd-border-width-default) solid var(--fd-color-border-default); border-radius: var(--fd-radius-lg); background: var(--fd-color-bg-surface); }
+  .panel h2 { font: var(--fd-text-heading-md); margin: 0; color: var(--fd-color-text-primary); }
+  .list { display: flex; flex-direction: column; gap: var(--fd-space-md); }
+  .actions { display: flex; justify-content: flex-end; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Benachrichtigungen</h1>
+  <form class="panel" id="form">
+    <h2>Welche Nachrichten möchtest du erhalten?</h2>
+    <div class="list">
+      <fd-checkbox name="news" label="Wöchentlicher Newsletter" helper-text="Eine Zusammenfassung der Woche, freitags." show-helper checked></fd-checkbox>
+      <fd-checkbox name="follow" label="Neue Folgen meiner Lieblingsthemen" helper-text="Wenn ein Thema, dem du folgst, neue Beiträge hat." show-helper></fd-checkbox>
+      <fd-checkbox name="offers" label="Angebote und Aktionen" helper-text="Rabatte und Sonderaktionen, höchstens einmal im Monat." show-helper></fd-checkbox>
+      <fd-checkbox name="security" label="Sicherheitshinweise zu deinem Konto" helper-text="Diese Hinweise sind vorgeschrieben und lassen sich nicht abwählen." show-helper checked disabled></fd-checkbox>
+    </div>
+    <div class="actions">
+      <fd-button type="submit" label="Speichern"></fd-button>
+    </div>
+  </form>
+</main>
+<script type="module">
+  document.getElementById('form').addEventListener('submit', (e) => e.preventDefault());
+</script>
+</body>
+</html>

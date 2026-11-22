@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Benachrichtigungen</title>
+<link rel="stylesheet" href="../../../ui/tokens.css">
+<link rel="stylesheet" href="../../../ui/components.css">
+<style>
+  body { margin: 0; background: var(--fd-color-bg-canvas); color: var(--fd-color-text-primary); font: var(--fd-text-body-md); }
+  main { display: flex; flex-direction: column; gap: var(--fd-space-xl); max-width: var(--fd-size-panel); margin: 0 auto; padding: var(--fd-space-3xl) var(--fd-space-lg); }
+  h1 { font: var(--fd-text-heading-lg); margin: 0; }
+  form { display: flex; flex-direction: column; gap: var(--fd-space-xl); }
+  fieldset { display: flex; flex-direction: column; gap: var(--fd-space-lg); margin: 0; padding: 0; border: 0; }
+  legend { font: var(--fd-text-label-md); color: var(--fd-color-text-secondary); padding: 0; margin-bottom: var(--fd-space-sm); }
+  .actions { display: flex; justify-content: flex-end; }
+</style>
+<script type="module" src="../../../ui/fundament.js"></script>
+</head>
+<body>
+<main>
+  <h1>Benachrichtigungen</h1>
+  <form id="benachrichtigungen-form">
+    <fieldset>
+      <legend>Mitteilungen</legend>
+      <fd-checkbox label="E-Mail mit den Nachrichten des Tages" name="mail-tagesnachrichten" checked></fd-checkbox>
+      <fd-checkbox label="Push bei Eilmeldungen" name="push-eilmeldungen" checked></fd-checkbox>
+      <fd-checkbox label="Newsletter am Wochenende" name="newsletter-wochenende"></fd-checkbox>
+      <fd-checkbox label="Hinweise zur Sicherheit deines Kontos" name="sicherheitshinweise" checked disabled show-helper helper-text="Diese Mitteilung ist vorgeschrieben und lässt sich nicht abwählen."></fd-checkbox>
+    </fieldset>
+    <div class="actions">
+      <fd-button type="submit" label="Speichern"></fd-button>
+    </div>
+  </form>
+</main>
+<script type="module">
+  document.getElementById('benachrichtigungen-form').addEventListener('submit', (e) => e.preventDefault());
+</script>
+</body>
+</html>

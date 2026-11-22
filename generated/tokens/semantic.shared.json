@@ -1,0 +1,101 @@
+{
+  "space": {
+    "$type": "dimension",
+    "2xs": {
+      "$value": "{dimension.2}",
+      "$description": "Feinabstand, z. B. Label zu Feld."
+    },
+    "xs": {
+      "$value": "{dimension.4}",
+      "$description": "Abstand innerhalb kleiner Elemente."
+    },
+    "sm": {
+      "$value": "{dimension.8}",
+      "$description": "Standardabstand zwischen verwandten Elementen."
+    },
+    "md": {
+      "$value": "{dimension.12}",
+      "$description": "Innenabstand kleiner Bedienelemente."
+    },
+    "lg": {
+      "$value": "{dimension.16}",
+      "$description": "Innenabstand Bedienelemente, Abstand zwischen Feldern."
+    },
+    "xl": {
+      "$value": "{dimension.24}",
+      "$description": "Innenabstand Karten, Abstand zwischen Gruppen."
+    },
+    "2xl": {
+      "$value": "{dimension.32}",
+      "$description": "Abstand zwischen Abschnitten."
+    },
+    "3xl": {
+      "$value": "{dimension.48}",
+      "$description": "Seitenränder auf großen Viewports."
+    }
+  },
+  "radius": {
+    "$type": "dimension",
+    "sm": {
+      "$value": "{dimension.4}",
+      "$description": "Checkboxen und kleine Flächen."
+    },
+    "md": {
+      "$value": "{dimension.8}",
+      "$description": "Buttons und Eingabefelder."
+    },
+    "lg": {
+      "$value": "{dimension.12}",
+      "$description": "Karten und Hinweise."
+    },
+    "full": {
+      "$value": {
+        "value": 999,
+        "unit": "px"
+      },
+      "$description": "Badges und Pillen."
+    }
+  },
+  "border-width": {
+    "$type": "dimension",
+    "default": {
+      "$value": "{dimension.1}",
+      "$description": "Rahmen von Feldern, Karten und sekundären Buttons."
+    },
+    "strong": {
+      "$value": "{dimension.2}",
+      "$description": "Fehlerrahmen und Fokusring."
+    },
+    "accent": {
+      "$value": "{dimension.4}",
+      "$description": "Akzentkante von Hinweisen."
+    }
+  },
+  "size": {
+    "$type": "dimension",
+    "checkbox": {
+      "$value": "{dimension.20}",
+      "$description": "Kantenlänge der Checkbox."
+    },
+    "touch-target": {
+      "$value": "{dimension.44}",
+      "$description": "Mindesthöhe der Klickfläche von Bedienelementen mit kleiner Darstellung."
+    },
+    "switch-width": {
+      "$value": "{dimension.36}",
+      "$description": "Breite der Schalterbahn."
+    },
+    "switch-thumb": {
+      "$value": "{dimension.16}",
+      "$description": "Durchmesser des Schalterknopfs."
+    },
+    "field": {
+      "$value": "{dimension.320}",
+      "$description": "Vorschaubreite eines Eingabefelds; im Layout füllt das Feld seinen Container."
+    },
+    "panel": {
+      "$value": "{dimension.360}",
+      "$description": "Höchstbreite schmaler Formulare und Hinweise."
+    }
+  }
+}

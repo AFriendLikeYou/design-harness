@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="de" data-fd-specimen>
+<head><meta charset="utf-8"><title>Test</title>
+<link rel="stylesheet" href="../ui/tokens.css"><link rel="stylesheet" href="../ui/components.css">
+</head>
+<body>
+<fd-button id="b" variant="danger" label="Konto löschen"></fd-button>
+<fd-text-field id="t" state="error" label="E-Mail" value="x" error-text="Bitte prüfen." show-trailing><fd-button slot="trailing" variant="ghost" size="sm" label="Leeren"></fd-button></fd-text-field>
+<fd-checkbox id="c" label="A" disabled show-helper helper-text="Grund"></fd-checkbox>
+<fd-switch id="s" label="Schalter"></fd-switch>
+<fd-alert id="a" tone="danger" title="Titel" description="Text"></fd-alert>
+<fd-alert id="a2" tone="info" title="Info"></fd-alert>
+<fd-card id="k" title="Karte" body="Text"><fd-button slot="action" variant="secondary" label="Öffnen"></fd-button></fd-card>
+<fd-text-field id="cl" label="Suche" value="abc" show-helper="false" show-trailing trailing-action="clear"><fd-button slot="trailing" variant="ghost" size="sm" label="Leeren"></fd-button></fd-text-field>
+<fd-card id="kb" title="Plus" body="x" show-badge><fd-badge slot="badge" tone="info" label="Aktuell"></fd-badge></fd-card>
+<fd-badge id="g" tone="quatsch" label="Neu"></fd-badge>
+<fd-sign-in-form id="f"></fd-sign-in-form>
+<script type="module">
+const warns = []; console.warn = (m) => warns.push(String(m));
+await import('../ui/fundament.js');
+const $ = (s) => document.querySelector(s); const r = {}; const ok = (name, cond) => { r[name] = !!cond; };
+ok('button rendert variant', $('#b button').dataset.variant === 'danger' && $('#b button').textContent === 'Konto löschen');
+ok('button type button', $('#b button').type === 'button');
+const t = $('#t');
+ok('textfield label verknüpft', t.querySelector('label').htmlFor === t.querySelector('input').id);
+ok('textfield fehler aria', t.querySelector('input').getAttribute('aria-invalid') === 'true' && t.querySelector('input').getAttribute('aria-describedby') === t.querySelector('.fd-text-field__error-text').id);
+ok('textfield hilfstext im fehler versteckt', t.querySelector('.fd-text-field__helper-text').hidden && !t.querySelector('.fd-text-field__error-text').hidden);
+ok('textfield slot gefüllt', t.querySelector('.fd-text-field__trailing fd-button button') && !t.querySelector('.fd-text-field__trailing').hidden);
+t.setAttribute('state', 'default'); t.setAttribute('helper-text', 'Hilfe');
+ok('textfield reagiert auf attribut', !t.querySelector('input').hasAttribute('aria-invalid') && !t.querySelector('.fd-text-field__helper-text').hidden);
+ok('textfield value', t.value === 'x');
+ok('checkbox deaktiviert mit grund', $('#c input').disabled && $('#c input').getAttribute('aria-describedby') === $('#c .fd-checkbox__helper-text').id);
+const s = $('#s'); let changed = 0; s.addEventListener('change', () => changed++);
+ok('switch rolle', s.querySelector('button').getAttribute('role') === 'switch' && s.querySelector('button').getAttribute('aria-checked') === 'false');
+s.querySelector('button').click();
+ok('switch schaltet und meldet change', s.checked === true && s.querySelector('button').getAttribute('aria-checked') === 'true' && changed === 1);
+s.querySelector('label').click();
+ok('switch label schaltet', s.checked === false && changed === 2);
+ok('alert rolle alert', $('#a .fd-alert').getAttribute('role') === 'alert' && $('#a2 .fd-alert').getAttribute('role') === 'status');
+ok('alert title ohne tooltip', !$('#a').hasAttribute('title') && $('#a .fd-alert__title').textContent === 'Titel');
+ok('alert ohne beschreibung', $('#a2 .fd-alert__description').hidden);
+ok('card slot action', $('#k .fd-card__footer fd-button') && !$('#k .fd-card__footer').hidden && $('#k h2').textContent === 'Karte');
+ok('badge fällt auf standard zurück', $('#g .fd-badge').dataset.tone === 'neutral');
+ok('ungültiger wert wird gemeldet', warns.some((w) => w.includes('tone="quatsch"')));
+const cl = $('#cl'); let inputs = 0; cl.addEventListener('input', () => inputs++); cl.querySelector('fd-button button').click();
+ok('textfield leeren', cl.value === '' && inputs === 1 && document.activeElement === cl.input);
+ok('card badge im slot', $('#kb .fd-card__badge fd-badge') && !$('#kb .fd-card__badge').hidden && $('#k .fd-card__badge').hidden);
+const f = $('#f'); const pw = f.querySelector('input[name="password"]'); const toggle = f.querySelector('fd-button[slot="trailing"]');
+ok('signin aufbau', f.querySelectorAll('fd-text-field').length === 2 && f.querySelector('fd-checkbox') && f.querySelector('fd-button[type="submit"] button').type === 'submit');
+toggle.querySelector('button').click();
+ok('signin passwort anzeigen', pw.type === 'text' && toggle.getAttribute('label') === 'Verbergen' && toggle.querySelector('button').getAttribute('aria-pressed') === 'true');
+let submitted = 0; f.querySelector('form').addEventListener('submit', (e) => { e.preventDefault(); submitted++; }); f.querySelector('fd-button[type="submit"] button').click();
+ok('signin submit', submitted === 1);
+const cs = getComputedStyle($('#b button'));
+ok('tokens wirken', cs.backgroundColor !== 'rgba(0, 0, 0, 0)' && cs.borderRadius === '8px');
+document.body.setAttribute('data-result', JSON.stringify({ r, warns: warns.length }));
+</script>
+</body>
+</html>

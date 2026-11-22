@@ -1,0 +1,509 @@
+{
+  "$comment": "Generiert. Geprüfte Text/Fläche-Paare je Mode nach WCAG 2.x.",
+  "pairs": [
+    {
+      "fg": "text/primary",
+      "on": "bg/canvas",
+      "mode": "light",
+      "ratio": 16.09,
+      "min": 4.5,
+      "pass": true,
+      "why": "Fließtext"
+    },
+    {
+      "fg": "text/primary",
+      "on": "bg/canvas",
+      "mode": "dark",
+      "ratio": 17.67,
+      "min": 4.5,
+      "pass": true,
+      "why": "Fließtext"
+    },
+    {
+      "fg": "text/primary",
+      "on": "bg/surface",
+      "mode": "light",
+      "ratio": 17.1,
+      "min": 4.5,
+      "pass": true,
+      "why": "Fließtext"
+    },
+    {
+      "fg": "text/primary",
+      "on": "bg/surface",
+      "mode": "dark",
+      "ratio": 16.09,
+      "min": 4.5,
+      "pass": true,
+      "why": "Fließtext"
+    },
+    {
+      "fg": "text/primary",
+      "on": "bg/subtle",
+      "mode": "light",
+      "ratio": 14.98,
+      "min": 4.5,
+      "pass": true,
+      "why": "Fließtext"
+    },
+    {
+      "fg": "text/primary",
+      "on": "bg/subtle",
+      "mode": "dark",
+      "ratio": 13.19,
+      "min": 4.5,
+      "pass": true,
+      "why": "Fließtext"
+    },
+    {
+      "fg": "text/primary",
+      "on": "feedback/info-bg",
+      "mode": "light",
+      "ratio": 15.49,
+      "min": 4.5,
+      "pass": true,
+      "why": "Fließtext"
+    },
+    {
+      "fg": "text/primary",
+      "on": "feedback/info-bg",
+      "mode": "dark",
+      "ratio": 13.19,
+      "min": 4.5,
+      "pass": true,
+      "why": "Fließtext"
+    },
+    {
+      "fg": "text/primary",
+      "on": "feedback/success-bg",
+      "mode": "light",
+      "ratio": 15.68,
+      "min": 4.5,
+      "pass": true,
+      "why": "Fließtext"
+    },
+    {
+      "fg": "text/primary",
+      "on": "feedback/success-bg",
+      "mode": "dark",
+      "ratio": 13.19,
+      "min": 4.5,
+      "pass": true,
+      "why": "Fließtext"
+    },
+    {
+      "fg": "text/primary",
+      "on": "feedback/warning-bg",
+      "mode": "light",
+      "ratio": 15.78,
+      "min": 4.5,
+      "pass": true,
+      "why": "Fließtext"
+    },
+    {
+      "fg": "text/primary",
+      "on": "feedback/warning-bg",
+      "mode": "dark",
+      "ratio": 13.19,
+      "min": 4.5,
+      "pass": true,
+      "why": "Fließtext"
+    },
+    {
+      "fg": "text/primary",
+      "on": "feedback/danger-bg",
+      "mode": "light",
+      "ratio": 15.18,
+      "min": 4.5,
+      "pass": true,
+      "why": "Fließtext"
+    },
+    {
+      "fg": "text/primary",
+      "on": "feedback/danger-bg",
+      "mode": "dark",
+      "ratio": 13.19,
+      "min": 4.5,
+      "pass": true,
+      "why": "Fließtext"
+    },
+    {
+      "fg": "text/secondary",
+      "on": "bg/canvas",
+      "mode": "light",
+      "ratio": 9.22,
+      "min": 4.5,
+      "pass": true,
+      "why": "Hilfstext"
+    },
+    {
+      "fg": "text/secondary",
+      "on": "bg/canvas",
+      "mode": "dark",
+      "ratio": 11.27,
+      "min": 4.5,
+      "pass": true,
+      "why": "Hilfstext"
+    },
+    {
+      "fg": "text/secondary",
+      "on": "bg/surface",
+      "mode": "light",
+      "ratio": 9.79,
+      "min": 4.5,
+      "pass": true,
+      "why": "Hilfstext"
+    },
+    {
+      "fg": "text/secondary",
+      "on": "bg/surface",
+      "mode": "dark",
+      "ratio": 10.26,
+      "min": 4.5,
+      "pass": true,
+      "why": "Hilfstext"
+    },
+    {
+      "fg": "text/secondary",
+      "on": "bg/subtle",
+      "mode": "light",
+      "ratio": 8.58,
+      "min": 4.5,
+      "pass": true,
+      "why": "Hilfstext"
+    },
+    {
+      "fg": "text/secondary",
+      "on": "bg/subtle",
+      "mode": "dark",
+      "ratio": 8.42,
+      "min": 4.5,
+      "pass": true,
+      "why": "Hilfstext"
+    },
+    {
+      "fg": "text/on-action",
+      "on": "action/primary",
+      "mode": "light",
+      "ratio": 6.43,
+      "min": 4.5,
+      "pass": true,
+      "why": "Beschriftung primärer Buttons"
+    },
+    {
+      "fg": "text/on-action",
+      "on": "action/primary",
+      "mode": "dark",
+      "ratio": 6.43,
+      "min": 4.5,
+      "pass": true,
+      "why": "Beschriftung primärer Buttons"
+    },
+    {
+      "fg": "text/on-action",
+      "on": "action/primary-hover",
+      "mode": "light",
+      "ratio": 8.86,
+      "min": 4.5,
+      "pass": true,
+      "why": "Beschriftung primärer Buttons"
+    },
+    {
+      "fg": "text/on-action",
+      "on": "action/primary-hover",
+      "mode": "dark",
+      "ratio": 8.86,
+      "min": 4.5,
+      "pass": true,
+      "why": "Beschriftung primärer Buttons"
+    },
+    {
+      "fg": "text/on-action",
+      "on": "action/danger",
+      "mode": "light",
+      "ratio": 5.8,
+      "min": 4.5,
+      "pass": true,
+      "why": "Beschriftung primärer Buttons"
+    },
+    {
+      "fg": "text/on-action",
+      "on": "action/danger",
+      "mode": "dark",
+      "ratio": 5.8,
+      "min": 4.5,
+      "pass": true,
+      "why": "Beschriftung primärer Buttons"
+    },
+    {
+      "fg": "text/on-action",
+      "on": "action/danger-hover",
+      "mode": "light",
+      "ratio": 7.99,
+      "min": 4.5,
+      "pass": true,
+      "why": "Beschriftung primärer Buttons"
+    },
+    {
+      "fg": "text/on-action",
+      "on": "action/danger-hover",
+      "mode": "dark",
+      "ratio": 7.99,
+      "min": 4.5,
+      "pass": true,
+      "why": "Beschriftung primärer Buttons"
+    },
+    {
+      "fg": "feedback/info-fg",
+      "on": "feedback/info-bg",
+      "mode": "light",
+      "ratio": 8.03,
+      "min": 4.5,
+      "pass": true,
+      "why": "Titel im Alert, Text im Badge"
+    },
+    {
+      "fg": "feedback/info-fg",
+      "on": "feedback/info-bg",
+      "mode": "dark",
+      "ratio": 6.73,
+      "min": 4.5,
+      "pass": true,
+      "why": "Titel im Alert, Text im Badge"
+    },
+    {
+      "fg": "feedback/success-fg",
+      "on": "feedback/success-bg",
+      "mode": "light",
+      "ratio": 6.95,
+      "min": 4.5,
+      "pass": true,
+      "why": "Titel im Alert, Text im Badge"
+    },
+    {
+      "fg": "feedback/success-fg",
+      "on": "feedback/success-bg",
+      "mode": "dark",
+      "ratio": 7.91,
+      "min": 4.5,
+      "pass": true,
+      "why": "Titel im Alert, Text im Badge"
+    },
+    {
+      "fg": "feedback/warning-fg",
+      "on": "feedback/warning-bg",
+      "mode": "light",
+      "ratio": 7.1,
+      "min": 4.5,
+      "pass": true,
+      "why": "Titel im Alert, Text im Badge"
+    },
+    {
+      "fg": "feedback/warning-fg",
+      "on": "feedback/warning-bg",
+      "mode": "dark",
+      "ratio": 8.6,
+      "min": 4.5,
+      "pass": true,
+      "why": "Titel im Alert, Text im Badge"
+    },
+    {
+      "fg": "feedback/danger-fg",
+      "on": "feedback/danger-bg",
+      "mode": "light",
+      "ratio": 7.09,
+      "min": 4.5,
+      "pass": true,
+      "why": "Titel im Alert, Text im Badge"
+    },
+    {
+      "fg": "feedback/danger-fg",
+      "on": "feedback/danger-bg",
+      "mode": "dark",
+      "ratio": 6.88,
+      "min": 4.5,
+      "pass": true,
+      "why": "Titel im Alert, Text im Badge"
+    },
+    {
+      "fg": "feedback/info-fg",
+      "on": "bg/canvas",
+      "mode": "light",
+      "ratio": 8.34,
+      "min": 4.5,
+      "pass": true,
+      "why": "Beschriftung Ghost-Button, auch im Hover"
+    },
+    {
+      "fg": "feedback/info-fg",
+      "on": "bg/canvas",
+      "mode": "dark",
+      "ratio": 9.02,
+      "min": 4.5,
+      "pass": true,
+      "why": "Beschriftung Ghost-Button, auch im Hover"
+    },
+    {
+      "fg": "feedback/info-fg",
+      "on": "bg/surface",
+      "mode": "light",
+      "ratio": 8.86,
+      "min": 4.5,
+      "pass": true,
+      "why": "Beschriftung Ghost-Button, auch im Hover"
+    },
+    {
+      "fg": "feedback/info-fg",
+      "on": "bg/surface",
+      "mode": "dark",
+      "ratio": 8.21,
+      "min": 4.5,
+      "pass": true,
+      "why": "Beschriftung Ghost-Button, auch im Hover"
+    },
+    {
+      "fg": "feedback/info-fg",
+      "on": "bg/subtle",
+      "mode": "light",
+      "ratio": 7.76,
+      "min": 4.5,
+      "pass": true,
+      "why": "Beschriftung Ghost-Button, auch im Hover"
+    },
+    {
+      "fg": "feedback/info-fg",
+      "on": "bg/subtle",
+      "mode": "dark",
+      "ratio": 6.73,
+      "min": 4.5,
+      "pass": true,
+      "why": "Beschriftung Ghost-Button, auch im Hover"
+    },
+    {
+      "fg": "feedback/danger-fg",
+      "on": "bg/canvas",
+      "mode": "light",
+      "ratio": 7.52,
+      "min": 4.5,
+      "pass": true,
+      "why": "Fehlertext unter dem Feld"
+    },
+    {
+      "fg": "feedback/danger-fg",
+      "on": "bg/canvas",
+      "mode": "dark",
+      "ratio": 9.22,
+      "min": 4.5,
+      "pass": true,
+      "why": "Fehlertext unter dem Feld"
+    },
+    {
+      "fg": "feedback/danger-fg",
+      "on": "bg/surface",
+      "mode": "light",
+      "ratio": 7.99,
+      "min": 4.5,
+      "pass": true,
+      "why": "Fehlertext unter dem Feld"
+    },
+    {
+      "fg": "feedback/danger-fg",
+      "on": "bg/surface",
+      "mode": "dark",
+      "ratio": 8.4,
+      "min": 4.5,
+      "pass": true,
+      "why": "Fehlertext unter dem Feld"
+    },
+    {
+      "fg": "border/input",
+      "on": "bg/canvas",
+      "mode": "light",
+      "ratio": 4.5,
+      "min": 3,
+      "pass": true,
+      "why": "Rahmen von Bedienelementen"
+    },
+    {
+      "fg": "border/input",
+      "on": "bg/canvas",
+      "mode": "dark",
+      "ratio": 3.92,
+      "min": 3,
+      "pass": true,
+      "why": "Rahmen von Bedienelementen"
+    },
+    {
+      "fg": "border/input",
+      "on": "bg/surface",
+      "mode": "light",
+      "ratio": 4.78,
+      "min": 3,
+      "pass": true,
+      "why": "Rahmen von Bedienelementen"
+    },
+    {
+      "fg": "border/input",
+      "on": "bg/surface",
+      "mode": "dark",
+      "ratio": 3.57,
+      "min": 3,
+      "pass": true,
+      "why": "Rahmen von Bedienelementen"
+    },
+    {
+      "fg": "focus/ring",
+      "on": "bg/canvas",
+      "mode": "light",
+      "ratio": 4.36,
+      "min": 3,
+      "pass": true,
+      "why": "Fokusring"
+    },
+    {
+      "fg": "focus/ring",
+      "on": "bg/canvas",
+      "mode": "dark",
+      "ratio": 9.02,
+      "min": 3,
+      "pass": true,
+      "why": "Fokusring"
+    },
+    {
+      "fg": "focus/ring",
+      "on": "bg/surface",
+      "mode": "light",
+      "ratio": 4.63,
+      "min": 3,
+      "pass": true,
+      "why": "Fokusring"
+    },
+    {
+      "fg": "focus/ring",
+      "on": "bg/surface",
+      "mode": "dark",
+      "ratio": 8.21,
+      "min": 3,
+      "pass": true,
+      "why": "Fokusring"
+    },
+    {
+      "fg": "text/on-action",
+      "on": "border/input",
+      "mode": "light",
+      "ratio": 4.78,
+      "min": 3,
+      "pass": true,
+      "why": "Schalterknopf auf ausgeschalteter Bahn"
+    },
+    {
+      "fg": "text/on-action",
+      "on": "border/input",
+      "mode": "dark",
+      "ratio": 4.78,
+      "min": 3,
+      "pass": true,
+      "why": "Schalterknopf auf ausgeschalteter Bahn"
+    }
+  ]
+}

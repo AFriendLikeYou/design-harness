@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="de" data-fd-specimen>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zustände</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../components.css">
+<script type="module" src="../fundament.js"></script>
+<style>
+  body { margin: 0; padding: var(--fd-space-3xl); background: var(--fd-color-bg-canvas); color: var(--fd-color-text-primary); font: var(--fd-text-body-md); }
+  main { display: flex; flex-direction: column; gap: var(--fd-space-2xl); max-width: 1100px; }
+  h1 { font: var(--fd-text-display); margin: 0; }
+  h2 { font: var(--fd-text-heading-md); margin: 0 0 var(--fd-space-md); }
+  .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--fd-space-lg); margin-bottom: var(--fd-space-lg); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--fd-space-xl); }
+  code { font: var(--fd-text-caption); color: var(--fd-color-text-secondary); min-width: 72px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Zustände</h1>
+  <section><h2>Button: default, hover, focus, disabled je Größe</h2>
+    <div class="row"><code>primary</code><fd-button variant="primary" size="md" label="Speichern"></fd-button><fd-button variant="primary" size="md" state="hover" label="Speichern"></fd-button><fd-button variant="primary" size="md" state="focus" label="Speichern"></fd-button><fd-button variant="primary" size="md" disabled label="Speichern"></fd-button><fd-button variant="primary" size="sm" label="Speichern"></fd-button><fd-button variant="primary" size="sm" state="hover" label="Speichern"></fd-button><fd-button variant="primary" size="sm" state="focus" label="Speichern"></fd-button><fd-button variant="primary" size="sm" disabled label="Speichern"></fd-button></div>
+    <div class="row"><code>secondary</code><fd-button variant="secondary" size="md" label="Speichern"></fd-button><fd-button variant="secondary" size="md" state="hover" label="Speichern"></fd-button><fd-button variant="secondary" size="md" state="focus" label="Speichern"></fd-button><fd-button variant="secondary" size="md" disabled label="Speichern"></fd-button><fd-button variant="secondary" size="sm" label="Speichern"></fd-button><fd-button variant="secondary" size="sm" state="hover" label="Speichern"></fd-button><fd-button variant="secondary" size="sm" state="focus" label="Speichern"></fd-button><fd-button variant="secondary" size="sm" disabled label="Speichern"></fd-button></div>
+    <div class="row"><code>ghost</code><fd-button variant="ghost" size="md" label="Speichern"></fd-button><fd-button variant="ghost" size="md" state="hover" label="Speichern"></fd-button><fd-button variant="ghost" size="md" state="focus" label="Speichern"></fd-button><fd-button variant="ghost" size="md" disabled label="Speichern"></fd-button><fd-button variant="ghost" size="sm" label="Speichern"></fd-button><fd-button variant="ghost" size="sm" state="hover" label="Speichern"></fd-button><fd-button variant="ghost" size="sm" state="focus" label="Speichern"></fd-button><fd-button variant="ghost" size="sm" disabled label="Speichern"></fd-button></div>
+    <div class="row"><code>danger</code><fd-button variant="danger" size="md" label="Speichern"></fd-button><fd-button variant="danger" size="md" state="hover" label="Speichern"></fd-button><fd-button variant="danger" size="md" state="focus" label="Speichern"></fd-button><fd-button variant="danger" size="md" disabled label="Speichern"></fd-button><fd-button variant="danger" size="sm" label="Speichern"></fd-button><fd-button variant="danger" size="sm" state="hover" label="Speichern"></fd-button><fd-button variant="danger" size="sm" state="focus" label="Speichern"></fd-button><fd-button variant="danger" size="sm" disabled label="Speichern"></fd-button></div>
+  </section>
+  <section><h2>TextField</h2><div class="grid">
+      <fd-text-field state="default" label="E-Mail-Adresse (default)" value="name@beispiel.de" helper-text="Wir senden dir einen Bestätigungslink."></fd-text-field>
+      <fd-text-field state="focus" label="E-Mail-Adresse (focus)" value="name@beispiel.de" helper-text="Wir senden dir einen Bestätigungslink."></fd-text-field>
+      <fd-text-field state="error" label="E-Mail-Adresse (error)" value="name@beispiel.de" helper-text="Wir senden dir einen Bestätigungslink." error-text="Bitte gib eine gültige E-Mail-Adresse ein."></fd-text-field>
+      <fd-text-field state="disabled" label="E-Mail-Adresse (disabled)" value="name@beispiel.de" helper-text="Wir senden dir einen Bestätigungslink."></fd-text-field>
+      <fd-text-field label="Passwort (mit Slot trailing)" type="password" value="geheim-geheim" show-helper="false" show-trailing trailing-action="reveal"><fd-button slot="trailing" variant="ghost" size="sm" label="Anzeigen"></fd-button></fd-text-field>
+  </div></section>
+  <section><h2>Checkbox</h2><div class="row"><fd-checkbox label="Angemeldet bleiben"></fd-checkbox><fd-checkbox checked label="Angemeldet bleiben"></fd-checkbox><fd-checkbox state="focus" label="Angemeldet bleiben"></fd-checkbox><fd-checkbox checked state="focus" label="Angemeldet bleiben"></fd-checkbox><fd-checkbox disabled show-helper helper-text="Nur für Admins änderbar." label="Angemeldet bleiben"></fd-checkbox><fd-checkbox checked disabled show-helper helper-text="Nur für Admins änderbar." label="Angemeldet bleiben"></fd-checkbox></div></section>
+  <section><h2>Switch</h2><div class="row"><fd-switch label="Benachrichtigungen"></fd-switch><fd-switch checked label="Benachrichtigungen"></fd-switch><fd-switch state="focus" label="Benachrichtigungen"></fd-switch><fd-switch checked state="focus" label="Benachrichtigungen"></fd-switch><fd-switch disabled show-helper helper-text="Nur für Admins änderbar." label="Benachrichtigungen"></fd-switch><fd-switch checked disabled show-helper helper-text="Nur für Admins änderbar." label="Benachrichtigungen"></fd-switch></div></section>
+  <section><h2>Badge</h2><div class="row"><fd-badge tone="neutral" label="neutral"></fd-badge><fd-badge tone="info" label="info"></fd-badge><fd-badge tone="success" label="success"></fd-badge><fd-badge tone="warning" label="warning"></fd-badge><fd-badge tone="danger" label="danger"></fd-badge></div></section>
+  <section><h2>Alert</h2><div class="grid"><div><fd-alert tone="info" title="Änderungen gespeichert" description="Deine Einstellungen gelten ab sofort."></fd-alert></div><div><fd-alert tone="success" title="Änderungen gespeichert" description="Deine Einstellungen gelten ab sofort."></fd-alert></div><div><fd-alert tone="warning" title="Änderungen gespeichert" description="Deine Einstellungen gelten ab sofort."></fd-alert></div><div><fd-alert tone="danger" title="Änderungen gespeichert" description="Deine Einstellungen gelten ab sofort."></fd-alert></div></div></section>
+</main>
+</body>
+</html>

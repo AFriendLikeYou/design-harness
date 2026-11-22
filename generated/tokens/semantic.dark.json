@@ -1,0 +1,109 @@
+{
+  "color": {
+    "$type": "color",
+    "bg": {
+      "canvas": {
+        "$value": "{color.neutral.950}",
+        "$description": "Grundfläche jeder Seite."
+      },
+      "surface": {
+        "$value": "{color.neutral.900}",
+        "$description": "Karten, Eingabefelder und andere abgesetzte Flächen."
+      },
+      "subtle": {
+        "$value": "{color.neutral.800}",
+        "$description": "Neutrale Hervorhebung, z. B. neutrales Badge oder Hover von sekundären und Ghost-Buttons. Nicht für deaktivierte Elemente, dafür bg/disabled."
+      },
+      "disabled": {
+        "$value": "{color.neutral.800}",
+        "$description": "Fläche deaktivierter Bedienelemente. Heute gleicher Wert wie bg/subtle, aber eigene Rolle: nur für Deaktiviertes."
+      }
+    },
+    "text": {
+      "primary": {
+        "$value": "{color.neutral.50}",
+        "$description": "Fließtext und Überschriften. Besteht 4,5:1 auf allen bg-Tokens."
+      },
+      "secondary": {
+        "$value": "{color.neutral.300}",
+        "$description": "Hilfstexte und Metadaten. Besteht 4,5:1 auf allen bg-Tokens."
+      },
+      "disabled": {
+        "$value": "{color.neutral.500}",
+        "$description": "Nur für deaktivierte Elemente; muss keinen Kontrast erfüllen."
+      },
+      "on-action": {
+        "$value": "{color.neutral.0}",
+        "$description": "Text und Icons auf action/primary und action/danger."
+      }
+    },
+    "border": {
+      "default": {
+        "$value": "{color.neutral.700}",
+        "$description": "Trennlinien und Kartenrahmen."
+      },
+      "input": {
+        "$value": "{color.neutral.500}",
+        "$description": "Rahmen von Eingabefeldern. Besteht 3:1 für Bedienelemente."
+      }
+    },
+    "action": {
+      "primary": {
+        "$value": "{color.blue.600}",
+        "$description": "Eine primäre Aktion pro Ansicht. Besteht 4,5:1 mit text/on-action."
+      },
+      "primary-hover": {
+        "$value": "{color.blue.700}",
+        "$description": "Hover-Zustand der primären Aktion."
+      },
+      "danger": {
+        "$value": "{color.red.600}",
+        "$description": "Aktion, die etwas unwiderruflich löscht oder beendet. Besteht 4,5:1 mit text/on-action."
+      },
+      "danger-hover": {
+        "$value": "{color.red.700}",
+        "$description": "Hover-Zustand der gefährlichen Aktion."
+      }
+    },
+    "focus": {
+      "ring": {
+        "$value": "{color.blue.300}",
+        "$description": "Sichtbarer Tastaturfokus, nie entfernen."
+      }
+    },
+    "feedback": {
+      "info-bg": {
+        "$value": "{color.neutral.800}",
+        "$description": "Hintergrund für Hinweise."
+      },
+      "info-fg": {
+        "$value": "{color.blue.300}",
+        "$description": "Text und Akzent für Hinweise."
+      },
+      "success-bg": {
+        "$value": "{color.neutral.800}",
+        "$description": "Hintergrund für Erfolgsmeldungen."
+      },
+      "success-fg": {
+        "$value": "{color.green.300}",
+        "$description": "Text und Akzent für Erfolg."
+      },
+      "warning-bg": {
+        "$value": "{color.neutral.800}",
+        "$description": "Hintergrund für Warnungen."
+      },
+      "warning-fg": {
+        "$value": "{color.amber.300}",
+        "$description": "Text und Akzent für Warnungen."
+      },
+      "danger-bg": {
+        "$value": "{color.neutral.800}",
+        "$description": "Hintergrund für Fehler."
+      },
+      "danger-fg": {
+        "$value": "{color.red.300}",
+        "$description": "Text und Akzent für Fehler, auch Fehlerrahmen."
+      }
+    }
+  }
+}

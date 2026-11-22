@@ -1,0 +1,25 @@
+# Fundament Design System 1.3.0
+
+> Komponenten und Tokens. Quelle: specs/system.json. Code-Paket: @fundament/ui.
+
+## Komponenten
+
+- [Button](components/button.md): Löst eine Aktion aus. Für Navigation zu einer anderen Seite einen Link verwenden.
+- [TextField](components/text-field.md): Einzeilige Texteingabe mit sichtbarem Label und optionalem Hilfstext.
+- [Checkbox](components/checkbox.md): Auswahl einer unabhängigen Option, die man an- oder abwählen kann.
+- [Switch](components/switch.md): Schaltet eine Einstellung sofort ein oder aus, ohne Speichern.
+- [Badge](components/badge.md): Kurzer Status oder Kategorie, nicht interaktiv.
+- [Alert](components/alert.md): Hinweis im Seitenfluss zu Status, Erfolg, Warnung oder Fehler.
+- [Card](components/card.md): Gruppiert zusammengehörige Inhalte mit optionaler Aktion.
+- [SignInForm](components/sign-in-form.md): Vollständiges Anmeldeformular aus TextField, Checkbox und Button. Als Ganzes verwenden statt neu zusammenzubauen.
+- [LinkButton](components/link-button.md): Veraltet seit 1.0. Ersetzt durch Button variant=ghost. (deprecated)
+
+## Tokens
+
+- [Primitive](tokens/primitive.json): nicht direkt verwenden
+- [Semantisch light](tokens/semantic.light.json), [dark](tokens/semantic.dark.json), [Abstände und Radien](tokens/semantic.shared.json)
+
+## Verträge und Prüfung
+
+- [Verträge](contracts.json): gültige Komponenten, Attribute, Werte, Regeln und Tokens, maschinenlesbar
+- Prüfen: node validate.mjs <Pfad> --json, Befunde beheben, wiederholen bis ok

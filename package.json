@@ -1,0 +1,22 @@
+{
+  "name": "fundament-design-system",
+  "private": true,
+  "type": "module",
+  "description": "Quelle, Generatoren, CLI, MCP-Server und Doku des Fundament Design Systems. Das veröffentlichbare Paket liegt in ui/.",
+  "engines": {
+    "node": ">=20"
+  },
+  "bin": {
+    "fundament": "cli/fundament.mjs",
+    "fundament-mcp": "mcp/server.mjs"
+  },
+  "scripts": {
+    "start": "node tooling/serve.mjs",
+    "build": "node build.mjs",
+    "lint": "node cli/fundament.mjs lint",
+    "check": "node cli/fundament.mjs check ui docs",
+    "verify": "node tooling/verify.mjs",
+    "test": "node tooling/verify.mjs",
+    "evals": "node evals/auswerten.mjs"
+  }
+}

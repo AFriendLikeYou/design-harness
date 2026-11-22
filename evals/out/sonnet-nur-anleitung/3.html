@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zahlung fehlgeschlagen</title>
+<link rel="stylesheet" href="../../../ui/tokens.css">
+<link rel="stylesheet" href="../../../ui/components.css">
+<style>
+  body { margin: 0; background: var(--fd-color-bg-canvas); color: var(--fd-color-text-primary); font: var(--fd-text-body-md); }
+  main { display: flex; flex-direction: column; gap: var(--fd-space-xl); max-width: 640px; margin: 0 auto; padding: var(--fd-space-2xl) var(--fd-space-lg); }
+  h1 { font: var(--fd-text-heading-lg); margin: 0; }
+  p { margin: 0; }
+  form { display: flex; flex-direction: column; gap: var(--fd-space-lg); max-width: var(--fd-size-panel); }
+  .actions { display: flex; gap: var(--fd-space-sm); }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--fd-space-lg); }
+  .tier { display: flex; flex-direction: column; gap: var(--fd-space-sm); align-items: flex-start; }
+  .tier fd-card { align-self: stretch; }
+  .results { display: flex; flex-direction: column; gap: var(--fd-space-md); }
+</style>
+</head>
+<body>
+<main>
+<h1>Zahlung fehlgeschlagen</h1>
+<fd-alert tone="danger" title="Deine Zahlung konnte nicht abgebucht werden" description="Prüfe deine Zahlungsart oder gib unten eine neue E-Mail-Adresse für die Rechnung an. Danach kannst du die Zahlung erneut versuchen."></fd-alert>
+<form>
+  <fd-text-field label="E-Mail-Adresse für die Rechnung" name="email" type="email" autocomplete="email" value="anna.beispiel" state="error" error-text="Bitte gib eine gültige E-Mail-Adresse ein, zum Beispiel name@beispiel.de." show-helper="false" required></fd-text-field>
+  <div class="actions">
+    <fd-button type="submit" label="Zahlung erneut versuchen"></fd-button>
+  </div>
+</form>
+</main>
+<script type="module" src="../../../ui/fundament.js"></script>
+
+</body>
+</html>

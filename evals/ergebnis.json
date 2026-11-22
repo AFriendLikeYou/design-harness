@@ -1,0 +1,361 @@
+{
+  "table": [
+    {
+      "lauf": "haiku-mit",
+      "seiten": 6,
+      "Befunde erster Versuch": 2,
+      "sauber im ersten Versuch": "5/6",
+      "Befunde Abgabe": 0,
+      "sauber bei Abgabe": "6/6"
+    },
+    {
+      "lauf": "haiku-nur-anleitung",
+      "seiten": 6,
+      "Befunde erster Versuch": "",
+      "sauber im ersten Versuch": "",
+      "Befunde Abgabe": 5,
+      "sauber bei Abgabe": "4/6"
+    },
+    {
+      "lauf": "haiku-ohne",
+      "seiten": 6,
+      "Befunde erster Versuch": "",
+      "sauber im ersten Versuch": "",
+      "Befunde Abgabe": 0,
+      "sauber bei Abgabe": "6/6"
+    },
+    {
+      "lauf": "sonnet-mit",
+      "seiten": 6,
+      "Befunde erster Versuch": 0,
+      "sauber im ersten Versuch": "6/6",
+      "Befunde Abgabe": 0,
+      "sauber bei Abgabe": "6/6"
+    },
+    {
+      "lauf": "sonnet-nur-anleitung",
+      "seiten": 6,
+      "Befunde erster Versuch": "",
+      "sauber im ersten Versuch": "",
+      "Befunde Abgabe": 0,
+      "sauber bei Abgabe": "6/6"
+    },
+    {
+      "lauf": "sonnet-ohne",
+      "seiten": 6,
+      "Befunde erster Versuch": "",
+      "sauber im ersten Versuch": "",
+      "Befunde Abgabe": 1,
+      "sauber bei Abgabe": "5/6"
+    }
+  ],
+  "perFile": [
+    {
+      "run": "haiku-mit",
+      "file": "1.first.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "haiku-mit",
+      "file": "1.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "haiku-mit",
+      "file": "2.first.html",
+      "n": 2,
+      "ids": [
+        "card/badge-slot"
+      ]
+    },
+    {
+      "run": "haiku-mit",
+      "file": "2.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "haiku-mit",
+      "file": "3.first.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "haiku-mit",
+      "file": "3.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "haiku-mit",
+      "file": "4.first.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "haiku-mit",
+      "file": "4.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "haiku-mit",
+      "file": "5.first.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "haiku-mit",
+      "file": "5.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "haiku-mit",
+      "file": "6.first.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "haiku-mit",
+      "file": "6.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "haiku-nur-anleitung",
+      "file": "1.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "haiku-nur-anleitung",
+      "file": "2.html",
+      "n": 2,
+      "ids": [
+        "card/one-action"
+      ]
+    },
+    {
+      "run": "haiku-nur-anleitung",
+      "file": "3.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "haiku-nur-anleitung",
+      "file": "4.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "haiku-nur-anleitung",
+      "file": "5.html",
+      "n": 3,
+      "ids": [
+        "card/one-action"
+      ]
+    },
+    {
+      "run": "haiku-nur-anleitung",
+      "file": "6.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "haiku-ohne",
+      "file": "1.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "haiku-ohne",
+      "file": "2.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "haiku-ohne",
+      "file": "3.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "haiku-ohne",
+      "file": "4.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "haiku-ohne",
+      "file": "5.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "haiku-ohne",
+      "file": "6.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "sonnet-mit",
+      "file": "1.first.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "sonnet-mit",
+      "file": "1.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "sonnet-mit",
+      "file": "2.first.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "sonnet-mit",
+      "file": "2.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "sonnet-mit",
+      "file": "3.first.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "sonnet-mit",
+      "file": "3.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "sonnet-mit",
+      "file": "4.first.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "sonnet-mit",
+      "file": "4.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "sonnet-mit",
+      "file": "5.first.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "sonnet-mit",
+      "file": "5.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "sonnet-mit",
+      "file": "6.first.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "sonnet-mit",
+      "file": "6.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "sonnet-nur-anleitung",
+      "file": "1.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "sonnet-nur-anleitung",
+      "file": "2.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "sonnet-nur-anleitung",
+      "file": "3.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "sonnet-nur-anleitung",
+      "file": "4.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "sonnet-nur-anleitung",
+      "file": "5.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "sonnet-nur-anleitung",
+      "file": "6.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "sonnet-ohne",
+      "file": "1.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "sonnet-ohne",
+      "file": "2.html",
+      "n": 1,
+      "ids": [
+        "button/one-primary"
+      ]
+    },
+    {
+      "run": "sonnet-ohne",
+      "file": "3.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "sonnet-ohne",
+      "file": "4.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "sonnet-ohne",
+      "file": "5.html",
+      "n": 0,
+      "ids": []
+    },
+    {
+      "run": "sonnet-ohne",
+      "file": "6.html",
+      "n": 0,
+      "ids": []
+    }
+  ],
+  "ids": {
+    "haiku-mit": {
+      "card/badge-slot": 2
+    },
+    "haiku-nur-anleitung": {
+      "card/one-action": 5
+    },
+    "sonnet-ohne": {
+      "button/one-primary": 1
+    }
+  }
+}

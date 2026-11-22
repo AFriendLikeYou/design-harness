@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Konto löschen</title>
+<link rel="stylesheet" href="../../../ui/tokens.css">
+<link rel="stylesheet" href="../../../ui/components.css">
+<script type="module" src="../../../ui/fundament.js"></script>
+<style>
+  body { margin: 0; background: var(--fd-color-bg-canvas); color: var(--fd-color-text-primary); font: var(--fd-text-body-md); }
+  main { max-width: 640px; margin: 0 auto; padding: var(--fd-space-2xl) var(--fd-space-lg); display: flex; flex-direction: column; gap: var(--fd-space-xl); }
+  h1 { font: var(--fd-text-heading-lg); margin: 0; color: var(--fd-color-text-primary); }
+  .panel { display: flex; flex-direction: column; gap: var(--fd-space-lg); padding: var(--fd-space-xl); border: var(--fd-border-width-default) solid var(--fd-color-border-default); border-radius: var(--fd-radius-lg); background: var(--fd-color-bg-surface); }
+  .actions { display: flex; gap: var(--fd-space-sm); justify-content: flex-end; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Konto löschen</h1>
+  <fd-alert tone="danger" title="Dein Konto wird dauerhaft gelöscht" description="Alle Daten, Abos und gespeicherten Inhalte werden entfernt. Das lässt sich nicht rückgängig machen."></fd-alert>
+  <form class="panel" id="form">
+    <fd-text-field id="confirm" label="Zur Bestätigung LÖSCHEN eingeben" name="confirm" autocomplete="off" helper-text="Bitte genau so eingeben, in Großbuchstaben." show-helper></fd-text-field>
+    <div class="actions">
+      <fd-button variant="secondary" type="button" label="Abbrechen"></fd-button>
+      <fd-button id="delete" variant="danger" type="button" label="Konto löschen" disabled></fd-button>
+    </div>
+  </form>
+</main>
+<script type="module">
+  const field = document.getElementById('confirm');
+  const del = document.getElementById('delete');
+  const sync = () => { del.toggleAttribute('disabled', field.input.value.trim() !== 'LÖSCHEN'); };
+  field.input.addEventListener('input', sync);
+  document.getElementById('form').addEventListener('submit', (e) => e.preventDefault());
+  sync();
+</script>
+</body>
+</html>

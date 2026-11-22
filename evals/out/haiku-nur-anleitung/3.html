@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zahlung fehlgeschlagen</title>
+<link rel="stylesheet" href="../../../ui/tokens.css">
+<link rel="stylesheet" href="../../../ui/components.css">
+<style>
+  body { margin: 0; background: var(--fd-color-bg-canvas); color: var(--fd-color-text-primary); font: var(--fd-text-body-md); }
+  main { display: flex; flex-direction: column; gap: var(--fd-space-xl); max-width: var(--fd-size-panel); margin: 0 auto; padding: var(--fd-space-3xl) var(--fd-space-lg); }
+  h1 { font: var(--fd-text-heading-lg); margin: 0; }
+  form { display: flex; flex-direction: column; gap: var(--fd-space-lg); }
+  form fd-button { align-self: flex-end; }
+</style>
+<script type="module" src="../../../ui/fundament.js"></script>
+</head>
+<body>
+<main>
+  <h1>Zahlung fehlgeschlagen</h1>
+  <fd-alert tone="danger" title="Deine Zahlung konnte nicht abgebucht werden" description="Nächster Schritt: Prüfe die E-Mail-Adresse für deine Rechnungen und versuche die Zahlung danach erneut."></fd-alert>
+  <form id="rechnung-form">
+    <fd-text-field label="E-Mail-Adresse für Rechnungen" name="rechnungs-email" type="email" autocomplete="email" value="max.mustermann@" state="error" error-text="Bitte gib eine gültige E-Mail-Adresse ein, z. B. name@beispiel.de." show-helper="false"></fd-text-field>
+    <fd-button type="submit" label="Erneut versuchen"></fd-button>
+  </form>
+</main>
+<script type="module">
+  document.getElementById('rechnung-form').addEventListener('submit', (e) => e.preventDefault());
+</script>
+</body>
+</html>

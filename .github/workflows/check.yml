@@ -1,0 +1,18 @@
+# Gate: Kein Merge, wenn Spec, Verträge, Checks oder Komponenten nicht stimmen.
+name: Fundament prüfen
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  pruefen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Bauen, Kontrast, Lint, Check, CLI-Test, Plugin-Attrappe, Browser-Test
+        run: node tooling/verify.mjs
+      - name: Erzeugte Dateien sind eingecheckt
+        run: git diff --exit-code -- generated ui/tokens.css ui/contract.generated.js ui/package.json docs plugin/code.js

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Suche</title>
+<link rel="stylesheet" href="../../../ui/tokens.css">
+<link rel="stylesheet" href="../../../ui/components.css">
+<script type="module" src="../../../ui/fundament.js"></script>
+<style>
+  body { margin: 0; padding: var(--fd-space-3xl) var(--fd-space-md); background: var(--fd-color-bg-canvas); color: var(--fd-color-text-primary); font: var(--fd-text-body-md); }
+  main { display: flex; flex-direction: column; gap: var(--fd-space-xl); max-width: 640px; margin: 0 auto; }
+  h1 { font: var(--fd-text-display); margin: 0; }
+  p { margin: 0; color: var(--fd-color-text-secondary); }
+  .treffer { display: flex; flex-direction: column; gap: var(--fd-space-md); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Suche</h1>
+  <fd-text-field label="Suchbegriff" name="suche" value="Kochbuch" helper-text="Suche nach Titeln, Autorinnen und Themen." show-trailing>
+    <fd-button slot="trailing" variant="ghost" size="sm" label="Eingabe leeren" type="button"></fd-button>
+  </fd-text-field>
+  <p>3 Treffer für „Kochbuch“</p>
+  <div class="treffer">
+    <fd-card title="Das große Kochbuch" body="Rezepte für jeden Tag, von Suppen bis Desserts.">
+      <fd-button slot="action" variant="secondary" label="Kochbuch öffnen"></fd-button>
+    </fd-card>
+    <fd-card title="Kochbuch für Einsteiger" body="Grundtechniken mit Schritt-für-Schritt-Anleitungen.">
+      <fd-button slot="action" variant="secondary" label="Einsteiger-Kochbuch öffnen"></fd-button>
+    </fd-card>
+    <fd-card title="Backen mit Kochbuch-Rezepten" body="Kuchen, Brot und Gebäck aus der Redaktion.">
+      <fd-button slot="action" variant="secondary" label="Backbuch öffnen"></fd-button>
+    </fd-card>
+  </div>
+</main>
+</body>
+</html>

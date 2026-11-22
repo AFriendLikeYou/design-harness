@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Passwort ändern</title>
+<link rel="stylesheet" href="../../../ui/tokens.css">
+<link rel="stylesheet" href="../../../ui/components.css">
+<script type="module" src="../../../ui/fundament.js"></script>
+<style>
+  body { margin: 0; padding: var(--fd-space-3xl); background: var(--fd-color-bg-canvas); }
+  main { display: flex; flex-direction: column; gap: var(--fd-space-2xl); max-width: var(--fd-size-panel); }
+  h1 { font: var(--fd-text-display); color: var(--fd-color-text-primary); margin: 0; }
+  p { font: var(--fd-text-body-md); color: var(--fd-color-text-secondary); margin: 0; }
+  form { display: flex; flex-direction: column; gap: var(--fd-space-lg); }
+  .actions { display: flex; flex-wrap: wrap; gap: var(--fd-space-sm); }
+  @media (max-width: 600px) { body { padding: var(--fd-space-lg); } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Passwort ändern</h1>
+  <form>
+    <fd-text-field label="Aktuelles Passwort" name="current" type="password" autocomplete="current-password" show-helper="false" required></fd-text-field>
+    <fd-text-field id="neu" label="Neues Passwort" name="new" type="password" autocomplete="new-password" value="" helper-text="Mindestens 12 Zeichen." show-trailing required><fd-button slot="trailing" variant="ghost" size="sm" label="Anzeigen" aria-pressed="false"></fd-button></fd-text-field>
+    <div class="actions">
+      <fd-button type="submit" label="Neues Passwort speichern"></fd-button>
+      <fd-button type="button" variant="secondary" label="Abbrechen"></fd-button>
+    </div>
+  </form>
+</main>
+<script>
+  document.addEventListener('click', (e) => {
+    const t = e.target.closest('fd-button[slot="trailing"]'); if (!t) return;
+    const input = t.closest('fd-text-field').input, show = input.type === 'password';
+    input.type = show ? 'text' : 'password'; t.setAttribute('label', show ? 'Verbergen' : 'Anzeigen'); t.setAttribute('aria-pressed', String(show));
+  });
+</script>
+</body>
+</html>

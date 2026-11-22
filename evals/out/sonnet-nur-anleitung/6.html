@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Konto löschen</title>
+<link rel="stylesheet" href="../../../ui/tokens.css">
+<link rel="stylesheet" href="../../../ui/components.css">
+<style>
+  body { margin: 0; background: var(--fd-color-bg-canvas); color: var(--fd-color-text-primary); font: var(--fd-text-body-md); }
+  main { display: flex; flex-direction: column; gap: var(--fd-space-xl); max-width: 640px; margin: 0 auto; padding: var(--fd-space-2xl) var(--fd-space-lg); }
+  h1 { font: var(--fd-text-heading-lg); margin: 0; }
+  p { margin: 0; }
+  form { display: flex; flex-direction: column; gap: var(--fd-space-lg); max-width: var(--fd-size-panel); }
+  .actions { display: flex; gap: var(--fd-space-sm); }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--fd-space-lg); }
+  .tier { display: flex; flex-direction: column; gap: var(--fd-space-sm); align-items: flex-start; }
+  .tier fd-card { align-self: stretch; }
+  .results { display: flex; flex-direction: column; gap: var(--fd-space-md); }
+</style>
+</head>
+<body>
+<main>
+<h1>Konto löschen</h1>
+<fd-alert tone="warning" title="Das kannst du nicht rückgängig machen" description="Dein Konto und alle Daten werden dauerhaft gelöscht."></fd-alert>
+<form>
+  <fd-text-field id="confirm" label="Zur Bestätigung LÖSCHEN eingeben" name="confirm" value="" helper-text="Gib das Wort LÖSCHEN in Großbuchstaben ein." autocomplete="off"></fd-text-field>
+  <div class="actions">
+    <fd-button id="del" type="submit" variant="danger" label="Konto endgültig löschen" disabled></fd-button>
+    <fd-button variant="secondary" label="Abbrechen"></fd-button>
+  </div>
+</form>
+</main>
+<script type="module" src="../../../ui/fundament.js"></script>
+<script type="module">
+await customElements.whenDefined("fd-text-field");
+const f = document.getElementById("confirm"), b = document.getElementById("del");
+f.addEventListener("input", () => { if (f.value.trim() === "LÖSCHEN") b.removeAttribute("disabled"); else b.setAttribute("disabled", ""); });
+</script>
+</body>
+</html>

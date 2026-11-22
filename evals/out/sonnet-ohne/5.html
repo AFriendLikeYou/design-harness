@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Suche</title>
+<link rel="stylesheet" href="../../../ui/tokens.css"><link rel="stylesheet" href="../../../ui/components.css">
+<style>
+body{margin:0;background:var(--fd-color-bg-canvas);color:var(--fd-color-text-primary);font:var(--fd-text-body-md)}
+main{max-width:40rem;margin:0 auto;padding:var(--fd-space-2xl) var(--fd-space-lg);display:flex;flex-direction:column;gap:var(--fd-space-lg)}
+h1{font:var(--fd-text-heading-lg);margin:0}
+p{margin:0}
+.actions{display:flex;gap:var(--fd-space-sm);flex-wrap:wrap}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:var(--fd-space-lg)}
+.col{display:flex;flex-direction:column;gap:var(--fd-space-sm)}
+</style>
+<script type="module" src="../../../ui/fundament.js"></script></head><body><main>
+<h1>Suche</h1>
+<fd-text-field id="q" label="Suche" name="q" type="search" value="Rechnung" show-helper="false" show-trailing><fd-button slot="trailing" variant="ghost" size="sm" label="Leeren" aria-label="Eingabe leeren"></fd-button></fd-text-field>
+<div class="col" style="gap:var(--fd-space-md)">
+<fd-card title="Rechnung herunterladen" body="So lädst du deine Rechnungen als PDF herunter." show-footer="false"></fd-card>
+<fd-card title="Rechnungsadresse ändern" body="Passe Name, Anschrift und E-Mail-Adresse für Rechnungen an." show-footer="false"></fd-card>
+<fd-card title="Zahlung und Rechnung" body="Alles zu Zahlungsarten, Fristen und offenen Rechnungen." show-footer="false"></fd-card>
+</div>
+</main>
+<script>
+document.addEventListener("click",e=>{if(!e.target.closest("fd-button[slot=trailing]"))return;const f=document.getElementById("q");f.value="";f.input.focus();});
+</script></body></html>

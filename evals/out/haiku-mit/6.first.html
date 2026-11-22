@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Konto löschen</title>
+<link rel="stylesheet" href="../../../ui/tokens.css">
+<link rel="stylesheet" href="../../../ui/components.css">
+<script type="module" src="../../../ui/fundament.js"></script>
+<style>
+  body { margin: 0; padding: var(--fd-space-3xl) var(--fd-space-md); background: var(--fd-color-bg-canvas); color: var(--fd-color-text-primary); font: var(--fd-text-body-md); }
+  main { display: flex; flex-direction: column; gap: var(--fd-space-xl); max-width: 480px; margin: 0 auto; }
+  h1 { font: var(--fd-text-display); margin: 0; }
+  p { margin: 0; color: var(--fd-color-text-secondary); }
+  form { display: flex; flex-direction: column; gap: var(--fd-space-lg); }
+  .aktionen { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--fd-space-sm); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Konto löschen</h1>
+  <fd-alert tone="danger" title="Dein Konto und alle Daten werden gelöscht" description="Abos enden sofort, Lesezeichen und Verlauf sind danach weg. Das lässt sich nicht rückgängig machen."></fd-alert>
+  <form>
+    <fd-text-field label="Zur Bestätigung „löschen“ eingeben" name="bestaetigung" helper-text="Schreibe das Wort genau so, wie es hier steht."></fd-text-field>
+    <p>Der Löschen-Knopf wird aktiv, sobald du das Wort eingegeben hast.</p>
+    <div class="aktionen">
+      <fd-button variant="secondary" label="Abbrechen" type="button"></fd-button>
+      <fd-button variant="danger" label="Konto endgültig löschen" disabled type="submit"></fd-button>
+    </div>
+  </form>
+</main>
+</body>
+</html>

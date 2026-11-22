@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Konto löschen</title>
+<link rel="stylesheet" href="../../../ui/tokens.css">
+<link rel="stylesheet" href="../../../ui/components.css">
+<style>
+  body { margin: 0; background: var(--fd-color-bg-canvas); color: var(--fd-color-text-primary); font: var(--fd-text-body-md); }
+  main { display: flex; flex-direction: column; gap: var(--fd-space-xl); max-width: var(--fd-size-panel); margin: 0 auto; padding: var(--fd-space-3xl) var(--fd-space-lg); }
+  h1 { font: var(--fd-text-heading-lg); margin: 0; }
+  form { display: flex; flex-direction: column; gap: var(--fd-space-lg); }
+  .actions { display: flex; gap: var(--fd-space-sm); justify-content: flex-end; }
+</style>
+<script type="module" src="../../../ui/fundament.js"></script>
+</head>
+<body>
+<main>
+  <h1>Konto löschen</h1>
+  <fd-alert tone="danger" title="Dein Konto wird dauerhaft gelöscht" description="Abos, gespeicherte Artikel und Einstellungen sind danach weg. Das lässt sich nicht rückgängig machen."></fd-alert>
+  <form id="loeschen-form">
+    <fd-text-field label="Zur Bestätigung LÖSCHEN eingeben" name="bestaetigung" autocomplete="off" helper-text="Schreibe das Wort genau so, wie es oben steht."></fd-text-field>
+    <div class="actions">
+      <fd-button variant="secondary" label="Abbrechen"></fd-button>
+      <fd-button id="loeschen-knopf" variant="danger" label="Löschen" disabled></fd-button>
+    </div>
+  </form>
+</main>
+<script type="module">
+  const field = document.querySelector('fd-text-field');
+  const knopf = document.getElementById('loeschen-knopf');
+  // disabled muss als Attribut gesetzt werden, sonst liest das Paket es nicht.
+  const sync = () => {
+    if (field.value === 'LÖSCHEN') knopf.removeAttribute('disabled');
+    else knopf.setAttribute('disabled', '');
+  };
+  field.input.addEventListener('input', sync);
+  document.getElementById('loeschen-form').addEventListener('submit', (e) => e.preventDefault());
+</script>
+</body>
+</html>

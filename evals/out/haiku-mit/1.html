@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Passwort ändern</title>
+<link rel="stylesheet" href="../../../ui/tokens.css">
+<link rel="stylesheet" href="../../../ui/components.css">
+<script type="module" src="../../../ui/fundament.js"></script>
+<style>
+  body { margin: 0; padding: var(--fd-space-3xl) var(--fd-space-md); background: var(--fd-color-bg-canvas); color: var(--fd-color-text-primary); font: var(--fd-text-body-md); }
+  main { display: flex; flex-direction: column; gap: var(--fd-space-xl); max-width: 480px; margin: 0 auto; }
+  h1 { font: var(--fd-text-display); margin: 0; }
+  p { margin: 0; color: var(--fd-color-text-secondary); }
+  form { display: flex; flex-direction: column; gap: var(--fd-space-lg); }
+  .actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--fd-space-sm); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Passwort ändern</h1>
+  <p>Gib dein aktuelles Passwort ein und wähle dann ein neues mit mindestens 12 Zeichen.</p>
+  <form>
+    <fd-text-field label="Aktuelles Passwort" type="password" name="aktuelles-passwort" autocomplete="current-password" show-helper="false"></fd-text-field>
+    <fd-text-field label="Neues Passwort" type="password" name="neues-passwort" autocomplete="new-password" helper-text="Mindestens 12 Zeichen, mit Zahlen oder Sonderzeichen." show-trailing>
+      <fd-button slot="trailing" variant="ghost" size="sm" label="Anzeigen" type="button"></fd-button>
+    </fd-text-field>
+    <div class="actions">
+      <fd-button variant="secondary" label="Abbrechen" type="button"></fd-button>
+      <fd-button variant="primary" label="Neues Passwort speichern" type="submit"></fd-button>
+    </div>
+  </form>
+</main>
+</body>
+</html>

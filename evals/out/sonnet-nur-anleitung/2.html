@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tarif</title>
+<link rel="stylesheet" href="../../../ui/tokens.css">
+<link rel="stylesheet" href="../../../ui/components.css">
+<style>
+  body { margin: 0; background: var(--fd-color-bg-canvas); color: var(--fd-color-text-primary); font: var(--fd-text-body-md); }
+  main { display: flex; flex-direction: column; gap: var(--fd-space-xl); max-width: 960px; margin: 0 auto; padding: var(--fd-space-2xl) var(--fd-space-lg); }
+  h1 { font: var(--fd-text-heading-lg); margin: 0; }
+  p { margin: 0; }
+  form { display: flex; flex-direction: column; gap: var(--fd-space-lg); max-width: var(--fd-size-panel); }
+  .actions { display: flex; gap: var(--fd-space-sm); }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--fd-space-lg); }
+  .tier { display: flex; flex-direction: column; gap: var(--fd-space-sm); align-items: flex-start; }
+  .tier fd-card { align-self: stretch; }
+  .results { display: flex; flex-direction: column; gap: var(--fd-space-md); }
+</style>
+</head>
+<body>
+<main>
+<h1>Tarif</h1>
+<div class="cards">
+  <div class="tier">
+    <fd-badge tone="neutral" label="Kostenlos"></fd-badge>
+    <fd-card title="Basis" body="Für den Einstieg: 1 Projekt, 2 GB Speicher, Support per E-Mail.">
+      <fd-button slot="action" variant="secondary" label="Zu Basis wechseln"></fd-button>
+    </fd-card>
+  </div>
+  <div class="tier">
+    <fd-badge tone="success" label="Aktueller Tarif"></fd-badge>
+    <fd-card title="Plus" body="Für Teams: 10 Projekte, 50 GB Speicher, Support innerhalb eines Werktags.">
+      <fd-button slot="action" variant="secondary" disabled label="Aktueller Tarif"></fd-button>
+    </fd-card>
+  </div>
+  <div class="tier">
+    <fd-badge tone="info" label="Alles inklusive"></fd-badge>
+    <fd-card title="Pro" body="Für Unternehmen: unbegrenzte Projekte, 500 GB Speicher, persönlicher Support.">
+      <fd-button slot="action" label="Auf Pro upgraden"></fd-button>
+    </fd-card>
+  </div>
+</div>
+</main>
+<script type="module" src="../../../ui/fundament.js"></script>
+
+</body>
+</html>

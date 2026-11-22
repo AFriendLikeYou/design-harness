@@ -1,0 +1,120 @@
+/* Fundament – Styles der Web Components (ui/fundament.js rendert diese Klassen).
+   Von Hand gepflegt. Gültige Klassen, Slots und Tokens stehen in generated/contracts.json;
+   `node cli/fundament.mjs check ui` prüft diese Datei und alle Beispiele dagegen.
+   Die Klassen sind intern: In Seiten werden die Elemente <fd-…> verwendet, nicht die Klassen.
+   Regeln: nur semantische Tokens (var(--fd-…)), keine Farbwerte, keine festen Rahmenstärken.
+   Jede Komponente nutzt nur die Farb-Tokens aus ihrem Vertrag (styles in specs/system.json).
+   data-state="hover" und data-state="focus" zeigen den Zustand fest an (für Doku und Tests);
+   im Betrieb entstehen beide über :hover und :focus-visible. */
+
+/* ---------- Elemente ---------- */
+fd-button, fd-badge, fd-checkbox, fd-link-button { display: inline-block; }
+fd-text-field, fd-switch, fd-alert, fd-card, fd-sign-in-form { display: block; }
+fd-button[slot="trailing"] { display: flex; }
+[hidden] { display: none !important; }
+
+/* ---------- Button ---------- */
+.fd-button {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--fd-space-xs);
+  padding: var(--fd-space-sm) var(--fd-space-lg); border: var(--fd-border-width-default) solid transparent; border-radius: var(--fd-radius-md);
+  font: var(--fd-text-label-md); cursor: pointer;
+  background: var(--fd-color-action-primary); color: var(--fd-color-text-on-action);
+}
+.fd-button[data-size="sm"] { padding: var(--fd-space-xs) var(--fd-space-md); font: var(--fd-text-label-sm); }
+.fd-button:hover, .fd-button[data-state="hover"] { background: var(--fd-color-action-primary-hover); }
+.fd-button[data-variant="secondary"] { background: var(--fd-color-bg-surface); color: var(--fd-color-text-primary); border-color: var(--fd-color-border-input); }
+.fd-button[data-variant="ghost"] { background: transparent; color: var(--fd-color-feedback-info-fg); }
+.fd-button[data-variant="danger"] { background: var(--fd-color-action-danger); }
+.fd-button[data-variant="danger"]:hover, .fd-button[data-variant="danger"][data-state="hover"] { background: var(--fd-color-action-danger-hover); }
+.fd-button[data-variant="secondary"]:hover, .fd-button[data-variant="secondary"][data-state="hover"],
+.fd-button[data-variant="ghost"]:hover, .fd-button[data-variant="ghost"][data-state="hover"] { background: var(--fd-color-bg-subtle); }
+.fd-button:focus-visible, .fd-button[data-state="focus"] { outline: var(--fd-border-width-strong) solid var(--fd-color-focus-ring); outline-offset: var(--fd-border-width-strong); }
+.fd-button:disabled, .fd-button[data-variant="danger"]:disabled { background: var(--fd-color-bg-disabled); color: var(--fd-color-text-disabled); border-color: transparent; cursor: not-allowed; }
+.fd-button[data-variant="ghost"]:disabled { background: transparent; }
+
+/* ---------- TextField ---------- */
+.fd-text-field { display: flex; flex-direction: column; gap: var(--fd-space-xs); }
+.fd-text-field__trailing fd-button { display: flex; }
+.fd-text-field__label { font: var(--fd-text-label-md); color: var(--fd-color-text-primary); }
+.fd-text-field__control {
+  display: flex; align-items: center; gap: var(--fd-space-xs); padding: 0 var(--fd-space-xs) 0 var(--fd-space-md);
+  border: var(--fd-border-width-default) solid var(--fd-color-border-input); border-radius: var(--fd-radius-md); background: var(--fd-color-bg-surface);
+}
+.fd-text-field__input {
+  flex: 1; min-width: 0; padding: var(--fd-space-sm) 0; border: 0; outline: 0; background: transparent;
+  font: var(--fd-text-body-md); color: var(--fd-color-text-primary);
+}
+.fd-text-field__control:not(:has(.fd-text-field__trailing)) { padding-right: var(--fd-space-md); }
+.fd-text-field__trailing { display: flex; }
+.fd-text-field__control:focus-within, .fd-text-field[data-state="focus"] .fd-text-field__control { outline: var(--fd-border-width-strong) solid var(--fd-color-focus-ring); outline-offset: var(--fd-border-width-strong); }
+.fd-text-field__helper-text { font: var(--fd-text-body-sm); color: var(--fd-color-text-secondary); }
+.fd-text-field__error-text { font: var(--fd-text-body-sm); color: var(--fd-color-feedback-danger-fg); }
+.fd-text-field[data-state="error"] .fd-text-field__control { border-width: var(--fd-border-width-strong); border-color: var(--fd-color-feedback-danger-fg); }
+.fd-text-field[data-state="disabled"] .fd-text-field__label,
+.fd-text-field[data-state="disabled"] .fd-text-field__input { color: var(--fd-color-text-disabled); }
+.fd-text-field[data-state="disabled"] .fd-text-field__control { background: var(--fd-color-bg-disabled); }
+
+/* ---------- Checkbox ----------
+   Das Label ist Teil der Klickfläche (checkbox/label-clickable). */
+.fd-checkbox { display: inline-flex; align-items: center; gap: var(--fd-space-sm); min-height: var(--fd-size-touch-target); font: var(--fd-text-body-md); color: var(--fd-color-text-primary); cursor: pointer; }
+.fd-checkbox__box {
+  appearance: none; display: grid; place-content: center; width: var(--fd-size-checkbox); height: var(--fd-size-checkbox); margin: 0;
+  border: var(--fd-border-width-default) solid var(--fd-color-border-input); border-radius: var(--fd-radius-sm); background: var(--fd-color-bg-surface); cursor: inherit;
+}
+.fd-checkbox__box:checked { background: var(--fd-color-action-primary); border-color: transparent; }
+.fd-checkbox__box:checked::after { content: ""; width: 10px; height: 5px; border-left: var(--fd-border-width-strong) solid var(--fd-color-text-on-action); border-bottom: var(--fd-border-width-strong) solid var(--fd-color-text-on-action); transform: translateY(-1px) rotate(-45deg); }
+.fd-checkbox__box:focus-visible, .fd-checkbox[data-state="focus"] .fd-checkbox__box { outline: var(--fd-border-width-strong) solid var(--fd-color-focus-ring); outline-offset: var(--fd-border-width-strong); }
+.fd-checkbox:has(.fd-checkbox__box:disabled) { color: var(--fd-color-text-disabled); cursor: not-allowed; }
+.fd-checkbox__box:disabled { background: var(--fd-color-bg-disabled); }
+.fd-checkbox__box:disabled:checked::after { border-color: var(--fd-color-text-disabled); }
+
+/* Hilfstext unter der Checkbox, z. B. der Grund, warum sie deaktiviert ist (checkbox/disabled-reason). */
+.fd-checkbox-field { display: flex; flex-direction: column; }
+.fd-checkbox__helper-text { padding-left: calc(var(--fd-size-checkbox) + var(--fd-space-sm)); font: var(--fd-text-body-sm); color: var(--fd-color-text-secondary); }
+
+/* ---------- Switch ---------- */
+.fd-switch { display: grid; grid-template-columns: auto 1fr; align-items: center; align-content: center; column-gap: var(--fd-space-sm); min-height: var(--fd-size-touch-target); }
+.fd-switch__track { display: flex; align-items: center; width: var(--fd-size-switch-width); height: var(--fd-size-checkbox); padding: var(--fd-space-2xs); border: 0; border-radius: var(--fd-radius-full); background: var(--fd-color-border-input); cursor: pointer; }
+.fd-switch__thumb { width: var(--fd-size-switch-thumb); height: var(--fd-size-switch-thumb); border-radius: var(--fd-radius-full); background: var(--fd-color-text-on-action); transition: transform 120ms ease-out; }
+.fd-switch__track[aria-checked="true"] { background: var(--fd-color-action-primary); }
+.fd-switch__track[aria-checked="true"] .fd-switch__thumb { transform: translateX(var(--fd-size-switch-thumb)); }
+.fd-switch__track:focus-visible, .fd-switch__track[data-state="focus"] { outline: var(--fd-border-width-strong) solid var(--fd-color-focus-ring); outline-offset: var(--fd-border-width-strong); }
+.fd-switch__label { font: var(--fd-text-body-md); color: var(--fd-color-text-primary); cursor: pointer; }
+.fd-switch__helper-text { grid-column: 2; font: var(--fd-text-body-sm); color: var(--fd-color-text-secondary); }
+.fd-switch__track:disabled { background: var(--fd-color-bg-disabled); cursor: not-allowed; }
+.fd-switch__track:disabled .fd-switch__thumb { background: var(--fd-color-text-disabled); }
+.fd-switch:has(.fd-switch__track:disabled) .fd-switch__label { color: var(--fd-color-text-disabled); cursor: not-allowed; }
+@media (prefers-reduced-motion: reduce) { .fd-switch__thumb { transition: none; } }
+
+/* ---------- Badge ---------- */
+.fd-badge { display: inline-flex; padding: var(--fd-space-2xs) var(--fd-space-sm); border-radius: var(--fd-radius-full); font: var(--fd-text-label-sm); background: var(--fd-color-bg-subtle); color: var(--fd-color-text-secondary); }
+.fd-badge[data-tone="info"] { background: var(--fd-color-feedback-info-bg); color: var(--fd-color-feedback-info-fg); }
+.fd-badge[data-tone="success"] { background: var(--fd-color-feedback-success-bg); color: var(--fd-color-feedback-success-fg); }
+.fd-badge[data-tone="warning"] { background: var(--fd-color-feedback-warning-bg); color: var(--fd-color-feedback-warning-fg); }
+.fd-badge[data-tone="danger"] { background: var(--fd-color-feedback-danger-bg); color: var(--fd-color-feedback-danger-fg); }
+
+/* ---------- Alert ---------- */
+.fd-alert { display: flex; flex-direction: column; gap: var(--fd-space-xs); padding: var(--fd-space-md) var(--fd-space-lg); border-radius: var(--fd-radius-lg); border-left: var(--fd-border-width-accent) solid var(--fd-color-feedback-info-fg); background: var(--fd-color-feedback-info-bg); }
+.fd-alert__title { font: var(--fd-text-label-md); color: var(--fd-color-feedback-info-fg); margin: 0; }
+.fd-alert__description { font: var(--fd-text-body-sm); color: var(--fd-color-text-primary); margin: 0; }
+.fd-alert[data-tone="success"] { border-left-color: var(--fd-color-feedback-success-fg); background: var(--fd-color-feedback-success-bg); }
+.fd-alert[data-tone="success"] .fd-alert__title { color: var(--fd-color-feedback-success-fg); }
+.fd-alert[data-tone="warning"] { border-left-color: var(--fd-color-feedback-warning-fg); background: var(--fd-color-feedback-warning-bg); }
+.fd-alert[data-tone="warning"] .fd-alert__title { color: var(--fd-color-feedback-warning-fg); }
+.fd-alert[data-tone="danger"] { border-left-color: var(--fd-color-feedback-danger-fg); background: var(--fd-color-feedback-danger-bg); }
+.fd-alert[data-tone="danger"] .fd-alert__title { color: var(--fd-color-feedback-danger-fg); }
+
+/* ---------- Card ---------- */
+.fd-card { display: flex; flex-direction: column; gap: var(--fd-space-sm); padding: var(--fd-space-xl); border: var(--fd-border-width-default) solid var(--fd-color-border-default); border-radius: var(--fd-radius-lg); background: var(--fd-color-bg-surface); }
+.fd-card__header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--fd-space-sm); }
+.fd-card__title { font: var(--fd-text-heading-md); color: var(--fd-color-text-primary); margin: 0; }
+.fd-card__body { font: var(--fd-text-body-md); color: var(--fd-color-text-secondary); margin: 0; }
+.fd-card__footer { display: flex; gap: var(--fd-space-sm); padding-top: var(--fd-space-sm); }
+
+/* ---------- SignInForm (Pattern) ---------- */
+.fd-sign-in-form { display: flex; flex-direction: column; gap: var(--fd-space-lg); max-width: var(--fd-size-panel); padding: var(--fd-space-xl); border: var(--fd-border-width-default) solid var(--fd-color-border-default); border-radius: var(--fd-radius-lg); background: var(--fd-color-bg-surface); }
+.fd-sign-in-form__title { font: var(--fd-text-heading-lg); color: var(--fd-color-text-primary); margin: 0; }
+.fd-sign-in-form__submit, .fd-sign-in-form__submit .fd-button { display: flex; width: 100%; }
+
+/* ---------- LinkButton (veraltet) ---------- */
+.fd-link-button { padding: var(--fd-space-2xs) var(--fd-space-xs); font: var(--fd-text-label-md); color: var(--fd-color-feedback-info-fg); }

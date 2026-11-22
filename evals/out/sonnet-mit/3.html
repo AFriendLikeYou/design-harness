@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zahlung fehlgeschlagen</title>
+<link rel="stylesheet" href="../../../ui/tokens.css">
+<link rel="stylesheet" href="../../../ui/components.css">
+<script type="module" src="../../../ui/fundament.js"></script>
+<style>
+  body { margin: 0; padding: var(--fd-space-3xl); background: var(--fd-color-bg-canvas); }
+  main { display: flex; flex-direction: column; gap: var(--fd-space-2xl); max-width: var(--fd-size-panel); }
+  h1 { font: var(--fd-text-display); color: var(--fd-color-text-primary); margin: 0; }
+  p { font: var(--fd-text-body-md); color: var(--fd-color-text-secondary); margin: 0; }
+  form { display: flex; flex-direction: column; gap: var(--fd-space-lg); }
+  .actions { display: flex; flex-wrap: wrap; gap: var(--fd-space-sm); }
+  @media (max-width: 600px) { body { padding: var(--fd-space-lg); } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Zahlung fehlgeschlagen</h1>
+  <fd-alert tone="danger" title="Die Zahlung ist nicht durchgegangen" description="Prüfe deine Zahlungsart oder gib unten eine neue Adresse für die Rechnung an und versuche es erneut."></fd-alert>
+  <form>
+    <fd-text-field label="E-Mail-Adresse für die Rechnung" name="email" type="email" autocomplete="email" value="anna.beispiel" state="error" error-text="Die Adresse ist unvollständig. Gib sie im Format name@beispiel.de ein."></fd-text-field>
+    <div class="actions">
+      <fd-button type="submit" label="Zahlung erneut versuchen"></fd-button>
+    </div>
+  </form>
+</main>
+</body>
+</html>

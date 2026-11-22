@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zahlung fehlgeschlagen</title>
+<link rel="stylesheet" href="../../../ui/tokens.css">
+<link rel="stylesheet" href="../../../ui/components.css">
+<script type="module" src="../../../ui/fundament.js"></script>
+<style>
+  body { margin: 0; padding: var(--fd-space-3xl) var(--fd-space-md); background: var(--fd-color-bg-canvas); color: var(--fd-color-text-primary); font: var(--fd-text-body-md); }
+  main { display: flex; flex-direction: column; gap: var(--fd-space-xl); max-width: 480px; margin: 0 auto; }
+  h1 { font: var(--fd-text-display); margin: 0; }
+  h2 { font: var(--fd-text-heading-md); margin: 0; }
+  p { margin: 0; color: var(--fd-color-text-secondary); }
+  form { display: flex; flex-direction: column; gap: var(--fd-space-lg); }
+  .aktionen { display: flex; flex-wrap: wrap; gap: var(--fd-space-sm); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Zahlung fehlgeschlagen</h1>
+  <fd-alert tone="danger" title="Die Zahlung für deinen Tarif ist fehlgeschlagen" description="Versuche es erneut. Schlägt es wieder fehl, nutze eine andere Zahlungsart."></fd-alert>
+  <div class="aktionen">
+    <fd-button variant="primary" label="Zahlung erneut versuchen"></fd-button>
+  </div>
+  <section>
+    <h2>E-Mail-Adresse für die Rechnung</h2>
+    <p>Wir senden die Rechnungen an diese Adresse.</p>
+    <form>
+      <fd-text-field label="E-Mail-Adresse für die Rechnung" name="rechnungs-email" type="email" autocomplete="email" state="error" value="name@beispiel" error-text="Bitte gib eine vollständige Adresse ein, zum Beispiel name@beispiel.de."></fd-text-field>
+      <div class="aktionen">
+        <fd-button variant="secondary" label="Adresse speichern" type="submit"></fd-button>
+      </div>
+    </form>
+  </section>
+</main>
+</body>
+</html>
