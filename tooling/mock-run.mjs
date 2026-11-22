@@ -49,7 +49,7 @@ for (const c of spec.components) {
   const node = all.find((n) => (n.type === 'COMPONENT_SET' || (n.type === 'COMPONENT' && n.parent.type !== 'COMPONENT_SET')) && n.name === c.name);
   if (!node) { abweichungen.push(`${c.name} fehlt`); continue; }
   const names = node.children.map((x) => x.name).join(' | '); const defs = Object.keys(node.componentPropertyDefinitions).map((k) => k.split('#')[0]);
-  for (const p of c.props) { if (p.type === 'variant') { for (const v of p.values) if (!names.includes(`${p.name}=${v}`)) abweichungen.push(`${c.name}: Variante ${p.name}=${v} fehlt`); } else if (p.type !== 'behavior' && !defs.includes(p.name)) abweichungen.push(`${c.name}: Property ${p.name} fehlt`); }
+  for (const p of c.props) { if (p.type === 'variant') { for (const v of p.values) if (!names.includes(`${p.name}=${v}`)) abweichungen.push(`${c.name}: Variante ${p.name}=${v} fehlt`); } else if (p.type !== 'behavior' && p.type !== 'codeText' && !defs.includes(p.name)) abweichungen.push(`${c.name}: Property ${p.name} fehlt`); }
   if (!node.description.includes(`v${c.version}`)) abweichungen.push(`${c.name}: Beschreibung ohne Version ${c.version}`);
 }
 const semCount = Object.values(spec.semantic).reduce((n, g) => n + Object.keys(g).length, 0); const primCount = Object.values(spec.primitives.color).reduce((n, g) => n + Object.keys(g).length, 0) + spec.primitives.dimension.length + spec.primitives.fontSize.length + spec.primitives.lineHeight.length;

@@ -4,7 +4,7 @@
 // Farben über semantische Variablen, Abstände/Radien/Rahmenstärken/Größen gebunden, Text über Text-Styles.
 const SPEC = {
   "name": "Fundament",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "cssPrefix": "fd",
   "codePackage": "@fundament/ui",
   "primitives": {
@@ -438,7 +438,7 @@ const SPEC = {
       "name": "Button",
       "kind": "component",
       "status": "stable",
-      "version": "1.4.0",
+      "version": "1.4.1",
       "purpose": "Löst eine Aktion aus. Für Navigation zu einer anderen Seite einen Link verwenden.",
       "props": [
         {
@@ -489,7 +489,7 @@ const SPEC = {
       "rules": [
         {
           "id": "button/one-primary",
-          "text": "Höchstens ein primärer Button pro Ansicht; ein danger-Button zählt als primär.",
+          "text": "Höchstens ein primärer Button pro Ansicht; ein danger-Button und ConfirmAction zählen als primär.",
           "why": "Mehrere primäre Aktionen konkurrieren um Aufmerksamkeit.",
           "check": "max-per-view"
         },
@@ -950,7 +950,7 @@ const SPEC = {
       "name": "Alert",
       "kind": "component",
       "status": "stable",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "purpose": "Hinweis im Seitenfluss zu Status, Erfolg, Warnung oder Fehler.",
       "props": [
         {
@@ -986,6 +986,12 @@ const SPEC = {
           "id": "alert/title-states-outcome",
           "text": "Titel nennt das Ergebnis, Beschreibung den nächsten Schritt.",
           "why": "Man soll den Titel allein verstehen können.",
+          "check": null
+        },
+        {
+          "id": "alert/no-action",
+          "text": "Ein Alert enthält keine Aktion. Die Beschreibung nennt den nächsten Schritt, die Aktion steht dort, wo sie wirkt.",
+          "why": "Eine Aktion im Hinweis konkurriert mit der Hauptaktion der Seite.",
           "check": null
         }
       ],
@@ -1104,6 +1110,64 @@ const SPEC = {
       }
     },
     {
+      "name": "Link",
+      "kind": "component",
+      "status": "stable",
+      "version": "1.0.0",
+      "purpose": "Führt zu einer anderen Seite oder Stelle. Für Aktionen einen Button verwenden.",
+      "props": [
+        {
+          "name": "state",
+          "type": "variant",
+          "values": [
+            "default",
+            "hover",
+            "focus"
+          ],
+          "default": "default"
+        },
+        {
+          "name": "label",
+          "type": "text",
+          "default": "Alle Rechnungen ansehen"
+        }
+      ],
+      "styles": {
+        "state=default": {
+          "fg": "feedback/info-fg"
+        },
+        "state=hover": {
+          "fg": "text/primary"
+        },
+        "state=focus": {
+          "ring": "focus/ring",
+          "ringWidth": "strong"
+        }
+      },
+      "rules": [
+        {
+          "id": "link/names-destination",
+          "text": "Der Linktext nennt das Ziel.",
+          "why": "„Hier“ oder „Mehr“ sagen nicht, wohin es geht, und sind in einer Linkliste nicht unterscheidbar.",
+          "check": "no-vague-action"
+        },
+        {
+          "id": "link/has-target",
+          "text": "Ein Link hat immer ein Ziel (href).",
+          "why": "Ohne Ziel ist er eine Aktion und gehört in einen Button.",
+          "check": "required-prop"
+        }
+      ],
+      "a11y": "Als <a href> umsetzen. Öffnet der Link ein neues Fenster, steht das im Text.",
+      "do": [
+        "„Alle Rechnungen ansehen“"
+      ],
+      "dont": [
+        "„Hier“",
+        "Link, der etwas speichert oder löscht"
+      ]
+    },
+    {
       "name": "SignInForm",
       "kind": "pattern",
       "status": "stable",
@@ -1133,6 +1197,57 @@ const SPEC = {
           "borderWidth": "default"
         }
       }
+    },
+    {
+      "name": "ConfirmAction",
+      "kind": "pattern",
+      "status": "stable",
+      "version": "1.0.0",
+      "purpose": "Sichert eine unwiderrufliche Aktion ab: Der danger-Button wird erst aktiv, wenn das Bestätigungswort eingegeben ist.",
+      "props": [
+        {
+          "name": "word",
+          "type": "codeText",
+          "default": "LÖSCHEN"
+        },
+        {
+          "name": "fieldLabel",
+          "type": "codeText",
+          "default": "Gib zur Bestätigung LÖSCHEN ein"
+        },
+        {
+          "name": "actionLabel",
+          "type": "codeText",
+          "default": "Konto endgültig löschen"
+        }
+      ],
+      "styles": {
+        "default": {
+          "fg": "text/primary"
+        }
+      },
+      "rules": [
+        {
+          "id": "confirmaction/for-irreversible",
+          "text": "Jede Aktion, die Daten unwiderruflich löscht, läuft über ConfirmAction.",
+          "why": "Ein roter Button allein schützt nicht vor einem versehentlichen Klick.",
+          "check": null
+        },
+        {
+          "id": "confirmaction/no-custom-script",
+          "text": "Das Freischalten kommt aus dem Muster, nicht aus eigenem Skript.",
+          "why": "Sonst unterscheiden sich Bestätigungen von Seite zu Seite.",
+          "check": null
+        }
+      ],
+      "a11y": "Der Button nennt die Aktion. Warum er deaktiviert ist, steht als Hilfstext am Feld und ist per aria-describedby verknüpft.",
+      "do": [
+        "Bestätigungswort nennt die Aktion: „LÖSCHEN“"
+      ],
+      "dont": [
+        "Bestätigung per Checkbox",
+        "Eigenes Skript, das einen Button freischaltet"
+      ]
     },
     {
       "name": "LinkButton",
@@ -1279,6 +1394,10 @@ const SPEC = {
     }
   ],
   "changelog": [
+    {
+      "version": "1.4.0",
+      "text": "Neu: Link für Navigation und das Muster ConfirmAction für unwiderrufliche Aktionen. Alert bleibt ohne Aktion (Regel alert/no-action). Check mit eigenem HTML-Parser und Prüfung im gerenderten Zustand (audit)."
+    },
     {
       "version": "1.3.0",
       "text": "TextField: trailingAction (reveal, clear) bringt das Verhalten für den Slot trailing mit. Card: Slot badge. Beide Lücken stammen aus der Messung mit sechs Agentenläufen."
@@ -1713,6 +1832,19 @@ async function buildCard(page) {
   C.Card = { set: c, keys };
 }
 
+async function buildLink(page) {
+  const comps = [];
+  for (const state of specOf('Link').props[0].values) {
+    const st = Object.assign({}, style('Link', 'state=default'), style('Link', `state=${state}`));
+    const c = newComponent(page, `state=${state}`);
+    stack(c, 'HORIZONTAL'); radius(c, 'sm'); c.clipsContent = false;
+    const t = await text('Alle Rechnungen ansehen', 'body/md', st.fg, 'label'); t.textDecoration = 'UNDERLINE'; c.appendChild(t);
+    if (state === 'focus') focusRing(c, 'md', st);
+    comps.push(c);
+  }
+  C.Link = await finishSet(comps, page, 'Link', 760, { label: 'Alle Rechnungen ansehen' });
+}
+
 function inst(name, props = {}) {
   const ref = C[name];
   const node = ref.set.type === 'COMPONENT_SET' ? ref.set.defaultVariant.createInstance() : ref.set.createInstance();
@@ -1735,6 +1867,20 @@ async function buildSignInForm(page) {
   c.description = description(specOf('SignInForm'));
   c.x = 0; c.y = 0;
   C.SignInForm = { set: c, keys: {} };
+}
+
+// Muster ConfirmAction: nur aus Instanzen; die Texte (word, fieldLabel, actionLabel) sind Props im Code
+async function buildConfirmAction(page, y) {
+  const spec = specOf('ConfirmAction'); const d = Object.fromEntries(spec.props.map((x) => [x.name, x.default]));
+  const c = newComponent(page, 'ConfirmAction');
+  stack(c, 'VERTICAL', 'lg'); fixedWidth(c, 360, 'panel');
+  const field = inst('TextField', { label: d.fieldLabel, value: d.word, helperText: 'Der Button wird aktiv, sobald die Eingabe stimmt.' }); field.name = 'field'; c.appendChild(field); fill(field);
+  const btn = inst('Button', { variant: 'danger', label: d.actionLabel }); btn.name = 'action'; c.appendChild(btn);
+  c.description = description(spec);
+  annotate(c, 'word, fieldLabel und actionLabel sind Props im Code. Der Button ist deaktiviert, bis die Eingabe dem Wort entspricht.');
+  c.x = 0; c.y = y;
+  C.ConfirmAction = { set: c, keys: {} };
+  const doc = await docFrame(spec, page, c.width + 80); doc.y = y;
 }
 
 async function buildDeprecated(page) {
@@ -1761,7 +1907,7 @@ async function docFrame(spec, page, x) {
   await add(spec.purpose, 'body/md', null, 'purpose');
   if (spec.props.length) {
     await add('Properties (identisch mit Code-Props)', 'label/md', null, 'properties-title');
-    await add(spec.props.map((p) => `${p.name}: ${p.values ? p.values.join(' | ') : p.type}${p.type === 'behavior' ? '  (nur im Code)' : ''}${p.default !== undefined ? `  (Standard: ${p.default})` : ''}`).join('\n'), 'body/sm', 'text/secondary', 'properties');
+    await add(spec.props.map((p) => `${p.name}: ${p.values ? p.values.join(' | ') : p.type === 'codeText' ? 'text' : p.type}${p.type === 'behavior' || p.type === 'codeText' ? '  (nur im Code)' : ''}${p.default !== undefined ? `  (Standard: ${p.default})` : ''}`).join('\n'), 'body/sm', 'text/secondary', 'properties');
   }
   if (spec.rules.length) {
     await add('Regeln', 'label/md', null, 'rules-title');
@@ -1909,7 +2055,7 @@ async function buildExamples(page) {
 }
 
 // ---------- Ablauf ----------
-const BUILDERS = { Button: buildButton, TextField: buildTextField, Checkbox: buildCheckbox, Switch: buildSwitch, Badge: buildBadge, Alert: buildAlert, Card: buildCard };
+const BUILDERS = { Link: buildLink, Button: buildButton, TextField: buildTextField, Checkbox: buildCheckbox, Switch: buildSwitch, Badge: buildBadge, Alert: buildAlert, Card: buildCard };
 const LIVE = SPEC.components.filter((c) => c.kind === 'component' && c.status !== 'deprecated').map((c) => c.name);
 const PAGES = ['📖 Lies mich', '🎨 Foundations', ...LIVE.map((n) => `🧩 ${n}`), '🧱 Patterns', '📰 Beispiele', '🗄 Veraltet'];
 
@@ -1926,6 +2072,7 @@ async function main() {
   figma.notify('Erzeuge Komponenten …');
   for (const n of LIVE) { if (!BUILDERS[n]) { warn(`Für ${n} fehlt ein Builder im Plugin.`); continue; } await componentPage(`🧩 ${n}`, BUILDERS[n], n); }
   await componentPage('🧱 Patterns', buildSignInForm, 'SignInForm');
+  await buildConfirmAction(await goTo('🧱 Patterns'), 900);
   await componentPage('🗄 Veraltet', buildDeprecated, 'LinkButton');
 
   await buildExamples(await goTo('📰 Beispiele'));

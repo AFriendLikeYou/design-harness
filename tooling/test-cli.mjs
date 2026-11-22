@@ -2,7 +2,7 @@
 import { check, lint, migrate, IMPLEMENTED } from '../cli/fundament.mjs';
 import { readFileSync } from 'node:fs';
 const here = (p) => new URL(p, import.meta.url).pathname;
-const EXPECT = ['tokens/no-raw-color', 'tokens/unknown', 'principles/spacing-from-scale', 'principles/surface-and-line', 'principles/sentence-case', 'principles/action-says-what', 'principles/system-controls', 'props/invalid-value', 'props/unknown', 'props/required', 'alert/one-per-area', 'card/no-nesting', 'card/one-action', 'slots/unknown-child', 'button/one-primary', 'components/deprecated', 'components/unknown', 'components/internal-class', 'badge/short-label', 'textfield/visible-label', 'textfield/error-text', 'textfield/trailing-slot', 'switch/disabled-reason'];
+const EXPECT = ['tokens/no-raw-color', 'tokens/unknown', 'principles/spacing-from-scale', 'principles/surface-and-line', 'principles/sentence-case', 'principles/action-says-what', 'principles/system-controls', 'props/invalid-value', 'props/unknown', 'props/required', 'alert/one-per-area', 'card/no-nesting', 'card/one-action', 'slots/unknown-child', 'button/one-primary', 'components/deprecated', 'components/unknown', 'components/internal-class', 'badge/short-label', 'textfield/visible-label', 'textfield/error-text', 'textfield/trailing-slot', 'switch/disabled-reason', 'link/has-target', 'link/names-destination'];
 const found = new Set(check([here('./fixtures/fehler.html')]).map((f) => f.id));
 const fails = [];
 for (const id of EXPECT) if (!found.has(id)) fails.push(`Regel ${id} schlägt in fixtures/fehler.html nicht an`);

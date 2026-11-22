@@ -27,7 +27,7 @@ writeFileSync('generated/tokens/semantic.dark.json', JSON.stringify(sem.dark, nu
 writeFileSync('generated/tokens/semantic.shared.json', JSON.stringify(shared, null, 2));
 
 // Beispielaufruf eines Elements mit den Standardwerten der Spec
-const usage = (c, over = {}) => { const tag = `${spec.cssPrefix}-${kebab(c.name)}`; const at = c.props.filter((p) => p.type !== 'instance' && p.type !== 'behavior').map((p) => { const v = over[p.name] ?? p.default; const n = kebab(p.name); if (p.type === 'boolean' || (p.type === 'variant' && p.values.join() === 'false,true')) return String(v) === 'true' ? (p.default === true ? '' : ` ${n}`) : (p.default === true ? ` ${n}="false"` : ''); if (p.type === 'variant') return v === p.default && !(p.name in over) ? '' : ` ${n}="${v}"`; return ` ${n}="${String(v).replace(/"/g, '&quot;')}"`; }).join(''); return `<${tag}${at}></${tag}>`; };
+const usage = (c, over = {}) => { const tag = `${spec.cssPrefix}-${kebab(c.name)}`; const at = (c.name === 'Link' ? ' href="#"' : '') + c.props.filter((p) => p.type !== 'instance' && p.type !== 'behavior').map((p) => { const v = over[p.name] ?? p.default; const n = kebab(p.name); if (p.type === 'boolean' || (p.type === 'variant' && p.values.join() === 'false,true')) return String(v) === 'true' ? (p.default === true ? '' : ` ${n}`) : (p.default === true ? ` ${n}="false"` : ''); if (p.type === 'variant') return v === p.default && !(p.name in over) ? '' : ` ${n}="${v}"`; return ` ${n}="${String(v).replace(/"/g, '&quot;')}"`; }).join(''); return `<${tag}${at}></${tag}>`; };
 
 // 3) Komponenten-Markdown für Agenten im Code-Repo
 const idx = [];
@@ -121,7 +121,7 @@ if (failed.length) { for (const f of failed) console.error(`  ${f.mode}: ${f.fg}
 
 // 7) Web Components: Vertrag für die Elemente (ui/contract.generated.js) und Elementangaben in contracts.json
 // Attribute, die ein Element an sein inneres natives Element durchreicht (Umsetzungsdetail des Pakets)
-const PASSTHROUGH = { Button: ['type', 'name', 'value'], TextField: ['name', 'type', 'autocomplete', 'inputmode', 'required'], Checkbox: ['name', 'value'], Switch: ['name'], SignInForm: [] };
+const PASSTHROUGH = { Link: ['href', 'target', 'rel'], Button: ['type', 'name', 'value'], TextField: ['name', 'type', 'autocomplete', 'inputmode', 'required'], Checkbox: ['name', 'value'], Switch: ['name'], SignInForm: [] };
 for (const c of spec.components) {
   const k = contracts.components[c.name];
   k.element = `${spec.cssPrefix}-${kebab(c.name)}`;
@@ -153,7 +153,7 @@ console.log('gebaut: ui/contract.generated.js, ui/package.json,', Object.keys(el
   const comp = (c) => `<section class="doc" id="${kebab(c.name)}"><h2>${e(c.name)} <span class="meta">${e(c.status)} / v${e(c.version)} / &lt;${P}-${kebab(c.name)}&gt;</span></h2>
 <p class="lead">${e(c.purpose)}</p>${c.deprecated ? `<p class="note">Veraltet seit ${e(c.deprecated.since)}. Stattdessen: ${e(c.deprecated.use)}.</p>` : ''}
 ${c.status === 'deprecated' ? '' : `<div class="stage">${demo(c).map((h) => `<div class="cell">${h}</div>`).join('')}</div><pre>${e(demo(c)[0])}</pre>`}
-${c.props.length ? `<h3>Attribute</h3><table><thead><tr><th>Attribut</th><th>Typ</th><th>Werte</th><th>Standard</th></tr></thead><tbody>${c.props.map((p) => `<tr><td><code>${kebab(p.name)}</code></td><td>${p.type === 'instance' ? 'Slot' : p.type === 'behavior' ? 'Verhalten (nur Code)' : p.type === 'variant' && isBool(p) ? 'boolean' : e(p.type)}</td><td>${p.values && !isBool(p) ? p.values.map(e).join(', ') : ''}</td><td>${e(p.default)}</td></tr>`).join('')}</tbody></table>` : ''}
+${c.props.length ? `<h3>Attribute</h3><table><thead><tr><th>Attribut</th><th>Typ</th><th>Werte</th><th>Standard</th></tr></thead><tbody>${c.props.map((p) => `<tr><td><code>${kebab(p.name)}</code></td><td>${p.type === 'instance' ? 'Slot' : p.type === 'behavior' ? 'Verhalten (nur Code)' : p.type === 'codeText' ? 'text (nur Code)' : p.type === 'variant' && isBool(p) ? 'boolean' : e(p.type)}</td><td>${p.values && !isBool(p) ? p.values.map(e).join(', ') : ''}</td><td>${e(p.default)}</td></tr>`).join('')}</tbody></table>` : ''}
 ${c.rules.length ? `<h3>Regeln</h3><ul>${c.rules.map((r) => `<li><strong>${e(r.text)}</strong> ${e(r.why)} <span class="meta">${e(r.id)} / ${r.check ? 'automatisch geprüft' : 'Urteil'}</span></li>`).join('')}</ul>` : ''}
 <h3>Barrierefreiheit</h3><p>${e(c.a11y)}</p>
 ${c.do.length || c.dont.length ? `<div class="dodont"><div><h3>Do</h3><ul>${c.do.map((d) => `<li>${e(d)}</li>`).join('')}</ul></div><div><h3>Don't</h3><ul>${c.dont.map((d) => `<li>${e(d)}</li>`).join('')}</ul></div></div>` : ''}</section>`;
@@ -172,7 +172,6 @@ ${c.do.length || c.dont.length ? `<div class="dodont"><div><h3>Do</h3><ul>${c.do
   body { margin: 0; background: var(--${P}-color-bg-canvas); color: var(--${P}-color-text-primary); font: var(--${P}-text-body-md); }
   .layout { display: grid; grid-template-columns: minmax(0, 220px) minmax(0, 1fr); gap: var(--${P}-space-2xl); max-width: 1180px; margin: 0 auto; padding: var(--${P}-space-2xl) var(--${P}-space-lg); }
   nav { position: sticky; top: var(--${P}-space-lg); align-self: start; display: flex; flex-direction: column; gap: var(--${P}-space-xs); font: var(--${P}-text-body-sm); }
-  nav a, a { color: var(--${P}-color-feedback-info-fg); }
   nav strong { margin-top: var(--${P}-space-md); font: var(--${P}-text-label-md); }
   main { display: flex; flex-direction: column; gap: var(--${P}-space-3xl); min-width: 0; }
   h1 { font: var(--${P}-text-display); margin: 0; } h2 { font: var(--${P}-text-heading-lg); margin: 0; } h3 { font: var(--${P}-text-label-md); margin: var(--${P}-space-lg) 0 var(--${P}-space-xs); }
@@ -196,7 +195,7 @@ ${c.do.length || c.dont.length ? `<div class="dodont"><div><h3>Do</h3><ul>${c.do
 </head>
 <body>
 <div class="layout">
-<nav aria-label="Inhalt"><strong>Grundlagen</strong><a href="#start">Start</a><a href="#grundsaetze">Grundsätze</a><a href="#farben">Farben</a><a href="#masse">Maße</a><a href="#typo">Typografie</a><a href="#kontrast">Kontrast</a><strong>Komponenten</strong>${spec.components.map((c) => `<a href="#${kebab(c.name)}">${e(c.name)}</a>`).join('')}</nav>
+<nav aria-label="Inhalt"><strong>Grundlagen</strong>${[['start', 'Start'], ['grundsaetze', 'Grundsätze'], ['farben', 'Farben'], ['masse', 'Maße'], ['typo', 'Typografie'], ['kontrast', 'Kontrast']].map(([h, l]) => `<${P}-link href="#${h}" label="${l}"></${P}-link>`).join('')}<strong>Komponenten</strong>${spec.components.map((c) => `<${P}-link href="#${kebab(c.name)}" label="${e(c.name)}"></${P}-link>`).join('')}</nav>
 <main>
 <section id="start"><h1>${e(spec.name)} Design System</h1><p class="lead">Version ${e(spec.version)}. Diese Seite ist aus specs/system.json erzeugt und zeigt die echten Web Components aus ${e(spec.codePackage)}.</p>
 <h3>Einbinden</h3><pre>${e(`<link rel="stylesheet" href="tokens.css">\n<link rel="stylesheet" href="components.css">\n<script type="module" src="fundament.js"></script>`)}</pre>

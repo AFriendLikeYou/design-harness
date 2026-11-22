@@ -1,5 +1,5 @@
 // Generiert aus specs/system.json – nicht von Hand bearbeiten.
-export const VERSION = "1.3.0";
+export const VERSION = "1.4.0";
 export const ELEMENTS = {
   "fd-button": {
     "name": "Button",
@@ -267,11 +267,58 @@ export const ELEMENTS = {
       "badge"
     ]
   },
+  "fd-link": {
+    "name": "Link",
+    "status": "stable",
+    "deprecated": null,
+    "attrs": {
+      "state": {
+        "type": "enum",
+        "values": [
+          "default",
+          "hover",
+          "focus"
+        ],
+        "default": "default"
+      },
+      "label": {
+        "type": "text",
+        "default": "Alle Rechnungen ansehen"
+      }
+    },
+    "passthrough": [
+      "href",
+      "target",
+      "rel"
+    ],
+    "slots": []
+  },
   "fd-sign-in-form": {
     "name": "SignInForm",
     "status": "stable",
     "deprecated": null,
     "attrs": {},
+    "passthrough": [],
+    "slots": []
+  },
+  "fd-confirm-action": {
+    "name": "ConfirmAction",
+    "status": "stable",
+    "deprecated": null,
+    "attrs": {
+      "word": {
+        "type": "text",
+        "default": "LÖSCHEN"
+      },
+      "field-label": {
+        "type": "text",
+        "default": "Gib zur Bestätigung LÖSCHEN ein"
+      },
+      "action-label": {
+        "type": "text",
+        "default": "Konto endgültig löschen"
+      }
+    },
     "passthrough": [],
     "slots": []
   },

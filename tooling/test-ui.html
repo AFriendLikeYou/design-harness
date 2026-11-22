@@ -13,6 +13,8 @@
 <fd-card id="k" title="Karte" body="Text"><fd-button slot="action" variant="secondary" label="Öffnen"></fd-button></fd-card>
 <fd-text-field id="cl" label="Suche" value="abc" show-helper="false" show-trailing trailing-action="clear"><fd-button slot="trailing" variant="ghost" size="sm" label="Leeren"></fd-button></fd-text-field>
 <fd-card id="kb" title="Plus" body="x" show-badge><fd-badge slot="badge" tone="info" label="Aktuell"></fd-badge></fd-card>
+<fd-link id="li" href="#ziel" label="Alle Rechnungen ansehen"></fd-link>
+<fd-confirm-action id="ca" word="LÖSCHEN" field-label="Gib LÖSCHEN ein" action-label="Konto endgültig löschen"></fd-confirm-action>
 <fd-badge id="g" tone="quatsch" label="Neu"></fd-badge>
 <fd-sign-in-form id="f"></fd-sign-in-form>
 <script type="module">
@@ -45,6 +47,16 @@ ok('ungültiger wert wird gemeldet', warns.some((w) => w.includes('tone="quatsch
 const cl = $('#cl'); let inputs = 0; cl.addEventListener('input', () => inputs++); cl.querySelector('fd-button button').click();
 ok('textfield leeren', cl.value === '' && inputs === 1 && document.activeElement === cl.input);
 ok('card badge im slot', $('#kb .fd-card__badge fd-badge') && !$('#kb .fd-card__badge').hidden && $('#k .fd-card__badge').hidden);
+ok('link ist ein anker mit ziel', $('#li a').getAttribute('href') === '#ziel' && $('#li a').textContent === 'Alle Rechnungen ansehen');
+const ca = $('#ca'); let confirmed = 0; ca.addEventListener('confirm', () => confirmed++);
+ok('confirm zuerst gesperrt', ca.querySelector('fd-button button').disabled && ca.querySelector('fd-button button').dataset.variant === 'danger');
+ca.querySelector('fd-button button').click();
+const ci = ca.querySelector('input'); ci.value = 'LÖSCHEN'; ci.dispatchEvent(new Event('input', { bubbles: true }));
+ok('confirm schaltet frei', !ca.querySelector('fd-button button').disabled && confirmed === 0);
+ca.querySelector('fd-button button').click();
+ok('confirm meldet ereignis', confirmed === 1);
+ci.value = 'LÖSCH'; ci.dispatchEvent(new Event('input', { bubbles: true }));
+ok('confirm sperrt wieder', ca.querySelector('fd-button button').disabled);
 const f = $('#f'); const pw = f.querySelector('input[name="password"]'); const toggle = f.querySelector('fd-button[slot="trailing"]');
 ok('signin aufbau', f.querySelectorAll('fd-text-field').length === 2 && f.querySelector('fd-checkbox') && f.querySelector('fd-button[type="submit"] button').type === 'submit');
 toggle.querySelector('button').click();

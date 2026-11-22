@@ -1,6 +1,6 @@
 <!-- Generiert aus specs/system.json – nicht von Hand bearbeiten. -->
 # Alert
-Status: stable · v1.0.1 · Spec: ds/alert
+Status: stable · v1.0.2 · Spec: ds/alert
 Hinweis im Seitenfluss zu Status, Erfolg, Warnung oder Fehler.
 ```html
 <script type="module">import "@fundament/ui";</script>
@@ -30,6 +30,7 @@ Props sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attr
 
 - **Höchstens ein Alert pro Bereich.** Warum: Mehrere Hinweise übereinander werden ignoriert. (`alert/one-per-area`, Check: `max-per-parent`)
 - **Titel nennt das Ergebnis, Beschreibung den nächsten Schritt.** Warum: Man soll den Titel allein verstehen können. (`alert/title-states-outcome`, manuell)
+- **Ein Alert enthält keine Aktion. Die Beschreibung nennt den nächsten Schritt, die Aktion steht dort, wo sie wirkt.** Warum: Eine Aktion im Hinweis konkurriert mit der Hauptaktion der Seite. (`alert/no-action`, manuell)
 
 ## Barrierefreiheit
 

@@ -86,7 +86,7 @@ export function check(files, C = read('generated/contracts.json')) {
       const line = L(m.index); const parent = stack[stack.length - 1]; const pc = parent?.comp;
       if (typeof attrs.style === 'string') decl(file, attrs.style, () => line, null, '');
       if (typeof attrs.class === 'string' && attrs.class.split(/\s+/).some((c) => c.startsWith(P + '-'))) add(file, line, 'components/internal-class', `Interne Klasse in class="${attrs.class}".`, `Die Klassen gehören dem Paket. Das Element verwenden: ${elList}.`);
-      if (!t.startsWith(P + '-') && ['button', 'input', 'select', 'textarea'].includes(t) && attrs.type !== 'hidden') add(file, line, 'principles/system-controls', `Nacktes <${t}>.`, `Systemkomponente verwenden: ${elList}. Fehlt eine passende, die Lücke melden statt nachzubauen.`);
+      if (!t.startsWith(P + '-') && ['button', 'input', 'select', 'textarea', 'a'].includes(t) && attrs.type !== 'hidden') add(file, line, 'principles/system-controls', `Nacktes <${t}>.`, `Systemkomponente verwenden: ${elList}. Fehlt eine passende, die Lücke melden statt nachzubauen.`);
       let comp = null;
       if (t.startsWith(P + '-')) {
         comp = byEl[t];
@@ -110,6 +110,11 @@ export function check(files, C = read('generated/contracts.json')) {
           if (C.vagueActions.includes(v('label').trim().toLowerCase().replace(/[.!→>\s]+$/g, ''))) add(file, line, 'principles/action-says-what', `Beschriftung „${v('label')}“ sagt nicht, was passiert.`, 'Mit einem Verb beginnen und das Ergebnis nennen, z. B. „Änderungen speichern“.');
           if (slot === 'trailing' && (variant !== 'ghost' || v('size') !== 'sm')) add(file, line, 'textfield/trailing-slot', 'Button im Slot trailing ist nicht ghost und sm.', 'variant="ghost" size="sm" setzen.');
         }
+        if (comp.name === 'Link') {
+          if (!attrs.href || attrs.href === true) add(file, line, 'link/has-target', 'Link ohne href.', 'href="…" setzen. Ohne Ziel ist es eine Aktion und gehört in <fd-button>.');
+          if (C.vagueActions.includes(v('label').trim().toLowerCase().replace(/[.!→>\s]+$/g, '')) || /^hier$/i.test(v('label').trim())) add(file, line, 'link/names-destination', `Linktext „${v('label')}“ nennt kein Ziel.`, 'Das Ziel nennen, z. B. „Alle Rechnungen ansehen“.');
+        }
+        if (comp.name === 'ConfirmAction' && !specimen && ++primary > 1) add(file, line, 'button/one-primary', 'Mehr als eine primäre Aktion in dieser Ansicht (ConfirmAction zählt als primär).', 'Weitere Aktionen mit variant="secondary" oder "ghost".');
         if (comp.name === 'TextField') {
           if (v('trailing-action') !== 'none' && !(attrs['show-trailing'] !== undefined && attrs['show-trailing'] !== 'false')) add(file, line, 'textfield/trailing-slot', 'trailing-action ohne sichtbaren Slot.', 'show-trailing setzen und einen <fd-button slot="trailing" variant="ghost" size="sm"> einfügen.');
           if (v('state') === 'error' && !v('error-text').trim()) add(file, line, 'textfield/error-text', 'Fehlerzustand ohne error-text.', 'error-text="…" setzen und darin sagen, wie man den Fehler behebt.');

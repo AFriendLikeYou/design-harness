@@ -162,12 +162,29 @@ class SignInForm extends Base {
   update() {}
 }
 
+class Link extends Base {
+  build() { this.innerHTML = '<a class="fd-link"><span class="fd-link__label"></span></a>'; }
+  update() { const a = this.q('a'); this.pass(a); if (this.a('state') === 'default') delete a.dataset.state; else a.dataset.state = this.a('state'); this.q('.fd-link__label').textContent = this.a('label'); }
+}
+
+// Muster: Der danger-Button wird erst aktiv, wenn das Bestätigungswort im Feld steht. Meldet dann beim Klick das Ereignis "confirm".
+class ConfirmAction extends Base {
+  build() {
+    this.innerHTML = '<div class="fd-confirm-action"><fd-text-field autocomplete="off" helper-text="Der Button wird aktiv, sobald die Eingabe stimmt."></fd-text-field><fd-button variant="danger" disabled></fd-button></div>';
+    this.addEventListener('input', () => this.sync());
+    this.q('fd-button').addEventListener('click', () => { if (this.matches) this.dispatchEvent(new Event('confirm', { bubbles: true })); });
+  }
+  get matches() { return this.q('fd-text-field').value.trim() === this.a('word').trim() && this.a('word').trim() !== ''; }
+  sync() { const b = this.q('fd-button'); if (this.matches) b.removeAttribute('disabled'); else b.setAttribute('disabled', ''); }
+  update() { this.q('fd-text-field').setAttribute('label', this.a('field-label')); this.q('fd-button').setAttribute('label', this.a('action-label')); this.sync(); }
+}
+
 class LinkButton extends Base {
   build() { this.innerHTML = '<a class="fd-link-button"><span class="fd-link-button__label"></span></a>'; }
   update() { this.q('.fd-link-button__label').textContent = this.a('label'); }
 }
 
-const CLASSES = { 'fd-button': Button, 'fd-text-field': TextField, 'fd-checkbox': Checkbox, 'fd-switch': Switch, 'fd-badge': Badge, 'fd-alert': Alert, 'fd-card': Card, 'fd-sign-in-form': SignInForm, 'fd-link-button': LinkButton };
+const CLASSES = { 'fd-button': Button, 'fd-text-field': TextField, 'fd-checkbox': Checkbox, 'fd-switch': Switch, 'fd-badge': Badge, 'fd-alert': Alert, 'fd-card': Card, 'fd-link': Link, 'fd-sign-in-form': SignInForm, 'fd-confirm-action': ConfirmAction, 'fd-link-button': LinkButton };
 for (const tag of Object.keys(ELEMENTS)) {
   if (!CLASSES[tag]) { console.warn(`Für <${tag}> aus dem Vertrag fehlt die Umsetzung in fundament.js.`); continue; }
   CLASSES[tag].define(tag);

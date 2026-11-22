@@ -17,7 +17,7 @@ const isBool = (p) => p.values && p.values.join() === 'false,true';
 for (const c of spec.components) {
   const L = [`Status: ${c.status} · v${c.version}`, c.purpose]; if (c.rules.length) L.push(`Regeln: ${c.rules.map((r) => `${r.text} [${r.id}]`).join(' ')}`); L.push(`A11y: ${c.a11y}`); L.push(`Spec: ds/${kebab(c.name)}`); if (c.status !== 'deprecated') L.push(`Code: <${P}-${kebab(c.name)}> aus "${spec.codePackage}"`);
   const desc = (c.deprecated ? `VERALTET seit ${c.deprecated.since} – nutze ${c.deprecated.use}.\n` : '') + L.join('\n');
-  const props = c.props.filter((p) => p.type !== 'behavior').map((p) => `${p.name}:${p.type === 'variant' ? 'VARIANT(' + [...p.values].sort().join(',') + ')' : p.type === 'text' ? 'TEXT' : p.type === 'boolean' ? 'BOOLEAN' : 'INSTANCE_SWAP'}`).sort();
+  const props = c.props.filter((p) => p.type !== 'behavior' && p.type !== 'codeText').map((p) => `${p.name}:${p.type === 'variant' ? 'VARIANT(' + [...p.values].sort().join(',') + ')' : p.type === 'text' ? 'TEXT' : p.type === 'boolean' ? 'BOOLEAN' : 'INSTANCE_SWAP'}`).sort();
   comps[c.name] = [props.join(';'), desc];
 }
 const out = { primitives: [lines.primitives.length, hash(lines.primitives.sort().join('\n'))], semantic: [lines.semantic.length, hash(lines.semantic.sort().join('\n'))], textStyles: [lines.textStyles.length, hash(lines.textStyles.sort().join('\n'))] };

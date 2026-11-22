@@ -56,7 +56,7 @@
     }
   ],
   "system": "Fundament",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "cssPrefix": "fd",
   "codePackage": "@fundament/ui",
   "tokens": {
@@ -172,7 +172,7 @@
       "class": "fd-button",
       "kind": "component",
       "status": "stable",
-      "version": "1.4.0",
+      "version": "1.4.1",
       "purpose": "Löst eine Aktion aus. Für Navigation zu einer anderen Seite einen Link verwenden.",
       "deprecated": null,
       "booleans": [
@@ -265,7 +265,7 @@
       "rules": [
         {
           "id": "button/one-primary",
-          "text": "Höchstens ein primärer Button pro Ansicht; ein danger-Button zählt als primär.",
+          "text": "Höchstens ein primärer Button pro Ansicht; ein danger-Button und ConfirmAction zählen als primär.",
           "why": "Mehrere primäre Aktionen konkurrieren um Aufmerksamkeit.",
           "check": "max-per-view"
         },
@@ -804,7 +804,7 @@
       "class": "fd-alert",
       "kind": "component",
       "status": "stable",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "purpose": "Hinweis im Seitenfluss zu Status, Erfolg, Warnung oder Fehler.",
       "deprecated": null,
       "booleans": [],
@@ -876,6 +876,12 @@
           "id": "alert/title-states-outcome",
           "text": "Titel nennt das Ergebnis, Beschreibung den nächsten Schritt.",
           "why": "Man soll den Titel allein verstehen können.",
+          "check": null
+        },
+        {
+          "id": "alert/no-action",
+          "text": "Ein Alert enthält keine Aktion. Die Beschreibung nennt den nächsten Schritt, die Aktion steht dort, wo sie wirkt.",
+          "why": "Eine Aktion im Hinweis konkurriert mit der Hauptaktion der Seite.",
           "check": null
         }
       ],
@@ -994,6 +1000,83 @@
         "badge"
       ]
     },
+    "Link": {
+      "class": "fd-link",
+      "kind": "component",
+      "status": "stable",
+      "version": "1.0.0",
+      "purpose": "Führt zu einer anderen Seite oder Stelle. Für Aktionen einen Button verwenden.",
+      "deprecated": null,
+      "booleans": [],
+      "attributes": {
+        "data-state": {
+          "values": [
+            "default",
+            "hover",
+            "focus"
+          ],
+          "default": "default"
+        }
+      },
+      "parts": [
+        "fd-link__label"
+      ],
+      "styles": {
+        "state=default": {
+          "fg": "feedback/info-fg"
+        },
+        "state=hover": {
+          "fg": "text/primary"
+        },
+        "state=focus": {
+          "ring": "focus/ring",
+          "ringWidth": "strong"
+        }
+      },
+      "colorTokens": [
+        "--fd-color-feedback-info-fg",
+        "--fd-color-text-primary",
+        "--fd-color-focus-ring"
+      ],
+      "slots": [],
+      "rules": [
+        {
+          "id": "link/names-destination",
+          "text": "Der Linktext nennt das Ziel.",
+          "why": "„Hier“ oder „Mehr“ sagen nicht, wohin es geht, und sind in einer Linkliste nicht unterscheidbar.",
+          "check": "no-vague-action"
+        },
+        {
+          "id": "link/has-target",
+          "text": "Ein Link hat immer ein Ziel (href).",
+          "why": "Ohne Ziel ist er eine Aktion und gehört in einen Button.",
+          "check": "required-prop"
+        }
+      ],
+      "a11y": "Als <a href> umsetzen. Öffnet der Link ein neues Fenster, steht das im Text.",
+      "element": "fd-link",
+      "attrs": {
+        "state": {
+          "type": "enum",
+          "values": [
+            "default",
+            "hover",
+            "focus"
+          ],
+          "default": "default"
+        },
+        "label": {
+          "type": "text",
+          "default": "Alle Rechnungen ansehen"
+        }
+      },
+      "passthrough": [
+        "href",
+        "target",
+        "rel"
+      ],
+      "slotNames": []
+    },
     "SignInForm": {
       "class": "fd-sign-in-form",
       "kind": "pattern",
@@ -1029,6 +1112,58 @@
       "a11y": "Fehlermeldungen oberhalb der Felder zusammenfassen und fokussieren.",
       "element": "fd-sign-in-form",
       "attrs": {},
+      "passthrough": [],
+      "slotNames": []
+    },
+    "ConfirmAction": {
+      "class": "fd-confirm-action",
+      "kind": "pattern",
+      "status": "stable",
+      "version": "1.0.0",
+      "purpose": "Sichert eine unwiderrufliche Aktion ab: Der danger-Button wird erst aktiv, wenn das Bestätigungswort eingegeben ist.",
+      "deprecated": null,
+      "booleans": [],
+      "attributes": {},
+      "parts": [],
+      "styles": {
+        "default": {
+          "fg": "text/primary"
+        }
+      },
+      "colorTokens": [
+        "--fd-color-text-primary"
+      ],
+      "slots": [],
+      "rules": [
+        {
+          "id": "confirmaction/for-irreversible",
+          "text": "Jede Aktion, die Daten unwiderruflich löscht, läuft über ConfirmAction.",
+          "why": "Ein roter Button allein schützt nicht vor einem versehentlichen Klick.",
+          "check": null
+        },
+        {
+          "id": "confirmaction/no-custom-script",
+          "text": "Das Freischalten kommt aus dem Muster, nicht aus eigenem Skript.",
+          "why": "Sonst unterscheiden sich Bestätigungen von Seite zu Seite.",
+          "check": null
+        }
+      ],
+      "a11y": "Der Button nennt die Aktion. Warum er deaktiviert ist, steht als Hilfstext am Feld und ist per aria-describedby verknüpft.",
+      "element": "fd-confirm-action",
+      "attrs": {
+        "word": {
+          "type": "text",
+          "default": "LÖSCHEN"
+        },
+        "field-label": {
+          "type": "text",
+          "default": "Gib zur Bestätigung LÖSCHEN ein"
+        },
+        "action-label": {
+          "type": "text",
+          "default": "Konto endgültig löschen"
+        }
+      },
       "passthrough": [],
       "slotNames": []
     },

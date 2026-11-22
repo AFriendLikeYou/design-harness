@@ -1,6 +1,6 @@
 {
   "name": "Fundament",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "cssPrefix": "fd",
   "codePackage": "@fundament/ui",
   "primitives": {
@@ -434,7 +434,7 @@
       "name": "Button",
       "kind": "component",
       "status": "stable",
-      "version": "1.4.0",
+      "version": "1.4.1",
       "purpose": "Löst eine Aktion aus. Für Navigation zu einer anderen Seite einen Link verwenden.",
       "props": [
         {
@@ -485,7 +485,7 @@
       "rules": [
         {
           "id": "button/one-primary",
-          "text": "Höchstens ein primärer Button pro Ansicht; ein danger-Button zählt als primär.",
+          "text": "Höchstens ein primärer Button pro Ansicht; ein danger-Button und ConfirmAction zählen als primär.",
           "why": "Mehrere primäre Aktionen konkurrieren um Aufmerksamkeit.",
           "check": "max-per-view"
         },
@@ -946,7 +946,7 @@
       "name": "Alert",
       "kind": "component",
       "status": "stable",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "purpose": "Hinweis im Seitenfluss zu Status, Erfolg, Warnung oder Fehler.",
       "props": [
         {
@@ -982,6 +982,12 @@
           "id": "alert/title-states-outcome",
           "text": "Titel nennt das Ergebnis, Beschreibung den nächsten Schritt.",
           "why": "Man soll den Titel allein verstehen können.",
+          "check": null
+        },
+        {
+          "id": "alert/no-action",
+          "text": "Ein Alert enthält keine Aktion. Die Beschreibung nennt den nächsten Schritt, die Aktion steht dort, wo sie wirkt.",
+          "why": "Eine Aktion im Hinweis konkurriert mit der Hauptaktion der Seite.",
           "check": null
         }
       ],
@@ -1100,6 +1106,64 @@
       }
     },
     {
+      "name": "Link",
+      "kind": "component",
+      "status": "stable",
+      "version": "1.0.0",
+      "purpose": "Führt zu einer anderen Seite oder Stelle. Für Aktionen einen Button verwenden.",
+      "props": [
+        {
+          "name": "state",
+          "type": "variant",
+          "values": [
+            "default",
+            "hover",
+            "focus"
+          ],
+          "default": "default"
+        },
+        {
+          "name": "label",
+          "type": "text",
+          "default": "Alle Rechnungen ansehen"
+        }
+      ],
+      "styles": {
+        "state=default": {
+          "fg": "feedback/info-fg"
+        },
+        "state=hover": {
+          "fg": "text/primary"
+        },
+        "state=focus": {
+          "ring": "focus/ring",
+          "ringWidth": "strong"
+        }
+      },
+      "rules": [
+        {
+          "id": "link/names-destination",
+          "text": "Der Linktext nennt das Ziel.",
+          "why": "„Hier“ oder „Mehr“ sagen nicht, wohin es geht, und sind in einer Linkliste nicht unterscheidbar.",
+          "check": "no-vague-action"
+        },
+        {
+          "id": "link/has-target",
+          "text": "Ein Link hat immer ein Ziel (href).",
+          "why": "Ohne Ziel ist er eine Aktion und gehört in einen Button.",
+          "check": "required-prop"
+        }
+      ],
+      "a11y": "Als <a href> umsetzen. Öffnet der Link ein neues Fenster, steht das im Text.",
+      "do": [
+        "„Alle Rechnungen ansehen“"
+      ],
+      "dont": [
+        "„Hier“",
+        "Link, der etwas speichert oder löscht"
+      ]
+    },
+    {
       "name": "SignInForm",
       "kind": "pattern",
       "status": "stable",
@@ -1129,6 +1193,57 @@
           "borderWidth": "default"
         }
       }
+    },
+    {
+      "name": "ConfirmAction",
+      "kind": "pattern",
+      "status": "stable",
+      "version": "1.0.0",
+      "purpose": "Sichert eine unwiderrufliche Aktion ab: Der danger-Button wird erst aktiv, wenn das Bestätigungswort eingegeben ist.",
+      "props": [
+        {
+          "name": "word",
+          "type": "codeText",
+          "default": "LÖSCHEN"
+        },
+        {
+          "name": "fieldLabel",
+          "type": "codeText",
+          "default": "Gib zur Bestätigung LÖSCHEN ein"
+        },
+        {
+          "name": "actionLabel",
+          "type": "codeText",
+          "default": "Konto endgültig löschen"
+        }
+      ],
+      "styles": {
+        "default": {
+          "fg": "text/primary"
+        }
+      },
+      "rules": [
+        {
+          "id": "confirmaction/for-irreversible",
+          "text": "Jede Aktion, die Daten unwiderruflich löscht, läuft über ConfirmAction.",
+          "why": "Ein roter Button allein schützt nicht vor einem versehentlichen Klick.",
+          "check": null
+        },
+        {
+          "id": "confirmaction/no-custom-script",
+          "text": "Das Freischalten kommt aus dem Muster, nicht aus eigenem Skript.",
+          "why": "Sonst unterscheiden sich Bestätigungen von Seite zu Seite.",
+          "check": null
+        }
+      ],
+      "a11y": "Der Button nennt die Aktion. Warum er deaktiviert ist, steht als Hilfstext am Feld und ist per aria-describedby verknüpft.",
+      "do": [
+        "Bestätigungswort nennt die Aktion: „LÖSCHEN“"
+      ],
+      "dont": [
+        "Bestätigung per Checkbox",
+        "Eigenes Skript, das einen Button freischaltet"
+      ]
     },
     {
       "name": "LinkButton",
@@ -1275,6 +1390,10 @@
     }
   ],
   "changelog": [
+    {
+      "version": "1.4.0",
+      "text": "Neu: Link für Navigation und das Muster ConfirmAction für unwiderrufliche Aktionen. Alert bleibt ohne Aktion (Regel alert/no-action). Check mit eigenem HTML-Parser und Prüfung im gerenderten Zustand (audit)."
+    },
     {
       "version": "1.3.0",
       "text": "TextField: trailingAction (reveal, clear) bringt das Verhalten für den Slot trailing mit. Card: Slot badge. Beide Lücken stammen aus der Messung mit sechs Agentenläufen."

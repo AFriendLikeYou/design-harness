@@ -364,6 +364,19 @@ async function buildCard(page) {
   C.Card = { set: c, keys };
 }
 
+async function buildLink(page) {
+  const comps = [];
+  for (const state of specOf('Link').props[0].values) {
+    const st = Object.assign({}, style('Link', 'state=default'), style('Link', `state=${state}`));
+    const c = newComponent(page, `state=${state}`);
+    stack(c, 'HORIZONTAL'); radius(c, 'sm'); c.clipsContent = false;
+    const t = await text('Alle Rechnungen ansehen', 'body/md', st.fg, 'label'); t.textDecoration = 'UNDERLINE'; c.appendChild(t);
+    if (state === 'focus') focusRing(c, 'md', st);
+    comps.push(c);
+  }
+  C.Link = await finishSet(comps, page, 'Link', 760, { label: 'Alle Rechnungen ansehen' });
+}
+
 function inst(name, props = {}) {
   const ref = C[name];
   const node = ref.set.type === 'COMPONENT_SET' ? ref.set.defaultVariant.createInstance() : ref.set.createInstance();
@@ -386,6 +399,20 @@ async function buildSignInForm(page) {
   c.description = description(specOf('SignInForm'));
   c.x = 0; c.y = 0;
   C.SignInForm = { set: c, keys: {} };
+}
+
+// Muster ConfirmAction: nur aus Instanzen; die Texte (word, fieldLabel, actionLabel) sind Props im Code
+async function buildConfirmAction(page, y) {
+  const spec = specOf('ConfirmAction'); const d = Object.fromEntries(spec.props.map((x) => [x.name, x.default]));
+  const c = newComponent(page, 'ConfirmAction');
+  stack(c, 'VERTICAL', 'lg'); fixedWidth(c, 360, 'panel');
+  const field = inst('TextField', { label: d.fieldLabel, value: d.word, helperText: 'Der Button wird aktiv, sobald die Eingabe stimmt.' }); field.name = 'field'; c.appendChild(field); fill(field);
+  const btn = inst('Button', { variant: 'danger', label: d.actionLabel }); btn.name = 'action'; c.appendChild(btn);
+  c.description = description(spec);
+  annotate(c, 'word, fieldLabel und actionLabel sind Props im Code. Der Button ist deaktiviert, bis die Eingabe dem Wort entspricht.');
+  c.x = 0; c.y = y;
+  C.ConfirmAction = { set: c, keys: {} };
+  const doc = await docFrame(spec, page, c.width + 80); doc.y = y;
 }
 
 async function buildDeprecated(page) {
@@ -412,7 +439,7 @@ async function docFrame(spec, page, x) {
   await add(spec.purpose, 'body/md', null, 'purpose');
   if (spec.props.length) {
     await add('Properties (identisch mit Code-Props)', 'label/md', null, 'properties-title');
-    await add(spec.props.map((p) => `${p.name}: ${p.values ? p.values.join(' | ') : p.type}${p.type === 'behavior' ? '  (nur im Code)' : ''}${p.default !== undefined ? `  (Standard: ${p.default})` : ''}`).join('\n'), 'body/sm', 'text/secondary', 'properties');
+    await add(spec.props.map((p) => `${p.name}: ${p.values ? p.values.join(' | ') : p.type === 'codeText' ? 'text' : p.type}${p.type === 'behavior' || p.type === 'codeText' ? '  (nur im Code)' : ''}${p.default !== undefined ? `  (Standard: ${p.default})` : ''}`).join('\n'), 'body/sm', 'text/secondary', 'properties');
   }
   if (spec.rules.length) {
     await add('Regeln', 'label/md', null, 'rules-title');
@@ -560,7 +587,7 @@ async function buildExamples(page) {
 }
 
 // ---------- Ablauf ----------
-const BUILDERS = { Button: buildButton, TextField: buildTextField, Checkbox: buildCheckbox, Switch: buildSwitch, Badge: buildBadge, Alert: buildAlert, Card: buildCard };
+const BUILDERS = { Link: buildLink, Button: buildButton, TextField: buildTextField, Checkbox: buildCheckbox, Switch: buildSwitch, Badge: buildBadge, Alert: buildAlert, Card: buildCard };
 const LIVE = SPEC.components.filter((c) => c.kind === 'component' && c.status !== 'deprecated').map((c) => c.name);
 const PAGES = ['📖 Lies mich', '🎨 Foundations', ...LIVE.map((n) => `🧩 ${n}`), '🧱 Patterns', '📰 Beispiele', '🗄 Veraltet'];
 
@@ -577,6 +604,7 @@ async function main() {
   figma.notify('Erzeuge Komponenten …');
   for (const n of LIVE) { if (!BUILDERS[n]) { warn(`Für ${n} fehlt ein Builder im Plugin.`); continue; } await componentPage(`🧩 ${n}`, BUILDERS[n], n); }
   await componentPage('🧱 Patterns', buildSignInForm, 'SignInForm');
+  await buildConfirmAction(await goTo('🧱 Patterns'), 900);
   await componentPage('🗄 Veraltet', buildDeprecated, 'LinkButton');
 
   await buildExamples(await goTo('📰 Beispiele'));

@@ -1,6 +1,6 @@
 <!-- Generiert aus specs/system.json – nicht von Hand bearbeiten. -->
 # Button
-Status: stable · v1.4.0 · Spec: ds/button
+Status: stable · v1.4.1 · Spec: ds/button
 Löst eine Aktion aus. Für Navigation zu einer anderen Seite einen Link verwenden.
 ```html
 <script type="module">import "@fundament/ui";</script>
@@ -36,7 +36,7 @@ Props sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attr
 
 ## Regeln
 
-- **Höchstens ein primärer Button pro Ansicht; ein danger-Button zählt als primär.** Warum: Mehrere primäre Aktionen konkurrieren um Aufmerksamkeit. (`button/one-primary`, Check: `max-per-view`)
+- **Höchstens ein primärer Button pro Ansicht; ein danger-Button und ConfirmAction zählen als primär.** Warum: Mehrere primäre Aktionen konkurrieren um Aufmerksamkeit. (`button/one-primary`, Check: `max-per-view`)
 - **Beschriftung beginnt mit einem Verb und nennt das Ergebnis.** Warum: Nutzer:innen wissen vor dem Klick, was passiert. (`button/label-verb`, manuell)
 - **Farbe nur über variant, nie eigene Füllungen.** Warum: Sonst brechen Dark Mode und Kontrastgarantie. (`button/no-custom-colors`, Check: `no-raw-color`)
 - **Hover und Fokus kommen aus der Komponente, nie selbst gestaltet.** Warum: Der Fokusring ist eine Zusage an Tastaturnutzer:innen und muss überall gleich aussehen. (`button/states-from-system`, manuell)

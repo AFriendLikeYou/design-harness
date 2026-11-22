@@ -8,8 +8,8 @@
    im Betrieb entstehen beide über :hover und :focus-visible. */
 
 /* ---------- Elemente ---------- */
-fd-button, fd-badge, fd-checkbox, fd-link-button { display: inline-block; }
-fd-text-field, fd-switch, fd-alert, fd-card, fd-sign-in-form { display: block; }
+fd-button, fd-badge, fd-checkbox, fd-link, fd-link-button { display: inline-block; }
+fd-text-field, fd-switch, fd-alert, fd-card, fd-sign-in-form, fd-confirm-action { display: block; }
 fd-button[slot="trailing"] { display: flex; }
 [hidden] { display: none !important; }
 
@@ -115,6 +115,15 @@ fd-button[slot="trailing"] { display: flex; }
 .fd-sign-in-form { display: flex; flex-direction: column; gap: var(--fd-space-lg); max-width: var(--fd-size-panel); padding: var(--fd-space-xl); border: var(--fd-border-width-default) solid var(--fd-color-border-default); border-radius: var(--fd-radius-lg); background: var(--fd-color-bg-surface); }
 .fd-sign-in-form__title { font: var(--fd-text-heading-lg); color: var(--fd-color-text-primary); margin: 0; }
 .fd-sign-in-form__submit, .fd-sign-in-form__submit .fd-button { display: flex; width: 100%; }
+
+/* ---------- Link ---------- */
+.fd-link { font: inherit; color: var(--fd-color-feedback-info-fg); text-decoration: underline; text-underline-offset: var(--fd-space-2xs); border-radius: var(--fd-radius-sm); }
+.fd-link:hover, .fd-link[data-state="hover"] { color: var(--fd-color-text-primary); }
+.fd-link:focus-visible, .fd-link[data-state="focus"] { outline: var(--fd-border-width-strong) solid var(--fd-color-focus-ring); outline-offset: var(--fd-border-width-strong); }
+
+/* ---------- ConfirmAction (Pattern) ---------- */
+.fd-confirm-action { display: flex; flex-direction: column; align-items: flex-start; gap: var(--fd-space-lg); max-width: var(--fd-size-panel); color: var(--fd-color-text-primary); }
+.fd-confirm-action fd-text-field { align-self: stretch; }
 
 /* ---------- LinkButton (veraltet) ---------- */
 .fd-link-button { padding: var(--fd-space-2xs) var(--fd-space-xs); font: var(--fd-text-label-md); color: var(--fd-color-feedback-info-fg); }
