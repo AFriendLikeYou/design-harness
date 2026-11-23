@@ -104,6 +104,15 @@ Eine Regel entsteht aus einem Fehler, der wirklich passiert ist. Sie gilt erst, 
 - **Wer schreibt.** Wer den Fehler gesehen hat, schreibt die Regel als Satz mit Begründung in specs/rules.json. Mehr braucht es für den Vorschlag nicht.
 - **Wer entscheidet.** Design und Entwicklung gemeinsam, im Pull Request. Ohne Zustimmung beider Seiten wird die Regel nicht zusammengeführt.
 - **Was der Rechner verlangt.** Jede Regel braucht eine Begründung und einen eindeutigen Namen. Verspricht sie einen Check, muss es ihn geben, samt Beispiel, das die Regel verletzt. Sonst ist der Stand rot.
+- **Fehler, Hinweis, Ausnahme.** Ein Fehler muss behoben werden. Ein Hinweis ist ein Vorschlag, der Check besteht trotzdem. Passt eine Regel an einer Stelle wirklich nicht, gibt es die Einzelausnahme mit Grund direkt am Element. Ohne Grund gilt sie nicht, und jede Ausnahme steht im Bericht.
+
+```json
+<fd-button label="Entwurf veröffentlichen"
+  data-fd-allow="button/one-primary: Zwei gleichwertige Wege, die Redaktion braucht beide sofort">
+</fd-button>
+```
+
+So sieht eine begründete Einzelausnahme aus.
 
 ## Was wohin gehört
 

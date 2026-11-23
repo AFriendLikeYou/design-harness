@@ -1,7 +1,7 @@
 {
   "$comment": "Generiert zur Ansicht: das System, wie es aus Figma-Schnappschuss, Code und Regeldatei zusammengesetzt wird. Nicht von Hand bearbeiten.",
   "name": "Fundament",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "cssPrefix": "fd",
   "codePackage": "@fundament/ui",
   "primitives": {
@@ -554,7 +554,7 @@
       "rules": [
         {
           "id": "button/one-primary",
-          "text": "Höchstens ein primärer Button pro Ansicht; ein danger-Button und ConfirmAction zählen als primär.",
+          "text": "Höchstens ein primärer Button pro Ansicht, Karte oder Formular; danger und ConfirmAction zählen als primär.",
           "why": "Mehrere primäre Aktionen konkurrieren um Aufmerksamkeit.",
           "check": "max-per-view"
         },
@@ -1875,10 +1875,12 @@
     "hier klicken",
     "klick hier",
     "klicken",
+    "mehr",
+    "los"
+  ],
+  "weakActions": [
     "weiter",
     "ok",
-    "mehr",
-    "los",
     "absenden",
     "senden"
   ],
@@ -1894,6 +1896,10 @@
     }
   ],
   "changelog": [
+    {
+      "version": "1.8.0",
+      "text": "Maße je Variante werden gegen Figma gemessen (Radius, Innenabstand, Lücke, Textstil). Der Check kennt Hinweise neben Fehlern und begründete Einzelausnahmen (data-fd-allow). „Weiter“, „Absenden“, „Senden“ und „OK“ sind nur noch ein Hinweis. Ein primärer Button zählt je Ansicht, Karte oder Formular."
+    },
     {
       "version": "1.7.0",
       "text": "Neu: Radio (beta) für eine Auswahl aus mehreren. Das Export-Plugin prüft vor dem Übernehmen und zeigt, was sich ändert. Doku nach Rollen geordnet."

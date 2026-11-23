@@ -1,6 +1,6 @@
 {
   "name": "@fundament/ui",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "Fundament Design System als Web Components",
   "type": "module",
   "main": "./fundament.js",

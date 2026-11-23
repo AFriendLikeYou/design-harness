@@ -45,6 +45,7 @@
     "absenden",
     "senden"
   ],
+  "weakActions": [],
   "migrations": [],
   "system": "ZDS-Probe",
   "version": "0.3.0",

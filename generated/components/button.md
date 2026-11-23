@@ -58,7 +58,7 @@ Props sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attr
 
 ## Regeln
 
-- **Höchstens ein primärer Button pro Ansicht; ein danger-Button und ConfirmAction zählen als primär.** Warum: Mehrere primäre Aktionen konkurrieren um Aufmerksamkeit. (`button/one-primary`, Check: `max-per-view`)
+- **Höchstens ein primärer Button pro Ansicht, Karte oder Formular; danger und ConfirmAction zählen als primär.** Warum: Mehrere primäre Aktionen konkurrieren um Aufmerksamkeit. (`button/one-primary`, Check: `max-per-view`)
 - **Beschriftung beginnt mit einem Verb und nennt das Ergebnis.** Warum: Nutzer:innen wissen vor dem Klick, was passiert. (`button/label-verb`, manuell)
 - **Farbe nur über variant, nie eigene Füllungen.** Warum: Sonst brechen Dark Mode und Kontrastgarantie. (`button/no-custom-colors`, Check: `no-raw-color`)
 - **Hover und Fokus kommen aus der Komponente, nie selbst gestaltet.** Warum: Der Fokusring ist eine Zusage an Tastaturnutzer:innen und muss überall gleich aussehen. (`button/states-from-system`, manuell)

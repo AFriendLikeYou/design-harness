@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Fundament-CLI. Liest das zusammengesetzte System (tooling/assemble.mjs) und generated/contracts.json.
 //   fundament lint                      prüft die Spec selbst (Verweise, Eindeutigkeit, Regeln mit Check)
-//   fundament check <Pfad …> [--json] [--html]   prüft HTML/CSS gegen Verträge, Regeln und Grundsätze; --html für Seiten aus reinem HTML und CSS
+//   fundament check <Pfad …> [--json] [--html] [--strict]   prüft HTML/CSS gegen Verträge, Regeln und Grundsätze; --html für Seiten aus reinem HTML und CSS
 //   fundament audit <Pfad …> [--json]   prüft gerendert in Chrome: Überlauf bei 360 px, Kontrast, Namen, Klickflächen
 //   fundament migrate <Pfad …> [--write] ersetzt Veraltetes laut migrations in der Spec
 // Exit 0 = sauber, 1 = Befunde, 2 = falscher Aufruf.
@@ -106,7 +106,18 @@ export function check(files, C = read('generated/contracts.json'), opts = {}) {
   const vague = (t) => C.vagueActions.includes(t.trim().toLowerCase().replace(/[.!→>\s]+$/g, ''));
   // Befunde zu Regel-IDs, die es im Vertrag nicht gibt, werden nicht ausgegeben (lint meldet die Lücke)
   const known = new Set([...Object.values(C.components).flatMap((c) => c.rules || []), ...(C.principles || [])].map((r) => r.id));
-  const add = (file, line, id, message, fix) => { if (CHECKED_IDS.includes(id) && !known.has(id)) return; findings.push({ file, line, id, message, fix }); };
+  // Stufen: Fehler (Standard) oder Hinweis ("level": "warning" an der Regel oder am Befund). Hinweise lassen den Check bestehen.
+  // Einzelausnahme: data-fd-allow="regel/id: Grund" am Element oder an einem Vorfahren. Ohne Grund gilt sie nicht. Ausnahmen stehen in findings.allowed.
+  const levelOf = Object.fromEntries([...Object.values(C.components).flatMap((c) => c.rules || []), ...(C.principles || [])].map((r) => [r.id, r.level || 'error']));
+  const allowed = []; findings.allowed = allowed; let allowNow = null;
+  const add = (file, line, id, message, fix, level) => { if (CHECKED_IDS.includes(id) && !known.has(id)) return; if (allowNow && allowNow.has(id)) { allowed.push({ file, line, id, message, reason: allowNow.get(id) }); return; } findings.push({ file, line, id, message, fix, level: level || levelOf[id] || 'error' }); };
+  const weak = (t) => (C.weakActions || []).includes(t.trim().toLowerCase().replace(/[.!→>\s]+$/g, ''));
+  const WEAK_FIX = 'Wenn es passt, das Ergebnis nennen, z. B. „Weiter zur Zahlung“. In einer Strecke mit festem nächsten Schritt ist das Wort in Ordnung.';
+  const parseAllow = (file, line, value, base) => { const map = new Map(base || []); if (typeof value !== 'string') return map; for (const part of value.split(';').map((x) => x.trim()).filter(Boolean)) { const i = part.indexOf(':'); const id = (i < 0 ? part : part.slice(0, i)).trim(); const why = i < 0 ? '' : part.slice(i + 1).trim();
+    if (!known.has(id)) add(file, line, 'allow/unknown-rule', `Ausnahme für „${id}“: Diese Regel gibt es nicht.`, 'Die Regel-ID aus dem Befund übernehmen. Ausnahmen gibt es nur für Regeln und Grundsätze, nicht für unbekannte Bausteine, Werte oder Tokens.');
+    else if (why.length < 8) add(file, line, 'allow/needs-reason', `Ausnahme für „${id}“ ohne Grund.`, 'Den Grund dazuschreiben: data-fd-allow="' + id + ': warum es hier anders sein muss".'); else map.set(id, why); } return map; };
+  // Ein primärer Button zählt je Ansicht; Karte, Formular und Dialog sind eigene Einheiten
+  const unitOf = (stack) => { for (let i = stack.length - 1; i >= 0; i--) { const s = stack[i]; if (s.comp?.name === 'Card' || (s.owner && (s.owner.impl || s.owner.name) === 'Card') || s.tag === 'form' || s.tag === 'dialog') return s.id; } return 0; };
   // name = Art der Komponente für die Regeln (bei "impl" die der Umsetzung), title = Name im System
   const byEl = Object.fromEntries(Object.entries(C.components).map(([name, c]) => [c.element, { ...c, title: name, name: c.impl || name }]));
   const byClass = Object.fromEntries(Object.entries(C.components).map(([name, c]) => [c.class, { name, ...c }]));
@@ -143,6 +154,7 @@ export function check(files, C = read('generated/contracts.json'), opts = {}) {
     for (const c of cls) { const [block, part] = c.split('__'); const kind = byClass[block] ? (byClass[block].impl || byClass[block].name) : null; if (!kind || text === null) continue;
       if ((part === 'label' || part === 'title') && !text) add(file, line, kind === 'TextField' ? 'textfield/visible-label' : 'props/required', `${c} ohne Text.`, 'Sichtbaren Text einsetzen.');
       if (part === 'label' && kind === 'Button' && vague(text)) add(file, line, 'principles/action-says-what', `Beschriftung „${text}“ sagt nicht, was passiert.`, 'Mit einem Verb beginnen und das Ergebnis nennen, z. B. „Änderungen speichern“.');
+      if (part === 'label' && kind === 'Button' && !vague(text) && weak(text)) add(file, line, 'principles/action-says-what', `Beschriftung „${text}“ sagt wenig darüber, was passiert.`, WEAK_FIX, 'warning');
       if (part === 'label' && kind === 'Link' && (vague(text) || /^hier$/i.test(text))) add(file, line, 'link/names-destination', `Linktext „${text}“ nennt kein Ziel.`, 'Das Ziel nennen, z. B. „Alle Rechnungen ansehen“.');
       if (part === 'label' && kind === 'Chip' && text.split(/\s+/).length > 2) add(file, line, 'chip/short-label', `Chip-Text „${text}“ hat mehr als zwei Wörter.`, 'Auf höchstens zwei Wörter kürzen.');
       if (part === 'label' && kind === 'Badge' && text.split(/\s+/).length > 2) add(file, line, 'badge/short-label', `Badge-Text „${text}“ hat mehr als zwei Wörter.`, 'Auf höchstens zwei Wörter kürzen.'); }
@@ -155,18 +167,19 @@ export function check(files, C = read('generated/contracts.json'), opts = {}) {
   }
   function html(file, src) {
     const L = (i) => lineOf(src, i);
-    const toks = tokenize(src);
+    const toks = tokenize(src); allowNow = null;
     toks.forEach((tk, i) => { if (!tk.close && tk.tag === 'style' && toks[i + 1]?.close) css(file, src.slice(tk.end, toks[i + 1].index), L(tk.index) - 1); });
     H = opts.html || toks.some((tk) => !tk.close && tk.tag === 'html' && 'data-fd-html' in tk.attrs) ? htmlClasses() : null;
     const specimen = toks.some((tk) => !tk.close && tk.tag === 'html' && 'data-fd-specimen' in tk.attrs);
-    const VOID = new Set(['input', 'br', 'img', 'meta', 'link', 'hr']); const stack = []; let primary = 0; const alerts = new Map(); const radios = new Map();
+    const VOID = new Set(['input', 'br', 'img', 'meta', 'link', 'hr']); const stack = []; const primaries = new Map(); const bump = () => { const k = unitOf(stack); primaries.set(k, (primaries.get(k) || 0) + 1); return primaries.get(k); }; const alerts = new Map(); const radios = new Map(); allowNow = null;
     for (const [ti, m] of toks.entries()) {
       const { close, tag: t, attrs } = m;
       if (close) { for (let i = stack.length - 1; i >= 0; i--) if (stack[i].tag === t) { stack.length = i; break; } continue; }
       const line = L(m.index); const parent = stack[stack.length - 1]; const pc = parent?.comp;
+      allowNow = null; const allowHere = parseAllow(file, line, attrs['data-fd-allow'], parent?.allow); allowNow = allowHere;
       if (typeof attrs.style === 'string') decl(file, attrs.style, () => line, null, '');
       const cls = typeof attrs.class === 'string' ? attrs.class.split(/\s+/).filter((c) => c.startsWith(P + '-')) : [];
-      if (H) htmlFassung(file, line, m, toks[ti + 1], cls, src, stack, parent, alerts, () => ++primary, specimen);
+      if (H) htmlFassung(file, line, m, toks[ti + 1], cls, src, stack, parent, alerts, bump, specimen);
       else if (cls.length) add(file, line, 'components/internal-class', `Interne Klasse in class="${attrs.class}".`, `Die Klassen gehören dem Paket. Das Element verwenden: ${elList}.`);
       if (!t.startsWith(P + '-') && ['button', 'input', 'select', 'textarea', ...(C.components.Link ? ['a'] : [])].includes(t) && attrs.type !== 'hidden' && !(H && (cls.length || stack.some((x) => x.sys)))) add(file, line, 'principles/system-controls', `Nacktes <${t}>.`, `Systemkomponente verwenden: ${elList}. Fehlt eine passende, die Lücke melden statt nachzubauen.`);
       let comp = null;
@@ -188,15 +201,16 @@ export function check(files, C = read('generated/contracts.json'), opts = {}) {
         const slot = attrs.slot;
         if (comp.name === 'Button') {
           const variant = v('variant');
-          if ((variant === 'primary' || variant === 'danger') && slot !== 'trailing' && !specimen && ++primary > 1) add(file, line, 'button/one-primary', 'Mehr als ein primärer Button in dieser Ansicht (danger zählt als primär).', 'Weitere Aktionen mit variant="secondary" oder "ghost".');
+          if ((variant === 'primary' || variant === 'danger') && slot !== 'trailing' && !specimen && bump() > 1) add(file, line, 'button/one-primary', 'Mehr als ein primärer Button in dieser Ansicht, Karte oder diesem Formular (danger zählt als primär).', 'Weitere Aktionen mit variant="secondary" oder "ghost".');
           if (C.vagueActions.includes(v('label').trim().toLowerCase().replace(/[.!→>\s]+$/g, ''))) add(file, line, 'principles/action-says-what', `Beschriftung „${v('label')}“ sagt nicht, was passiert.`, 'Mit einem Verb beginnen und das Ergebnis nennen, z. B. „Änderungen speichern“.');
+          else if (weak(v('label'))) add(file, line, 'principles/action-says-what', `Beschriftung „${v('label')}“ sagt wenig darüber, was passiert.`, WEAK_FIX, 'warning');
           if (slot === 'trailing' && (variant !== 'ghost' || v('size') !== 'sm')) add(file, line, 'textfield/trailing-slot', 'Button im Slot trailing ist nicht ghost und sm.', 'variant="ghost" size="sm" setzen.');
         }
         if (comp.name === 'Link') {
           if (!attrs.href || attrs.href === true) add(file, line, 'link/has-target', 'Link ohne href.', 'href="…" setzen. Ohne Ziel ist es eine Aktion und gehört in <fd-button>.');
           if (C.vagueActions.includes(v('label').trim().toLowerCase().replace(/[.!→>\s]+$/g, '')) || /^hier$/i.test(v('label').trim())) add(file, line, 'link/names-destination', `Linktext „${v('label')}“ nennt kein Ziel.`, 'Das Ziel nennen, z. B. „Alle Rechnungen ansehen“.');
         }
-        if (comp.name === 'ConfirmAction' && !specimen && ++primary > 1) add(file, line, 'button/one-primary', 'Mehr als eine primäre Aktion in dieser Ansicht (ConfirmAction zählt als primär).', 'Weitere Aktionen mit variant="secondary" oder "ghost".');
+        if (comp.name === 'ConfirmAction' && !specimen && bump() > 1) add(file, line, 'button/one-primary', 'Mehr als eine primäre Aktion in dieser Ansicht (ConfirmAction zählt als primär).', 'Weitere Aktionen mit variant="secondary" oder "ghost".');
         if (comp.name === 'TextField') {
           if (comp.attrs['trailing-action'] && v('trailing-action') !== 'none' && !(attrs['show-trailing'] !== undefined && attrs['show-trailing'] !== 'false')) add(file, line, 'textfield/trailing-slot', 'trailing-action ohne sichtbaren Slot.', 'show-trailing setzen und einen <fd-button slot="trailing" variant="ghost" size="sm"> einfügen.');
           if (v('state') === 'error' && !v('error-text').trim()) add(file, line, 'textfield/error-text', 'Fehlerzustand ohne error-text.', 'error-text="…" setzen und darin sagen, wie man den Fehler behebt.');
@@ -220,8 +234,9 @@ export function check(files, C = read('generated/contracts.json'), opts = {}) {
           if (pc.attrs[sd.show] && !parent.shown.includes(sd.show)) add(file, line, rid, `Slot ${slot} ist gefüllt, aber ${sd.show} fehlt.`, `${sd.show} am <${pc.element}> setzen, sonst bleibt der Slot unsichtbar.`);
         }
       }
-      if (!VOID.has(t) && !m.selfClosing) stack.push({ tag: t, comp, sys: cls.length > 0, owner: cls.map((c) => byClass[c]).find(Boolean), id: m.index, slots: {}, shown: Object.keys(attrs).filter((a) => a.startsWith('show-') && attrs[a] !== 'false') });
+      if (!VOID.has(t) && !m.selfClosing) stack.push({ tag: t, comp, allow: allowHere, sys: cls.length > 0, owner: cls.map((c) => byClass[c]).find(Boolean), id: m.index, slots: {}, shown: Object.keys(attrs).filter((a) => a.startsWith('show-') && attrs[a] !== 'false') });
     }
+    allowNow = null;
     if (!specimen) for (const [g, lines] of radios) if (!g || lines.length < 2) for (const l of lines) add(file, l, 'radio/in-group', g ? `Radio mit name="${g}" steht allein.` : 'Radio ohne name.', 'Mindestens zwei Radios mit demselben name="…" zu einer Gruppe machen. Für eine einzelne Ja-oder-Nein-Frage eine Checkbox verwenden.');
   }
   for (const f of files) { if (/^(tokens\.css|contract\.generated\.js)$/.test(basename(f))) continue; const src = readFileSync(f, 'utf8'); extname(f) === '.css' ? css(f, src) : html(f, src); }
@@ -245,7 +260,14 @@ export function migrate(files, write, C = read('generated/contracts.json')) {
 // ---------- Aufruf ----------
 if (import.meta.url === `file://${process.argv[1]}` || process.argv[1]?.endsWith('fundament.mjs')) {
   const [cmd, ...rest] = process.argv.slice(2); const flags = rest.filter((a) => a.startsWith('--')); const paths = rest.filter((a) => !a.startsWith('--'));
-  const print = (findings, n) => { if (flags.includes('--json')) console.log(JSON.stringify({ ok: !findings.length, checked: n, findings }, null, 2)); else if (!findings.length) console.log(`Sauber: ${n} geprüft, keine Befunde.`); else { for (const x of findings) console.log(`${x.file}${x.line ? ':' + x.line : ''}  [${x.id}]  ${x.message}\n    Behebung: ${x.fix}`); console.log(`\n${findings.length} Befunde.`); } process.exit(findings.length ? 1 : 0); };
+  // Fehler lassen den Lauf scheitern, Hinweise nicht (außer mit --strict). Begründete Ausnahmen werden genannt, damit sie im Bericht landen.
+  const print = (findings, n) => { const allowed = findings.allowed || []; const errors = findings.filter((x) => x.level !== 'warning'); const hints = findings.filter((x) => x.level === 'warning'); const failed = errors.length > 0 || (flags.includes('--strict') && hints.length > 0);
+    if (flags.includes('--json')) console.log(JSON.stringify({ ok: !failed, checked: n, findings: [...findings], allowed }, null, 2));
+    else { for (const x of findings) console.log(`${x.file}${x.line ? ':' + x.line : ''}  [${x.id}]${x.level === 'warning' ? '  Hinweis:' : ''}  ${x.message}\n    ${x.level === 'warning' ? 'Vorschlag' : 'Behebung'}: ${x.fix}`);
+      for (const x of allowed) console.log(`${x.file}:${x.line}  [${x.id}]  Ausnahme: ${x.reason}`);
+      const parts = [errors.length && `${errors.length} ${errors.length === 1 ? 'Fehler' : 'Fehler'}`, hints.length && `${hints.length} ${hints.length === 1 ? 'Hinweis' : 'Hinweise'}`, allowed.length && `${allowed.length} begründete ${allowed.length === 1 ? 'Ausnahme' : 'Ausnahmen'}`].filter(Boolean);
+      console.log(!findings.length && !allowed.length ? `Sauber: ${n} geprüft, keine Befunde.` : `${findings.length || allowed.length ? '\n' : ''}${errors.length ? '' : 'Bestanden: '}${parts.join(', ')}.`); }
+    process.exit(failed ? 1 : 0); };
   try {
     if (cmd === 'lint') { const { loadSpec } = await import('../tooling/assemble.mjs'); print(lint(await loadSpec(ROOT.pathname)), 1); }
     else if (cmd === 'check' && paths.length) { const files = collect(paths, ['.html', '.htm', '.css', '.svelte']); if (!files.length) throw new Error('Keine HTML-, CSS- oder Svelte-Dateien gefunden.'); print(check(files, undefined, { html: flags.includes('--html') }), files.length); }

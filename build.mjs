@@ -87,7 +87,7 @@ const tokenNames = [
 const isBool = (p) => p.values && p.values.join() === 'false,true';
 const contracts = {
   $comment: 'Generiert – nicht von Hand bearbeiten. Einzige Quelle für gültige Komponenten, Props, Werte und Tokens. attributes (data-<prop>) und parts gelten für die HTML-Fassung (Klassen-Markup); die Web Components nehmen die Props als Attribute ohne data-, siehe attrs.',
-  principles: spec.principles || [], vagueActions: spec.vagueActions || [], migrations: spec.migrations || [],
+  principles: spec.principles || [], vagueActions: spec.vagueActions || [], weakActions: spec.weakActions || [], migrations: spec.migrations || [],
   system: spec.name, version: spec.version, cssPrefix: spec.cssPrefix, codePackage: spec.codePackage,
   tokens: Object.fromEntries(tokenNames.map((n) => [n, true])),
   tokenDescriptions: Object.fromEntries([

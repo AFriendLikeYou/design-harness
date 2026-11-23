@@ -21,6 +21,12 @@ Diese Datei nennt bewusst keine Komponenten, Attribute, Werte oder Tokens. Solch
 5. **Begrenzen.** Höchstens drei Runden aus Prüfen und Kritisieren. Danach berichten, was offen bleibt, statt weiter zu raten.
 6. **Lücken melden.** Fehlt eine Komponente, ein Wert oder ein Slot: nicht nachbauen. Die Lücke im Bericht benennen, mit dem Anlass. Eine fehlende API ist kein Dokumentationsproblem.
 
+## Hinweise und Ausnahmen
+
+Der Check kennt zwei Stufen. **Fehler** müssen behoben werden. **Hinweise** (`"level": "warning"`) lassen den Check bestehen; prüfe sie und folge dem Vorschlag, wenn er zum Inhalt passt.
+
+Passt eine Regel an einer Stelle wirklich nicht, gibt es die Einzelausnahme: `data-fd-allow="regel/id: Grund"` am Element oder an einem Vorfahren. Ohne Grund gilt sie nicht. Sie ist das letzte Mittel, nicht der Weg, einen Befund loszuwerden: Jede Ausnahme nennst du mit ihrem Grund im Bericht. Für erfundene Bausteine, falsche Werte, feste Farben und feste Abstände gibt es keine Ausnahme.
+
 ## Seiten ohne Web Components
 
 Soll eine Seite nur aus HTML und CSS bestehen, kommt das Markup aus `generated/html/<name>.html` (erzeugt aus den Web Components, nicht abwandeln). `<html data-fd-html>` setzen oder mit `check <Pfad> --html` prüfen. Verhalten und Zustände für Hilfstechnik bringt diese Fassung nicht mit; was fehlt, im Bericht nennen.

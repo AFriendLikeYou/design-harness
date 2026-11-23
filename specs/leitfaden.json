@@ -229,12 +229,18 @@
     [
      "Was der Rechner verlangt",
      "Jede Regel braucht eine Begründung und einen eindeutigen Namen. Verspricht sie einen Check, muss es ihn geben, samt Beispiel, das die Regel verletzt. Sonst ist der Stand rot."
+    ],
+    [
+     "Fehler, Hinweis, Ausnahme",
+     "Ein Fehler muss behoben werden. Ein Hinweis ist ein Vorschlag, der Check besteht trotzdem. Passt eine Regel an einer Stelle wirklich nicht, gibt es die Einzelausnahme mit Grund direkt am Element. Ohne Grund gilt sie nicht, und jede Ausnahme steht im Bericht."
     ]
    ],
    "note": [
     "Stand heute",
     "Die Regeln in diesem Beispielsystem sind ein Startsatz: aus gemessenen Agentenläufen und aus üblicher Praxis für Barrierefreiheit. Wer im Team entscheidet, ist ein Vorschlag und noch nicht festgelegt."
-   ]
+   ],
+   "code": "<fd-button label=\"Entwurf veröffentlichen\"\n  data-fd-allow=\"button/one-primary: Zwei gleichwertige Wege, die Redaktion braucht beide sofort\">\n</fd-button>",
+   "codeNote": "So sieht eine begründete Einzelausnahme aus."
   },
   {
    "id": "orte",

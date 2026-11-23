@@ -37,10 +37,12 @@
     "hier klicken",
     "klick hier",
     "klicken",
+    "mehr",
+    "los"
+  ],
+  "weakActions": [
     "weiter",
     "ok",
-    "mehr",
-    "los",
     "absenden",
     "senden"
   ],
@@ -56,7 +58,7 @@
     }
   ],
   "system": "Fundament",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "cssPrefix": "fd",
   "codePackage": "@fundament/ui",
   "tokens": {
@@ -378,7 +380,7 @@
       "rules": [
         {
           "id": "button/one-primary",
-          "text": "Höchstens ein primärer Button pro Ansicht; ein danger-Button und ConfirmAction zählen als primär.",
+          "text": "Höchstens ein primärer Button pro Ansicht, Karte oder Formular; danger und ConfirmAction zählen als primär.",
           "why": "Mehrere primäre Aktionen konkurrieren um Aufmerksamkeit.",
           "check": "max-per-view"
         },

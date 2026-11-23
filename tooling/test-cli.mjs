@@ -14,6 +14,11 @@ for (const id of EXPECT) if (!found.has(id)) fails.push(`Regel ${id} schlägt in
 const EXPECT_HTML = ['components/unknown', 'props/invalid-value', 'principles/system-controls', 'principles/action-says-what', 'button/one-primary', 'link/has-target', 'link/names-destination', 'badge/short-label', 'textfield/visible-label', 'card/no-nesting', 'alert/one-per-area', 'tokens/no-raw-color'];
 const foundHtml = new Set(check([here('./fixtures/fehler-html.html')]).map((f) => f.id));
 for (const id of EXPECT_HTML) if (!foundHtml.has(id)) fails.push(`Regel ${id} schlägt in fixtures/fehler-html.html nicht an`);
+// Stufen und Ausnahmen
+{ const f = check([here('./fixtures/stufen.html')]); const ids = (lvl) => f.filter((x) => x.level === lvl).map((x) => x.id).sort().join(',');
+  if (ids('warning') !== 'principles/action-says-what') fails.push(`Stufen: erwartet genau einen Hinweis für „Weiter“, bekommen: ${ids('warning') || 'keinen'}`);
+  if (ids('error') !== 'allow/needs-reason,allow/unknown-rule,principles/action-says-what') fails.push(`Stufen: erwartet Fehler für Ausnahme ohne Grund, unbekannte Regel und „Mehr“, bekommen: ${ids('error') || 'keine'}`);
+  if (f.allowed.length !== 1 || f.allowed[0].id !== 'button/one-primary') fails.push(`Stufen: erwartet eine begründete Ausnahme für button/one-primary, bekommen: ${f.allowed.map((x) => x.id).join(',') || 'keine'}`); }
 const clean = check([here('../ui/components.css'), here('../ui/examples/konto-einstellungen.html'), here('../ui/examples/zustaende.html'), here('../ui/examples/nur-html.html'), here('../docs/index.html')]);
 if (clean.length) fails.push(`${clean.length} Befunde in den eigenen Dateien: ${clean.map((f) => f.id).join(', ')}`);
 const l = lint(spec); if (l.length) fails.push(`lint: ${l.map((f) => f.message).join(' | ')}`);
