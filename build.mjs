@@ -146,15 +146,25 @@ if (!spec.semantic.color['bg/canvas']) console.log('übersprungen: docs/index.ht
 else {
   const { renderDocs } = await import(HOME + 'tooling/docs-site.mjs');
   let guide = null; try { guide = JSON.parse(readFileSync('specs/leitfaden.json', 'utf8')); } catch {}
+  let html = {}; try { html = JSON.parse(readFileSync('generated/html.json', 'utf8')); } catch {}
   mkdirSync('docs', { recursive: true });
-  writeFileSync('docs/index.html', renderDocs({ spec, pairs, usage, kebab, isBool, floatGroups: FLOAT_GROUPS, guide }));
+  writeFileSync('docs/index.html', renderDocs({ spec, pairs, usage, kebab, isBool, floatGroups: FLOAT_GROUPS, guide, html }));
   console.log('gebaut: docs/index.html');
 }
 
 // 9) Leitfaden als Markdown (LEITFADEN.md) aus specs/leitfaden.json; dieselbe Datei speist die Figma-Seite
 try {
   const g = JSON.parse(readFileSync('specs/leitfaden.json', 'utf8')); const L = ['<!-- Generiert aus specs/leitfaden.json – nicht von Hand bearbeiten. -->', '# ' + g.title, '', g.intro, ''];
-  for (const s of g.sections) { L.push('## ' + s.title, ''); if (s.intro) L.push(s.intro, ''); if (s.code) L.push('```json', s.code, '```', ''); for (const f of s.flows || []) { L.push('**' + f.title + '**', ''); f.steps.forEach(([who, t, d], i) => L.push(`${i + 1}. ${t} (${who}): ${d}`)); L.push(''); } for (const [t, x] of s.items || []) L.push(`- **${t}.** ${x}`); if (s.compare) { L.push('| So nicht | So |', '|---|---|'); for (const [a, c] of s.compare) L.push(`| ${a} | ${c} |`); } L.push(''); }
+  for (const s of g.sections) {
+    L.push('## ' + s.title, ''); if (s.intro) L.push(s.intro, '');
+    for (const h of s.homes || []) L.push(`- **${h.where}: ${h.what}.** ${h.list.join('; ')}. Datei: \`${h.file}\``); if (s.out) L.push('', `${s.out.title}: ${s.out.list.join(', ')}.`, '');
+    for (const f of s.flows || []) { L.push('### ' + f.title, '', f.when || '', ''); f.steps.forEach(([who, t, d], i) => L.push(`${i + 1}. **${t}** (${who}): ${d}`)); L.push(''); if (f.loop) L.push('Wenn es hakt: ' + f.loop, ''); if (f.result) L.push('Am Ende: ' + f.result, ''); }
+    if (s.table) { L.push('| ' + s.table.head.join(' | ') + ' |', '|' + s.table.head.map(() => '---').join('|') + '|'); for (const r of s.table.rows) L.push('| ' + r.join(' | ') + ' |'); L.push(''); }
+    for (const [t, x] of s.items || []) L.push(`- **${t}.** ${x}`);
+    if (s.code) L.push('', '```json', s.code, '```', '', s.codeNote || '');
+    if (s.compare) { L.push('', '| So nicht | So |', '|---|---|'); for (const [a, c] of s.compare) L.push(`| ${a} | ${c} |`); }
+    L.push('');
+  }
   writeFileSync('LEITFADEN.md', L.join('\n')); console.log('gebaut: LEITFADEN.md');
 } catch (e) { if (e.code !== 'ENOENT') throw e; }
 

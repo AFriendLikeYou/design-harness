@@ -1,0 +1,37 @@
+<!-- SignInForm als HTML und CSS. Erzeugt aus der Web Component (tooling/html-templates.mjs) – nicht von Hand bearbeiten.
+     Varianten und Zustände: die data-Attribute am Element mit der Klasse der Komponente. Verhalten und ARIA-Zustände setzt man hier selbst. -->
+<form class="fd-sign-in-form">
+  <h2 class="fd-sign-in-form__title">Anmelden</h2>
+  <div class="fd-text-field" data-state="default">
+    <label class="fd-text-field__label" for="sign-in-form-1">E-Mail-Adresse</label>
+    <div class="fd-text-field__control">
+      <input class="fd-text-field__input" id="sign-in-form-1" name="email" type="email" autocomplete="email">
+      <span class="fd-text-field__trailing" hidden></span>
+    </div>
+    <span class="fd-text-field__helper-text" id="sign-in-form-1-h" hidden></span>
+    <span class="fd-text-field__error-text" id="sign-in-form-1-e" hidden></span>
+  </div>
+  <div class="fd-text-field" data-state="default">
+    <label class="fd-text-field__label" for="sign-in-form-2">Passwort</label>
+    <div class="fd-text-field__control">
+      <input class="fd-text-field__input" id="sign-in-form-2" name="password" type="password" autocomplete="current-password" aria-describedby="sign-in-form-2-h">
+      <span class="fd-text-field__trailing">
+        <button class="fd-button" data-variant="ghost" data-size="sm" type="button" aria-pressed="false" aria-controls="sign-in-form-2">
+          <span class="fd-button__label">Anzeigen</span>
+        </button>
+      </span>
+    </div>
+    <span class="fd-text-field__helper-text" id="sign-in-form-2-h">Mindestens 12 Zeichen.</span>
+    <span class="fd-text-field__error-text" id="sign-in-form-2-e" hidden></span>
+  </div>
+  <div class="fd-checkbox-field">
+    <label class="fd-checkbox">
+      <input class="fd-checkbox__box" type="checkbox" name="remember">
+      <span class="fd-checkbox__label">Angemeldet bleiben</span>
+    </label>
+    <span class="fd-checkbox__helper-text" id="sign-in-form-3-h" hidden></span>
+  </div>
+  <button class="fd-button fd-sign-in-form__submit" data-variant="primary" data-size="md" type="submit">
+    <span class="fd-button__label">Anmelden</span>
+  </button>
+</form>

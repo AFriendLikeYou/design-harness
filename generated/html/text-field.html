@@ -1,0 +1,11 @@
+<!-- TextField als HTML und CSS. Erzeugt aus der Web Component (tooling/html-templates.mjs) – nicht von Hand bearbeiten.
+     Varianten und Zustände: die data-Attribute am Element mit der Klasse der Komponente. Verhalten und ARIA-Zustände setzt man hier selbst. -->
+<div class="fd-text-field" data-state="default">
+  <label class="fd-text-field__label" for="text-field-1">E-Mail-Adresse</label>
+  <div class="fd-text-field__control">
+    <input class="fd-text-field__input" id="text-field-1" type="text" aria-describedby="text-field-1-h">
+    <span class="fd-text-field__trailing" hidden></span>
+  </div>
+  <span class="fd-text-field__helper-text" id="text-field-1-h">Wir senden dir einen Bestätigungslink.</span>
+  <span class="fd-text-field__error-text" id="text-field-1-e" hidden>Bitte gib eine gültige E-Mail-Adresse ein.</span>
+</div>

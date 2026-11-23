@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="de" data-fd-html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Konto-Einstellungen (nur HTML und CSS)</title>
+<!-- Dieselbe Seite wie konto-einstellungen.html, aber ohne Web Components: nur tokens.css, components.css und das Markup aus generated/html/.
+     data-fd-html am <html> sagt dem Check, dass diese Seite die HTML-Fassung nutzt (für ganze Ordner: check <Pfad> --html). -->
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../components.css">
+<style>
+  body { margin: 0; background: var(--fd-color-bg-canvas); color: var(--fd-color-text-primary); font: var(--fd-text-body-md); }
+  main { display: flex; flex-direction: column; gap: var(--fd-space-xl); max-width: var(--fd-size-panel); margin: 0 auto; padding: var(--fd-space-2xl) var(--fd-space-lg); }
+  h1 { font: var(--fd-text-heading-lg); margin: 0; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Konto-Einstellungen</h1>
+  <div class="fd-alert" data-tone="success" role="status">
+    <p class="fd-alert__title">Änderungen gespeichert</p>
+    <p class="fd-alert__description">Deine Einstellungen gelten ab sofort.</p>
+  </div>
+  <div class="fd-text-field">
+    <label class="fd-text-field__label" for="mail">E-Mail-Adresse</label>
+    <div class="fd-text-field__control">
+      <input class="fd-text-field__input" id="mail" name="email" type="email" autocomplete="email" value="name@beispiel.de" aria-describedby="mail-h">
+    </div>
+    <span class="fd-text-field__helper-text" id="mail-h">Wir senden dir einen Bestätigungslink.</span>
+  </div>
+  <div class="fd-checkbox-field">
+    <label class="fd-checkbox">
+      <input class="fd-checkbox__box" type="checkbox" name="newsletter" checked>
+      <span class="fd-checkbox__label">Newsletter erhalten</span>
+    </label>
+  </div>
+  <button class="fd-button" data-variant="primary" data-size="md" type="submit">
+    <span class="fd-button__label">Änderungen speichern</span>
+  </button>
+  <a class="fd-link" href="#rechnungen">
+    <span class="fd-link__label">Alle Rechnungen ansehen</span>
+  </a>
+</main>
+</body>
+</html>

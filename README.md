@@ -58,6 +58,10 @@ Von außen schreibt nichts in die Figma-Datei. Ändert jemand etwas nur im Code,
 
 Jede Komponente ist ein Element (`Button` → `<fd-button>`), Props sind Attribute in kebab-case. Das funktioniert in reinem HTML und unverändert in Svelte. Dark Mode folgt dem System oder `data-theme="dark"`.
 
+## Ohne Web Components: nur HTML und CSS
+
+Jeder Baustein liegt auch als reines HTML unter `generated/html/`. `node tooling/html-templates.mjs` erzeugt diese Fassung aus den Web Components und misst im Browser, dass sie gleich aussieht. Eingebunden werden dann nur `tokens.css` und `components.css`. Prüfen mit `node cli/fundament.mjs check <Pfad> --html` oder je Seite mit `<html data-fd-html>`. Verhalten und Zustände für Hilfstechnik setzt man in dieser Fassung selbst. Beispiel: `ui/examples/nur-html.html`. Der Vergleich beider Wege steht in der Doku unter „Zwei Wege im Code“.
+
 ## Ansehen
 
 ```

@@ -6,7 +6,11 @@ const EXPECT = ['tokens/no-raw-color', 'tokens/unknown', 'principles/spacing-fro
 const found = new Set(check([here('./fixtures/fehler.html')]).map((f) => f.id));
 const fails = [];
 for (const id of EXPECT) if (!found.has(id)) fails.push(`Regel ${id} schlägt in fixtures/fehler.html nicht an`);
-const clean = check([here('../ui/components.css'), here('../ui/examples/konto-einstellungen.html'), here('../ui/examples/zustaende.html'), here('../docs/index.html')]);
+// HTML-Fassung: dieselben Regeln am Klassen-Markup
+const EXPECT_HTML = ['components/unknown', 'props/invalid-value', 'principles/system-controls', 'principles/action-says-what', 'button/one-primary', 'link/has-target', 'link/names-destination', 'badge/short-label', 'textfield/visible-label', 'card/no-nesting', 'alert/one-per-area', 'tokens/no-raw-color'];
+const foundHtml = new Set(check([here('./fixtures/fehler-html.html')]).map((f) => f.id));
+for (const id of EXPECT_HTML) if (!foundHtml.has(id)) fails.push(`Regel ${id} schlägt in fixtures/fehler-html.html nicht an`);
+const clean = check([here('../ui/components.css'), here('../ui/examples/konto-einstellungen.html'), here('../ui/examples/zustaende.html'), here('../ui/examples/nur-html.html'), here('../docs/index.html')]);
 if (clean.length) fails.push(`${clean.length} Befunde in den eigenen Dateien: ${clean.map((f) => f.id).join(', ')}`);
 const { loadSpec } = await import('./assemble.mjs'); const spec = await loadSpec(here('..'));
 const l = lint(spec); if (l.length) fails.push(`lint: ${l.map((f) => f.message).join(' | ')}`);

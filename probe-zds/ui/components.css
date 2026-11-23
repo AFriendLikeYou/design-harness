@@ -26,7 +26,7 @@ z-ds-button[fullwidth]:not([fullwidth="false"]) { display: block; }
 
 /* ---------- Checkbox (z-checkbox) ----------
    [Probe] Das ZDS dokumentiert nur das Kästchen als <span>. Hier: natives <input> in einem <label> mit Beschriftung und Klickzeile. */
-.z-ds-checkbox-field { display: flex; flex-direction: column; }
+.z-ds-checkbox-field { display: inline-flex; flex-direction: column; vertical-align: top; align-self: flex-start; }
 .z-ds-checkbox { display: inline-flex; align-items: center; gap: var(--z-ds-space-8); min-height: var(--z-ds-size-touch-target); font: var(--z-ds-text-body-md); color: var(--z-ds-color-text-100); cursor: pointer; }
 .z-ds-checkbox__box {
   appearance: none; display: grid; place-content: center; flex: none; width: var(--z-ds-size-checkbox); height: var(--z-ds-size-checkbox); margin: 0;

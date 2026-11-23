@@ -1,0 +1,11 @@
+<!-- Input als HTML und CSS. Erzeugt aus der Web Component (tooling/html-templates.mjs) – nicht von Hand bearbeiten.
+     Varianten und Zustände: die data-Attribute am Element mit der Klasse der Komponente. Verhalten und ARIA-Zustände setzt man hier selbst. -->
+<div class="z-ds-input" data-state="default">
+  <label class="z-ds-input__label" for="input-1">E-Mail-Adresse</label>
+  <div class="z-ds-input__control">
+    <input class="z-ds-input__input" id="input-1" type="text" aria-describedby="input-1-h">
+    <span class="z-ds-input__trailing" hidden></span>
+  </div>
+  <span class="z-ds-input__helper-text" id="input-1-h">Wir schicken dir einen Bestätigungslink.</span>
+  <span class="z-ds-input__error-text" id="input-1-e" hidden>Bitte gib eine gültige E-Mail-Adresse ein.</span>
+</div>

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Fundament-CLI. Liest das zusammengesetzte System (tooling/assemble.mjs) und generated/contracts.json.
 //   fundament lint                      prüft die Spec selbst (Verweise, Eindeutigkeit, Regeln mit Check)
-//   fundament check <Pfad …> [--json]   prüft HTML/CSS gegen Verträge, Regeln und Grundsätze
+//   fundament check <Pfad …> [--json] [--html]   prüft HTML/CSS gegen Verträge, Regeln und Grundsätze; --html für Seiten aus reinem HTML und CSS
 //   fundament audit <Pfad …> [--json]   prüft gerendert in Chrome: Überlauf bei 360 px, Kontrast, Namen, Klickflächen
 //   fundament migrate <Pfad …> [--write] ersetzt Veraltetes laut migrations in der Spec
 // Exit 0 = sauber, 1 = Befunde, 2 = falscher Aufruf.
@@ -84,8 +84,12 @@ export function lint(spec) {
 }
 
 // ---------- check ----------
-export function check(files, C = read('generated/contracts.json')) {
+export function check(files, C = read('generated/contracts.json'), opts = {}) {
   const P = C.cssPrefix; const findings = [];
+  // --html: Seiten aus reinem HTML und CSS. Erlaubt sind dann die Klassen aus generated/html.json (erzeugt aus den Web Components).
+  // Eine einzelne Seite wählt die Fassung mit <html data-fd-html>.
+  let H = null; const htmlClasses = () => new Set(Object.values((() => { try { return read('generated/html.json'); } catch { return {}; } })()).flatMap((h) => [...h.matchAll(/class="([^"]*)"/g)].flatMap((m) => m[1].split(/\s+/))));
+  const vague = (t) => C.vagueActions.includes(t.trim().toLowerCase().replace(/[.!→>\s]+$/g, ''));
   const add = (file, line, id, message, fix) => findings.push({ file, line, id, message, fix });
   // name = Art der Komponente für die Regeln (bei "impl" die der Umsetzung), title = Name im System
   const byEl = Object.fromEntries(Object.entries(C.components).map(([name, c]) => [c.element, { ...c, title: name, name: c.impl || name }]));
@@ -97,7 +101,7 @@ export function check(files, C = read('generated/contracts.json')) {
     for (const m of css.matchAll(/#[0-9a-fA-F]{3,8}\b|\b(?:rgb|hsl|oklch|oklab|lab|lch)a?\([^)]*\)/g)) add(file, L(m.index), 'tokens/no-raw-color', `Fester Farbwert ${m[0]}.`, `Durch ein semantisches Token ersetzen, var(--${P}-color-…). Gültige Namen: generated/contracts.json → tokens.`);
     for (const m of css.matchAll(new RegExp(`var\\(\\s*(--${P}-[a-z0-9-]+)`, 'g'))) {
       if (!C.tokens[m[1]]) add(file, L(m.index), 'tokens/unknown', `Token ${m[1]} gibt es nicht.`, 'Namen aus generated/contracts.json → tokens verwenden; keine Tokens erfinden.');
-      else if (allowed && m[1].startsWith(`--${P}-color-`) && !allowed.has(m[1])) add(file, L(m.index), 'tokens/not-in-contract', `${owner} verwendet ${m[1]}, das steht nicht in seinem Vertrag.`, `Erlaubt: ${[...allowed].join(', ')}. Soll das Token dazugehören, styles in specs/system.json ergänzen und neu bauen.`);
+      else if (allowed && m[1].startsWith(`--${P}-color-`) && !allowed.has(m[1])) add(file, L(m.index), 'tokens/not-in-contract', `${owner} verwendet ${m[1]}, das steht nicht in seinem Vertrag.`, `Erlaubt: ${[...allowed].join(', ')}. Soll das Token dazugehören, in Figma an die Komponente binden, neu exportieren und bauen.`);
     }
     for (const m of css.matchAll(/(?:^|[;{\s])(border(?:-(?:top|right|bottom|left))?(?:-width)?|outline(?:-width)?)\s*:\s*([^;}]*)/g)) { const px = m[2].match(/(?<![\w.-])(\d*\.?\d+)px/); if (px && +px[1] > 0) add(file, L(m.index), 'tokens/no-raw-border-width', `Feste Rahmenstärke ${px[0]} in „${m[1]}“.`, `var(--${P}-border-width-…) verwenden.`); }
     if (!allowed) for (const m of css.matchAll(/(?:^|[;{\s])((?:margin|padding)(?:-(?:top|right|bottom|left|inline|block))?|gap|row-gap|column-gap)\s*:\s*([^;}]*)/g)) { const raw = m[2].match(/(?<![\w.-])(\d*\.?\d+)(px|rem|em)/); if (raw && +raw[1] > 0) add(file, L(m.index), 'principles/spacing-from-scale', `Fester Abstand ${raw[0]} in „${m[1]}“.`, `var(--${P}-space-…) verwenden.`); }
@@ -115,19 +119,39 @@ export function check(files, C = read('generated/contracts.json')) {
       decl(file, m[2], (i) => L(start + i), known.length ? new Set(known.flatMap((c) => byClass[c].colorTokens)) : null, known.map((c) => byClass[c].name).join(' / '));
     }
   }
+  // Prüfungen für die HTML-Fassung: Klassen, Werte der data-Attribute und die Regeln, die sich am Markup ablesen lassen
+  function htmlFassung(file, line, m, next, cls, src, stack, parent, alerts, countPrimary, specimen) {
+    const { attrs } = m;
+    for (const c of cls) if (!H.has(c)) add(file, line, 'components/unknown', `Klasse „${c}“ gibt es im System nicht.`, 'Markup aus generated/html/<name>.html übernehmen. Keine Klassen erfinden; fehlt etwas, die Lücke melden.');
+    const text = next?.close && next.tag === m.tag ? src.slice(m.end, next.index).trim() : null;
+    for (const c of cls) { const [block, part] = c.split('__'); const kind = byClass[block] ? (byClass[block].impl || byClass[block].name) : null; if (!kind || text === null) continue;
+      if ((part === 'label' || part === 'title') && !text) add(file, line, kind === 'TextField' ? 'textfield/visible-label' : 'props/required', `${c} ohne Text.`, 'Sichtbaren Text einsetzen.');
+      if (part === 'label' && kind === 'Button' && vague(text)) add(file, line, 'principles/action-says-what', `Beschriftung „${text}“ sagt nicht, was passiert.`, 'Mit einem Verb beginnen und das Ergebnis nennen, z. B. „Änderungen speichern“.');
+      if (part === 'label' && kind === 'Link' && (vague(text) || /^hier$/i.test(text))) add(file, line, 'link/names-destination', `Linktext „${text}“ nennt kein Ziel.`, 'Das Ziel nennen, z. B. „Alle Rechnungen ansehen“.');
+      if (part === 'label' && kind === 'Badge' && text.split(/\s+/).length > 2) add(file, line, 'badge/short-label', `Badge-Text „${text}“ hat mehr als zwei Wörter.`, 'Auf höchstens zwei Wörter kürzen.'); }
+    const owner = cls.map((c) => byClass[c]).find(Boolean); if (!owner) return; const kind = owner.impl || owner.name;
+    for (const [a, d] of Object.entries(owner.attributes || {})) if (typeof attrs[a] === 'string' && !d.values.includes(attrs[a])) add(file, line, 'props/invalid-value', `class="${owner.class}" ${a}="${attrs[a]}" ist kein gültiger Wert.`, `Erlaubt: ${d.values.join(', ')} (Standard: ${d.default}).`);
+    if (kind === 'Button') { const variant = attrs['data-variant'] ?? owner.attributes?.['data-variant']?.default; if ((variant === 'primary' || variant === 'danger') && !specimen && countPrimary() > 1) add(file, line, 'button/one-primary', 'Mehr als ein primärer Button in dieser Ansicht (danger zählt als primär).', 'Weitere Aktionen mit data-variant="secondary" oder "ghost".'); }
+    if (kind === 'Link' && (!attrs.href || attrs.href === true)) add(file, line, 'link/has-target', 'Link ohne href.', 'href="…" setzen. Ohne Ziel ist es eine Aktion und gehört in einen Button.');
+    if (kind === 'Card' && stack.some((x) => x.owner && (x.owner.impl || x.owner.name) === 'Card')) add(file, line, 'card/no-nesting', 'Karte in einer Karte.', 'Innere Karte auflösen oder neben die äußere stellen.');
+    if (kind === 'Alert') { const key = parent ? parent.id : 0; const k = (alerts.get(key) || 0) + 1; alerts.set(key, k); if (k > 1) add(file, line, 'alert/one-per-area', 'Mehr als ein Alert im selben Bereich.', 'Hinweise zusammenfassen oder nur den wichtigsten zeigen.'); }
+  }
   function html(file, src) {
     const L = (i) => lineOf(src, i);
     const toks = tokenize(src);
     toks.forEach((tk, i) => { if (!tk.close && tk.tag === 'style' && toks[i + 1]?.close) css(file, src.slice(tk.end, toks[i + 1].index), L(tk.index) - 1); });
+    H = opts.html || toks.some((tk) => !tk.close && tk.tag === 'html' && 'data-fd-html' in tk.attrs) ? htmlClasses() : null;
     const specimen = toks.some((tk) => !tk.close && tk.tag === 'html' && 'data-fd-specimen' in tk.attrs);
     const VOID = new Set(['input', 'br', 'img', 'meta', 'link', 'hr']); const stack = []; let primary = 0; const alerts = new Map();
-    for (const m of toks) {
+    for (const [ti, m] of toks.entries()) {
       const { close, tag: t, attrs } = m;
       if (close) { for (let i = stack.length - 1; i >= 0; i--) if (stack[i].tag === t) { stack.length = i; break; } continue; }
       const line = L(m.index); const parent = stack[stack.length - 1]; const pc = parent?.comp;
       if (typeof attrs.style === 'string') decl(file, attrs.style, () => line, null, '');
-      if (typeof attrs.class === 'string' && attrs.class.split(/\s+/).some((c) => c.startsWith(P + '-'))) add(file, line, 'components/internal-class', `Interne Klasse in class="${attrs.class}".`, `Die Klassen gehören dem Paket. Das Element verwenden: ${elList}.`);
-      if (!t.startsWith(P + '-') && ['button', 'input', 'select', 'textarea', ...(C.components.Link ? ['a'] : [])].includes(t) && attrs.type !== 'hidden') add(file, line, 'principles/system-controls', `Nacktes <${t}>.`, `Systemkomponente verwenden: ${elList}. Fehlt eine passende, die Lücke melden statt nachzubauen.`);
+      const cls = typeof attrs.class === 'string' ? attrs.class.split(/\s+/).filter((c) => c.startsWith(P + '-')) : [];
+      if (H) htmlFassung(file, line, m, toks[ti + 1], cls, src, stack, parent, alerts, () => ++primary, specimen);
+      else if (cls.length) add(file, line, 'components/internal-class', `Interne Klasse in class="${attrs.class}".`, `Die Klassen gehören dem Paket. Das Element verwenden: ${elList}.`);
+      if (!t.startsWith(P + '-') && ['button', 'input', 'select', 'textarea', ...(C.components.Link ? ['a'] : [])].includes(t) && attrs.type !== 'hidden' && !(H && (cls.length || stack.some((x) => x.sys)))) add(file, line, 'principles/system-controls', `Nacktes <${t}>.`, `Systemkomponente verwenden: ${elList}. Fehlt eine passende, die Lücke melden statt nachzubauen.`);
       let comp = null;
       if (t.startsWith(P + '-')) {
         comp = byEl[t];
@@ -177,7 +201,7 @@ export function check(files, C = read('generated/contracts.json')) {
           if (pc.attrs[sd.show] && !parent.shown.includes(sd.show)) add(file, line, rid, `Slot ${slot} ist gefüllt, aber ${sd.show} fehlt.`, `${sd.show} am <${pc.element}> setzen, sonst bleibt der Slot unsichtbar.`);
         }
       }
-      if (!VOID.has(t) && !m.selfClosing) stack.push({ tag: t, comp, id: m.index, slots: {}, shown: Object.keys(attrs).filter((a) => a.startsWith('show-') && attrs[a] !== 'false') });
+      if (!VOID.has(t) && !m.selfClosing) stack.push({ tag: t, comp, sys: cls.length > 0, owner: cls.map((c) => byClass[c]).find(Boolean), id: m.index, slots: {}, shown: Object.keys(attrs).filter((a) => a.startsWith('show-') && attrs[a] !== 'false') });
     }
   }
   for (const f of files) { if (/^(tokens\.css|contract\.generated\.js)$/.test(basename(f))) continue; const src = readFileSync(f, 'utf8'); extname(f) === '.css' ? css(f, src) : html(f, src); }
@@ -204,9 +228,9 @@ if (import.meta.url === `file://${process.argv[1]}` || process.argv[1]?.endsWith
   const print = (findings, n) => { if (flags.includes('--json')) console.log(JSON.stringify({ ok: !findings.length, checked: n, findings }, null, 2)); else if (!findings.length) console.log(`Sauber: ${n} geprüft, keine Befunde.`); else { for (const x of findings) console.log(`${x.file}${x.line ? ':' + x.line : ''}  [${x.id}]  ${x.message}\n    Behebung: ${x.fix}`); console.log(`\n${findings.length} Befunde.`); } process.exit(findings.length ? 1 : 0); };
   try {
     if (cmd === 'lint') { const { loadSpec } = await import('../tooling/assemble.mjs'); print(lint(await loadSpec(ROOT.pathname)), 1); }
-    else if (cmd === 'check' && paths.length) { const files = collect(paths, ['.html', '.htm', '.css', '.svelte']); if (!files.length) throw new Error('Keine HTML-, CSS- oder Svelte-Dateien gefunden.'); print(check(files), files.length); }
+    else if (cmd === 'check' && paths.length) { const files = collect(paths, ['.html', '.htm', '.css', '.svelte']); if (!files.length) throw new Error('Keine HTML-, CSS- oder Svelte-Dateien gefunden.'); print(check(files, undefined, { html: flags.includes('--html') }), files.length); }
     else if (cmd === 'audit' && paths.length) { const files = collect(paths, ['.html', '.htm']).map((f) => new URL(f, `file://${process.cwd()}/`).pathname); const { audit } = await import('./audit.mjs'); print(await audit(files), files.length); }
     else if (cmd === 'migrate' && paths.length) { const ch = migrate(collect(paths, ['.html', '.htm', '.svelte']), flags.includes('--write')); for (const c of ch) console.log(`${c.file}:${c.line}  ${c.from} → ${c.to}  (${c.why})`); console.log(ch.length ? `\n${ch.length} Ersetzungen${flags.includes('--write') ? ' geschrieben' : ' möglich; mit --write ausführen'}.` : 'Nichts zu migrieren.'); }
-    else { console.error('Aufruf:\n  node cli/fundament.mjs lint\n  node cli/fundament.mjs check <Pfad …> [--json]\n  node cli/fundament.mjs audit <Pfad …> [--json]   (gerendert, braucht Chrome)\n  node cli/fundament.mjs migrate <Pfad …> [--write]'); process.exit(2); }
+    else { console.error('Aufruf:\n  node cli/fundament.mjs lint\n  node cli/fundament.mjs check <Pfad …> [--json] [--html]   (--html: Seiten aus reinem HTML und CSS)\n  node cli/fundament.mjs audit <Pfad …> [--json]   (gerendert, braucht Chrome)\n  node cli/fundament.mjs migrate <Pfad …> [--write]'); process.exit(2); }
   } catch (e) { console.error('Fehler: ' + e.message); process.exit(2); }
 }

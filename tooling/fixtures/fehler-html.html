@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="de" data-fd-html>
+<head><meta charset="utf-8"><title>Fehlerfälle der HTML-Fassung</title></head>
+<body>
+<!-- Jede Zeile verletzt absichtlich eine Regel. tooling/test-cli.mjs verlangt, dass der Check sie findet. -->
+<button class="fd-button" data-variant="primary"><span class="fd-button__label">Speichern</span></button>
+<button class="fd-button" data-variant="primery"><span class="fd-button__label">Mehr</span></button>
+<button class="fd-btn fd-button__icon">x</button>
+<button class="fd-button" data-variant="danger"><span class="fd-button__label">Konto löschen</span></button>
+<button>nackt</button>
+<a class="fd-link"><span class="fd-link__label">Hier</span></a>
+<span class="fd-badge" data-tone="info"><span class="fd-badge__label">Viel zu langer Text</span></span>
+<div class="fd-text-field"><label class="fd-text-field__label" for="a"></label><div class="fd-text-field__control"><input class="fd-text-field__input" id="a"></div></div>
+<section class="fd-card"><section class="fd-card"></section></section>
+<div><div class="fd-alert" data-tone="info"></div><div class="fd-alert" data-tone="laut"></div></div>
+<p style="color: #ff0000">Farbe</p>
+</body>
+</html>
