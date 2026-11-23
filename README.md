@@ -4,7 +4,7 @@ Ein Designsystem, das zeigt, wie ein agententaugliches System aufgebaut ist. Jed
 
 | Wissen | Heimat | Datei im Repo |
 |---|---|---|
-| Tokenwerte, Farb- und Rahmenstärken-Bindungen je Variante | Figma | `specs/figma.snapshot.json` (Export) |
+| Tokenwerte, Farben, Rahmenstärken und Maße (Radius, Innenabstand, Lücke, Textstil) je Variante | Figma | `specs/figma.snapshot.json` (Export) |
 | Props, Slots, Verhalten | Code | `ui/elements.js`, `ui/fundament.js` |
 | Regeln, Begründungen, Kontrastzusagen | Regeldatei | `specs/rules.json` |
 
@@ -13,7 +13,7 @@ Eine große Spec, die jemand von Hand pflegt, gibt es nicht. `generated/system.j
 ## Struktur
 
 ```
-specs/figma.snapshot.json letzter Export aus Figma: Variablen, Text-Styles, Komponenten, Farb- und Rahmenstärken-Bindungen je Variante
+specs/figma.snapshot.json letzter Export aus Figma: Variablen, Text-Styles, Komponenten, Farben, Rahmenstärken und Maße (Radius, Innenabstand, Lücke, Textstil) je Variante
 specs/rules.json          von Hand: Regeln mit Warum, Barrierefreiheit, Grundsätze, Kontrastpaare, Migrationen, Changelog
 specs/leitfaden.json      Quelle des Leitfadens (LEITFADEN.md, Doku-Site, Figma-Seite)
 ui/                       Paket @fundament/ui
@@ -79,7 +79,7 @@ node cli/fundament.mjs check <Pfad> --json   # Seite gegen Verträge, Regeln, Gr
 node cli/fundament.mjs audit <Pfad> --json   # gerendert: Überlauf, Kontrast, Namen, Klickflächen
 node tooling/figma-diff.mjs                  # Figma gegen Code und Regeln
 node tooling/test-robust.mjs                  # kaputte Eingaben (Kopie des Repos): klare Fehlermeldung statt Absturz
-node tooling/test-styles.mjs                 # Code gegen Figma: Farb- und Rahmenstärken-Bindungen je Variante (Abstände, Radien, Typografie werden nicht verglichen)
+node tooling/test-styles.mjs                 # Code gegen Figma: Farben, Rahmen, Radius, Innenabstand, Lücke und Textstil je Variante (Höhe, Breite und Anordnung werden nicht verglichen)
 ```
 
 ## Bewusst manuell

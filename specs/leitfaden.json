@@ -92,7 +92,7 @@
     ],
     [
      "Prüfen",
-     "Grün heißt: Alle Prüfungen sind bestanden, Farben und Rahmen stimmen mit Figma überein.",
+     "Grün heißt: Alle Prüfungen sind bestanden. Farben, Rahmen, Radien, Innenabstände und Textstile stimmen mit Figma überein.",
      "node tooling/verify.mjs"
     ]
    ],
@@ -112,7 +112,7 @@
     ],
     [
      "Jeder Baustein wird nachgemessen",
-     "Ein Programm öffnet jede Variante im Browser und vergleicht Farben und Rahmenstärken mit Figma, hell und dunkel."
+     "Ein Programm öffnet jede Variante im Browser und vergleicht sie mit Figma: Farben und Rahmen in hell und dunkel, dazu Radius, Innenabstand, Lücke und Textstil."
     ],
     [
      "Jede Seite wird geprüft",
@@ -129,7 +129,7 @@
    },
    "note": [
     "Was noch nicht gemessen wird",
-    "Welchen Abstand, Radius oder Textstil ein Baustein an welcher Stelle nutzt. Die Werte selbst kommen aus Figma, aber ein falsch gewählter Innenabstand fiele heute nicht von selbst auf."
+    "Höhe und Breite, die Anordnung der Teile und Abstände im Inneren, etwa zwischen Feld und Hilfstext. Gemessen wird außerdem nur, was in Figma an eine Variable gebunden ist. Ein fester Wert ohne Variable fällt nicht auf."
    ]
   },
   {

@@ -540,6 +540,7 @@
         "name",
         "value"
       ],
+      "unmeasured": {},
       "looks": {
         "variant=default, fullwidth=false, disabled=false, state=default": {
           "bg": "background-10",
@@ -691,6 +692,7 @@
         "name",
         "value"
       ],
+      "unmeasured": {},
       "looks": {
         "checked=false, disabled=false, state=default": {
           "bg": "background-0",
@@ -820,6 +822,7 @@
       "passthrough": [
         "name"
       ],
+      "unmeasured": {},
       "looks": {
         "checked=false, state=default": {
           "bg": "background-20",
@@ -930,6 +933,7 @@
         "inputmode",
         "required"
       ],
+      "unmeasured": {},
       "looks": {
         "state=default": {
           "bg": "background-0",
@@ -1039,6 +1043,7 @@
         "name",
         "value"
       ],
+      "unmeasured": {},
       "looks": {
         "size=default, bold=false, disabled=false, state=default": {
           "fg": "text-70"

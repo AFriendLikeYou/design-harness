@@ -34,7 +34,7 @@ Du setzt um, was der Abgleich meldet.
 
 1. **Abgleich lesen.** Zeigt, was in Figma neu oder anders ist, und sagt, was zu tun ist. `node tooling/figma-diff.mjs`
 2. **Umsetzen.** Attribute, Verhalten, Aussehen. Nur mit Tokens, nie mit festen Werten. `ui/elements.js`, `ui/fundament.js`, `ui/components.css`
-3. **Prüfen.** Grün heißt: Alle Prüfungen sind bestanden, Farben und Rahmen stimmen mit Figma überein. `node tooling/verify.mjs`
+3. **Prüfen.** Grün heißt: Alle Prüfungen sind bestanden. Farben, Rahmen, Radien, Innenabstände und Textstile stimmen mit Figma überein. `node tooling/verify.mjs`
 
 
 > **Und die Regeln?.** Wofür ein Baustein da ist und was für ihn gilt, steht in specs/rules.json. Jede Regel ist ein Satz mit Begründung.
@@ -45,11 +45,11 @@ Du setzt um, was der Abgleich meldet.
 Drei Messungen. Jede läuft von selbst, bei jeder Änderung.
 
 1. **Werte werden nicht abgetippt.** Farben, Abstände, Radien und Schrift kommen aus Figma direkt ins CSS.
-2. **Jeder Baustein wird nachgemessen.** Ein Programm öffnet jede Variante im Browser und vergleicht Farben und Rahmenstärken mit Figma, hell und dunkel.
+2. **Jeder Baustein wird nachgemessen.** Ein Programm öffnet jede Variante im Browser und vergleicht sie mit Figma: Farben und Rahmen in hell und dunkel, dazu Radius, Innenabstand, Lücke und Textstil.
 3. **Jede Seite wird geprüft.** Erfundene Bausteine, feste Farbwerte und feste Abstände fallen auf. Am fertigen Bild werden Handybreite, Kontrast und Klickflächen gemessen.
 
 
-> **Was noch nicht gemessen wird.** Welchen Abstand, Radius oder Textstil ein Baustein an welcher Stelle nutzt. Die Werte selbst kommen aus Figma, aber ein falsch gewählter Innenabstand fiele heute nicht von selbst auf.
+> **Was noch nicht gemessen wird.** Höhe und Breite, die Anordnung der Teile und Abstände im Inneren, etwa zwischen Feld und Hilfstext. Gemessen wird außerdem nur, was in Figma an eine Variable gebunden ist. Ein fester Wert ohne Variable fällt nicht auf.
 
 
 ## Wenn ein KI-Agent baut

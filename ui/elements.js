@@ -2,6 +2,7 @@
 // Von Hand gepflegt, zusammen mit fundament.js. Daraus entstehen der Vertrag, das Manifest (custom-elements.json) und die Prüfung gegen Figma.
 // Typen: variant = Auswahl (in Figma eine Variant-Property), text, boolean, instance = Slot (in Figma Instance-Swap),
 //        behavior = Auswahl nur im Code, codeText = Text nur im Code.
+// unmeasured: Maße (radius, padX, padY, gap, textStyle), die der Code bewusst anders löst als Figma. Jede Ausnahme braucht einen Grund.
 export const PREFIX = "fd";
 export const PACKAGE = "@fundament/ui";
 export const COMPONENTS = {
@@ -377,7 +378,11 @@ export const COMPONENTS = {
       "href",
       "target",
       "rel"
-    ]
+    ],
+    // Maße, die bewusst nicht gegen Figma gemessen werden, mit Grund
+    unmeasured: {
+      textStyle: "Der Link übernimmt die Schrift des Textes, in dem er steht."
+    }
   },
   SignInForm: {
     props: []

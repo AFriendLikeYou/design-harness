@@ -31,6 +31,8 @@ const cases = [
   fail('Kontrastpaar auf fehlendes Token', (d) => rulesOf(d, (o) => { o.contrast[0].fg = 'text/gibt-es-nicht'; }), [LINT, BUILD], /unbekannte Token/),
   fail('unbekannter Schriftschnitt', (d) => snapOf(d, (o) => { o.textStyles[0][1] = 'Ultra Black'; }), [BUILD], /Schriftschnitt „Ultra Black“/),
   fail('Rolle thumb auf anderes Token', (d) => snapOf(d, (o) => o.styles.filter((x) => x[0] === 'Switch').forEach((x) => { x[2].thumb = 'bg/canvas'; })), [STYLES], /thumb/),
+  fail('Maß Radius auf anderes Token', (d) => snapOf(d, (o) => o.styles.filter((x) => x[0] === 'Button').forEach((x) => { x[3].radius = 'radius/sm'; })), [STYLES], /Radius/),
+  fail('Maß Textstil auf anderen Stil', (d) => snapOf(d, (o) => o.styles.filter((x) => x[0] === 'Badge').forEach((x) => { x[3].textStyle = 'body/md'; })), [STYLES], /Textstil/),
   fail('Rolle mark auf anderes Token', (d) => snapOf(d, (o) => o.styles.filter((x) => x[0] === 'Checkbox').forEach((x) => { if (x[2].mark) x[2].mark = 'bg/canvas'; })), [STYLES], /mark/),
   fail('Rolle helper auf anderes Token', (d) => snapOf(d, (o) => o.styles.filter((x) => x[0] === 'Checkbox').forEach((x) => { x[2].helper = 'bg/canvas'; })), [STYLES], /helper/),
   fail('Rolle body auf anderes Token', (d) => snapOf(d, (o) => o.styles.filter((x) => x[0] === 'Card').forEach((x) => { x[2].body = 'bg/canvas'; })), [STYLES], /body/),

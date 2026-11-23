@@ -643,6 +643,7 @@
         "name",
         "value"
       ],
+      "unmeasured": {},
       "looks": {
         "variant=danger, size=md, disabled=false, state=default": {
           "bg": "action/danger",
@@ -901,6 +902,7 @@
         "inputmode",
         "required"
       ],
+      "unmeasured": {},
       "looks": {
         "state=default": {
           "bg": "bg/surface",
@@ -1009,6 +1011,7 @@
         "name",
         "value"
       ],
+      "unmeasured": {},
       "looks": {
         "checked=false, disabled=false, state=default": {
           "bg": "bg/surface",
@@ -1132,6 +1135,7 @@
         "value",
         "required"
       ],
+      "unmeasured": {},
       "looks": {
         "checked=false, disabled=false, state=default": {
           "bg": "bg/surface",
@@ -1253,6 +1257,7 @@
       "passthrough": [
         "name"
       ],
+      "unmeasured": {},
       "looks": {
         "checked=false, disabled=false, state=default": {
           "bg": "border/input",
@@ -1364,6 +1369,7 @@
         "name",
         "value"
       ],
+      "unmeasured": {},
       "looks": {
         "selected=false, disabled=false, state=default": {
           "bg": "bg/surface",
@@ -1458,6 +1464,7 @@
         }
       ],
       "passthrough": [],
+      "unmeasured": {},
       "looks": {
         "tone=danger": {
           "bg": "feedback/danger-bg",
@@ -1538,6 +1545,7 @@
         }
       ],
       "passthrough": [],
+      "unmeasured": {},
       "looks": {
         "tone=danger": {
           "bg": "feedback/danger-bg",
@@ -1636,6 +1644,7 @@
         }
       ],
       "passthrough": [],
+      "unmeasured": {},
       "looks": {
         "default": {
           "bg": "bg/surface",
@@ -1696,6 +1705,9 @@
         "target",
         "rel"
       ],
+      "unmeasured": {
+        "textStyle": "Der Link übernimmt die Schrift des Textes, in dem er steht."
+      },
       "looks": {
         "state=default": {
           "fg": "feedback/info-fg"
@@ -1733,6 +1745,7 @@
       ],
       "props": [],
       "passthrough": [],
+      "unmeasured": {},
       "looks": {
         "default": {
           "bg": "bg/surface",
@@ -1788,6 +1801,7 @@
         }
       ],
       "passthrough": [],
+      "unmeasured": {},
       "looks": {
         "default": {}
       }
@@ -1816,6 +1830,7 @@
         }
       ],
       "passthrough": [],
+      "unmeasured": {},
       "looks": {
         "default": {
           "fg": "feedback/info-fg"

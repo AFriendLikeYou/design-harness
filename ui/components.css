@@ -138,7 +138,7 @@ fd-button[slot="trailing"] { display: flex; }
 
 /* ---------- Chip ---------- */
 .fd-chip {
-  display: inline-flex; align-items: center; padding: var(--fd-space-xs) var(--fd-space-md); border: var(--fd-border-width-default) solid var(--fd-color-border-input); border-radius: var(--fd-radius-full);
+  display: inline-flex; align-items: center; gap: var(--fd-space-xs); padding: var(--fd-space-xs) var(--fd-space-md); border: var(--fd-border-width-default) solid var(--fd-color-border-input); border-radius: var(--fd-radius-full);
   font: var(--fd-text-label-md); cursor: pointer; background: var(--fd-color-bg-surface); color: var(--fd-color-text-primary);
 }
 .fd-chip:hover, .fd-chip[data-state="hover"] { background: var(--fd-color-bg-subtle); }
