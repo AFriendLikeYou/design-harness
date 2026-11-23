@@ -1,0 +1,6 @@
+Status: stable · v1.0.0
+Führt zu einer anderen Seite oder Stelle. Für Aktionen einen Button verwenden.
+Regeln: Der Linktext nennt das Ziel. [link/names-destination] Ein Link hat immer ein Ziel (href). [link/has-target]
+A11y: Als <a href> umsetzen. Öffnet der Link ein neues Fenster, steht das im Text.
+Spec: ds/link
+Code: <fd-link> aus "@fundament/ui"

@@ -1,4 +1,4 @@
-<!-- Generiert aus specs/system.json – nicht von Hand bearbeiten. -->
+<!-- Generiert aus specs/figma.snapshot.json, ui/elements.js und specs/rules.json – nicht von Hand bearbeiten. -->
 # Button
 Status: stable · v1.4.1 · Spec: ds/button
 Löst eine Aktion aus. Für Navigation zu einer anderen Seite einen Link verwenden.
@@ -23,17 +23,38 @@ Props sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attr
 
 | Für | Tokens |
 |---|---|
-| `variant=primary` | bg: `action/primary`, fg: `text/on-action` |
-| `variant=primary, state=hover` | bg: `action/primary-hover` |
-| `variant=secondary` | bg: `bg/surface`, fg: `text/primary`, border: `border/input`, borderWidth: `default` |
-| `variant=secondary, state=hover` | bg: `bg/subtle` |
-| `variant=ghost` | fg: `feedback/info-fg` |
-| `variant=ghost, state=hover` | bg: `bg/subtle` |
-| `variant=danger` | bg: `action/danger`, fg: `text/on-action` |
-| `variant=danger, state=hover` | bg: `action/danger-hover` |
-| `state=focus` | ring: `focus/ring`, ringWidth: `strong` |
-| `disabled=true` | bg: `bg/disabled`, fg: `text/disabled`, border: entfällt, borderWidth: entfällt |
-| `variant=ghost, disabled=true` | bg: entfällt |
+| `variant=danger, size=md, disabled=false, state=default` | bg: `action/danger`, fg: `text/on-action` |
+| `variant=danger, size=md, disabled=false, state=focus` | bg: `action/danger`, fg: `text/on-action`, ring: `focus/ring`, ringWidth: `strong` |
+| `variant=danger, size=md, disabled=false, state=hover` | bg: `action/danger-hover`, fg: `text/on-action` |
+| `variant=danger, size=md, disabled=true, state=default` | bg: `bg/disabled`, fg: `text/disabled` |
+| `variant=danger, size=sm, disabled=false, state=default` | bg: `action/danger`, fg: `text/on-action` |
+| `variant=danger, size=sm, disabled=false, state=focus` | bg: `action/danger`, fg: `text/on-action`, ring: `focus/ring`, ringWidth: `strong` |
+| `variant=danger, size=sm, disabled=false, state=hover` | bg: `action/danger-hover`, fg: `text/on-action` |
+| `variant=danger, size=sm, disabled=true, state=default` | bg: `bg/disabled`, fg: `text/disabled` |
+| `variant=ghost, size=md, disabled=false, state=default` | fg: `feedback/info-fg` |
+| `variant=ghost, size=md, disabled=false, state=focus` | fg: `feedback/info-fg`, ring: `focus/ring`, ringWidth: `strong` |
+| `variant=ghost, size=md, disabled=false, state=hover` | bg: `bg/subtle`, fg: `feedback/info-fg` |
+| `variant=ghost, size=md, disabled=true, state=default` | fg: `text/disabled` |
+| `variant=ghost, size=sm, disabled=false, state=default` | fg: `feedback/info-fg` |
+| `variant=ghost, size=sm, disabled=false, state=focus` | fg: `feedback/info-fg`, ring: `focus/ring`, ringWidth: `strong` |
+| `variant=ghost, size=sm, disabled=false, state=hover` | bg: `bg/subtle`, fg: `feedback/info-fg` |
+| `variant=ghost, size=sm, disabled=true, state=default` | fg: `text/disabled` |
+| `variant=primary, size=md, disabled=false, state=default` | bg: `action/primary`, fg: `text/on-action` |
+| `variant=primary, size=md, disabled=false, state=focus` | bg: `action/primary`, fg: `text/on-action`, ring: `focus/ring`, ringWidth: `strong` |
+| `variant=primary, size=md, disabled=false, state=hover` | bg: `action/primary-hover`, fg: `text/on-action` |
+| `variant=primary, size=md, disabled=true, state=default` | bg: `bg/disabled`, fg: `text/disabled` |
+| `variant=primary, size=sm, disabled=false, state=default` | bg: `action/primary`, fg: `text/on-action` |
+| `variant=primary, size=sm, disabled=false, state=focus` | bg: `action/primary`, fg: `text/on-action`, ring: `focus/ring`, ringWidth: `strong` |
+| `variant=primary, size=sm, disabled=false, state=hover` | bg: `action/primary-hover`, fg: `text/on-action` |
+| `variant=primary, size=sm, disabled=true, state=default` | bg: `bg/disabled`, fg: `text/disabled` |
+| `variant=secondary, size=md, disabled=false, state=default` | bg: `bg/surface`, border: `border/input`, borderWidth: `default`, fg: `text/primary` |
+| `variant=secondary, size=md, disabled=false, state=focus` | bg: `bg/surface`, border: `border/input`, borderWidth: `default`, fg: `text/primary`, ring: `focus/ring`, ringWidth: `strong` |
+| `variant=secondary, size=md, disabled=false, state=hover` | bg: `bg/subtle`, border: `border/input`, borderWidth: `default`, fg: `text/primary` |
+| `variant=secondary, size=md, disabled=true, state=default` | bg: `bg/disabled`, fg: `text/disabled` |
+| `variant=secondary, size=sm, disabled=false, state=default` | bg: `bg/surface`, border: `border/input`, borderWidth: `default`, fg: `text/primary` |
+| `variant=secondary, size=sm, disabled=false, state=focus` | bg: `bg/surface`, border: `border/input`, borderWidth: `default`, fg: `text/primary`, ring: `focus/ring`, ringWidth: `strong` |
+| `variant=secondary, size=sm, disabled=false, state=hover` | bg: `bg/subtle`, border: `border/input`, borderWidth: `default`, fg: `text/primary` |
+| `variant=secondary, size=sm, disabled=true, state=default` | bg: `bg/disabled`, fg: `text/disabled` |
 
 ## Regeln
 

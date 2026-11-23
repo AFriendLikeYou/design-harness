@@ -1,4 +1,4 @@
-<!-- Generiert aus specs/system.json – nicht von Hand bearbeiten. -->
+<!-- Generiert aus specs/figma.snapshot.json, ui/elements.js und specs/rules.json – nicht von Hand bearbeiten. -->
 # Link
 Status: stable · v1.0.0 · Spec: ds/link
 Führt zu einer anderen Seite oder Stelle. Für Aktionen einen Button verwenden.
@@ -20,9 +20,9 @@ Props sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attr
 
 | Für | Tokens |
 |---|---|
-| `default` | fg: `feedback/info-fg` |
+| `state=default` | fg: `feedback/info-fg` |
+| `state=focus` | fg: `feedback/info-fg`, ring: `focus/ring`, ringWidth: `strong` |
 | `state=hover` | fg: `text/primary` |
-| `state=focus` | ring: `focus/ring`, ringWidth: `strong` |
 
 ## Regeln
 

@@ -73,21 +73,21 @@
   },
   "size": {
     "$type": "dimension",
+    "switch-thumb": {
+      "$value": "{dimension.16}",
+      "$description": "Durchmesser des Schalterknopfs."
+    },
     "checkbox": {
       "$value": "{dimension.20}",
       "$description": "Kantenlänge der Checkbox."
-    },
-    "touch-target": {
-      "$value": "{dimension.44}",
-      "$description": "Mindesthöhe der Klickfläche von Bedienelementen mit kleiner Darstellung."
     },
     "switch-width": {
       "$value": "{dimension.36}",
       "$description": "Breite der Schalterbahn."
     },
-    "switch-thumb": {
-      "$value": "{dimension.16}",
-      "$description": "Durchmesser des Schalterknopfs."
+    "touch-target": {
+      "$value": "{dimension.44}",
+      "$description": "Mindesthöhe der Klickfläche von Bedienelementen mit kleiner Darstellung."
     },
     "field": {
       "$value": "{dimension.320}",

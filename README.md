@@ -1,43 +1,50 @@
 # Fundament – Beispiel-Designsystem für Menschen und KI-Agenten
 
-Ein generisches Designsystem, das zeigt, wie ein agententaugliches System aufgebaut ist. Gestaltet wird in Figma, umgesetzt im Code; der **Vertrag dazwischen** ist `specs/system.json`. Ein Abgleich hält alle drei gleich.
+Ein Designsystem, das zeigt, wie ein agententaugliches System aufgebaut ist. Jedes Wissen hat genau eine Heimat, und Prüfungen vergleichen die Seiten direkt:
 
-```
-Specs als einzige Quelle  (Tokens, Komponenten, Regeln, Grundsätze, Versionen)
-        │
-        ├── Doku-Site     docs/index.html      für Menschen
-        ├── CLI           cli/fundament.mjs    lint, check, migrate → CI als Gate
-        └── MCP-Server    mcp/server.mjs       Lesen + check für Agenten
-```
+| Wissen | Heimat | Datei im Repo |
+|---|---|---|
+| Tokenwerte, Aussehen je Variante | Figma | `specs/figma.snapshot.json` (Export) |
+| Props, Slots, Verhalten | Code | `ui/elements.js`, `ui/fundament.js` |
+| Regeln, Begründungen, Kontrastzusagen | Regeldatei | `specs/rules.json` |
+
+Eine große Spec, die jemand von Hand pflegt, gibt es nicht. `generated/system.json` zeigt das zusammengesetzte System zur Ansicht.
 
 ## Struktur
 
 ```
-specs/system.json        Quelle: Tokens, Text-Styles, Komponenten mit Aussehen je Variante,
-                         Regeln und Grundsätze mit Begründung, Kontrastpaare, Migrationen, Changelog
-build.mjs                erzeugt alles Folgende: node build.mjs
-generated/contracts.json Verträge: Elemente, Attribute, Werte, Slots, Regeln, Tokens
-generated/contrast.json  geprüfte Text/Fläche-Paare je Mode (Build bricht bei Verstoß ab)
-generated/tokens/        DTCG-Tokens (Format 2025.10)
-generated/components/    Markdown je Komponente
-generated/llms.txt       Index für Agenten
-docs/index.html          Doku-Site mit den echten Web Components
-ui/                      Paket @fundament/ui
-  fundament.js             Web Components (von Hand), Light DOM, keine Abhängigkeiten
-  contract.generated.js    Elementvertrag (erzeugt)
-  tokens.css               CSS-Variablen light/dark (erzeugt)
-  components.css           Styles der Komponenten (von Hand), nur Tokens
-  examples/                Konto-Einstellungen und eine Seite mit allen Zuständen
-cli/fundament.mjs        lint (Spec), check (HTML/CSS/Svelte-Markup), migrate (Veraltetes ersetzen)
-mcp/server.mjs           MCP-Server über stdio, Eintrag in .mcp.json
-plugin-export/           „Fundament Export“: liest den Stand einer Figma-Datei für den Abgleich aus
-specs/figma.snapshot.json letzter exportierter Stand aus Figma
-AGENTS.md                die Schleife für Agenten, ohne fest eingetragene Listen
-DESIGN.md, rubric.md     Grundsätze und Kritiker-Fragen für das, was kein Check sieht
-evals/                   Aufgaben, Läufe mit und ohne Harness, Auswertung
-tooling/                 verify.mjs (alles prüfen), figma-diff.mjs (Abgleich), Tests für CLI und Web Components
-.github/workflows/       CI-Gate
+specs/figma.snapshot.json letzter Export aus Figma: Variablen, Text-Styles, Komponenten, Aussehen je Variante
+specs/rules.json          von Hand: Regeln mit Warum, Barrierefreiheit, Grundsätze, Kontrastpaare, Migrationen, Changelog
+specs/leitfaden.json      Quelle des Leitfadens (LEITFADEN.md, Doku-Site, Figma-Seite)
+ui/                       Paket @fundament/ui
+  elements.js               API der Komponenten: Attribute, Werte, Standards, Slots (von Hand)
+  fundament.js              Web Components, Light DOM, keine Abhängigkeiten (von Hand)
+  components.css            Styles, nur Tokens (von Hand)
+  tokens.css                CSS-Variablen light/dark (erzeugt aus dem Figma-Export)
+  custom-elements.json      Manifest der Web Components (erzeugt)
+  examples/                 Konto-Einstellungen und eine Seite mit allen Zuständen
+build.mjs                 setzt das System zusammen und erzeugt alles unter generated/, docs/ und die erzeugten Dateien in ui/
+generated/                Verträge, Kontrast, DTCG-Tokens, Markdown und Figma-Beschreibung je Komponente, llms.txt
+docs/index.html           Doku-Site mit den echten Web Components
+cli/fundament.mjs         lint (System in sich), check (Seiten), audit (gerendert), migrate (Veraltetes ersetzen)
+mcp/server.mjs            MCP-Server über stdio, Eintrag in .mcp.json
+plugin-export/            „Fundament Export“: liest den Stand einer Figma-Datei aus und verändert nichts
+tooling/                  assemble.mjs (Zusammenbau), figma-diff.mjs (Abgleich), verify.mjs (alles prüfen), Tests
+AGENTS.md, DESIGN.md, rubric.md   Schleife für Agenten, Grundsätze, Kritiker-Fragen
+evals/                    Aufgaben, Läufe mit und ohne Harness, Auswertung
+probe-zds/                fünf ZDS-Komponenten im selben System (noch mit einer einzelnen Spec-Datei)
 ```
+
+## Der Weg einer Änderung
+
+1. In Figma gestalten.
+2. Plugin „Fundament Export“ ausführen, Ergebnis als `specs/figma.snapshot.json` speichern.
+3. `node build.mjs`: Tokenwerte fließen von selbst in CSS, Verträge und Doku. Der Kontrast wird nachgerechnet.
+4. `node tooling/figma-diff.mjs`: zeigt, wo Figma und Code auseinanderliegen, mit dem nächsten Schritt je Zeile.
+5. Im Code nachziehen (`ui/elements.js`, `ui/fundament.js`, `ui/components.css`), Regeln in `specs/rules.json` ergänzen.
+6. `node tooling/verify.mjs`: alles zusammen. Dasselbe läuft in CI als Gate.
+
+Von außen schreibt nichts in die Figma-Datei. Ändert jemand etwas nur im Code, zeigt der Abgleich die Abweichung, und Figma wird von Hand nachgezogen.
 
 ## Benutzen
 
@@ -62,21 +69,18 @@ Die Seiten laden das Paket als ES-Modul. Das geht im Browser nur über http, nic
 ## Prüfen
 
 ```
-node tooling/verify.mjs                      # baut und prüft alles (läuft auch in CI)
-node cli/fundament.mjs lint                  # Spec in sich stimmig?
+node tooling/verify.mjs                      # baut und prüft alles
+node cli/fundament.mjs lint                  # System in sich stimmig?
 node cli/fundament.mjs check <Pfad> --json   # Seite gegen Verträge, Regeln, Grundsätze
-node cli/fundament.mjs migrate <Pfad> --write
-node evals/auswerten.mjs                     # Messläufe auswerten
+node cli/fundament.mjs audit <Pfad> --json   # gerendert: Überlauf, Kontrast, Namen, Klickflächen
+node tooling/figma-diff.mjs                  # Figma gegen Code und Regeln
+node tooling/test-styles.mjs                 # Code gegen Figma: Farben je Variante
 ```
 
-## Figma
+## Bewusst manuell
 
-**Von Figma ins Repo (der normale Weg für Designer):** In Figma ändern, das Plugin `plugin-export/` ausführen, das Ergebnis als `specs/figma.snapshot.json` speichern, dann `node tooling/figma-diff.mjs`. Der Abgleich zeigt jede Abweichung als Vorschlag; `--apply` übernimmt die eindeutigen in die Spec.
-
-Ein Plugin, das etwas in Figma anlegt, gibt es bewusst nicht. Änderungen am Aussehen beginnen in Figma. Ändert jemand einen Wert im Repo, zeigt der Abgleich die Abweichung, und der Wert wird in Figma nachgestellt.
-
-Bewusst manuell danach: Code Connect, Dev Resources, Library veröffentlichen.
+Code Connect, Dev Resources und das Veröffentlichen der Library gehen nur vom eigenen Figma-Konto.
 
 ## Eigene Marke
 
-Die Figma-Datei duplizieren und dort Farben, Schrift und Namen ändern, exportieren, `node tooling/figma-diff.mjs --apply`, dann `node tooling/verify.mjs`. Neue Komponenten entstehen in Figma, kommen über den Abgleich als Gerüst in die Spec und brauchen ihre Umsetzung in `ui/fundament.js` und `ui/components.css`; `verify` meldet, wenn etwas fehlt.
+Die Figma-Datei duplizieren und dort Farben, Schrift und Namen ändern, exportieren, bauen. Regeln in `specs/rules.json` anpassen.

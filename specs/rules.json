@@ -1,0 +1,548 @@
+{
+  "$hinweis": "Von Hand gepflegt: Regeln, Begründungen, Barrierefreiheit, Kontrastzusagen, Lebenszyklus. Tokenwerte und Aussehen kommen aus specs/figma.snapshot.json (Export aus Figma), Props aus ui/elements.js (Code).",
+  "name": "Fundament",
+  "version": "1.5.0",
+  "components": [
+    {
+      "name": "Button",
+      "kind": "component",
+      "status": "stable",
+      "version": "1.4.1",
+      "purpose": "Löst eine Aktion aus. Für Navigation zu einer anderen Seite einen Link verwenden.",
+      "rules": [
+        {
+          "id": "button/one-primary",
+          "text": "Höchstens ein primärer Button pro Ansicht; ein danger-Button und ConfirmAction zählen als primär.",
+          "why": "Mehrere primäre Aktionen konkurrieren um Aufmerksamkeit.",
+          "check": "max-per-view"
+        },
+        {
+          "id": "button/label-verb",
+          "text": "Beschriftung beginnt mit einem Verb und nennt das Ergebnis.",
+          "why": "Nutzer:innen wissen vor dem Klick, was passiert.",
+          "check": null
+        },
+        {
+          "id": "button/no-custom-colors",
+          "text": "Farbe nur über variant, nie eigene Füllungen.",
+          "why": "Sonst brechen Dark Mode und Kontrastgarantie.",
+          "check": "no-raw-color"
+        },
+        {
+          "id": "button/states-from-system",
+          "text": "Hover und Fokus kommen aus der Komponente, nie selbst gestaltet.",
+          "why": "Der Fokusring ist eine Zusage an Tastaturnutzer:innen und muss überall gleich aussehen.",
+          "check": null
+        },
+        {
+          "id": "button/danger-confirm",
+          "text": "variant=danger nur für Aktionen, die etwas unwiderruflich löschen oder beenden, und nie als einzige Absicherung.",
+          "why": "Rot warnt, schützt aber nicht vor einem versehentlichen Klick; es braucht zusätzlich eine Bestätigung.",
+          "check": null
+        }
+      ],
+      "a11y": "Immer als <button> umsetzen. Deaktiviert nur, wenn ein Hinweis erklärt, warum.",
+      "do": [
+        "„Änderungen speichern“",
+        "Primär + sekundär nebeneinander"
+      ],
+      "dont": [
+        "„Hier klicken“",
+        "Zwei primäre Buttons nebeneinander"
+      ]
+    },
+    {
+      "name": "TextField",
+      "kind": "component",
+      "status": "stable",
+      "version": "1.3.0",
+      "purpose": "Einzeilige Texteingabe mit sichtbarem Label und optionalem Hilfstext.",
+      "rules": [
+        {
+          "id": "textfield/visible-label",
+          "text": "Label ist immer sichtbar, nie nur als Platzhalter.",
+          "why": "Platzhalter verschwinden beim Tippen und sind für Screenreader unzuverlässig.",
+          "check": "required-prop"
+        },
+        {
+          "id": "textfield/error-text",
+          "text": "Im Fehlerzustand ersetzt errorText den Hilfstext und erklärt, wie man den Fehler behebt.",
+          "why": "Rot allein sagt nicht, was zu tun ist.",
+          "check": null
+        },
+        {
+          "id": "textfield/trailing-slot",
+          "text": "Aktionen im Feld (Passwort anzeigen, Eingabe leeren) nur über den Slot trailing, mit einem Button variant=ghost size=sm.",
+          "why": "Selbst über das Feld gelegte Knöpfe verlieren Fokusreihenfolge und Abstände.",
+          "check": "slot-content"
+        },
+        {
+          "id": "textfield/trailing-behavior",
+          "text": "Passwort anzeigen und Eingabe leeren kommen über trailingAction (reveal, clear), nicht über eigenes Skript.",
+          "why": "Nur so stimmen Beschriftung, aria-pressed und Fokus bei jedem Feld überein.",
+          "check": null
+        }
+      ],
+      "a11y": "Label per <label for> verknüpfen, Hilfs- und Fehlertext per aria-describedby; Fehler mit aria-invalid.",
+      "do": [
+        "„Bitte gib eine gültige E-Mail-Adresse ein.“"
+      ],
+      "dont": [
+        "Nur roter Rahmen ohne Text",
+        "Label als Platzhalter"
+      ]
+    },
+    {
+      "name": "Checkbox",
+      "kind": "component",
+      "status": "stable",
+      "version": "1.2.0",
+      "purpose": "Auswahl einer unabhängigen Option, die man an- oder abwählen kann.",
+      "rules": [
+        {
+          "id": "checkbox/label-clickable",
+          "text": "Das Label ist Teil der Klickfläche.",
+          "why": "Die Box allein ist mit 20 px zu klein für Touch.",
+          "check": null
+        },
+        {
+          "id": "checkbox/disabled-reason",
+          "text": "Ist die Checkbox deaktiviert, erklärt helperText den Grund.",
+          "why": "Ohne Erklärung wirkt ein deaktiviertes Element wie ein Fehler.",
+          "check": "required-when-disabled"
+        }
+      ],
+      "a11y": "Natives <input type=\"checkbox\"> mit <label>; Klickfläche mindestens 44 × 44 px.",
+      "do": [
+        "Kurzes Label in Satzschreibung"
+      ],
+      "dont": [
+        "Checkbox für sofort wirksame Einstellungen (dafür Switch)"
+      ]
+    },
+    {
+      "name": "Switch",
+      "kind": "component",
+      "status": "stable",
+      "version": "1.0.0",
+      "purpose": "Schaltet eine Einstellung sofort ein oder aus, ohne Speichern.",
+      "rules": [
+        {
+          "id": "switch/immediate",
+          "text": "Nur für Einstellungen, die sofort wirken. Braucht es Speichern, eine Checkbox verwenden.",
+          "why": "Ein Schalter verspricht, dass die Änderung schon gilt.",
+          "check": null
+        },
+        {
+          "id": "switch/disabled-reason",
+          "text": "Ist der Schalter deaktiviert, erklärt helperText den Grund.",
+          "why": "Ohne Erklärung wirkt ein deaktiviertes Element wie ein Fehler.",
+          "check": "required-when-disabled"
+        }
+      ],
+      "a11y": "Als <button role=\"switch\"> mit aria-checked umsetzen; das Label benennt die Einstellung, nicht den Zustand.",
+      "do": [
+        "„E-Mail-Benachrichtigungen“"
+      ],
+      "dont": [
+        "„An“ oder „Aus“ als Label",
+        "Schalter in einem Formular mit Speichern-Button"
+      ]
+    },
+    {
+      "name": "Badge",
+      "kind": "component",
+      "status": "stable",
+      "version": "1.0.0",
+      "purpose": "Kurzer Status oder Kategorie, nicht interaktiv.",
+      "rules": [
+        {
+          "id": "badge/short-label",
+          "text": "Höchstens zwei Wörter.",
+          "why": "Badges werden überflogen, nicht gelesen.",
+          "check": "max-words"
+        },
+        {
+          "id": "badge/not-interactive",
+          "text": "Nie klickbar; für Filter einen Chip verwenden.",
+          "why": "Badges sehen nicht nach Bedienelement aus.",
+          "check": null
+        }
+      ],
+      "a11y": "Bedeutung steht im Text, nicht nur in der Farbe.",
+      "do": [
+        "„Entwurf“",
+        "„Veröffentlicht“"
+      ],
+      "dont": [
+        "Ganze Sätze",
+        "Badge als Button"
+      ]
+    },
+    {
+      "name": "Alert",
+      "kind": "component",
+      "status": "stable",
+      "version": "1.0.2",
+      "purpose": "Hinweis im Seitenfluss zu Status, Erfolg, Warnung oder Fehler.",
+      "rules": [
+        {
+          "id": "alert/one-per-area",
+          "text": "Höchstens ein Alert pro Bereich.",
+          "why": "Mehrere Hinweise übereinander werden ignoriert.",
+          "check": "max-per-parent"
+        },
+        {
+          "id": "alert/title-states-outcome",
+          "text": "Titel nennt das Ergebnis, Beschreibung den nächsten Schritt.",
+          "why": "Man soll den Titel allein verstehen können.",
+          "check": null
+        },
+        {
+          "id": "alert/no-action",
+          "text": "Ein Alert enthält keine Aktion. Die Beschreibung nennt den nächsten Schritt, die Aktion steht dort, wo sie wirkt.",
+          "why": "Eine Aktion im Hinweis konkurriert mit der Hauptaktion der Seite.",
+          "check": null
+        }
+      ],
+      "a11y": "Fehler und Warnungen mit role=\"alert\", Info und Erfolg mit role=\"status\".",
+      "do": [
+        "„Zahlung fehlgeschlagen“ + „Prüfe deine Kartendaten.“"
+      ],
+      "dont": [
+        "„Fehler!“ ohne Erklärung"
+      ]
+    },
+    {
+      "name": "Card",
+      "kind": "component",
+      "status": "stable",
+      "version": "1.1.0",
+      "purpose": "Gruppiert zusammengehörige Inhalte mit optionaler Aktion.",
+      "rules": [
+        {
+          "id": "card/one-action",
+          "text": "Höchstens eine Aktion im Footer.",
+          "why": "Karten sind Einstiege, keine Formulare.",
+          "check": "max-children"
+        },
+        {
+          "id": "card/no-nesting",
+          "text": "Keine Karten in Karten.",
+          "why": "Verschachtelte Rahmen zerstören die Hierarchie.",
+          "check": "no-nesting"
+        },
+        {
+          "id": "card/badge-slot",
+          "text": "Eine Kennzeichnung der Karte (z. B. „Aktuell“) gehört in den Slot badge, nicht daneben oder darüber.",
+          "why": "Nur im Slot bleibt die Kennzeichnung beim Umbruch an der Karte.",
+          "check": "slot-content"
+        }
+      ],
+      "a11y": "Titel als Überschrift passender Ebene; ist die ganze Karte klickbar, nur ein Link darin.",
+      "do": [
+        "Eine klare Aktion"
+      ],
+      "dont": [
+        "Karte in Karte",
+        "Drei Buttons im Footer"
+      ]
+    },
+    {
+      "name": "Link",
+      "kind": "component",
+      "status": "stable",
+      "version": "1.0.0",
+      "purpose": "Führt zu einer anderen Seite oder Stelle. Für Aktionen einen Button verwenden.",
+      "rules": [
+        {
+          "id": "link/names-destination",
+          "text": "Der Linktext nennt das Ziel.",
+          "why": "„Hier“ oder „Mehr“ sagen nicht, wohin es geht, und sind in einer Linkliste nicht unterscheidbar.",
+          "check": "no-vague-action"
+        },
+        {
+          "id": "link/has-target",
+          "text": "Ein Link hat immer ein Ziel (href).",
+          "why": "Ohne Ziel ist er eine Aktion und gehört in einen Button.",
+          "check": "required-prop"
+        }
+      ],
+      "a11y": "Als <a href> umsetzen. Öffnet der Link ein neues Fenster, steht das im Text.",
+      "do": [
+        "„Alle Rechnungen ansehen“"
+      ],
+      "dont": [
+        "„Hier“",
+        "Link, der etwas speichert oder löscht"
+      ]
+    },
+    {
+      "name": "SignInForm",
+      "kind": "pattern",
+      "status": "stable",
+      "version": "1.0.2",
+      "purpose": "Vollständiges Anmeldeformular aus TextField, Checkbox und Button. Als Ganzes verwenden statt neu zusammenzubauen.",
+      "rules": [
+        {
+          "id": "signinform/compose-from-system",
+          "text": "Nur aus Systemkomponenten zusammensetzen.",
+          "why": "Muster zeigen Agenten und Menschen, wie Bausteine kombiniert werden.",
+          "check": "registered-only"
+        }
+      ],
+      "a11y": "Fehlermeldungen oberhalb der Felder zusammenfassen und fokussieren.",
+      "do": [
+        "Muster komplett übernehmen"
+      ],
+      "dont": [
+        "Felder ohne Label nachbauen"
+      ]
+    },
+    {
+      "name": "ConfirmAction",
+      "kind": "pattern",
+      "status": "stable",
+      "version": "1.0.0",
+      "purpose": "Sichert eine unwiderrufliche Aktion ab: Der danger-Button wird erst aktiv, wenn das Bestätigungswort eingegeben ist.",
+      "rules": [
+        {
+          "id": "confirmaction/for-irreversible",
+          "text": "Jede Aktion, die Daten unwiderruflich löscht, läuft über ConfirmAction.",
+          "why": "Ein roter Button allein schützt nicht vor einem versehentlichen Klick.",
+          "check": null
+        },
+        {
+          "id": "confirmaction/no-custom-script",
+          "text": "Das Freischalten kommt aus dem Muster, nicht aus eigenem Skript.",
+          "why": "Sonst unterscheiden sich Bestätigungen von Seite zu Seite.",
+          "check": null
+        }
+      ],
+      "a11y": "Der Button nennt die Aktion. Warum er deaktiviert ist, steht als Hilfstext am Feld und ist per aria-describedby verknüpft.",
+      "do": [
+        "Bestätigungswort nennt die Aktion: „LÖSCHEN“"
+      ],
+      "dont": [
+        "Bestätigung per Checkbox",
+        "Eigenes Skript, das einen Button freischaltet"
+      ]
+    },
+    {
+      "name": "LinkButton",
+      "kind": "component",
+      "status": "deprecated",
+      "version": "0.9.0",
+      "purpose": "Veraltet seit 1.0. Ersetzt durch Button variant=ghost.",
+      "deprecated": {
+        "since": "1.0.0",
+        "use": "Button variant=ghost"
+      },
+      "rules": [],
+      "a11y": "–",
+      "do": [],
+      "dont": [
+        "Neu verwenden"
+      ]
+    }
+  ],
+  "principles": [
+    {
+      "id": "principles/surface-and-line",
+      "text": "Trennung über Fläche und Linie. Keine Verläufe, keine Schlagschatten.",
+      "why": "Verläufe und Schatten haben keine Tokens und brechen im Dark Mode.",
+      "check": "no-decoration"
+    },
+    {
+      "id": "principles/sentence-case",
+      "text": "Satzschreibung. Keine Versalien per text-transform.",
+      "why": "Versalien sind schwerer zu lesen und wirken wie Werbung.",
+      "check": "no-uppercase"
+    },
+    {
+      "id": "principles/action-says-what",
+      "text": "Aktionen sagen, was passiert.",
+      "why": "„Mehr erfahren“ oder „Hier klicken“ verraten nicht, was nach dem Klick kommt.",
+      "check": "no-vague-action"
+    },
+    {
+      "id": "principles/spacing-from-scale",
+      "text": "Abstände kommen aus der Skala.",
+      "why": "Zwischenwerte zerstören den Rhythmus und lassen sich nicht gemeinsam ändern.",
+      "check": "no-raw-space"
+    },
+    {
+      "id": "principles/system-controls",
+      "text": "Bedienelemente kommen aus dem System, keine nackten <button> oder <input>.",
+      "why": "Nur Systemkomponenten bringen Fokus, Zustände und Barrierefreiheit mit.",
+      "check": "registered-only"
+    }
+  ],
+  "vagueActions": [
+    "mehr erfahren",
+    "hier klicken",
+    "klick hier",
+    "klicken",
+    "weiter",
+    "ok",
+    "mehr",
+    "los",
+    "absenden",
+    "senden"
+  ],
+  "contrast": [
+    {
+      "fg": "text/primary",
+      "on": [
+        "bg/canvas",
+        "bg/surface",
+        "bg/subtle",
+        "feedback/info-bg",
+        "feedback/success-bg",
+        "feedback/warning-bg",
+        "feedback/danger-bg"
+      ],
+      "min": 4.5,
+      "why": "Fließtext"
+    },
+    {
+      "fg": "text/secondary",
+      "on": [
+        "bg/canvas",
+        "bg/surface",
+        "bg/subtle"
+      ],
+      "min": 4.5,
+      "why": "Hilfstext"
+    },
+    {
+      "fg": "text/on-action",
+      "on": [
+        "action/primary",
+        "action/primary-hover",
+        "action/danger",
+        "action/danger-hover"
+      ],
+      "min": 4.5,
+      "why": "Beschriftung primärer Buttons"
+    },
+    {
+      "fg": "feedback/info-fg",
+      "on": [
+        "feedback/info-bg"
+      ],
+      "min": 4.5,
+      "why": "Titel im Alert, Text im Badge"
+    },
+    {
+      "fg": "feedback/success-fg",
+      "on": [
+        "feedback/success-bg"
+      ],
+      "min": 4.5,
+      "why": "Titel im Alert, Text im Badge"
+    },
+    {
+      "fg": "feedback/warning-fg",
+      "on": [
+        "feedback/warning-bg"
+      ],
+      "min": 4.5,
+      "why": "Titel im Alert, Text im Badge"
+    },
+    {
+      "fg": "feedback/danger-fg",
+      "on": [
+        "feedback/danger-bg"
+      ],
+      "min": 4.5,
+      "why": "Titel im Alert, Text im Badge"
+    },
+    {
+      "fg": "feedback/info-fg",
+      "on": [
+        "bg/canvas",
+        "bg/surface",
+        "bg/subtle"
+      ],
+      "min": 4.5,
+      "why": "Beschriftung Ghost-Button, auch im Hover"
+    },
+    {
+      "fg": "feedback/danger-fg",
+      "on": [
+        "bg/canvas",
+        "bg/surface"
+      ],
+      "min": 4.5,
+      "why": "Fehlertext unter dem Feld"
+    },
+    {
+      "fg": "border/input",
+      "on": [
+        "bg/canvas",
+        "bg/surface"
+      ],
+      "min": 3,
+      "why": "Rahmen von Bedienelementen"
+    },
+    {
+      "fg": "focus/ring",
+      "on": [
+        "bg/canvas",
+        "bg/surface"
+      ],
+      "min": 3,
+      "why": "Fokusring"
+    },
+    {
+      "fg": "text/on-action",
+      "on": [
+        "border/input"
+      ],
+      "min": 3,
+      "why": "Schalterknopf auf ausgeschalteter Bahn"
+    }
+  ],
+  "migrations": [
+    {
+      "since": "1.0.0",
+      "from": "fd-link-button",
+      "to": "fd-button",
+      "set": {
+        "variant": "ghost"
+      },
+      "why": "LinkButton ist veraltet."
+    }
+  ],
+  "changelog": [
+    {
+      "version": "1.5.0",
+      "text": "Neue Aufteilung: Tokenwerte und Aussehen kommen aus Figma, Props aus dem Code, von Hand bleibt nur die Regeldatei. Die große Spec entfällt."
+    },
+    {
+      "version": "1.4.1",
+      "text": "Aussehen je Variante ist jetzt eindeutig beschrieben (default als Basis, null entfernt eine Rolle) und wird mit Figma abgeglichen."
+    },
+    {
+      "version": "1.4.0",
+      "text": "Neu: Link für Navigation und das Muster ConfirmAction für unwiderrufliche Aktionen. Alert bleibt ohne Aktion (Regel alert/no-action). Check mit eigenem HTML-Parser und Prüfung im gerenderten Zustand (audit)."
+    },
+    {
+      "version": "1.3.0",
+      "text": "TextField: trailingAction (reveal, clear) bringt das Verhalten für den Slot trailing mit. Card: Slot badge. Beide Lücken stammen aus der Messung mit sechs Agentenläufen."
+    },
+    {
+      "version": "1.2.0",
+      "text": "Neu: Switch. Button variant=danger mit Tokens action/danger. Checkbox mit helperText. Größen-Tokens field, panel, switch-width, switch-thumb. Code als Web Components (@fundament/ui)."
+    },
+    {
+      "version": "1.1.0",
+      "text": "Hover und Fokus als Varianten (Button, TextField, Checkbox). TextField mit Slot trailing und eigener Property errorText. Neue Tokens border-width und size. Kontrastpaare nachgerechnet. Aussehen je Variante steht in der Spec."
+    },
+    {
+      "version": "1.0.0",
+      "text": "Erste Version. LinkButton veraltet, ersetzt durch Button variant=ghost."
+    }
+  ]
+}

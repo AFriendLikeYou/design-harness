@@ -1,5 +1,5 @@
 {
-  "$comment": "Generiert aus specs/system.json – nicht von Hand bearbeiten. Einzige Quelle für gültige Komponenten, Props, Werte und Tokens.",
+  "$comment": "Generiert – nicht von Hand bearbeiten. Einzige Quelle für gültige Komponenten, Props, Werte und Tokens.",
   "principles": [
     {
       "id": "principles/surface-and-line",
@@ -56,33 +56,33 @@
     }
   ],
   "system": "Fundament",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "cssPrefix": "fd",
   "codePackage": "@fundament/ui",
   "tokens": {
-    "--fd-color-bg-canvas": true,
-    "--fd-color-bg-surface": true,
-    "--fd-color-bg-subtle": true,
-    "--fd-color-bg-disabled": true,
-    "--fd-color-text-primary": true,
-    "--fd-color-text-secondary": true,
-    "--fd-color-text-disabled": true,
-    "--fd-color-text-on-action": true,
-    "--fd-color-border-default": true,
-    "--fd-color-border-input": true,
-    "--fd-color-action-primary": true,
-    "--fd-color-action-primary-hover": true,
     "--fd-color-action-danger": true,
     "--fd-color-action-danger-hover": true,
-    "--fd-color-focus-ring": true,
+    "--fd-color-action-primary": true,
+    "--fd-color-action-primary-hover": true,
+    "--fd-color-bg-canvas": true,
+    "--fd-color-bg-disabled": true,
+    "--fd-color-bg-subtle": true,
+    "--fd-color-bg-surface": true,
+    "--fd-color-border-default": true,
+    "--fd-color-border-input": true,
+    "--fd-color-feedback-danger-bg": true,
+    "--fd-color-feedback-danger-fg": true,
     "--fd-color-feedback-info-bg": true,
     "--fd-color-feedback-info-fg": true,
     "--fd-color-feedback-success-bg": true,
     "--fd-color-feedback-success-fg": true,
     "--fd-color-feedback-warning-bg": true,
     "--fd-color-feedback-warning-fg": true,
-    "--fd-color-feedback-danger-bg": true,
-    "--fd-color-feedback-danger-fg": true,
+    "--fd-color-focus-ring": true,
+    "--fd-color-text-disabled": true,
+    "--fd-color-text-on-action": true,
+    "--fd-color-text-primary": true,
+    "--fd-color-text-secondary": true,
     "--fd-space-2xs": true,
     "--fd-space-xs": true,
     "--fd-space-sm": true,
@@ -98,10 +98,10 @@
     "--fd-border-width-default": true,
     "--fd-border-width-strong": true,
     "--fd-border-width-accent": true,
-    "--fd-size-checkbox": true,
-    "--fd-size-touch-target": true,
-    "--fd-size-switch-width": true,
     "--fd-size-switch-thumb": true,
+    "--fd-size-checkbox": true,
+    "--fd-size-switch-width": true,
+    "--fd-size-touch-target": true,
     "--fd-size-field": true,
     "--fd-size-panel": true,
     "--fd-text-display": true,
@@ -110,33 +110,33 @@
     "--fd-text-body-md": true,
     "--fd-text-body-sm": true,
     "--fd-text-label-md": true,
-    "--fd-text-label-sm": true,
-    "--fd-text-caption": true
+    "--fd-text-caption": true,
+    "--fd-text-label-sm": true
   },
   "tokenDescriptions": {
-    "--fd-color-bg-canvas": "Grundfläche jeder Seite.",
-    "--fd-color-bg-surface": "Karten, Eingabefelder und andere abgesetzte Flächen.",
-    "--fd-color-bg-subtle": "Neutrale Hervorhebung, z. B. neutrales Badge oder Hover von sekundären und Ghost-Buttons. Nicht für deaktivierte Elemente, dafür bg/disabled.",
-    "--fd-color-bg-disabled": "Fläche deaktivierter Bedienelemente. Heute gleicher Wert wie bg/subtle, aber eigene Rolle: nur für Deaktiviertes.",
-    "--fd-color-text-primary": "Fließtext und Überschriften. Besteht 4,5:1 auf allen bg-Tokens.",
-    "--fd-color-text-secondary": "Hilfstexte und Metadaten. Besteht 4,5:1 auf allen bg-Tokens.",
-    "--fd-color-text-disabled": "Nur für deaktivierte Elemente; muss keinen Kontrast erfüllen.",
-    "--fd-color-text-on-action": "Text und Icons auf action/primary und action/danger.",
-    "--fd-color-border-default": "Trennlinien und Kartenrahmen.",
-    "--fd-color-border-input": "Rahmen von Eingabefeldern. Besteht 3:1 für Bedienelemente.",
-    "--fd-color-action-primary": "Eine primäre Aktion pro Ansicht. Besteht 4,5:1 mit text/on-action.",
-    "--fd-color-action-primary-hover": "Hover-Zustand der primären Aktion.",
     "--fd-color-action-danger": "Aktion, die etwas unwiderruflich löscht oder beendet. Besteht 4,5:1 mit text/on-action.",
     "--fd-color-action-danger-hover": "Hover-Zustand der gefährlichen Aktion.",
-    "--fd-color-focus-ring": "Sichtbarer Tastaturfokus, nie entfernen.",
+    "--fd-color-action-primary": "Eine primäre Aktion pro Ansicht. Besteht 4,5:1 mit text/on-action.",
+    "--fd-color-action-primary-hover": "Hover-Zustand der primären Aktion.",
+    "--fd-color-bg-canvas": "Grundfläche jeder Seite.",
+    "--fd-color-bg-disabled": "Fläche deaktivierter Bedienelemente. Heute gleicher Wert wie bg/subtle, aber eigene Rolle: nur für Deaktiviertes.",
+    "--fd-color-bg-subtle": "Neutrale Hervorhebung, z. B. neutrales Badge oder Hover von sekundären und Ghost-Buttons. Nicht für deaktivierte Elemente, dafür bg/disabled.",
+    "--fd-color-bg-surface": "Karten, Eingabefelder und andere abgesetzte Flächen.",
+    "--fd-color-border-default": "Trennlinien und Kartenrahmen.",
+    "--fd-color-border-input": "Rahmen von Eingabefeldern. Besteht 3:1 für Bedienelemente.",
+    "--fd-color-feedback-danger-bg": "Hintergrund für Fehler.",
+    "--fd-color-feedback-danger-fg": "Text und Akzent für Fehler, auch Fehlerrahmen.",
     "--fd-color-feedback-info-bg": "Hintergrund für Hinweise.",
     "--fd-color-feedback-info-fg": "Text und Akzent für Hinweise.",
     "--fd-color-feedback-success-bg": "Hintergrund für Erfolgsmeldungen.",
     "--fd-color-feedback-success-fg": "Text und Akzent für Erfolg.",
     "--fd-color-feedback-warning-bg": "Hintergrund für Warnungen.",
     "--fd-color-feedback-warning-fg": "Text und Akzent für Warnungen.",
-    "--fd-color-feedback-danger-bg": "Hintergrund für Fehler.",
-    "--fd-color-feedback-danger-fg": "Text und Akzent für Fehler, auch Fehlerrahmen.",
+    "--fd-color-focus-ring": "Sichtbarer Tastaturfokus, nie entfernen.",
+    "--fd-color-text-disabled": "Nur für deaktivierte Elemente; muss keinen Kontrast erfüllen.",
+    "--fd-color-text-on-action": "Text und Icons auf action/primary und action/danger.",
+    "--fd-color-text-primary": "Fließtext und Überschriften. Besteht 4,5:1 auf allen bg-Tokens.",
+    "--fd-color-text-secondary": "Hilfstexte und Metadaten. Besteht 4,5:1 auf allen bg-Tokens.",
     "--fd-space-2xs": "Feinabstand, z. B. Label zu Feld.",
     "--fd-space-xs": "Abstand innerhalb kleiner Elemente.",
     "--fd-space-sm": "Standardabstand zwischen verwandten Elementen.",
@@ -152,10 +152,10 @@
     "--fd-border-width-default": "Rahmen von Feldern, Karten und sekundären Buttons.",
     "--fd-border-width-strong": "Fehlerrahmen und Fokusring.",
     "--fd-border-width-accent": "Akzentkante von Hinweisen.",
-    "--fd-size-checkbox": "Kantenlänge der Checkbox.",
-    "--fd-size-touch-target": "Mindesthöhe der Klickfläche von Bedienelementen mit kleiner Darstellung.",
-    "--fd-size-switch-width": "Breite der Schalterbahn.",
     "--fd-size-switch-thumb": "Durchmesser des Schalterknopfs.",
+    "--fd-size-checkbox": "Kantenlänge der Checkbox.",
+    "--fd-size-switch-width": "Breite der Schalterbahn.",
+    "--fd-size-touch-target": "Mindesthöhe der Klickfläche von Bedienelementen mit kleiner Darstellung.",
     "--fd-size-field": "Vorschaubreite eines Eingabefelds; im Layout füllt das Feld seinen Container.",
     "--fd-size-panel": "Höchstbreite schmaler Formulare und Hinweise.",
     "--fd-text-display": "Seitentitel. Einmal pro Seite.",
@@ -164,8 +164,8 @@
     "--fd-text-body-md": "Standard-Fließtext.",
     "--fd-text-body-sm": "Hilfstexte und dichte Ansichten.",
     "--fd-text-label-md": "Beschriftung von Buttons und Feldern.",
-    "--fd-text-label-sm": "Badges und kompakte Labels.",
-    "--fd-text-caption": "Metadaten, Bildunterschriften."
+    "--fd-text-caption": "Metadaten, Bildunterschriften.",
+    "--fd-text-label-sm": "Badges und kompakte Labels."
   },
   "components": {
     "Button": {
@@ -208,63 +208,171 @@
         "fd-button__label"
       ],
       "styles": {
-        "variant=primary": {
-          "bg": "action/primary",
-          "fg": "text/on-action"
-        },
-        "variant=primary, state=hover": {
-          "bg": "action/primary-hover"
-        },
-        "variant=secondary": {
-          "bg": "bg/surface",
-          "fg": "text/primary",
-          "border": "border/input",
-          "borderWidth": "default"
-        },
-        "variant=secondary, state=hover": {
-          "bg": "bg/subtle"
-        },
-        "variant=ghost": {
-          "fg": "feedback/info-fg"
-        },
-        "variant=ghost, state=hover": {
-          "bg": "bg/subtle"
-        },
-        "variant=danger": {
+        "variant=danger, size=md, disabled=false, state=default": {
           "bg": "action/danger",
           "fg": "text/on-action"
         },
-        "variant=danger, state=hover": {
-          "bg": "action/danger-hover"
-        },
-        "state=focus": {
+        "variant=danger, size=md, disabled=false, state=focus": {
+          "bg": "action/danger",
+          "fg": "text/on-action",
           "ring": "focus/ring",
           "ringWidth": "strong"
         },
-        "disabled=true": {
-          "bg": "bg/disabled",
-          "fg": "text/disabled",
-          "border": null,
-          "borderWidth": null
+        "variant=danger, size=md, disabled=false, state=hover": {
+          "bg": "action/danger-hover",
+          "fg": "text/on-action"
         },
-        "variant=ghost, disabled=true": {
-          "bg": null
+        "variant=danger, size=md, disabled=true, state=default": {
+          "bg": "bg/disabled",
+          "fg": "text/disabled"
+        },
+        "variant=danger, size=sm, disabled=false, state=default": {
+          "bg": "action/danger",
+          "fg": "text/on-action"
+        },
+        "variant=danger, size=sm, disabled=false, state=focus": {
+          "bg": "action/danger",
+          "fg": "text/on-action",
+          "ring": "focus/ring",
+          "ringWidth": "strong"
+        },
+        "variant=danger, size=sm, disabled=false, state=hover": {
+          "bg": "action/danger-hover",
+          "fg": "text/on-action"
+        },
+        "variant=danger, size=sm, disabled=true, state=default": {
+          "bg": "bg/disabled",
+          "fg": "text/disabled"
+        },
+        "variant=ghost, size=md, disabled=false, state=default": {
+          "fg": "feedback/info-fg"
+        },
+        "variant=ghost, size=md, disabled=false, state=focus": {
+          "fg": "feedback/info-fg",
+          "ring": "focus/ring",
+          "ringWidth": "strong"
+        },
+        "variant=ghost, size=md, disabled=false, state=hover": {
+          "bg": "bg/subtle",
+          "fg": "feedback/info-fg"
+        },
+        "variant=ghost, size=md, disabled=true, state=default": {
+          "fg": "text/disabled"
+        },
+        "variant=ghost, size=sm, disabled=false, state=default": {
+          "fg": "feedback/info-fg"
+        },
+        "variant=ghost, size=sm, disabled=false, state=focus": {
+          "fg": "feedback/info-fg",
+          "ring": "focus/ring",
+          "ringWidth": "strong"
+        },
+        "variant=ghost, size=sm, disabled=false, state=hover": {
+          "bg": "bg/subtle",
+          "fg": "feedback/info-fg"
+        },
+        "variant=ghost, size=sm, disabled=true, state=default": {
+          "fg": "text/disabled"
+        },
+        "variant=primary, size=md, disabled=false, state=default": {
+          "bg": "action/primary",
+          "fg": "text/on-action"
+        },
+        "variant=primary, size=md, disabled=false, state=focus": {
+          "bg": "action/primary",
+          "fg": "text/on-action",
+          "ring": "focus/ring",
+          "ringWidth": "strong"
+        },
+        "variant=primary, size=md, disabled=false, state=hover": {
+          "bg": "action/primary-hover",
+          "fg": "text/on-action"
+        },
+        "variant=primary, size=md, disabled=true, state=default": {
+          "bg": "bg/disabled",
+          "fg": "text/disabled"
+        },
+        "variant=primary, size=sm, disabled=false, state=default": {
+          "bg": "action/primary",
+          "fg": "text/on-action"
+        },
+        "variant=primary, size=sm, disabled=false, state=focus": {
+          "bg": "action/primary",
+          "fg": "text/on-action",
+          "ring": "focus/ring",
+          "ringWidth": "strong"
+        },
+        "variant=primary, size=sm, disabled=false, state=hover": {
+          "bg": "action/primary-hover",
+          "fg": "text/on-action"
+        },
+        "variant=primary, size=sm, disabled=true, state=default": {
+          "bg": "bg/disabled",
+          "fg": "text/disabled"
+        },
+        "variant=secondary, size=md, disabled=false, state=default": {
+          "bg": "bg/surface",
+          "border": "border/input",
+          "borderWidth": "default",
+          "fg": "text/primary"
+        },
+        "variant=secondary, size=md, disabled=false, state=focus": {
+          "bg": "bg/surface",
+          "border": "border/input",
+          "borderWidth": "default",
+          "fg": "text/primary",
+          "ring": "focus/ring",
+          "ringWidth": "strong"
+        },
+        "variant=secondary, size=md, disabled=false, state=hover": {
+          "bg": "bg/subtle",
+          "border": "border/input",
+          "borderWidth": "default",
+          "fg": "text/primary"
+        },
+        "variant=secondary, size=md, disabled=true, state=default": {
+          "bg": "bg/disabled",
+          "fg": "text/disabled"
+        },
+        "variant=secondary, size=sm, disabled=false, state=default": {
+          "bg": "bg/surface",
+          "border": "border/input",
+          "borderWidth": "default",
+          "fg": "text/primary"
+        },
+        "variant=secondary, size=sm, disabled=false, state=focus": {
+          "bg": "bg/surface",
+          "border": "border/input",
+          "borderWidth": "default",
+          "fg": "text/primary",
+          "ring": "focus/ring",
+          "ringWidth": "strong"
+        },
+        "variant=secondary, size=sm, disabled=false, state=hover": {
+          "bg": "bg/subtle",
+          "border": "border/input",
+          "borderWidth": "default",
+          "fg": "text/primary"
+        },
+        "variant=secondary, size=sm, disabled=true, state=default": {
+          "bg": "bg/disabled",
+          "fg": "text/disabled"
         }
       },
       "colorTokens": [
-        "--fd-color-action-primary",
+        "--fd-color-action-danger",
         "--fd-color-text-on-action",
+        "--fd-color-focus-ring",
+        "--fd-color-action-danger-hover",
+        "--fd-color-bg-disabled",
+        "--fd-color-text-disabled",
+        "--fd-color-feedback-info-fg",
+        "--fd-color-bg-subtle",
+        "--fd-color-action-primary",
         "--fd-color-action-primary-hover",
         "--fd-color-bg-surface",
-        "--fd-color-text-primary",
         "--fd-color-border-input",
-        "--fd-color-bg-subtle",
-        "--fd-color-feedback-info-fg",
-        "--fd-color-action-danger",
-        "--fd-color-action-danger-hover",
-        "--fd-color-focus-ring",
-        "--fd-color-bg-disabled",
-        "--fd-color-text-disabled"
+        "--fd-color-text-primary"
       ],
       "slots": [],
       "rules": [
@@ -371,36 +479,46 @@
         "fd-text-field__error-text"
       ],
       "styles": {
-        "default": {
+        "state=default": {
           "bg": "bg/surface",
-          "fg": "text/primary",
           "border": "border/input",
           "borderWidth": "default",
+          "fg": "text/primary",
           "helper": "text/secondary"
-        },
-        "state=focus": {
-          "ring": "focus/ring",
-          "ringWidth": "strong"
-        },
-        "state=error": {
-          "border": "feedback/danger-fg",
-          "borderWidth": "strong",
-          "helper": "feedback/danger-fg"
         },
         "state=disabled": {
           "bg": "bg/disabled",
-          "fg": "text/disabled"
+          "border": "border/input",
+          "borderWidth": "default",
+          "fg": "text/disabled",
+          "helper": "text/secondary"
+        },
+        "state=error": {
+          "bg": "bg/surface",
+          "border": "feedback/danger-fg",
+          "borderWidth": "strong",
+          "fg": "text/primary",
+          "helper": "feedback/danger-fg"
+        },
+        "state=focus": {
+          "bg": "bg/surface",
+          "border": "border/input",
+          "borderWidth": "default",
+          "fg": "text/primary",
+          "helper": "text/secondary",
+          "ring": "focus/ring",
+          "ringWidth": "strong"
         }
       },
       "colorTokens": [
         "--fd-color-bg-surface",
-        "--fd-color-text-primary",
         "--fd-color-border-input",
+        "--fd-color-text-primary",
         "--fd-color-text-secondary",
-        "--fd-color-focus-ring",
-        "--fd-color-feedback-danger-fg",
         "--fd-color-bg-disabled",
-        "--fd-color-text-disabled"
+        "--fd-color-text-disabled",
+        "--fd-color-feedback-danger-fg",
+        "--fd-color-focus-ring"
       ],
       "slots": [
         {
@@ -520,41 +638,60 @@
         "fd-checkbox__helper-text"
       ],
       "styles": {
-        "default": {
+        "checked=false, disabled=false, state=default": {
           "bg": "bg/surface",
-          "fg": "text/primary",
           "border": "border/input",
           "borderWidth": "default",
+          "fg": "text/primary",
           "helper": "text/secondary"
         },
-        "checked=true": {
-          "bg": "action/primary",
-          "mark": "text/on-action",
-          "border": null,
-          "borderWidth": null
-        },
-        "state=focus": {
+        "checked=false, disabled=false, state=focus": {
+          "bg": "bg/surface",
+          "border": "border/input",
+          "borderWidth": "default",
+          "fg": "text/primary",
+          "helper": "text/secondary",
           "ring": "focus/ring",
           "ringWidth": "strong"
         },
-        "disabled=true": {
+        "checked=false, disabled=true, state=default": {
           "bg": "bg/disabled",
-          "fg": "text/disabled"
+          "border": "border/input",
+          "borderWidth": "default",
+          "fg": "text/disabled",
+          "helper": "text/secondary"
         },
-        "checked=true, disabled=true": {
+        "checked=true, disabled=false, state=default": {
+          "bg": "action/primary",
+          "fg": "text/primary",
+          "helper": "text/secondary",
+          "mark": "text/on-action"
+        },
+        "checked=true, disabled=false, state=focus": {
+          "bg": "action/primary",
+          "fg": "text/primary",
+          "helper": "text/secondary",
+          "mark": "text/on-action",
+          "ring": "focus/ring",
+          "ringWidth": "strong"
+        },
+        "checked=true, disabled=true, state=default": {
+          "bg": "bg/disabled",
+          "fg": "text/disabled",
+          "helper": "text/secondary",
           "mark": "text/disabled"
         }
       },
       "colorTokens": [
         "--fd-color-bg-surface",
-        "--fd-color-text-primary",
         "--fd-color-border-input",
+        "--fd-color-text-primary",
         "--fd-color-text-secondary",
-        "--fd-color-action-primary",
-        "--fd-color-text-on-action",
         "--fd-color-focus-ring",
         "--fd-color-bg-disabled",
-        "--fd-color-text-disabled"
+        "--fd-color-text-disabled",
+        "--fd-color-action-primary",
+        "--fd-color-text-on-action"
       ],
       "slots": [],
       "rules": [
@@ -634,34 +771,56 @@
         "fd-switch__helper-text"
       ],
       "styles": {
-        "default": {
+        "checked=false, disabled=false, state=default": {
           "bg": "border/input",
-          "thumb": "text/on-action",
           "fg": "text/primary",
-          "helper": "text/secondary"
+          "helper": "text/secondary",
+          "thumb": "text/on-action"
         },
-        "checked=true": {
-          "bg": "action/primary"
-        },
-        "state=focus": {
+        "checked=false, disabled=false, state=focus": {
+          "bg": "border/input",
+          "fg": "text/primary",
+          "helper": "text/secondary",
           "ring": "focus/ring",
-          "ringWidth": "strong"
+          "ringWidth": "strong",
+          "thumb": "text/on-action"
         },
-        "disabled=true": {
+        "checked=false, disabled=true, state=default": {
           "bg": "bg/disabled",
-          "thumb": "text/disabled",
-          "fg": "text/disabled"
+          "fg": "text/disabled",
+          "helper": "text/secondary",
+          "thumb": "text/disabled"
+        },
+        "checked=true, disabled=false, state=default": {
+          "bg": "action/primary",
+          "fg": "text/primary",
+          "helper": "text/secondary",
+          "thumb": "text/on-action"
+        },
+        "checked=true, disabled=false, state=focus": {
+          "bg": "action/primary",
+          "fg": "text/primary",
+          "helper": "text/secondary",
+          "ring": "focus/ring",
+          "ringWidth": "strong",
+          "thumb": "text/on-action"
+        },
+        "checked=true, disabled=true, state=default": {
+          "bg": "bg/disabled",
+          "fg": "text/disabled",
+          "helper": "text/secondary",
+          "thumb": "text/disabled"
         }
       },
       "colorTokens": [
         "--fd-color-border-input",
-        "--fd-color-text-on-action",
         "--fd-color-text-primary",
         "--fd-color-text-secondary",
-        "--fd-color-action-primary",
+        "--fd-color-text-on-action",
         "--fd-color-focus-ring",
         "--fd-color-bg-disabled",
-        "--fd-color-text-disabled"
+        "--fd-color-text-disabled",
+        "--fd-color-action-primary"
       ],
       "slots": [],
       "rules": [
@@ -739,13 +898,17 @@
         "fd-badge__label"
       ],
       "styles": {
-        "tone=neutral": {
-          "bg": "bg/subtle",
-          "fg": "text/secondary"
+        "tone=danger": {
+          "bg": "feedback/danger-bg",
+          "fg": "feedback/danger-fg"
         },
         "tone=info": {
           "bg": "feedback/info-bg",
           "fg": "feedback/info-fg"
+        },
+        "tone=neutral": {
+          "bg": "bg/subtle",
+          "fg": "text/secondary"
         },
         "tone=success": {
           "bg": "feedback/success-bg",
@@ -754,23 +917,19 @@
         "tone=warning": {
           "bg": "feedback/warning-bg",
           "fg": "feedback/warning-fg"
-        },
-        "tone=danger": {
-          "bg": "feedback/danger-bg",
-          "fg": "feedback/danger-fg"
         }
       },
       "colorTokens": [
-        "--fd-color-bg-subtle",
-        "--fd-color-text-secondary",
+        "--fd-color-feedback-danger-bg",
+        "--fd-color-feedback-danger-fg",
         "--fd-color-feedback-info-bg",
         "--fd-color-feedback-info-fg",
+        "--fd-color-bg-subtle",
+        "--fd-color-text-secondary",
         "--fd-color-feedback-success-bg",
         "--fd-color-feedback-success-fg",
         "--fd-color-feedback-warning-bg",
-        "--fd-color-feedback-warning-fg",
-        "--fd-color-feedback-danger-bg",
-        "--fd-color-feedback-danger-fg"
+        "--fd-color-feedback-warning-fg"
       ],
       "slots": [],
       "rules": [
@@ -833,45 +992,45 @@
         "fd-alert__description"
       ],
       "styles": {
+        "tone=danger": {
+          "bg": "feedback/danger-bg",
+          "body": "text/primary",
+          "border": "feedback/danger-fg",
+          "borderWidth": "accent",
+          "fg": "feedback/danger-fg"
+        },
         "tone=info": {
           "bg": "feedback/info-bg",
-          "fg": "feedback/info-fg",
           "body": "text/primary",
           "border": "feedback/info-fg",
-          "borderWidth": "accent"
+          "borderWidth": "accent",
+          "fg": "feedback/info-fg"
         },
         "tone=success": {
           "bg": "feedback/success-bg",
-          "fg": "feedback/success-fg",
           "body": "text/primary",
           "border": "feedback/success-fg",
-          "borderWidth": "accent"
+          "borderWidth": "accent",
+          "fg": "feedback/success-fg"
         },
         "tone=warning": {
           "bg": "feedback/warning-bg",
-          "fg": "feedback/warning-fg",
           "body": "text/primary",
           "border": "feedback/warning-fg",
-          "borderWidth": "accent"
-        },
-        "tone=danger": {
-          "bg": "feedback/danger-bg",
-          "fg": "feedback/danger-fg",
-          "body": "text/primary",
-          "border": "feedback/danger-fg",
-          "borderWidth": "accent"
+          "borderWidth": "accent",
+          "fg": "feedback/warning-fg"
         }
       },
       "colorTokens": [
+        "--fd-color-feedback-danger-bg",
+        "--fd-color-text-primary",
+        "--fd-color-feedback-danger-fg",
         "--fd-color-feedback-info-bg",
         "--fd-color-feedback-info-fg",
-        "--fd-color-text-primary",
         "--fd-color-feedback-success-bg",
         "--fd-color-feedback-success-fg",
         "--fd-color-feedback-warning-bg",
-        "--fd-color-feedback-warning-fg",
-        "--fd-color-feedback-danger-bg",
-        "--fd-color-feedback-danger-fg"
+        "--fd-color-feedback-warning-fg"
       ],
       "slots": [],
       "rules": [
@@ -935,17 +1094,17 @@
       "styles": {
         "default": {
           "bg": "bg/surface",
-          "fg": "text/primary",
           "body": "text/secondary",
           "border": "border/default",
-          "borderWidth": "default"
+          "borderWidth": "default",
+          "fg": "text/primary"
         }
       },
       "colorTokens": [
         "--fd-color-bg-surface",
-        "--fd-color-text-primary",
         "--fd-color-text-secondary",
-        "--fd-color-border-default"
+        "--fd-color-border-default",
+        "--fd-color-text-primary"
       ],
       "slots": [
         {
@@ -1031,21 +1190,22 @@
         "fd-link__label"
       ],
       "styles": {
-        "default": {
+        "state=default": {
           "fg": "feedback/info-fg"
+        },
+        "state=focus": {
+          "fg": "feedback/info-fg",
+          "ring": "focus/ring",
+          "ringWidth": "strong"
         },
         "state=hover": {
           "fg": "text/primary"
-        },
-        "state=focus": {
-          "ring": "focus/ring",
-          "ringWidth": "strong"
         }
       },
       "colorTokens": [
         "--fd-color-feedback-info-fg",
-        "--fd-color-text-primary",
-        "--fd-color-focus-ring"
+        "--fd-color-focus-ring",
+        "--fd-color-text-primary"
       ],
       "slots": [],
       "rules": [
@@ -1099,15 +1259,15 @@
       "styles": {
         "default": {
           "bg": "bg/surface",
-          "fg": "text/primary",
           "border": "border/default",
-          "borderWidth": "default"
+          "borderWidth": "default",
+          "fg": "text/primary"
         }
       },
       "colorTokens": [
         "--fd-color-bg-surface",
-        "--fd-color-text-primary",
-        "--fd-color-border-default"
+        "--fd-color-border-default",
+        "--fd-color-text-primary"
       ],
       "slots": [],
       "rules": [

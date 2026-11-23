@@ -1,0 +1,5 @@
+VERALTET seit 1.0.0 – nutze Button variant=ghost.
+Status: deprecated · v0.9.0
+Veraltet seit 1.0. Ersetzt durch Button variant=ghost.
+A11y: –
+Spec: ds/link-button

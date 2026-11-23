@@ -1,4 +1,4 @@
-<!-- Generiert aus specs/system.json – nicht von Hand bearbeiten. -->
+<!-- Generiert aus specs/figma.snapshot.json, ui/elements.js und specs/rules.json – nicht von Hand bearbeiten. -->
 # SignInForm
 Status: stable · v1.0.2 · Spec: ds/sign-in-form
 Vollständiges Anmeldeformular aus TextField, Checkbox und Button. Als Ganzes verwenden statt neu zusammenzubauen.
@@ -13,7 +13,7 @@ Props sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attr
 
 | Für | Tokens |
 |---|---|
-| `default` | bg: `bg/surface`, fg: `text/primary`, border: `border/default`, borderWidth: `default` |
+| `default` | bg: `bg/surface`, border: `border/default`, borderWidth: `default`, fg: `text/primary` |
 
 ## Regeln
 

@@ -1,0 +1,6 @@
+Status: stable · v1.0.2
+Hinweis im Seitenfluss zu Status, Erfolg, Warnung oder Fehler.
+Regeln: Höchstens ein Alert pro Bereich. [alert/one-per-area] Titel nennt das Ergebnis, Beschreibung den nächsten Schritt. [alert/title-states-outcome] Ein Alert enthält keine Aktion. Die Beschreibung nennt den nächsten Schritt, die Aktion steht dort, wo sie wirkt. [alert/no-action]
+A11y: Fehler und Warnungen mit role="alert", Info und Erfolg mit role="status".
+Spec: ds/alert
+Code: <fd-alert> aus "@fundament/ui"

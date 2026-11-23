@@ -1,14 +1,14 @@
 {
  "title": "Leitfaden: So bleibt das System sicher für Agenten",
- "intro": "Was Fundament für KI-Agenten verlässlich macht und wie man neue Regeln, Tokens und Komponenten so ergänzt, dass es so bleibt. Stand 23.11.2026.",
+ "intro": "Was Fundament für KI-Agenten verlässlich macht und wie man neue Regeln, Tokens und Komponenten so ergänzt, dass es so bleibt. Stand 23.11.2026, Version 1.5.0.",
  "sections": [
   {
    "title": "Die sieben Grundelemente",
    "intro": "Fällt eines weg, raten Agenten wieder.",
    "items": [
     [
-     "1 / Ein Vertrag, zwei Werkbänke",
-     "Gestaltet wird in Figma, umgesetzt im Code. Die Spec im Repo ist der Vertrag dazwischen. Ein Export aus Figma zeigt jede Änderung als Vorschlag für die Spec. Grün ist der Stand erst, wenn Figma, Spec und Code übereinstimmen."
+     "1 / Jedes Wissen hat eine Heimat",
+     "Tokenwerte und Aussehen entstehen in Figma. Props und Verhalten stehen im Code. Regeln und ihre Begründungen stehen in einer kleinen Regeldatei. Niemand schreibt etwas doppelt; Prüfungen vergleichen die Seiten direkt."
     ],
     [
      "2 / Namen wie im Code",
@@ -42,51 +42,55 @@
    "items": [
     [
      "1 / In Figma gestalten",
-     "Werte an Variablen ändern, Varianten und Properties anlegen, die Beschreibung nach dem Muster pflegen. Properties heißen so, wie sie im Code heißen sollen."
+     "Werte an Variablen ändern, Varianten und Properties anlegen, Farben an Variablen binden. Properties heißen so, wie sie im Code heißen sollen."
     ],
     [
      "2 / Stand exportieren",
-     "Das Plugin „Fundament Export“ liest Variablen, Text-Styles und Komponenten aus. Das Ergebnis kommt als specs/figma.snapshot.json ins Repo."
+     "Das Plugin „Fundament Export“ liest die Datei aus. Das Ergebnis kommt als specs/figma.snapshot.json ins Repo; im Pull Request ist jede Designänderung als Diff zu sehen."
     ],
     [
-     "3 / Abgleich lesen",
-     "node tooling/figma-diff.mjs zeigt jede Abweichung: Werte, Properties, Beschreibungen und je Variante, welche Variable an Fläche, Text, Rahmen und Fokusring hängt. Dazu, ob die Abweichung eindeutig übernehmbar ist."
+     "3 / Bauen",
+     "node build.mjs übernimmt Tokenwerte von selbst in CSS, Verträge und Doku. Dabei wird der Kontrast nachgerechnet: Drückt eine Farbänderung ein zugesagtes Paar unter die Grenze, bricht der Build ab."
     ],
     [
-     "4 / Übernehmen und entscheiden",
-     "--apply schreibt Eindeutiges in die Spec: Werte, Verweise, Beschreibungen, Standards, neue Varianten-Werte. Neues braucht eine Entscheidung: Ein Token braucht ein Warum, eine Variante ihr Aussehen und ihre Umsetzung."
+     "4 / Abgleich lesen",
+     "node tooling/figma-diff.mjs zeigt, wo Figma und Code auseinanderliegen: Komponenten, Properties, Werte, Standards. Jede Zeile nennt, was zu tun ist."
     ],
     [
-     "5 / Bauen und umsetzen",
-     "node build.mjs erzeugt Verträge, Tokens und Doku neu. Der Build rechnet den Kontrast nach; eine Farbänderung, die ein Paar unter die Grenze drückt, fällt hier auf."
+     "5 / Im Code nachziehen",
+     "Neue Varianten und Properties in ui/elements.js, fundament.js und components.css umsetzen. Eine Prüfung im Browser misst je Variante, ob der Code die Farben trägt, die in Figma daran hängen."
     ],
     [
      "6 / Gate",
-     "node tooling/verify.mjs vergleicht den Figma-Stand mit der Spec und misst im Browser, ob jede Variante im Code dieselben Farben trägt. Weicht etwas ab, ist der Stand rot, egal auf welcher Seite die Änderung begann."
+     "node tooling/verify.mjs führt alles aus. Weicht eine Seite ab, ist der Stand rot, egal wo die Änderung begann."
     ]
    ]
   },
   {
    "title": "Wer hat das letzte Wort",
-   "intro": "Beide Seiten dürfen anfangen. Entschieden wird im Vorschlag für die Spec.",
+   "intro": "Jede Seite führt bei dem, was nur sie wissen kann.",
    "items": [
     [
-     "Figma führt beim Aussehen",
-     "Farbwerte, Abstände, Radien, Typografie, welche Varianten es gibt und wie Properties heißen."
+     "Figma führt bei Werten und Aussehen",
+     "Farbwerte, Abstände, Radien, Typografie und welche Variable an welcher Variante hängt. Das wird nicht verglichen, sondern übernommen."
     ],
     [
-     "Das Repo führt beim Verhalten",
-     "Regeln mit Warum, Checks, Barrierefreiheit, Verhalten wie trailingAction, Migrationen. Das steht in Figma nur als Beschreibung oder Annotation."
+     "Der Code führt bei Props und Verhalten",
+     "Welche Attribute, Werte, Standards und Slots eine Komponente hat (ui/elements.js) und was sie tut. Figma wird daran gemessen."
     ],
     [
-     "Der Abgleich ist die Schnittstelle",
-     "Niemand tippt Werte ab. Was Figma ändert, kommt als Vorschlag für die Spec. Ändert jemand einen Wert im Repo, zeigt der Abgleich die Abweichung, und der Wert wird in Figma nachgestellt. Ein Werkzeug, das von außen in die Figma-Datei schreibt, gibt es bewusst nicht."
+     "Die Regeldatei führt beim Warum",
+     "Regeln mit Begründung, Checks, Barrierefreiheit, Kontrastzusagen, Veraltetes (specs/rules.json). Das kann weder Figma noch der Code tragen."
+    ],
+    [
+     "Der Pull Request ist die Schnittstelle",
+     "Schnappschuss, Code und Regeln liegen im selben Repo. Eine Änderung ist erst fertig, wenn alle drei zusammenpassen. Von außen schreibt nichts in die Figma-Datei."
     ]
    ]
   },
   {
    "title": "Eine neue Regel schreiben",
-   "intro": "Sechs Schritte. Die Regel steht danach in der Spec, bei der Komponente oder bei den Grundsätzen.",
+   "intro": "Sechs Schritte. Die Regel steht danach in specs/rules.json, bei der Komponente oder bei den Grundsätzen.",
    "code": "{\n  \"id\": \"card/one-action\",\n  \"text\": \"Höchstens eine Aktion im Footer.\",\n  \"why\": \"Karten sind Einstiege, keine Formulare.\",\n  \"check\": \"max-children\"\n}",
    "items": [
     [
@@ -142,57 +146,57 @@
    "items": [
     [
      "Regel einer Komponente",
-     "specs/system.json, bei der Komponente unter rules. Gilt nur dort."
+     "specs/rules.json, bei der Komponente unter rules. Gilt nur dort."
     ],
     [
      "Grundsatz für alle Seiten",
-     "specs/system.json unter principles, wenn er prüfbar ist. Sonst DESIGN.md."
+     "specs/rules.json unter principles, wenn er prüfbar ist. Sonst DESIGN.md."
     ],
     [
      "Wann ein Token gilt",
-     "In der Beschreibung des Tokens (why): Einsatz und Grenze, bei Farben die erlaubten Flächen."
+     "In der Beschreibung der Variable in Figma: Einsatz und Grenze, bei Farben die erlaubten Flächen."
     ],
     [
-     "Fragen an das fertige Ergebnis",
-     "rubric.md. Ja-Nein-Fragen, die man am Screenshot beantworten kann."
+     "Aussehen einer Variante",
+     "In Figma, an der Variante: Fläche, Text, Rahmen und Fokusring an Variablen gebunden."
+    ],
+    [
+     "Props und Slots",
+     "ui/elements.js. Daraus entstehen der Vertrag und das Manifest der Web Components."
     ],
     [
      "Ablauf für Agenten",
      "AGENTS.md. Nur Schritte und Dateipfade, keine Komponenten, keine Werte."
-    ],
-    [
-     "Aussehen einer Variante",
-     "specs/system.json unter styles. Daraus entstehen Figma, die erlaubten Farb-Tokens und die Prüfung des CSS."
     ]
    ]
   },
   {
    "title": "Eine neue Komponente aufnehmen",
-   "intro": "Der Entwurf beginnt in Figma. verify meldet, wenn ein Schritt fehlt.",
+   "intro": "Der Entwurf beginnt in Figma. Der Abgleich zeigt, was noch fehlt.",
    "items": [
     [
      "1 / In Figma bauen",
-     "Set mit Varianten, Properties mit den Namen aus dem Code, Farben und Maße an Variablen, Beschreibung nach dem Muster. Ebenen heißen nach ihrer Rolle (label, value, input, box, track, thumb, check, helperText, focusRing): Daran erkennt der Export das Aussehen."
+     "Set mit Varianten, Properties mit den Namen aus dem Code, Farben und Maße an Variablen. Ebenen heißen nach ihrer Rolle (label, value, input, box, track, thumb, check, helperText, focusRing): Daran erkennt der Export das Aussehen."
     ],
     [
-     "2 / Exportieren und abgleichen",
-     "Plugin „Fundament Export“, dann node tooling/figma-diff.mjs --apply. Für eine neue Komponente legt der Abgleich ein Gerüst in der Spec an: Properties, Zweck, Regeln und A11y aus Figma."
+     "2 / Exportieren",
+     "Plugin „Fundament Export“. Der Abgleich meldet die Komponente als „nur in Figma“; bis sie umgesetzt ist, gilt sie als Entwurf."
     ],
     [
-     "3 / Spec vervollständigen",
-     "Was Figma nicht tragen kann: styles je Variante, das Warum jeder Regel, Checks, Do und Don’t. node cli/fundament.mjs lint zeigt jede Lücke."
+     "3 / Im Code umsetzen",
+     "Props in ui/elements.js, Element in ui/fundament.js, Styles in ui/components.css. Erlaubt sind nur die Farb-Tokens, die in Figma an der Komponente hängen."
     ],
     [
-     "4 / Umsetzen",
-     "Element in ui/fundament.js, Styles in ui/components.css. Erlaubt sind nur die Tokens aus dem Vertrag der Komponente."
+     "4 / Regeln schreiben",
+     "Eintrag in specs/rules.json: Zweck, Regeln mit Warum, Barrierefreiheit, So und So nicht. lint meldet, wenn der Eintrag fehlt."
     ],
     [
-     "5 / Prüfen",
-     "node tooling/verify.mjs: Figma-Stand gegen Spec, Check, Verhalten im Browser, gerenderte Prüfung."
+     "5 / Beschreibung zurück nach Figma",
+     "Der Build legt den Text unter generated/components/<name>.figma.txt ab. In Figma ins Beschreibungsfeld einfügen; der Abgleich prüft, ob er aktuell ist."
     ],
     [
-     "6 / Messen",
-     "Eine Aufgabe, die die neue Komponente braucht, in evals/tasks.md ergänzen und einen Lauf machen."
+     "6 / Prüfen und messen",
+     "node tooling/verify.mjs. Danach eine Aufgabe, die die Komponente braucht, in evals/tasks.md ergänzen."
     ]
    ]
   },

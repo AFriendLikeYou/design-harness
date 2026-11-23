@@ -1,8 +1,10 @@
-// Baut aus specs/system.json: DTCG-Tokens, CSS-Tokens, Verträge, Komponenten-Markdown, llms.txt, Doku-Site, Leitfaden, Export-Plugin
+// Baut aus den drei Quellen (Figma-Schnappschuss, ui/elements.js, specs/rules.json): DTCG-Tokens, CSS-Tokens, Verträge, Komponenten-Markdown, llms.txt, Doku-Site, Leitfaden, Export-Plugin
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 const HOME = new URL('.', import.meta.url).pathname; // gemeinsame Werkzeuge kommen immer aus dem Hauptprojekt
 if (process.argv[2]) process.chdir(process.argv[2]);
-const spec = JSON.parse(readFileSync('specs/system.json', 'utf8'));
+const { loadSpec, colorRoles } = await import(HOME + 'tooling/assemble.mjs');
+const spec = await loadSpec(process.cwd());
+const SOURCE = spec.assembled ? 'specs/figma.snapshot.json, ui/elements.js und specs/rules.json' : 'specs/system.json';
 const kebab = (s) => s.replace(/([a-z0-9])([A-Z])/g, '$1-$2').replace(/[\/ ]+/g, '-').toLowerCase();
 const FLOAT_GROUPS = ['space', 'radius', 'border-width', 'size'].filter((g) => spec.semantic[g]);
 
@@ -35,7 +37,7 @@ for (const c of spec.components) {
   const file = `${kebab(c.name)}.md`;
   idx.push(`- [${c.name}](components/${file}): ${c.purpose}${c.status !== 'stable' ? ` (${c.status})` : ''}`);
   const md = [
-    `<!-- Generiert aus specs/system.json – nicht von Hand bearbeiten. -->`,
+    `<!-- Generiert aus ${SOURCE} – nicht von Hand bearbeiten. -->`,
     `# ${c.name}`, '',
     `Status: ${c.status} · v${c.version} · Spec: ds/${kebab(c.name)}`, '',
     c.purpose, '',
@@ -43,7 +45,7 @@ for (const c of spec.components) {
     c.status !== 'deprecated' ? `\`\`\`html\n<script type="module">import "${spec.codePackage}";</script>\n${usage(c)}\n\`\`\`\n\nProps sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attribute.\n` : '',
     c.props.length ? '## Props\n\n| Prop | Typ | Werte | Standard |\n|---|---|---|---|\n' + c.props.map((p) => `| \`${p.name}\` | ${p.type} | ${p.values ? p.values.map((v) => `\`${v}\``).join(', ') : '–'} | ${p.default ?? '–'} |`).join('\n') + '\n' : '',
     c.props.some((p) => p.type === 'instance') ? '## Slots\n\n' + c.props.filter((p) => p.type === 'instance').map((p) => `- \`${p.name}\`: Standard ${p.default}`).join('\n') + '\n' : '',
-    c.styles ? '## Aussehen (Tokens je Variante oder Zustand)\n\n| Für | Tokens |\n|---|---|\n' + Object.entries(c.styles).map(([k, st]) => `| \`${k}\` | ${Object.entries(st).map(([role, t]) => t ? `${role}: \`${t}\`` : `${role}: entfällt`).join(', ') || 'keine eigenen Farben'} |`).join('\n') + '\n' : '',
+    (c.looks && Object.keys(c.looks).length) || c.styles ? '## Aussehen (Tokens je Variante oder Zustand)\n\n| Für | Tokens |\n|---|---|\n' + Object.entries(c.looks && Object.keys(c.looks).length ? c.looks : c.styles).map(([k, st]) => `| \`${k}\` | ${Object.entries(st).map(([role, t]) => t ? `${role}: \`${t}\`` : `${role}: entfällt`).join(', ') || 'keine eigenen Farben'} |`).join('\n') + '\n' : '',
     c.rules.length ? '## Regeln\n\n' + c.rules.map((r) => `- **${r.text}** Warum: ${r.why} (\`${r.id}\`, ${r.check ? `Check: \`${r.check}\`` : 'manuell'})`).join('\n') + '\n' : '',
     `## Barrierefreiheit\n\n${c.a11y}\n`,
     c.do.length ? `## Do\n\n${c.do.map((d) => `- ${d}`).join('\n')}\n` : '',
@@ -51,7 +53,7 @@ for (const c of spec.components) {
   ].filter(Boolean).join('\n');
   writeFileSync(`generated/components/${file}`, md);
 }
-writeFileSync('generated/llms.txt', `# ${spec.name} Design System ${spec.version}\n\n> Komponenten und Tokens. Quelle: specs/system.json. Code-Paket: ${spec.codePackage}.\n\n## Komponenten\n\n${idx.join('\n')}\n\n## Tokens\n\n- [Primitive](tokens/primitive.json): nicht direkt verwenden\n- [Semantisch light](tokens/semantic.light.json), [dark](tokens/semantic.dark.json), [Abstände und Radien](tokens/semantic.shared.json)\n\n## Verträge und Prüfung\n\n- [Verträge](contracts.json): gültige Komponenten, Attribute, Werte, Regeln und Tokens, maschinenlesbar\n- Prüfen: node validate.mjs <Pfad> --json, Befunde beheben, wiederholen bis ok\n`);
+writeFileSync('generated/llms.txt', `# ${spec.name} Design System ${spec.version}\n\n> Komponenten und Tokens. Quelle: ${SOURCE}. Code-Paket: ${spec.codePackage}.\n\n## Komponenten\n\n${idx.join('\n')}\n\n## Tokens\n\n- [Primitive](tokens/primitive.json): nicht direkt verwenden\n- [Semantisch light](tokens/semantic.light.json), [dark](tokens/semantic.dark.json), [Abstände und Radien](tokens/semantic.shared.json)\n\n## Verträge und Prüfung\n\n- [Verträge](contracts.json): gültige Komponenten, Attribute, Werte, Regeln und Tokens, maschinenlesbar\n- Prüfen: node validate.mjs <Pfad> --json, Befunde beheben, wiederholen bis ok\n`);
 console.log('gebaut:', spec.components.length, 'Komponenten');
 
 // 4) CSS-Tokens für den Code (ui/tokens.css)
@@ -59,7 +61,7 @@ const primHex = (ref) => { const [hue, stop] = ref.split('/'); return spec.primi
 const colorVars = (mode) => Object.entries(spec.semantic.color).map(([n, t]) => `  --${spec.cssPrefix}-color-${kebab(n)}: ${primHex(t[mode]).toLowerCase()};`).join('\n');
 const weights = { Regular: 400, Medium: 500, 'Semi Bold': 600, Bold: 700 };
 const css = [
-  `/* Generiert aus specs/system.json – nicht von Hand bearbeiten. */`,
+  `/* Generiert aus ${SOURCE} – nicht von Hand bearbeiten. */`,
   `:root {\n  color-scheme: light dark;\n${colorVars('light')}`,
   ...FLOAT_GROUPS.flatMap((g) => Object.entries(spec.semantic[g]).map(([n, t]) => `  --${spec.cssPrefix}-${g}-${n}: ${t.value}px;`)),
   ...spec.textStyles.map((t) => `  --${spec.cssPrefix}-text-${kebab(t.name)}: ${weights[t.weight]} ${t.size}px/${t.line}px ${spec.fontFamily || 'Inter, system-ui, sans-serif'};`),
@@ -80,7 +82,7 @@ const tokenNames = [
 // Props mit den Werten false/true sind im HTML native boolesche Attribute (disabled, checked)
 const isBool = (p) => p.values && p.values.join() === 'false,true';
 const contracts = {
-  $comment: 'Generiert aus specs/system.json – nicht von Hand bearbeiten. Einzige Quelle für gültige Komponenten, Props, Werte und Tokens.',
+  $comment: 'Generiert – nicht von Hand bearbeiten. Einzige Quelle für gültige Komponenten, Props, Werte und Tokens.',
   principles: spec.principles || [], vagueActions: spec.vagueActions || [], migrations: spec.migrations || [],
   system: spec.name, version: spec.version, cssPrefix: spec.cssPrefix, codePackage: spec.codePackage,
   tokens: Object.fromEntries(tokenNames.map((n) => [n, true])),
@@ -97,8 +99,8 @@ const contracts = {
     attributes: Object.fromEntries(c.props.filter((p) => p.type === 'variant' && !isBool(p)).map((p) => [`data-${kebab(p.name)}`, { values: p.values, default: p.default }])),
     parts: c.props.filter((p) => p.type === 'text').map((p) => `${spec.cssPrefix}-${kebab(c.name)}__${kebab(p.name)}`),
     // Aussehen je Variante oder Zustand; colorTokens ist die vollständige Liste der Farb-Tokens, die diese Komponente verwenden darf
-    styles: c.styles || {},
-    colorTokens: [...new Set(Object.values(c.styles || {}).flatMap((st) => Object.entries(st).filter(([k, v]) => !/Width$/.test(k) && v).map(([, v]) => `--${spec.cssPrefix}-color-${kebab(v)}`)))],
+    styles: c.looks && Object.keys(c.looks).length ? c.looks : c.styles || {},
+    colorTokens: colorRoles(c).map((v) => `--${spec.cssPrefix}-color-${kebab(v)}`),
     slots: c.props.filter((p) => p.type === 'instance').map((p) => ({ name: p.name, class: `${spec.cssPrefix}-${kebab(c.name)}__${kebab(p.name)}`, default: p.default, element: `${spec.cssPrefix}-${kebab(p.default)}`, show: `show-${kebab(p.name)}` })),
     rules: c.rules, a11y: c.a11y,
   }])),
@@ -129,13 +131,13 @@ for (const c of spec.components) {
   k.element = `${spec.cssPrefix}-${kebab(c.name)}`;
   if (c.impl) k.impl = c.impl; // Umsetzung und Regeln einer anderen Komponente übernehmen (z. B. Toggle → Switch)
   k.attrs = Object.fromEntries(c.props.filter((p) => p.type !== 'instance').map((p) => [kebab(p.name), (p.type === 'variant' && !isBool(p)) || p.type === 'behavior' ? { type: 'enum', values: p.values, default: p.default } : p.type === 'variant' || p.type === 'boolean' ? { type: 'boolean', default: String(p.default) === 'true' } : { type: 'text', default: p.default }]));
-  k.passthrough = PASSTHROUGH[c.impl || c.name] || [];
+  k.passthrough = c.passthrough || PASSTHROUGH[c.impl || c.name] || [];
   k.slotNames = c.props.filter((p) => p.type === 'instance').map((p) => p.name);
 }
 writeFileSync('generated/contracts.json', JSON.stringify(contracts, null, 2) + '\n');
 const elements = Object.fromEntries(Object.entries(contracts.components).map(([name, k]) => [k.element, { name, ...(k.impl ? { impl: k.impl } : {}), status: k.status, deprecated: k.deprecated, attrs: k.attrs, passthrough: k.passthrough, slots: k.slotNames }]));
-writeFileSync('ui/contract.generated.js', `// Generiert aus specs/system.json – nicht von Hand bearbeiten.\nexport const VERSION = ${JSON.stringify(spec.version)};\nexport const PREFIX = ${JSON.stringify(spec.cssPrefix)};\nexport const ELEMENTS = ${JSON.stringify(elements, null, 2)};\n`);
-writeFileSync('ui/package.json', JSON.stringify({ name: spec.codePackage, version: spec.version, description: `${spec.name} Design System als Web Components`, type: 'module', main: './fundament.js', exports: { '.': './fundament.js', './tokens.css': './tokens.css', './components.css': './components.css', './contract': './contract.generated.js' }, files: ['fundament.js', 'contract.generated.js', 'tokens.css', 'components.css'], sideEffects: true }, null, 2) + '\n');
+writeFileSync('ui/contract.generated.js', `// Generiert aus ${SOURCE} – nicht von Hand bearbeiten.\nexport const VERSION = ${JSON.stringify(spec.version)};\nexport const PREFIX = ${JSON.stringify(spec.cssPrefix)};\nexport const ELEMENTS = ${JSON.stringify(elements, null, 2)};\n`);
+writeFileSync('ui/package.json', JSON.stringify({ name: spec.codePackage, version: spec.version, description: `${spec.name} Design System als Web Components`, type: 'module', main: './fundament.js', exports: { '.': './fundament.js', './tokens.css': './tokens.css', './components.css': './components.css', './contract': './contract.generated.js' }, files: ['fundament.js', 'elements.js', 'contract.generated.js', 'custom-elements.json', 'tokens.css', 'components.css'], customElements: 'custom-elements.json', sideEffects: true }, null, 2) + '\n');
 console.log('gebaut: ui/contract.generated.js, ui/package.json,', Object.keys(elements).length, 'Elemente');
 
 // 8) Doku-Site für Menschen (docs/index.html), vollständig aus der Spec; nutzt die echten Web Components
@@ -162,4 +164,19 @@ if (!process.argv[2]) {
   const ui = '<style>body{font:12px Inter,sans-serif;margin:12px}textarea{width:100%;height:300px;font:11px monospace}button{margin-top:8px;padding:6px 12px}</style><p>Schnappschuss kopieren und im Repo als <b>specs/figma.snapshot.json</b> speichern. Danach <b>node tooling/figma-diff.mjs</b>.</p><textarea id="t" readonly>Lese Datei …</textarea><button id="c">Kopieren</button><script>onmessage=(e)=>{document.getElementById("t").value=e.data.pluginMessage};document.getElementById("c").onclick=()=>{const t=document.getElementById("t");t.select();document.execCommand("copy")}</script>';
   mkdirSync('plugin-export', { recursive: true });
   writeFileSync('plugin-export/code.js', `// Fundament Export – zeigt den Schnappschuss der Datei zum Kopieren. Erzeugt aus tooling/figma-export.js – nicht von Hand bearbeiten.\nfigma.showUI(${JSON.stringify(ui)}, { width: 420, height: 420 });\n(async () => {\n${body.replace(/^return /m, 'const snapshot = ')}\nfigma.ui.postMessage(JSON.stringify(snapshot, null, 1));\n})().catch((e) => figma.ui.postMessage('Fehler: ' + e.message));\n`);
+}
+
+// 11) Zusammengesetztes System zur Ansicht und das Manifest der Web Components (Format: Custom Elements Manifest 1.0.0)
+if (spec.assembled) {
+  writeFileSync('generated/system.json', JSON.stringify({ $comment: 'Generiert zur Ansicht: das System, wie es aus Figma-Schnappschuss, Code und Regeldatei zusammengesetzt wird. Nicht von Hand bearbeiten.', ...spec }, null, 2) + '\n');
+  const cem = { schemaVersion: '1.0.0', readme: '', modules: [{ kind: 'javascript-module', path: 'fundament.js', declarations: spec.components.map((c) => ({
+    kind: 'class', customElement: true, name: c.name, tagName: `${spec.cssPrefix}-${kebab(c.name)}`, description: c.purpose, ...(c.status === 'deprecated' ? { deprecated: `Seit ${c.deprecated.since}. Nutze ${c.deprecated.use}.` } : {}),
+    attributes: c.props.filter((p) => p.type !== 'instance').map((p) => ({ name: kebab(p.name), type: { text: p.values && !isBool(p) ? p.values.map((v) => `'${v}'`).join(' | ') : p.type === 'boolean' || isBool(p) ? 'boolean' : 'string' }, default: JSON.stringify(isBool(p) ? p.default === 'true' : p.default) })),
+    slots: c.props.filter((p) => p.type === 'instance').map((p) => ({ name: p.name, description: `Nimmt <${spec.cssPrefix}-${kebab(p.default)}> auf.` })) })),
+    exports: spec.components.map((c) => ({ kind: 'custom-element-definition', name: `${spec.cssPrefix}-${kebab(c.name)}`, declaration: { name: c.name, module: 'fundament.js' } })) }] };
+  // Beschreibung je Komponente zum Einfügen in Figma (dort steht sie im Beschreibungsfeld)
+  const { describe } = await import(HOME + 'tooling/assemble.mjs');
+  for (const c of spec.components) writeFileSync(`generated/components/${kebab(c.name)}.figma.txt`, describe(c, spec) + '\n');
+  writeFileSync('ui/custom-elements.json', JSON.stringify(cem, null, 2) + '\n');
+  console.log('gebaut: generated/system.json, ui/custom-elements.json');
 }

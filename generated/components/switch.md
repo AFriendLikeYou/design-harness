@@ -1,4 +1,4 @@
-<!-- Generiert aus specs/system.json – nicht von Hand bearbeiten. -->
+<!-- Generiert aus specs/figma.snapshot.json, ui/elements.js und specs/rules.json – nicht von Hand bearbeiten. -->
 # Switch
 Status: stable · v1.0.0 · Spec: ds/switch
 Schaltet eine Einstellung sofort ein oder aus, ohne Speichern.
@@ -24,10 +24,12 @@ Props sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attr
 
 | Für | Tokens |
 |---|---|
-| `default` | bg: `border/input`, thumb: `text/on-action`, fg: `text/primary`, helper: `text/secondary` |
-| `checked=true` | bg: `action/primary` |
-| `state=focus` | ring: `focus/ring`, ringWidth: `strong` |
-| `disabled=true` | bg: `bg/disabled`, thumb: `text/disabled`, fg: `text/disabled` |
+| `checked=false, disabled=false, state=default` | bg: `border/input`, fg: `text/primary`, helper: `text/secondary`, thumb: `text/on-action` |
+| `checked=false, disabled=false, state=focus` | bg: `border/input`, fg: `text/primary`, helper: `text/secondary`, ring: `focus/ring`, ringWidth: `strong`, thumb: `text/on-action` |
+| `checked=false, disabled=true, state=default` | bg: `bg/disabled`, fg: `text/disabled`, helper: `text/secondary`, thumb: `text/disabled` |
+| `checked=true, disabled=false, state=default` | bg: `action/primary`, fg: `text/primary`, helper: `text/secondary`, thumb: `text/on-action` |
+| `checked=true, disabled=false, state=focus` | bg: `action/primary`, fg: `text/primary`, helper: `text/secondary`, ring: `focus/ring`, ringWidth: `strong`, thumb: `text/on-action` |
+| `checked=true, disabled=true, state=default` | bg: `bg/disabled`, fg: `text/disabled`, helper: `text/secondary`, thumb: `text/disabled` |
 
 ## Regeln
 

@@ -4,13 +4,13 @@ Diese Datei nennt bewusst keine Komponenten, Attribute, Werte oder Tokens. Solch
 
 ## Wo was steht
 
-- `generated/contracts.json`: einzige gültige Liste der Komponenten (als Elemente), Attribute, erlaubten Werte, Slots, Regeln, Grundsätze und Tokens mit Beschreibung. Erzeugt aus `specs/system.json`.
+- `generated/contracts.json`: einzige gültige Liste der Komponenten (als Elemente), Attribute, erlaubten Werte, Slots, Regeln, Grundsätze und Tokens mit Beschreibung. Erzeugt aus den drei Quellen unten.
 - MCP-Server `fundament` (`.mcp.json`): dieselben Daten als Tools, dazu `check`. Wenn verbunden, bevorzugen.
 - `generated/components/<name>.md`: Zweck, Beispielaufruf, Regeln mit Begründung, Barrierefreiheit je Komponente.
 - `generated/contrast.json`: geprüfte Text/Fläche-Paare je Mode. Nur diese Paarungen sind zugesagt.
 - `DESIGN.md`: Grundsätze für Entscheidungen, die kein Check trifft. `rubric.md`: Fragen für den Kritiker-Durchlauf.
 - `ui/`: das Paket (Web Components, Tokens, Styles). `ui/examples/` zeigt eine komplette Seite und alle Zustände. `docs/index.html` ist die Doku für Menschen.
-- `specs/system.json`: der Vertrag zwischen Figma und Code. Änderungen am Aussehen kommen meist aus Figma (`specs/figma.snapshot.json`, `node tooling/figma-diff.mjs`), Änderungen an Regeln und Verhalten direkt in der Spec. Danach `node build.mjs`.
+- Die drei Quellen des Systems: `specs/figma.snapshot.json` (Tokenwerte und Aussehen, Export aus Figma), `ui/elements.js` (Props und Slots), `specs/rules.json` (Regeln und Begründungen). `generated/system.json` zeigt alles zusammengesetzt. Erzeugte Dateien nie von Hand ändern.
 
 ## Die Schleife
 

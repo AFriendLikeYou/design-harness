@@ -1,0 +1,6 @@
+Status: stable · v1.4.1
+Löst eine Aktion aus. Für Navigation zu einer anderen Seite einen Link verwenden.
+Regeln: Höchstens ein primärer Button pro Ansicht; ein danger-Button und ConfirmAction zählen als primär. [button/one-primary] Beschriftung beginnt mit einem Verb und nennt das Ergebnis. [button/label-verb] Farbe nur über variant, nie eigene Füllungen. [button/no-custom-colors] Hover und Fokus kommen aus der Komponente, nie selbst gestaltet. [button/states-from-system] variant=danger nur für Aktionen, die etwas unwiderruflich löschen oder beenden, und nie als einzige Absicherung. [button/danger-confirm]
+A11y: Immer als <button> umsetzen. Deaktiviert nur, wenn ein Hinweis erklärt, warum.
+Spec: ds/button
+Code: <fd-button> aus "@fundament/ui"

@@ -1,0 +1,506 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "fundament.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Button",
+          "tagName": "fd-button",
+          "description": "Löst eine Aktion aus. Für Navigation zu einer anderen Seite einen Link verwenden.",
+          "attributes": [
+            {
+              "name": "variant",
+              "type": {
+                "text": "'primary' | 'secondary' | 'ghost' | 'danger'"
+              },
+              "default": "\"primary\""
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "'md' | 'sm'"
+              },
+              "default": "\"md\""
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "name": "state",
+              "type": {
+                "text": "'default' | 'hover' | 'focus'"
+              },
+              "default": "\"default\""
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Speichern\""
+            }
+          ],
+          "slots": []
+        },
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "TextField",
+          "tagName": "fd-text-field",
+          "description": "Einzeilige Texteingabe mit sichtbarem Label und optionalem Hilfstext.",
+          "attributes": [
+            {
+              "name": "state",
+              "type": {
+                "text": "'default' | 'focus' | 'error' | 'disabled'"
+              },
+              "default": "\"default\""
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"E-Mail-Adresse\""
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"name@beispiel.de\""
+            },
+            {
+              "name": "helper-text",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Wir senden dir einen Bestätigungslink.\""
+            },
+            {
+              "name": "show-helper",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true"
+            },
+            {
+              "name": "error-text",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Bitte gib eine gültige E-Mail-Adresse ein.\""
+            },
+            {
+              "name": "show-trailing",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "name": "trailing-action",
+              "type": {
+                "text": "'none' | 'reveal' | 'clear'"
+              },
+              "default": "\"none\""
+            }
+          ],
+          "slots": [
+            {
+              "name": "trailing",
+              "description": "Nimmt <fd-button> auf."
+            }
+          ]
+        },
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Checkbox",
+          "tagName": "fd-checkbox",
+          "description": "Auswahl einer unabhängigen Option, die man an- oder abwählen kann.",
+          "attributes": [
+            {
+              "name": "checked",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "name": "state",
+              "type": {
+                "text": "'default' | 'focus'"
+              },
+              "default": "\"default\""
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Angemeldet bleiben\""
+            },
+            {
+              "name": "helper-text",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Du kannst das später ändern.\""
+            },
+            {
+              "name": "show-helper",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            }
+          ],
+          "slots": []
+        },
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Switch",
+          "tagName": "fd-switch",
+          "description": "Schaltet eine Einstellung sofort ein oder aus, ohne Speichern.",
+          "attributes": [
+            {
+              "name": "checked",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "name": "state",
+              "type": {
+                "text": "'default' | 'focus'"
+              },
+              "default": "\"default\""
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"E-Mail-Benachrichtigungen\""
+            },
+            {
+              "name": "helper-text",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Wir schreiben dir höchstens einmal pro Woche.\""
+            },
+            {
+              "name": "show-helper",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            }
+          ],
+          "slots": []
+        },
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Badge",
+          "tagName": "fd-badge",
+          "description": "Kurzer Status oder Kategorie, nicht interaktiv.",
+          "attributes": [
+            {
+              "name": "tone",
+              "type": {
+                "text": "'neutral' | 'info' | 'success' | 'warning' | 'danger'"
+              },
+              "default": "\"neutral\""
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Neu\""
+            }
+          ],
+          "slots": []
+        },
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Alert",
+          "tagName": "fd-alert",
+          "description": "Hinweis im Seitenfluss zu Status, Erfolg, Warnung oder Fehler.",
+          "attributes": [
+            {
+              "name": "tone",
+              "type": {
+                "text": "'info' | 'success' | 'warning' | 'danger'"
+              },
+              "default": "\"info\""
+            },
+            {
+              "name": "title",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Änderungen gespeichert\""
+            },
+            {
+              "name": "description",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Deine Einstellungen gelten ab sofort.\""
+            }
+          ],
+          "slots": []
+        },
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Card",
+          "tagName": "fd-card",
+          "description": "Gruppiert zusammengehörige Inhalte mit optionaler Aktion.",
+          "attributes": [
+            {
+              "name": "title",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Kartentitel\""
+            },
+            {
+              "name": "body",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Kurze Beschreibung des Inhalts in ein bis zwei Sätzen.\""
+            },
+            {
+              "name": "show-footer",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true"
+            },
+            {
+              "name": "show-badge",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            }
+          ],
+          "slots": [
+            {
+              "name": "action",
+              "description": "Nimmt <fd-button> auf."
+            },
+            {
+              "name": "badge",
+              "description": "Nimmt <fd-badge> auf."
+            }
+          ]
+        },
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Link",
+          "tagName": "fd-link",
+          "description": "Führt zu einer anderen Seite oder Stelle. Für Aktionen einen Button verwenden.",
+          "attributes": [
+            {
+              "name": "state",
+              "type": {
+                "text": "'default' | 'hover' | 'focus'"
+              },
+              "default": "\"default\""
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Alle Rechnungen ansehen\""
+            }
+          ],
+          "slots": []
+        },
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "SignInForm",
+          "tagName": "fd-sign-in-form",
+          "description": "Vollständiges Anmeldeformular aus TextField, Checkbox und Button. Als Ganzes verwenden statt neu zusammenzubauen.",
+          "attributes": [],
+          "slots": []
+        },
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "ConfirmAction",
+          "tagName": "fd-confirm-action",
+          "description": "Sichert eine unwiderrufliche Aktion ab: Der danger-Button wird erst aktiv, wenn das Bestätigungswort eingegeben ist.",
+          "attributes": [
+            {
+              "name": "word",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"LÖSCHEN\""
+            },
+            {
+              "name": "field-label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Gib zur Bestätigung LÖSCHEN ein\""
+            },
+            {
+              "name": "action-label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Konto endgültig löschen\""
+            }
+          ],
+          "slots": []
+        },
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "LinkButton",
+          "tagName": "fd-link-button",
+          "description": "Veraltet seit 1.0. Ersetzt durch Button variant=ghost.",
+          "deprecated": "Seit 1.0.0. Nutze Button variant=ghost.",
+          "attributes": [
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Mehr\""
+            }
+          ],
+          "slots": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "fd-button",
+          "declaration": {
+            "name": "Button",
+            "module": "fundament.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "fd-text-field",
+          "declaration": {
+            "name": "TextField",
+            "module": "fundament.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "fd-checkbox",
+          "declaration": {
+            "name": "Checkbox",
+            "module": "fundament.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "fd-switch",
+          "declaration": {
+            "name": "Switch",
+            "module": "fundament.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "fd-badge",
+          "declaration": {
+            "name": "Badge",
+            "module": "fundament.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "fd-alert",
+          "declaration": {
+            "name": "Alert",
+            "module": "fundament.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "fd-card",
+          "declaration": {
+            "name": "Card",
+            "module": "fundament.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "fd-link",
+          "declaration": {
+            "name": "Link",
+            "module": "fundament.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "fd-sign-in-form",
+          "declaration": {
+            "name": "SignInForm",
+            "module": "fundament.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "fd-confirm-action",
+          "declaration": {
+            "name": "ConfirmAction",
+            "module": "fundament.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "fd-link-button",
+          "declaration": {
+            "name": "LinkButton",
+            "module": "fundament.js"
+          }
+        }
+      ]
+    }
+  ]
+}

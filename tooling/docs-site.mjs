@@ -38,7 +38,7 @@ ${c.do.length || c.dont.length ? `<div class="dodont"><div class="do"><h3>So</h3
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${e(spec.name)} Design System ${e(spec.version)}</title>
-<!-- Generiert aus specs/system.json (tooling/docs-site.mjs) – nicht von Hand bearbeiten. -->
+<!-- Generiert (tooling/docs-site.mjs) aus Figma-Schnappschuss, Code und Regeldatei – nicht von Hand bearbeiten. -->
 <link rel="stylesheet" href="../ui/tokens.css">
 <link rel="stylesheet" href="../ui/components.css">
 <script type="module" src="../ui/fundament.js"></script>

@@ -1,0 +1,6 @@
+Status: stable · v1.0.0
+Kurzer Status oder Kategorie, nicht interaktiv.
+Regeln: Höchstens zwei Wörter. [badge/short-label] Nie klickbar; für Filter einen Chip verwenden. [badge/not-interactive]
+A11y: Bedeutung steht im Text, nicht nur in der Farbe.
+Spec: ds/badge
+Code: <fd-badge> aus "@fundament/ui"

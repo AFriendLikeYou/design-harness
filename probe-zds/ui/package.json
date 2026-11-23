@@ -12,9 +12,12 @@
   },
   "files": [
     "fundament.js",
+    "elements.js",
     "contract.generated.js",
+    "custom-elements.json",
     "tokens.css",
     "components.css"
   ],
+  "customElements": "custom-elements.json",
   "sideEffects": true
 }

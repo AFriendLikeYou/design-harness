@@ -1,0 +1,6 @@
+Status: stable · v1.0.2
+Vollständiges Anmeldeformular aus TextField, Checkbox und Button. Als Ganzes verwenden statt neu zusammenzubauen.
+Regeln: Nur aus Systemkomponenten zusammensetzen. [signinform/compose-from-system]
+A11y: Fehlermeldungen oberhalb der Felder zusammenfassen und fokussieren.
+Spec: ds/sign-in-form
+Code: <fd-sign-in-form> aus "@fundament/ui"

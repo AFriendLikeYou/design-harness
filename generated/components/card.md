@@ -1,4 +1,4 @@
-<!-- Generiert aus specs/system.json – nicht von Hand bearbeiten. -->
+<!-- Generiert aus specs/figma.snapshot.json, ui/elements.js und specs/rules.json – nicht von Hand bearbeiten. -->
 # Card
 Status: stable · v1.1.0 · Spec: ds/card
 Gruppiert zusammengehörige Inhalte mit optionaler Aktion.
@@ -29,7 +29,7 @@ Props sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attr
 
 | Für | Tokens |
 |---|---|
-| `default` | bg: `bg/surface`, fg: `text/primary`, body: `text/secondary`, border: `border/default`, borderWidth: `default` |
+| `default` | bg: `bg/surface`, body: `text/secondary`, border: `border/default`, borderWidth: `default`, fg: `text/primary` |
 
 ## Regeln
 

@@ -1,4 +1,4 @@
-<!-- Generiert aus specs/system.json – nicht von Hand bearbeiten. -->
+<!-- Generiert aus specs/figma.snapshot.json, ui/elements.js und specs/rules.json – nicht von Hand bearbeiten. -->
 # Alert
 Status: stable · v1.0.2 · Spec: ds/alert
 Hinweis im Seitenfluss zu Status, Erfolg, Warnung oder Fehler.
@@ -21,10 +21,10 @@ Props sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attr
 
 | Für | Tokens |
 |---|---|
-| `tone=info` | bg: `feedback/info-bg`, fg: `feedback/info-fg`, body: `text/primary`, border: `feedback/info-fg`, borderWidth: `accent` |
-| `tone=success` | bg: `feedback/success-bg`, fg: `feedback/success-fg`, body: `text/primary`, border: `feedback/success-fg`, borderWidth: `accent` |
-| `tone=warning` | bg: `feedback/warning-bg`, fg: `feedback/warning-fg`, body: `text/primary`, border: `feedback/warning-fg`, borderWidth: `accent` |
-| `tone=danger` | bg: `feedback/danger-bg`, fg: `feedback/danger-fg`, body: `text/primary`, border: `feedback/danger-fg`, borderWidth: `accent` |
+| `tone=danger` | bg: `feedback/danger-bg`, body: `text/primary`, border: `feedback/danger-fg`, borderWidth: `accent`, fg: `feedback/danger-fg` |
+| `tone=info` | bg: `feedback/info-bg`, body: `text/primary`, border: `feedback/info-fg`, borderWidth: `accent`, fg: `feedback/info-fg` |
+| `tone=success` | bg: `feedback/success-bg`, body: `text/primary`, border: `feedback/success-fg`, borderWidth: `accent`, fg: `feedback/success-fg` |
+| `tone=warning` | bg: `feedback/warning-bg`, body: `text/primary`, border: `feedback/warning-fg`, borderWidth: `accent`, fg: `feedback/warning-fg` |
 
 ## Regeln
 

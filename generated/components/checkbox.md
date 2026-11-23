@@ -1,4 +1,4 @@
-<!-- Generiert aus specs/system.json – nicht von Hand bearbeiten. -->
+<!-- Generiert aus specs/figma.snapshot.json, ui/elements.js und specs/rules.json – nicht von Hand bearbeiten. -->
 # Checkbox
 Status: stable · v1.2.0 · Spec: ds/checkbox
 Auswahl einer unabhängigen Option, die man an- oder abwählen kann.
@@ -24,11 +24,12 @@ Props sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attr
 
 | Für | Tokens |
 |---|---|
-| `default` | bg: `bg/surface`, fg: `text/primary`, border: `border/input`, borderWidth: `default`, helper: `text/secondary` |
-| `checked=true` | bg: `action/primary`, mark: `text/on-action`, border: entfällt, borderWidth: entfällt |
-| `state=focus` | ring: `focus/ring`, ringWidth: `strong` |
-| `disabled=true` | bg: `bg/disabled`, fg: `text/disabled` |
-| `checked=true, disabled=true` | mark: `text/disabled` |
+| `checked=false, disabled=false, state=default` | bg: `bg/surface`, border: `border/input`, borderWidth: `default`, fg: `text/primary`, helper: `text/secondary` |
+| `checked=false, disabled=false, state=focus` | bg: `bg/surface`, border: `border/input`, borderWidth: `default`, fg: `text/primary`, helper: `text/secondary`, ring: `focus/ring`, ringWidth: `strong` |
+| `checked=false, disabled=true, state=default` | bg: `bg/disabled`, border: `border/input`, borderWidth: `default`, fg: `text/disabled`, helper: `text/secondary` |
+| `checked=true, disabled=false, state=default` | bg: `action/primary`, fg: `text/primary`, helper: `text/secondary`, mark: `text/on-action` |
+| `checked=true, disabled=false, state=focus` | bg: `action/primary`, fg: `text/primary`, helper: `text/secondary`, mark: `text/on-action`, ring: `focus/ring`, ringWidth: `strong` |
+| `checked=true, disabled=true, state=default` | bg: `bg/disabled`, fg: `text/disabled`, helper: `text/secondary`, mark: `text/disabled` |
 
 ## Regeln
 

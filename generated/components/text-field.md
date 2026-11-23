@@ -1,4 +1,4 @@
-<!-- Generiert aus specs/system.json – nicht von Hand bearbeiten. -->
+<!-- Generiert aus specs/figma.snapshot.json, ui/elements.js und specs/rules.json – nicht von Hand bearbeiten. -->
 # TextField
 Status: stable · v1.3.0 · Spec: ds/text-field
 Einzeilige Texteingabe mit sichtbarem Label und optionalem Hilfstext.
@@ -31,10 +31,10 @@ Props sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attr
 
 | Für | Tokens |
 |---|---|
-| `default` | bg: `bg/surface`, fg: `text/primary`, border: `border/input`, borderWidth: `default`, helper: `text/secondary` |
-| `state=focus` | ring: `focus/ring`, ringWidth: `strong` |
-| `state=error` | border: `feedback/danger-fg`, borderWidth: `strong`, helper: `feedback/danger-fg` |
-| `state=disabled` | bg: `bg/disabled`, fg: `text/disabled` |
+| `state=default` | bg: `bg/surface`, border: `border/input`, borderWidth: `default`, fg: `text/primary`, helper: `text/secondary` |
+| `state=disabled` | bg: `bg/disabled`, border: `border/input`, borderWidth: `default`, fg: `text/disabled`, helper: `text/secondary` |
+| `state=error` | bg: `bg/surface`, border: `feedback/danger-fg`, borderWidth: `strong`, fg: `text/primary`, helper: `feedback/danger-fg` |
+| `state=focus` | bg: `bg/surface`, border: `border/input`, borderWidth: `default`, fg: `text/primary`, helper: `text/secondary`, ring: `focus/ring`, ringWidth: `strong` |
 
 ## Regeln
 

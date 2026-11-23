@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Fundament-CLI. Liest ausschließlich specs/system.json und generated/contracts.json.
+// Fundament-CLI. Liest das zusammengesetzte System (tooling/assemble.mjs) und generated/contracts.json.
 //   fundament lint                      prüft die Spec selbst (Verweise, Eindeutigkeit, Regeln mit Check)
 //   fundament check <Pfad …> [--json]   prüft HTML/CSS gegen Verträge, Regeln und Grundsätze
 //   fundament audit <Pfad …> [--json]   prüft gerendert in Chrome: Überlauf bei 360 px, Kontrast, Namen, Klickflächen
@@ -55,8 +55,8 @@ export function tokenize(src) {
 }
 
 // ---------- lint ----------
-export function lint(spec = read('specs/system.json')) {
-  const out = []; const add = (id, message) => out.push({ file: 'specs/system.json', line: 0, id, message, fix: 'Spec korrigieren, dann node build.mjs.' });
+export function lint(spec) {
+  const out = []; const add = (id, message) => out.push({ file: spec.assembled ? 'System (Figma-Schnappschuss, ui/elements.js, specs/rules.json)' : 'specs/system.json', line: 0, id, message, fix: 'Quelle korrigieren, dann node build.mjs.' });
   const colors = new Set(Object.keys(spec.semantic.color)); const prim = spec.primitives;
   if (!/^\d+\.\d+\.\d+$/.test(spec.version)) add('lint/version', `Version „${spec.version}“ ist nicht x.y.z.`);
   if (spec.changelog?.[0]?.version !== spec.version) add('lint/changelog', `Oberster Changelog-Eintrag (${spec.changelog?.[0]?.version}) passt nicht zur Version ${spec.version}.`);
@@ -71,7 +71,9 @@ export function lint(spec = read('specs/system.json')) {
     if (names.has(c.name)) add('lint/component', `Komponente ${c.name} ist doppelt.`); names.add(c.name);
     for (const f of ['purpose', 'a11y', 'version', 'status']) if (!c[f]) add('lint/component', `${c.name}: „${f}“ fehlt.`);
     for (const p of c.props) { if (p.type === 'variant' && !p.values.includes(String(p.default))) add('lint/prop', `${c.name}.${p.name}: Standard „${p.default}“ ist kein erlaubter Wert.`); if (p.type === 'instance' && !spec.components.some((x) => x.name === p.default)) add('lint/prop', `${c.name}.${p.name}: Standard-Komponente „${p.default}“ gibt es nicht.`); }
-    if (c.status !== 'deprecated' && !c.styles) add('lint/styles', `${c.name}: styles fehlen.`);
+    if (c.missingRules) add('lint/rules', `${c.name} ist im Code umgesetzt, hat aber keinen Eintrag in specs/rules.json (Zweck, Regeln, Barrierefreiheit).`);
+    if (spec.assembled) { if (!Object.keys(c.looks).length) add('lint/figma', `${c.name}: kein Aussehen im Figma-Schnappschuss. Komponente in Figma anlegen und neu exportieren.`); for (const [variant, st] of Object.entries(c.looks)) for (const [role, tok] of Object.entries(st)) { if (tok.startsWith('(')) add('lint/figma', `${c.name} [${variant}]: ${role} ist in Figma nicht an eine Variable gebunden.`); else if (/Width$/.test(role) ? !spec.semantic['border-width']?.[tok] : !colors.has(tok)) add('lint/figma', `${c.name} [${variant}]: ${role} nutzt „${tok}“, das kein semantisches Token ist.`); } }
+    else if (c.status !== 'deprecated' && !c.styles) add('lint/styles', `${c.name}: styles fehlen.`);
     for (const [key, st] of Object.entries(c.styles || {})) {
       for (const [role, tok] of Object.entries(st)) { if (tok === null) continue; if (/Width$/.test(role)) { if (!spec.semantic['border-width']?.[tok]) add('lint/styles', `${c.name} [${key}]: Rahmenstärke „${tok}“ gibt es nicht.`); } else if (!colors.has(tok)) add('lint/styles', `${c.name} [${key}]: Token „${tok}“ gibt es nicht.`); }
       if (key !== 'default') for (const kv of key.split(', ')) { const [prop, val] = kv.split('='); const p = c.props.find((x) => x.name === prop); if (!p || !p.values?.includes(val)) add('lint/styles', `${c.name}: styles-Schlüssel „${kv}“ passt zu keinem Prop-Wert.`); }
@@ -201,7 +203,7 @@ if (import.meta.url === `file://${process.argv[1]}` || process.argv[1]?.endsWith
   const [cmd, ...rest] = process.argv.slice(2); const flags = rest.filter((a) => a.startsWith('--')); const paths = rest.filter((a) => !a.startsWith('--'));
   const print = (findings, n) => { if (flags.includes('--json')) console.log(JSON.stringify({ ok: !findings.length, checked: n, findings }, null, 2)); else if (!findings.length) console.log(`Sauber: ${n} geprüft, keine Befunde.`); else { for (const x of findings) console.log(`${x.file}${x.line ? ':' + x.line : ''}  [${x.id}]  ${x.message}\n    Behebung: ${x.fix}`); console.log(`\n${findings.length} Befunde.`); } process.exit(findings.length ? 1 : 0); };
   try {
-    if (cmd === 'lint') print(lint(), 1);
+    if (cmd === 'lint') { const { loadSpec } = await import('../tooling/assemble.mjs'); print(lint(await loadSpec(ROOT.pathname)), 1); }
     else if (cmd === 'check' && paths.length) { const files = collect(paths, ['.html', '.htm', '.css', '.svelte']); if (!files.length) throw new Error('Keine HTML-, CSS- oder Svelte-Dateien gefunden.'); print(check(files), files.length); }
     else if (cmd === 'audit' && paths.length) { const files = collect(paths, ['.html', '.htm']).map((f) => new URL(f, `file://${process.cwd()}/`).pathname); const { audit } = await import('./audit.mjs'); print(await audit(files), files.length); }
     else if (cmd === 'migrate' && paths.length) { const ch = migrate(collect(paths, ['.html', '.htm', '.svelte']), flags.includes('--write')); for (const c of ch) console.log(`${c.file}:${c.line}  ${c.from} → ${c.to}  (${c.why})`); console.log(ch.length ? `\n${ch.length} Ersetzungen${flags.includes('--write') ? ' geschrieben' : ' möglich; mit --write ausführen'}.` : 'Nichts zu migrieren.'); }

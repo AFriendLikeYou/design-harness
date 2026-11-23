@@ -1,5 +1,5 @@
 {
-  "$comment": "Generiert aus specs/system.json – nicht von Hand bearbeiten. Einzige Quelle für gültige Komponenten, Props, Werte und Tokens.",
+  "$comment": "Generiert – nicht von Hand bearbeiten. Einzige Quelle für gültige Komponenten, Props, Werte und Tokens.",
   "principles": [
     {
       "id": "principles/surface-and-line",

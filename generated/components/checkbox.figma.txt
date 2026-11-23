@@ -1,0 +1,6 @@
+Status: stable · v1.2.0
+Auswahl einer unabhängigen Option, die man an- oder abwählen kann.
+Regeln: Das Label ist Teil der Klickfläche. [checkbox/label-clickable] Ist die Checkbox deaktiviert, erklärt helperText den Grund. [checkbox/disabled-reason]
+A11y: Natives <input type="checkbox"> mit <label>; Klickfläche mindestens 44 × 44 px.
+Spec: ds/checkbox
+Code: <fd-checkbox> aus "@fundament/ui"

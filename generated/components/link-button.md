@@ -1,4 +1,4 @@
-<!-- Generiert aus specs/system.json – nicht von Hand bearbeiten. -->
+<!-- Generiert aus specs/figma.snapshot.json, ui/elements.js und specs/rules.json – nicht von Hand bearbeiten. -->
 # LinkButton
 Status: deprecated · v0.9.0 · Spec: ds/link-button
 Veraltet seit 1.0. Ersetzt durch Button variant=ghost.
