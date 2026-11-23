@@ -1,25 +1,42 @@
 <style>
-  body { font: 12px/1.5 Inter, system-ui, sans-serif; margin: 16px; color: #1a1a1a; }
-  h1 { font-size: 14px; margin: 0 0 4px; } p { margin: 0 0 12px; color: #5e5e5a; }
-  .row { display: flex; gap: 8px; flex-wrap: wrap; }
-  button { font: inherit; padding: 8px 12px; border-radius: 6px; border: 1px solid #c9c9c4; background: #fff; cursor: pointer; }
-  button.main { background: #1f4fd8; border-color: #1f4fd8; color: #fff; } button:disabled { opacity: .5; cursor: default; }
-  #out { margin-top: 12px; padding: 12px; border-radius: 6px; background: #f4f4f1; white-space: pre-wrap; overflow-wrap: anywhere; max-height: 190px; overflow: auto; }
-  #out.ok { background: #e6f4ea; } #out.bad { background: #fde8e6; } #out b { display: block; margin-bottom: 4px; }
+  :root { --bg: var(--figma-color-bg, #fff); --soft: var(--figma-color-bg-secondary, #f4f4f1); --text: var(--figma-color-text, #1a1a1a); --muted: var(--figma-color-text-secondary, #5e5e5a); --line: var(--figma-color-border, #dcdcd6); --brand: var(--figma-color-bg-brand, #1f4fd8); --on-brand: var(--figma-color-text-onbrand, #fff);
+    --ok-bg: var(--figma-color-bg-success-tertiary, #e6f4ea); --warn-bg: var(--figma-color-bg-warning-tertiary, #fdf3d7); --bad-bg: var(--figma-color-bg-danger-tertiary, #fde8e6); }
+  * { box-sizing: border-box; } body { font: 12px/1.5 Inter, system-ui, sans-serif; margin: 0; padding: 16px; color: var(--text); background: var(--bg); }
+  p { margin: 0; } .muted { color: var(--muted); }
+  .steps { display: flex; gap: 8px; margin: 0 0 16px; padding: 0; list-style: none; } .steps li { flex: 1; padding: 8px; border-radius: 6px; background: var(--soft); color: var(--muted); } .steps li b { display: block; color: var(--text); } .steps li.now { outline: 1.5px solid var(--brand); } .steps li.done b::after { content: " ✓"; }
+  section { margin-top: 12px; padding: 12px; border-radius: 6px; background: var(--soft); } section.ok { background: var(--ok-bg); } section.warn { background: var(--warn-bg); } section.bad { background: var(--bad-bg); }
+  h2 { font-size: 12px; margin: 0 0 4px; } ul { margin: 4px 0 0; padding: 0; list-style: none; } li.item { display: flex; gap: 8px; align-items: flex-start; justify-content: space-between; padding: 6px 0; border-top: 1px solid var(--line); } li.item:first-child { border-top: 0; } li.item span { overflow-wrap: anywhere; } li.item small { display: block; color: var(--muted); font-size: 11px; }
+  button { font: inherit; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--line); background: var(--bg); color: var(--text); cursor: pointer; } button.main { background: var(--brand); border-color: var(--brand); color: var(--on-brand); } button.small { padding: 2px 8px; flex: none; } button:disabled { opacity: .5; cursor: default; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 16px; } details { margin-top: 12px; color: var(--muted); } summary { cursor: pointer; } details .row { margin-top: 8px; }
 </style>
-<h1 id="h">Lese Datei …</h1>
-<p id="s"></p>
-<div class="row"><button class="main" id="send" disabled>Ins Repo übernehmen</button><button id="save" disabled>Als Datei speichern</button><button id="copy" disabled>Kopieren</button></div>
-<div id="out" hidden></div>
+<ol class="steps"><li id="st1" class="now"><b>1 / Lesen</b>Datei auslesen</li><li id="st2"><b>2 / Prüfen</b>Passt es zum Code?</li><li id="st3"><b>3 / Übernehmen</b>Ins Repo legen</li></ol>
+<p id="info" class="muted">Lese Datei …</p>
+<div id="panels"></div>
+<div class="row"><button class="main" id="send" disabled>Ins Repo übernehmen</button><button id="again" disabled>Neu lesen</button></div>
+<details><summary>Ohne lokalen Server</summary><p>Stand als Datei speichern oder kopieren und im Repo als specs/figma.snapshot.json ablegen. Danach node build.mjs.</p><div class="row"><button id="save" disabled>Als Datei speichern</button><button id="copy" disabled>Kopieren</button></div></details>
+<p class="muted" style="margin-top: 12px">Das Plugin liest nur. In der Figma-Datei ändert es nichts.</p>
 <script>
 const SERVER = 'http://localhost:4321/__snapshot'; let json = ''; const $ = (i) => document.getElementById(i);
-const show = (cls, title, lines) => { const o = $('out'); o.hidden = false; o.className = cls; o.textContent = ''; const b = document.createElement('b'); b.textContent = title; o.append(b, (lines || []).join('\n')); };
-onmessage = async (e) => { const m = e.data.pluginMessage; if (m.error) { $('h').textContent = 'Export fehlgeschlagen'; show('bad', m.error, []); return; }
-  json = m.json; $('h').textContent = 'Stand gelesen'; $('s').textContent = m.info; $('save').disabled = $('copy').disabled = false;
-  try { const r = await fetch(SERVER); if (!r.ok) throw 0; $('send').disabled = false; } catch { show('', 'Der lokale Server läuft nicht.', ['Im Repo starten: node tooling/serve.mjs', 'Oder den Stand als Datei speichern und als specs/figma.snapshot.json ins Repo legen.']); } };
-$('send').onclick = async () => { $('send').disabled = true; show('', 'Übernehme …', []);
-  try { const r = await (await fetch(SERVER, { method: 'POST', headers: { 'content-type': 'text/plain' }, body: json })).json(); show(r.ok ? 'ok' : 'bad', r.title, r.lines); } catch (err) { show('bad', 'Der Server ist nicht erreichbar.', ['Im Repo starten: node tooling/serve.mjs']); }
-  $('send').disabled = false; };
-$('save').onclick = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([json], { type: 'application/json' })); a.download = 'figma.snapshot.json'; a.click(); show('', 'Gespeichert als figma.snapshot.json.', ['Im Repo unter specs/ ablegen, dann node build.mjs.']); };
-$('copy').onclick = () => { const t = document.createElement('textarea'); t.value = json; document.body.append(t); t.select(); document.execCommand('copy'); t.remove(); show('', 'Kopiert.', ['Im Repo als specs/figma.snapshot.json speichern, dann node build.mjs.']); };
+const step = (n) => [1, 2, 3].forEach((i) => { $('st' + i).className = i < n ? 'done' : i === n ? 'now' : ''; });
+const el = (tag, props, kids) => { const e = Object.assign(document.createElement(tag), props || {}); for (const k of kids || []) e.append(k); return e; };
+const panel = (cls, title, items, hint) => { const ul = el('ul'); for (const it of items || []) { const o = typeof it === 'string' ? { text: it } : it; const span = el('span', { textContent: o.text }); for (const d of o.detail || []) span.append(el('small', { textContent: d })); const li = el('li', { className: 'item' }, [span]); if (o.comp) li.append(el('button', { className: 'small', textContent: 'Zeigen', onclick: () => parent.postMessage({ pluginMessage: { jump: { comp: o.comp, variant: o.variant || '' } } }, '*') })); ul.append(li); }
+  const s = el('section', { className: cls }, [el('h2', { textContent: title })]); if (hint) s.append(el('p', { className: 'muted', textContent: hint })); if (items && items.length) s.append(ul); $('panels').append(s); };
+const render = (r) => { $('panels').textContent = '';
+  if (r.blockers && r.blockers.length) panel('bad', r.title, r.blockers, 'Das musst du in Figma beheben. Danach „Neu lesen“.');
+  else panel(r.applied ? 'ok' : r.ok ? '' : 'bad', r.title, [], r.applied ? 'Der Stand liegt jetzt im Repo. Der nächste Schritt liegt bei der Entwicklung: prüfen und committen.' : '');
+  if (r.changes && r.changes.length) panel('', (r.applied ? 'Das wurde übernommen' : 'Das ändert sich im Repo') + ' (' + r.changes.length + ')', r.changes.slice(0, 12).concat(r.changes.length > 12 ? ['und ' + (r.changes.length - 12) + ' weitere'] : []));
+  if (r.todo && r.todo.length) panel('warn', 'Im Code noch nachzuziehen (' + r.todo.length + ')', r.todo, 'Kein Fehler in Figma. Solange das offen ist, gilt die Komponente als Entwurf.');
+  else if (r.ok && !(r.blockers || []).length) panel('ok', 'Figma und Code passen zusammen', [], 'Properties, Varianten und Standardwerte stimmen überein.'); };
+const check = async () => { step(2); $('send').disabled = true; $('panels').textContent = ''; panel('', 'Prüfe gegen den Code …', []);
+  try { const r = await (await fetch(SERVER + '?dry=1', { method: 'POST', headers: { 'content-type': 'text/plain' }, body: json })).json(); render(r); const can = r.ok && r.changes.length > 0; $('send').disabled = !can; $('send').textContent = r.ok && !r.changes.length ? 'Nichts zu übernehmen' : 'Ins Repo übernehmen'; if (can) step(3); }
+  catch (e) { $('panels').textContent = ''; panel('warn', 'Der lokale Server ist nicht erreichbar', ['Im Repo starten: node tooling/serve.mjs', 'Dann hier „Neu lesen“ klicken.'], 'Ohne Server kann das Plugin nicht prüfen. Speichern und Kopieren gehen trotzdem, siehe unten.'); } };
+onmessage = (e) => { const m = e.data.pluginMessage; if (!m) return; if (m.error) { $('info').textContent = 'Lesen fehlgeschlagen.'; $('panels').textContent = ''; panel('bad', 'Die Datei konnte nicht gelesen werden', [m.error]); $('again').disabled = false; return; }
+  if (m.note) { $('info').textContent = m.note; return; }
+  json = m.json; $('info').textContent = 'Gelesen: ' + m.info; for (const i of ['again', 'save', 'copy']) $(i).disabled = false; check(); };
+$('again').onclick = () => { step(1); $('info').textContent = 'Lese Datei …'; $('panels').textContent = ''; $('send').disabled = true; parent.postMessage({ pluginMessage: { read: true } }, '*'); };
+$('send').onclick = async () => { $('send').disabled = true; $('panels').textContent = ''; panel('', 'Übernehme …', []);
+  try { const r = await (await fetch(SERVER, { method: 'POST', headers: { 'content-type': 'text/plain' }, body: json })).json(); render(r); if (r.applied) { [1, 2, 3].forEach((i) => { $('st' + i).className = 'done'; }); $('send').textContent = 'Übernommen'; } else $('send').disabled = false; }
+  catch (e) { $('panels').textContent = ''; panel('bad', 'Der Server ist nicht erreichbar', ['Im Repo starten: node tooling/serve.mjs']); $('send').disabled = false; } };
+$('save').onclick = () => { const a = el('a', { href: URL.createObjectURL(new Blob([json], { type: 'application/json' })), download: 'figma.snapshot.json' }); a.click(); };
+$('copy').onclick = () => { const t = el('textarea', { value: json }); document.body.append(t); t.select(); document.execCommand('copy'); t.remove(); $('copy').textContent = 'Kopiert'; };
 </script>

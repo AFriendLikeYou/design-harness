@@ -10,6 +10,66 @@ Wie Fundament aufgebaut ist und wie man es ändert, ohne dass Design und Code au
 - **Agenten lesen, statt zu raten.** Ein KI-Agent bekommt eine erzeugte Liste von allem, was es gibt. Er prüft seine Arbeit selbst und behebt, was der Check meldet.
 - **Lücken werden gemeldet, nicht überbaut.** Fehlt ein Baustein oder ein Wert, baut ihn niemand heimlich nach. Die Lücke kommt in den Bericht. So wächst das System an der richtigen Stelle.
 
+## Warum Agenten damit genau bauen
+
+Ein KI-Agent rät gern: Er erfindet Namen, nimmt irgendeine Farbe und schätzt Abstände. Sieben Dinge nehmen ihm das Raten ab.
+
+1. **Er bekommt eine Liste, keine Beschreibung.** Für jeden Baustein steht fest, wie er heißt, welche Einstellungen er hat und welche Werte erlaubt sind. Die Liste wird erzeugt. Niemand tippt sie ab, also veraltet sie nicht.
+
+   ```
+   fd-button
+     variant   primary | secondary | ghost | danger
+     size      md | sm
+     disabled  ja | nein
+     label     Text
+   ```
+
+2. **Was nicht auf der Liste steht, fällt auf.** Schreibt der Agent etwas Erfundenes, sagt ihm der Check, was falsch ist und was stattdessen gilt. Er muss nicht raten, wie er es behebt.
+
+   ```
+   <fd-button variant="blue"> ist kein gültiger Wert.
+       Behebung: Erlaubt: primary, secondary, ghost, danger (Standard: primary).
+   
+   <fd-tooltip> gibt es nicht.
+       Behebung: Keine Komponenten erfinden; fehlt etwas, die Lücke melden.
+   ```
+
+3. **Farben und Abstände gibt es nur als Namen.** Der Agent schreibt nie einen Farbwert oder eine Pixelzahl. Er schreibt den Namen. Der Wert dahinter kommt aus Figma. Ändert das Design den Wert, ändert sich jede Seite mit.
+
+   ```
+   Fester Farbwert #1f4fd8.
+       Behebung: Durch ein semantisches Token ersetzen, var(--fd-color-…).
+   
+   Fester Abstand 13px in „margin“.
+       Behebung: var(--fd-space-…) verwenden.
+   ```
+
+4. **Das Aussehen der Bausteine wird nachgemessen.** Ein Programm öffnet jeden Baustein in jeder Variante im Browser und vergleicht Farben und Rahmenstärken mit Figma, hell und dunkel. Weicht eine ab, ist der Stand rot. So kann der Code nicht unbemerkt vom Design abdriften.
+
+   ```
+   Switch [checked=false] / Schieber (dunkel)
+       Code:  rgb(255, 255, 255)
+       Figma: action/danger = rgb(192, 43, 43)
+   ```
+
+5. **Die fertige Seite wird angesehen.** Zum Schluss misst ein Programm die Seite so, wie Menschen sie sehen: Passt sie aufs Handy? Ist der Text lesbar? Sind die Klickflächen groß genug? Hat jedes Bedienelement einen Namen?
+
+   ```
+   node cli/fundament.mjs audit <Pfad>
+   ```
+
+6. **Regeln haben einen Grund.** Jede Regel ist ein kurzer Satz mit Begründung. Die Begründung hilft dem Agenten in Fällen, an die niemand gedacht hat.
+
+   ```
+   Regel:  Höchstens ein primärer Button pro Ansicht.
+   Warum:  Mehrere primäre Aktionen konkurrieren um Aufmerksamkeit.
+   ```
+
+7. **Fehlt etwas, sagt er es.** Gibt es keinen passenden Baustein, baut der Agent keinen eigenen. Er nennt die Lücke im Bericht. Der Chip ist so entstanden: Die Regel für Badges verwies auf ihn, bevor es ihn gab.
+
+> **Was „genau“ hier heißt.** Gegen Figma gemessen werden heute die Farben und Rahmenstärken jeder Variante. Abstände, Radien und Schrift kommen aus denselben Tokens wie in Figma. Welches Token ein Baustein an welcher Stelle nutzt, wird aber noch nicht verglichen. Ein falscher Innenabstand in einem Baustein fiele also nicht von selbst auf.
+
+
 ## Was wohin gehört
 
 Drei Orte. Jeder führt bei dem, was nur er wissen kann.
