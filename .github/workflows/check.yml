@@ -12,7 +12,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Bauen, Kontrast, Lint, Check, CLI-Test, Plugin-Attrappe, Browser-Test
+      - name: Bauen, Kontrast, Lint, Check, Figma-Abgleich, CLI-Test, Browser-Test, gerenderte Prüfung
         run: node tooling/verify.mjs
       - name: Erzeugte Dateien sind eingecheckt
-        run: git diff --exit-code -- generated ui/tokens.css ui/contract.generated.js ui/package.json docs plugin/code.js
+        run: git diff --exit-code -- generated ui/tokens.css ui/contract.generated.js ui/package.json docs plugin-export LEITFADEN.md

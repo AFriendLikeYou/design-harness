@@ -1,15 +1,12 @@
-// Baut aus specs/system.json: Figma-Plugin, DTCG-Tokens, Komponenten-Markdown, llms.txt
+// Baut aus specs/system.json: DTCG-Tokens, CSS-Tokens, Verträge, Komponenten-Markdown, llms.txt, Doku-Site, Leitfaden, Export-Plugin
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
-const HOME = new URL('.', import.meta.url).pathname; // Vorlagen (Plugin, Web Components) kommen immer aus dem Hauptprojekt
+const HOME = new URL('.', import.meta.url).pathname; // gemeinsame Werkzeuge kommen immer aus dem Hauptprojekt
 if (process.argv[2]) process.chdir(process.argv[2]);
 const spec = JSON.parse(readFileSync('specs/system.json', 'utf8'));
 const kebab = (s) => s.replace(/([a-z0-9])([A-Z])/g, '$1-$2').replace(/[\/ ]+/g, '-').toLowerCase();
 const FLOAT_GROUPS = ['space', 'radius', 'border-width', 'size'].filter((g) => spec.semantic[g]);
 
-// 1) Plugin
-mkdirSync('plugin', { recursive: true }); mkdirSync('generated/components', { recursive: true });
-const tpl = readFileSync(HOME + 'plugin/code.template.js', 'utf8');
-writeFileSync('plugin/code.js', tpl.replace('__SPEC__', JSON.stringify(spec, null, 2)));
+mkdirSync('generated/components', { recursive: true });
 
 // 2) DTCG-Tokens
 const hexObj = (h) => ({ colorSpace: 'srgb', components: [1, 3, 5].map((i) => +(parseInt(h.slice(i, i + 2), 16) / 255).toFixed(4)), hex: h });

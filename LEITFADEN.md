@@ -32,7 +32,7 @@ Beide Seiten dürfen anfangen. Entschieden wird im Vorschlag für die Spec.
 
 - **Figma führt beim Aussehen.** Farbwerte, Abstände, Radien, Typografie, welche Varianten es gibt und wie Properties heißen.
 - **Das Repo führt beim Verhalten.** Regeln mit Warum, Checks, Barrierefreiheit, Verhalten wie trailingAction, Migrationen. Das steht in Figma nur als Beschreibung oder Annotation.
-- **Der Abgleich ist die Schnittstelle.** Niemand tippt Werte ab. Was Figma ändert, kommt als Vorschlag; was das Repo ändert, zieht Figma nach (Plugin oder Skript) und der Abgleich bestätigt es.
+- **Der Abgleich ist die Schnittstelle.** Niemand tippt Werte ab. Was Figma ändert, kommt als Vorschlag für die Spec. Ändert jemand einen Wert im Repo, zeigt der Abgleich die Abweichung, und der Wert wird in Figma nachgestellt. Ein Werkzeug, das von außen in die Figma-Datei schreibt, gibt es bewusst nicht.
 
 ## Eine neue Regel schreiben
 

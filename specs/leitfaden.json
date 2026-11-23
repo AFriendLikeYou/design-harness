@@ -80,7 +80,7 @@
     ],
     [
      "Der Abgleich ist die Schnittstelle",
-     "Niemand tippt Werte ab. Was Figma ändert, kommt als Vorschlag; was das Repo ändert, zieht Figma nach (Plugin oder Skript) und der Abgleich bestätigt es."
+     "Niemand tippt Werte ab. Was Figma ändert, kommt als Vorschlag für die Spec. Ändert jemand einen Wert im Repo, zeigt der Abgleich die Abweichung, und der Wert wird in Figma nachgestellt. Ein Werkzeug, das von außen in die Figma-Datei schreibt, gibt es bewusst nicht."
     ]
    ]
   },
