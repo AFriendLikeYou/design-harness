@@ -39,7 +39,7 @@ Props sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attr
 ## Regeln
 
 - **Label ist immer sichtbar, nie nur als Platzhalter.** Warum: Platzhalter verschwinden beim Tippen und sind für Screenreader unzuverlässig. (`textfield/visible-label`, Check: `required-prop`)
-- **Im Fehlerzustand ersetzt errorText den Hilfstext und erklärt, wie man den Fehler behebt.** Warum: Rot allein sagt nicht, was zu tun ist. (`textfield/error-text`, manuell)
+- **Im Fehlerzustand ersetzt errorText den Hilfstext und erklärt, wie man den Fehler behebt.** Warum: Rot allein sagt nicht, was zu tun ist. (`textfield/error-text`, Check: `required-when-error`)
 - **Aktionen im Feld (Passwort anzeigen, Eingabe leeren) nur über den Slot trailing, mit einem Button variant=ghost size=sm.** Warum: Selbst über das Feld gelegte Knöpfe verlieren Fokusreihenfolge und Abstände. (`textfield/trailing-slot`, Check: `slot-content`)
 - **Passwort anzeigen und Eingabe leeren kommen über trailingAction (reveal, clear), nicht über eigenes Skript.** Warum: Nur so stimmen Beschriftung, aria-pressed und Fokus bei jedem Feld überein. (`textfield/trailing-behavior`, manuell)
 

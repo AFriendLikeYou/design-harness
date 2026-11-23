@@ -1,8 +1,12 @@
 // Prüft die CLI an einer Datei mit eingebauten Fehlern: Jede hier genannte Regel muss anschlagen, die sauberen Dateien dürfen keinen Befund haben.
-import { check, lint, migrate, tokenize, IMPLEMENTED } from '../cli/fundament.mjs';
+import { check, lint, migrate, tokenize, IMPLEMENTED, emittedId } from '../cli/fundament.mjs';
 import { readFileSync } from 'node:fs';
 const here = (p) => new URL(p, import.meta.url).pathname;
-const EXPECT = ['tokens/no-raw-color', 'tokens/unknown', 'principles/spacing-from-scale', 'principles/surface-and-line', 'principles/sentence-case', 'principles/action-says-what', 'principles/system-controls', 'props/invalid-value', 'props/unknown', 'props/required', 'alert/one-per-area', 'card/no-nesting', 'card/one-action', 'slots/unknown-child', 'button/one-primary', 'components/deprecated', 'components/unknown', 'components/internal-class', 'badge/short-label', 'textfield/visible-label', 'textfield/error-text', 'textfield/trailing-slot', 'switch/disabled-reason', 'link/has-target', 'link/names-destination'];
+const { loadSpec } = await import('./assemble.mjs'); const spec = await loadSpec(here('..'));
+// Erwartet wird, was aus den Regeln mit check folgt (Befund-ID je Regel), dazu die allgemeinen IDs, die keiner einzelnen Regel gehören
+const GENERIC = ['tokens/no-raw-color', 'tokens/unknown', 'props/invalid-value', 'props/unknown', 'props/required', 'slots/unknown-child', 'components/deprecated', 'components/unknown', 'components/internal-class'];
+const withCheck = [...spec.components.flatMap((c) => c.rules), ...spec.principles].filter((r) => r.check);
+const EXPECT = [...new Set([...GENERIC, ...withCheck.map((r) => emittedId(r))])];
 const found = new Set(check([here('./fixtures/fehler.html')]).map((f) => f.id));
 const fails = [];
 for (const id of EXPECT) if (!found.has(id)) fails.push(`Regel ${id} schlägt in fixtures/fehler.html nicht an`);
@@ -12,13 +16,12 @@ const foundHtml = new Set(check([here('./fixtures/fehler-html.html')]).map((f) =
 for (const id of EXPECT_HTML) if (!foundHtml.has(id)) fails.push(`Regel ${id} schlägt in fixtures/fehler-html.html nicht an`);
 const clean = check([here('../ui/components.css'), here('../ui/examples/konto-einstellungen.html'), here('../ui/examples/zustaende.html'), here('../ui/examples/nur-html.html'), here('../docs/index.html')]);
 if (clean.length) fails.push(`${clean.length} Befunde in den eigenen Dateien: ${clean.map((f) => f.id).join(', ')}`);
-const { loadSpec } = await import('./assemble.mjs'); const spec = await loadSpec(here('..'));
 const l = lint(spec); if (l.length) fails.push(`lint: ${l.map((f) => f.message).join(' | ')}`);
 // Parser: schwieriges Markup
 const tk = tokenize(`<!-- <fd-button label="im Kommentar"> --><!doctype html><FD-Button\n  variant = 'ghost' label="a > b" disabled data-x=1 /><script>if (a < b) { x = "<fd-chip>"; }</script><fd-text-field label={name} value="{x}"></fd-text-field><p>1 < 2</p>`);
 const open = tk.filter((x) => !x.close);
 if (open.length !== 4 || open[0].tag !== 'fd-button' || open[0].attrs.variant !== 'ghost' || open[0].attrs.label !== 'a > b' || open[0].attrs.disabled !== true || open[0].attrs['data-x'] !== '1' || !open[0].selfClosing || open[1].tag !== 'script' || open[2].attrs.label !== '{name}' || open[3].tag !== 'p') fails.push('Parser liest schwieriges Markup falsch: ' + JSON.stringify(open.map((x) => [x.tag, x.attrs])));
-const promised = [...spec.components.flatMap((c) => c.rules), ...spec.principles].filter((r) => r.check).map((r) => r.check);
+const promised = withCheck.map((r) => r.check);
 for (const c of promised) if (!IMPLEMENTED.includes(c)) fails.push(`Check ${c} ist versprochen, aber nicht umgesetzt`);
 if (migrate([here('./fixtures/fehler.html')], false).length !== 1) fails.push('migrate findet die veraltete Komponente nicht');
 console.log(fails.length ? fails.join('\n') : `CLI-Test bestanden: ${EXPECT.length} Regeln schlagen an, eigene Dateien sauber, ${new Set(promised).size} versprochene Checks umgesetzt.`);

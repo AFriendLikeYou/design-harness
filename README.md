@@ -4,7 +4,7 @@ Ein Designsystem, das zeigt, wie ein agententaugliches System aufgebaut ist. Jed
 
 | Wissen | Heimat | Datei im Repo |
 |---|---|---|
-| Tokenwerte, Aussehen je Variante | Figma | `specs/figma.snapshot.json` (Export) |
+| Tokenwerte, Farb- und Rahmenstärken-Bindungen je Variante | Figma | `specs/figma.snapshot.json` (Export) |
 | Props, Slots, Verhalten | Code | `ui/elements.js`, `ui/fundament.js` |
 | Regeln, Begründungen, Kontrastzusagen | Regeldatei | `specs/rules.json` |
 
@@ -13,7 +13,7 @@ Eine große Spec, die jemand von Hand pflegt, gibt es nicht. `generated/system.j
 ## Struktur
 
 ```
-specs/figma.snapshot.json letzter Export aus Figma: Variablen, Text-Styles, Komponenten, Aussehen je Variante
+specs/figma.snapshot.json letzter Export aus Figma: Variablen, Text-Styles, Komponenten, Farb- und Rahmenstärken-Bindungen je Variante
 specs/rules.json          von Hand: Regeln mit Warum, Barrierefreiheit, Grundsätze, Kontrastpaare, Migrationen, Changelog
 specs/leitfaden.json      Quelle des Leitfadens (LEITFADEN.md, Doku-Site, Figma-Seite)
 ui/                       Paket @fundament/ui
@@ -78,7 +78,8 @@ node cli/fundament.mjs lint                  # System in sich stimmig?
 node cli/fundament.mjs check <Pfad> --json   # Seite gegen Verträge, Regeln, Grundsätze
 node cli/fundament.mjs audit <Pfad> --json   # gerendert: Überlauf, Kontrast, Namen, Klickflächen
 node tooling/figma-diff.mjs                  # Figma gegen Code und Regeln
-node tooling/test-styles.mjs                 # Code gegen Figma: Farben je Variante
+node tooling/test-robust.mjs                  # kaputte Eingaben (Kopie des Repos): klare Fehlermeldung statt Absturz
+node tooling/test-styles.mjs                 # Code gegen Figma: Farb- und Rahmenstärken-Bindungen je Variante (Abstände, Radien, Typografie werden nicht verglichen)
 ```
 
 ## Bewusst manuell
@@ -87,4 +88,4 @@ Code Connect, Dev Resources und das Veröffentlichen der Library gehen nur vom e
 
 ## Eigene Marke
 
-Die Figma-Datei duplizieren und dort Farben, Schrift und Namen ändern, exportieren, bauen. Regeln in `specs/rules.json` anpassen.
+Die Figma-Datei duplizieren und dort Farben und Namen ändern, exportieren, bauen. Die Schriftfamilie steht nicht im Export, sondern in `fontFamily` in `specs/rules.json` (ohne Eintrag gilt Inter). Regeln in `specs/rules.json` anpassen.

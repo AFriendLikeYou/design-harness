@@ -24,4 +24,4 @@
 ## Verträge und Prüfung
 
 - [Verträge](contracts.json): gültige Komponenten, Attribute, Werte, Regeln und Tokens, maschinenlesbar
-- Prüfen: node validate.mjs <Pfad> --json, Befunde beheben, wiederholen bis ok
+- Prüfen: node cli/fundament.mjs check <Pfad> --json, Befunde beheben, wiederholen bis ok

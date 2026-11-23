@@ -1,14 +1,21 @@
+// Rechnet zuerst alles im Speicher und prüft es (lint der zusammengesetzten Spec, Schriftschnitte, Kontrast); geschrieben wird erst ganz am Ende, bei einem Fehler bleibt das Repo unverändert.
 // Baut aus den drei Quellen (Figma-Schnappschuss, ui/elements.js, specs/rules.json): DTCG-Tokens, CSS-Tokens, Verträge, Komponenten-Markdown, llms.txt, Doku-Site, Leitfaden, Export-Plugin
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, rmSync } from 'node:fs';
+import { dirname } from 'node:path';
 const HOME = new URL('.', import.meta.url).pathname; // gemeinsame Werkzeuge kommen immer aus dem Hauptprojekt
 if (process.argv[2]) process.chdir(process.argv[2]);
 const { loadSpec, colorRoles } = await import(HOME + 'tooling/assemble.mjs');
-const spec = await loadSpec(process.cwd());
+let spec; try { spec = await loadSpec(process.cwd()); } catch (e) { console.error('Fehler: ' + e.message); process.exit(1); }
+// Nichts wird geschrieben, bevor alles geprüft ist: write() sammelt, flush am Ende schreibt
+const OUT = new Map(); const write = (p, c) => OUT.set(p, c); const LOG = []; const say = (...a) => LOG.push(a.join(' '));
+const { lint } = await import(HOME + 'cli/fundament.mjs');
+const problems = lint(spec); if (problems.length) { console.error('Das System ist in sich nicht stimmig, es wurde nichts geschrieben:'); for (const x of problems) console.error(`  [${x.id}] ${x.message}`); process.exit(1); }
+const weights = { Regular: 400, Medium: 500, 'Semi Bold': 600, Bold: 700 };
+const badWeight = spec.textStyles.filter((t) => !(t.weight in weights)); if (badWeight.length) { for (const t of badWeight) console.error(`Text-Style „${t.name}“: Schriftschnitt „${t.weight}“ ist unbekannt (bekannt: ${Object.keys(weights).join(', ')}). In Figma einen bekannten Schnitt wählen oder weights in build.mjs ergänzen. Es wurde nichts geschrieben.`); process.exit(1); }
 const SOURCE = spec.assembled ? 'specs/figma.snapshot.json, ui/elements.js und specs/rules.json' : 'specs/system.json';
 const kebab = (s) => s.replace(/([a-z0-9])([A-Z])/g, '$1-$2').replace(/[\/ ]+/g, '-').toLowerCase();
 const FLOAT_GROUPS = ['space', 'radius', 'border-width', 'size'].filter((g) => spec.semantic[g]);
 
-mkdirSync('generated/components', { recursive: true });
 
 // 2) DTCG-Tokens
 const hexObj = (h) => ({ colorSpace: 'srgb', components: [1, 3, 5].map((i) => +(parseInt(h.slice(i, i + 2), 16) / 255).toFixed(4)), hex: h });
@@ -22,11 +29,10 @@ for (const [name, t] of Object.entries(spec.semantic.color)) {
 }
 const shared = Object.fromEntries(FLOAT_GROUPS.map((g) => [g, { $type: 'dimension' }]));
 for (const g of FLOAT_GROUPS) for (const [n, t] of Object.entries(spec.semantic[g])) shared[g][n] = { $value: spec.primitives.dimension.includes(t.value) ? `{dimension.${t.value}}` : { value: t.value, unit: 'px' }, $description: t.why };
-mkdirSync('generated/tokens', { recursive: true });
-writeFileSync('generated/tokens/primitive.json', JSON.stringify(prim, null, 2));
-writeFileSync('generated/tokens/semantic.light.json', JSON.stringify(sem.light, null, 2));
-writeFileSync('generated/tokens/semantic.dark.json', JSON.stringify(sem.dark, null, 2));
-writeFileSync('generated/tokens/semantic.shared.json', JSON.stringify(shared, null, 2));
+write('generated/tokens/primitive.json', JSON.stringify(prim, null, 2));
+write('generated/tokens/semantic.light.json', JSON.stringify(sem.light, null, 2));
+write('generated/tokens/semantic.dark.json', JSON.stringify(sem.dark, null, 2));
+write('generated/tokens/semantic.shared.json', JSON.stringify(shared, null, 2));
 
 // Beispielaufruf eines Elements mit den Standardwerten der Spec
 const usage = (c, over = {}) => { const tag = `${spec.cssPrefix}-${kebab(c.name)}`; const at = (c.name === 'Link' ? ' href="#"' : '') + c.props.filter((p) => p.type !== 'instance' && p.type !== 'behavior').map((p) => { const v = over[p.name] ?? p.default; const n = kebab(p.name); if (p.type === 'boolean' || (p.type === 'variant' && p.values.join() === 'false,true')) return String(v) === 'true' ? (p.default === true ? '' : ` ${n}`) : (p.default === true ? ` ${n}="false"` : ''); if (p.type === 'variant') return v === p.default && !(p.name in over) ? '' : ` ${n}="${v}"`; return ` ${n}="${String(v).replace(/"/g, '&quot;')}"`; }).join(''); return `<${tag}${at}></${tag}>`; };
@@ -51,15 +57,14 @@ for (const c of spec.components) {
     c.do.length ? `## Do\n\n${c.do.map((d) => `- ${d}`).join('\n')}\n` : '',
     c.dont.length ? `## Don't\n\n${c.dont.map((d) => `- ${d}`).join('\n')}\n` : '',
   ].filter(Boolean).join('\n');
-  writeFileSync(`generated/components/${file}`, md);
+  write(`generated/components/${file}`, md);
 }
-writeFileSync('generated/llms.txt', `# ${spec.name} Design System ${spec.version}\n\n> Komponenten und Tokens. Quelle: ${SOURCE}. Code-Paket: ${spec.codePackage}.\n\n## Komponenten\n\n${idx.join('\n')}\n\n## Tokens\n\n- [Primitive](tokens/primitive.json): nicht direkt verwenden\n- [Semantisch light](tokens/semantic.light.json), [dark](tokens/semantic.dark.json), [Abstände und Radien](tokens/semantic.shared.json)\n\n## Verträge und Prüfung\n\n- [Verträge](contracts.json): gültige Komponenten, Attribute, Werte, Regeln und Tokens, maschinenlesbar\n- Prüfen: node validate.mjs <Pfad> --json, Befunde beheben, wiederholen bis ok\n`);
-console.log('gebaut:', spec.components.length, 'Komponenten');
+write('generated/llms.txt', `# ${spec.name} Design System ${spec.version}\n\n> Komponenten und Tokens. Quelle: ${SOURCE}. Code-Paket: ${spec.codePackage}.\n\n## Komponenten\n\n${idx.join('\n')}\n\n## Tokens\n\n- [Primitive](tokens/primitive.json): nicht direkt verwenden\n- [Semantisch light](tokens/semantic.light.json), [dark](tokens/semantic.dark.json), [Abstände und Radien](tokens/semantic.shared.json)\n\n## Verträge und Prüfung\n\n- [Verträge](contracts.json): gültige Komponenten, Attribute, Werte, Regeln und Tokens, maschinenlesbar\n- Prüfen: node cli/fundament.mjs check <Pfad> --json, Befunde beheben, wiederholen bis ok\n`);
+say('gebaut:', spec.components.length, 'Komponenten');
 
 // 4) CSS-Tokens für den Code (ui/tokens.css)
 const primHex = (ref) => { const [hue, stop] = ref.split('/'); return spec.primitives.color[hue][stop]; };
 const colorVars = (mode) => Object.entries(spec.semantic.color).map(([n, t]) => `  --${spec.cssPrefix}-color-${kebab(n)}: ${primHex(t[mode]).toLowerCase()};`).join('\n');
-const weights = { Regular: 400, Medium: 500, 'Semi Bold': 600, Bold: 700 };
 const css = [
   `/* Generiert aus ${SOURCE} – nicht von Hand bearbeiten. */`,
   `:root {\n  color-scheme: light dark;\n${colorVars('light')}`,
@@ -70,8 +75,7 @@ const css = [
   `:root[data-theme="dark"], [data-theme="dark"] {\n${colorVars('dark')}\n}`,
   `[data-theme="light"] {\n${colorVars('light')}\n}`,
 ].join('\n');
-mkdirSync('ui', { recursive: true });
-writeFileSync('ui/tokens.css', css + '\n');
+write('ui/tokens.css', css + '\n');
 
 // 5) Maschinenlesbare Verträge (generated/contracts.json) – Grundlage für validate.mjs und Agenten
 const tokenNames = [
@@ -82,7 +86,7 @@ const tokenNames = [
 // Props mit den Werten false/true sind im HTML native boolesche Attribute (disabled, checked)
 const isBool = (p) => p.values && p.values.join() === 'false,true';
 const contracts = {
-  $comment: 'Generiert – nicht von Hand bearbeiten. Einzige Quelle für gültige Komponenten, Props, Werte und Tokens.',
+  $comment: 'Generiert – nicht von Hand bearbeiten. Einzige Quelle für gültige Komponenten, Props, Werte und Tokens. attributes (data-<prop>) und parts gelten für die HTML-Fassung (Klassen-Markup); die Web Components nehmen die Props als Attribute ohne data-, siehe attrs.',
   principles: spec.principles || [], vagueActions: spec.vagueActions || [], migrations: spec.migrations || [],
   system: spec.name, version: spec.version, cssPrefix: spec.cssPrefix, codePackage: spec.codePackage,
   tokens: Object.fromEntries(tokenNames.map((n) => [n, true])),
@@ -94,7 +98,7 @@ const contracts = {
   components: Object.fromEntries(spec.components.map((c) => [c.name, {
     class: `${spec.cssPrefix}-${kebab(c.name)}`, kind: c.kind, status: c.status, version: c.version, purpose: c.purpose,
     deprecated: c.deprecated || null,
-    // Varianten-Props werden im HTML als data-<prop> gesetzt, boolesche als natives Attribut, Text-Props als Inhalt des gleichnamigen Teils (class="<class>__<prop>")
+    // In der HTML-Fassung (Klassen-Markup) werden Varianten-Props als data-<prop> gesetzt, boolesche als natives Attribut, Text-Props als Inhalt des gleichnamigen Teils (class="<class>__<prop>")
     booleans: c.props.filter((p) => p.type === 'variant' && isBool(p)).map((p) => p.name),
     attributes: Object.fromEntries(c.props.filter((p) => p.type === 'variant' && !isBool(p)).map((p) => [`data-${kebab(p.name)}`, { values: p.values, default: p.default }])),
     parts: c.props.filter((p) => p.type === 'text').map((p) => `${spec.cssPrefix}-${kebab(c.name)}__${kebab(p.name)}`),
@@ -105,8 +109,8 @@ const contracts = {
     rules: c.rules, a11y: c.a11y,
   }])),
 };
-writeFileSync('generated/contracts.json', JSON.stringify(contracts, null, 2) + '\n');
-console.log('gebaut: ui/tokens.css,', tokenNames.length, 'Tokens, generated/contracts.json');
+write('generated/contracts.json', JSON.stringify(contracts, null, 2) + '\n');
+say('gebaut: ui/tokens.css,', tokenNames.length, 'Tokens, generated/contracts.json');
 
 // 6) Kontrast nachrechnen (WCAG 2.x), Ergebnis ablegen, bei Verstoß abbrechen
 const lum = (h) => { const v = [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16) / 255).map((x) => (x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4)); return 0.2126 * v[0] + 0.7152 * v[1] + 0.0722 * v[2]; };
@@ -116,7 +120,7 @@ for (const p of spec.contrast || []) for (const on of p.on) for (const mode of [
   const r = ratio(primHex(spec.semantic.color[p.fg][mode]), primHex(spec.semantic.color[on][mode]));
   pairs.push({ fg: p.fg, on, mode, ratio: +r.toFixed(2), min: p.min, pass: r >= p.min, why: p.why, ...(p.accept && r < p.min ? { accepted: p.accept } : {}) });
 }
-writeFileSync('generated/contrast.json', JSON.stringify({ $comment: 'Generiert. Geprüfte Text/Fläche-Paare je Mode nach WCAG 2.x.', pairs }, null, 2) + '\n');
+write('generated/contrast.json', JSON.stringify({ $comment: 'Generiert. Geprüfte Text/Fläche-Paare je Mode nach WCAG 2.x.', pairs }, null, 2) + '\n');
 // Paare mit "accept" in der Spec sind bekannte, bewusst offene Verstöße: Sie werden gemeldet, brechen den Build aber nicht ab
 const failed = pairs.filter((p) => !p.pass && !p.accepted); const known = pairs.filter((p) => p.accepted);
 if (known.length) console.log('Kontrast: bekannte Verstöße:', known.map((p) => `${p.mode} ${p.fg} auf ${p.on} = ${p.ratio} (min ${p.min})`).join('; '));
@@ -134,22 +138,21 @@ for (const c of spec.components) {
   k.passthrough = c.passthrough || PASSTHROUGH[c.impl || c.name] || [];
   k.slotNames = c.props.filter((p) => p.type === 'instance').map((p) => p.name);
 }
-writeFileSync('generated/contracts.json', JSON.stringify(contracts, null, 2) + '\n');
+write('generated/contracts.json', JSON.stringify(contracts, null, 2) + '\n');
 const elements = Object.fromEntries(Object.entries(contracts.components).map(([name, k]) => [k.element, { name, ...(k.impl ? { impl: k.impl } : {}), status: k.status, deprecated: k.deprecated, attrs: k.attrs, passthrough: k.passthrough, slots: k.slotNames }]));
-writeFileSync('ui/contract.generated.js', `// Generiert aus ${SOURCE} – nicht von Hand bearbeiten.\nexport const VERSION = ${JSON.stringify(spec.version)};\nexport const PREFIX = ${JSON.stringify(spec.cssPrefix)};\nexport const ELEMENTS = ${JSON.stringify(elements, null, 2)};\n`);
-writeFileSync('ui/package.json', JSON.stringify({ name: spec.codePackage, version: spec.version, description: `${spec.name} Design System als Web Components`, type: 'module', main: './fundament.js', exports: { '.': './fundament.js', './tokens.css': './tokens.css', './components.css': './components.css', './contract': './contract.generated.js' }, files: ['fundament.js', 'elements.js', 'contract.generated.js', 'custom-elements.json', 'tokens.css', 'components.css'], customElements: 'custom-elements.json', sideEffects: true }, null, 2) + '\n');
-console.log('gebaut: ui/contract.generated.js, ui/package.json,', Object.keys(elements).length, 'Elemente');
+write('ui/contract.generated.js', `// Generiert aus ${SOURCE} – nicht von Hand bearbeiten.\nexport const VERSION = ${JSON.stringify(spec.version)};\nexport const PREFIX = ${JSON.stringify(spec.cssPrefix)};\nexport const ELEMENTS = ${JSON.stringify(elements, null, 2)};\n`);
+write('ui/package.json', JSON.stringify({ name: spec.codePackage, version: spec.version, description: `${spec.name} Design System als Web Components`, type: 'module', main: './fundament.js', exports: { '.': './fundament.js', './tokens.css': './tokens.css', './components.css': './components.css', './contract': './contract.generated.js' }, files: ['fundament.js', 'elements.js', 'contract.generated.js', 'custom-elements.json', 'tokens.css', 'components.css'], customElements: 'custom-elements.json', sideEffects: true }, null, 2) + '\n');
+say('gebaut: ui/contract.generated.js, ui/package.json,', Object.keys(elements).length, 'Elemente');
 
 // 8) Doku-Site für Menschen (docs/index.html), vollständig aus der Spec; nutzt die echten Web Components
 // Das Layout der Doku-Site nutzt die Rollen-Tokens von Fundament. Systeme mit anderem Token-Schema (z. B. die ZDS-Probe) bekommen keine.
-if (!spec.semantic.color['bg/canvas']) console.log('übersprungen: docs/index.html (Token-Schema ohne bg/canvas)');
+if (!spec.semantic.color['bg/canvas']) say('übersprungen: docs/index.html (Token-Schema ohne bg/canvas)');
 else {
   const { renderDocs } = await import(HOME + 'tooling/docs-site.mjs');
   let guide = null; try { guide = JSON.parse(readFileSync('specs/leitfaden.json', 'utf8')); } catch {}
   let html = {}; try { html = JSON.parse(readFileSync('generated/html.json', 'utf8')); } catch {}
-  mkdirSync('docs', { recursive: true });
-  writeFileSync('docs/index.html', renderDocs({ spec, pairs, usage, kebab, isBool, floatGroups: FLOAT_GROUPS, guide, html }));
-  console.log('gebaut: docs/index.html');
+  write('docs/index.html', renderDocs({ spec, pairs, usage, kebab, isBool, floatGroups: FLOAT_GROUPS, guide, html }));
+  say('gebaut: docs/index.html');
 }
 
 // 9) Leitfaden als Markdown (LEITFADEN.md) aus specs/leitfaden.json; dieselbe Datei speist die Figma-Seite
@@ -165,20 +168,19 @@ try {
     if (s.compare) { L.push('', '| So nicht | So |', '|---|---|'); for (const [a, c] of s.compare) L.push(`| ${a} | ${c} |`); }
     L.push('');
   }
-  writeFileSync('LEITFADEN.md', L.join('\n')); console.log('gebaut: LEITFADEN.md');
+  write('LEITFADEN.md', L.join('\n')); say('gebaut: LEITFADEN.md');
 } catch (e) { if (e.code !== 'ENOENT') throw e; }
 
 // 10) Export-Plugin für Designer aus tooling/figma-export.js (nur im Hauptprojekt)
 if (!process.argv[2]) {
   const body = readFileSync('tooling/figma-export.js', 'utf8');
   const ui = '<style>body{font:12px Inter,sans-serif;margin:12px}textarea{width:100%;height:300px;font:11px monospace}button{margin-top:8px;padding:6px 12px}</style><p>Schnappschuss kopieren und im Repo als <b>specs/figma.snapshot.json</b> speichern. Danach <b>node tooling/figma-diff.mjs</b>.</p><textarea id="t" readonly>Lese Datei …</textarea><button id="c">Kopieren</button><script>onmessage=(e)=>{document.getElementById("t").value=e.data.pluginMessage};document.getElementById("c").onclick=()=>{const t=document.getElementById("t");t.select();document.execCommand("copy")}</script>';
-  mkdirSync('plugin-export', { recursive: true });
-  writeFileSync('plugin-export/code.js', `// Fundament Export – zeigt den Schnappschuss der Datei zum Kopieren. Erzeugt aus tooling/figma-export.js – nicht von Hand bearbeiten.\nfigma.showUI(${JSON.stringify(ui)}, { width: 420, height: 420 });\n(async () => {\n${body.replace(/^return /m, 'const snapshot = ')}\nfigma.ui.postMessage(JSON.stringify(snapshot, null, 1));\n})().catch((e) => figma.ui.postMessage('Fehler: ' + e.message));\n`);
+  write('plugin-export/code.js', `// Fundament Export – zeigt den Schnappschuss der Datei zum Kopieren. Erzeugt aus tooling/figma-export.js – nicht von Hand bearbeiten.\nfigma.showUI(${JSON.stringify(ui)}, { width: 420, height: 420 });\n(async () => {\n${body.replace(/^return /m, 'const snapshot = ')}\nfigma.ui.postMessage(JSON.stringify(snapshot, null, 1));\n})().catch((e) => figma.ui.postMessage('Fehler: ' + e.message));\n`);
 }
 
 // 11) Zusammengesetztes System zur Ansicht und das Manifest der Web Components (Format: Custom Elements Manifest 1.0.0)
 if (spec.assembled) {
-  writeFileSync('generated/system.json', JSON.stringify({ $comment: 'Generiert zur Ansicht: das System, wie es aus Figma-Schnappschuss, Code und Regeldatei zusammengesetzt wird. Nicht von Hand bearbeiten.', ...spec }, null, 2) + '\n');
+  write('generated/system.json', JSON.stringify({ $comment: 'Generiert zur Ansicht: das System, wie es aus Figma-Schnappschuss, Code und Regeldatei zusammengesetzt wird. Nicht von Hand bearbeiten.', ...spec }, null, 2) + '\n');
   const cem = { schemaVersion: '1.0.0', readme: '', modules: [{ kind: 'javascript-module', path: 'fundament.js', declarations: spec.components.map((c) => ({
     kind: 'class', customElement: true, name: c.name, tagName: `${spec.cssPrefix}-${kebab(c.name)}`, description: c.purpose, ...(c.status === 'deprecated' ? { deprecated: `Seit ${c.deprecated.since}. Nutze ${c.deprecated.use}.` } : {}),
     attributes: c.props.filter((p) => p.type !== 'instance').map((p) => ({ name: kebab(p.name), type: { text: p.values && !isBool(p) ? p.values.map((v) => `'${v}'`).join(' | ') : p.type === 'boolean' || isBool(p) ? 'boolean' : 'string' }, default: JSON.stringify(isBool(p) ? p.default === 'true' : p.default) })),
@@ -186,7 +188,12 @@ if (spec.assembled) {
     exports: spec.components.map((c) => ({ kind: 'custom-element-definition', name: `${spec.cssPrefix}-${kebab(c.name)}`, declaration: { name: c.name, module: 'fundament.js' } })) }] };
   // Beschreibung je Komponente zum Einfügen in Figma (dort steht sie im Beschreibungsfeld)
   const { describe } = await import(HOME + 'tooling/assemble.mjs');
-  for (const c of spec.components) writeFileSync(`generated/components/${kebab(c.name)}.figma.txt`, describe(c, spec) + '\n');
-  writeFileSync('ui/custom-elements.json', JSON.stringify(cem, null, 2) + '\n');
-  console.log('gebaut: generated/system.json, ui/custom-elements.json');
+  for (const c of spec.components) write(`generated/components/${kebab(c.name)}.figma.txt`, describe(c, spec) + '\n');
+  write('ui/custom-elements.json', JSON.stringify(cem, null, 2) + '\n');
+  say('gebaut: generated/system.json, ui/custom-elements.json');
 }
+
+// Alles geprüft: jetzt schreiben. Verwaiste Dateien in generated/components/ verschwinden dabei.
+rmSync('generated/components', { recursive: true, force: true });
+for (const [p, c] of OUT) { mkdirSync(dirname(p), { recursive: true }); writeFileSync(p, c); }
+for (const l of LOG) console.log(l);

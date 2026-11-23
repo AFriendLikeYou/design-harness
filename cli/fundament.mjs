@@ -15,7 +15,14 @@ const ROOT = rootDir ? new URL(rootDir.replace(/\/?$/, '/'), `file://${process.c
 const read = (p) => JSON.parse(readFileSync(new URL(p, ROOT), 'utf8'));
 export const systemRoot = ROOT;
 // Checks, die diese CLI wirklich umsetzt. lint meldet Regeln, die einen anderen Check versprechen.
-export const IMPLEMENTED = ['max-per-view', 'no-raw-color', 'required-prop', 'slot-content', 'max-words', 'max-per-parent', 'max-children', 'no-nesting', 'registered-only', 'required-when-disabled', 'no-decoration', 'no-uppercase', 'no-vague-action', 'no-raw-space'];
+export const IMPLEMENTED = ['max-per-view', 'no-raw-color', 'required-prop', 'slot-content', 'max-words', 'max-per-parent', 'max-children', 'no-nesting', 'registered-only', 'required-when-disabled', 'no-decoration', 'no-uppercase', 'no-vague-action', 'no-raw-space', 'required-when-error'];
+// Regel-IDs, unter denen check() Befunde ausgibt (komponentenbezogen und Grundsätze). Alles andere sind allgemeine IDs (tokens/…, props/…, components/…, slots/…).
+// lint gleicht diese Liste mit specs/rules.json ab: Jede Regel mit "check" muss hier stehen (oder über CHECK_EMITS abgedeckt sein), jede Regel hier muss in den Regeln stehen und einen check tragen.
+export const CHECKED_IDS = ['button/one-primary', 'textfield/visible-label', 'textfield/error-text', 'textfield/trailing-slot', 'checkbox/disabled-reason', 'switch/disabled-reason', 'badge/short-label', 'alert/one-per-area', 'card/one-action', 'card/no-nesting', 'card/badge-slot', 'link/has-target', 'link/names-destination', 'principles/spacing-from-scale', 'principles/surface-and-line', 'principles/sentence-case', 'principles/action-says-what', 'principles/system-controls'];
+// Checks, die ihre Befunde unter einer allgemeinen ID ausgeben, nicht unter der Regel-ID
+export const CHECK_EMITS = { 'no-raw-color': 'tokens/no-raw-color', 'required-prop': 'props/required', 'registered-only': 'components/unknown' };
+// Unter welcher ID erscheint der Befund einer Regel mit check? undefined = die CLI gibt für diese Regel nichts aus
+export const emittedId = (r) => (CHECKED_IDS.includes(r.id) ? r.id : CHECK_EMITS[r.check]);
 
 const collect = (paths, exts) => { const files = []; const walk = (p) => { const s = statSync(p); if (s.isDirectory()) readdirSync(p).forEach((f) => walk(join(p, f))); else if (exts.includes(extname(p))) files.push(p); }; paths.forEach(walk); return files; };
 const lineOf = (src, i) => src.slice(0, i).split('\n').length;
@@ -66,14 +73,21 @@ export function lint(spec) {
   for (const p of spec.contrast || []) for (const k of [p.fg, ...p.on]) if (!colors.has(k)) add('lint/contrast', `Kontrastpaar verweist auf unbekanntes Token „${k}“.`);
   const ids = new Set(); const names = new Set();
   const rules = [...spec.components.flatMap((c) => c.rules), ...(spec.principles || [])];
-  for (const r of rules) { if (ids.has(r.id)) add('lint/rule-id', `Regel-ID „${r.id}“ ist doppelt.`); ids.add(r.id); if (!r.why) add('lint/why', `Regel ${r.id} hat keine Begründung.`); if (r.check && !IMPLEMENTED.includes(r.check)) add('lint/check-missing', `Regel ${r.id} verspricht den Check „${r.check}“, den die CLI nicht umsetzt.`); }
+  for (const r of rules) { if (ids.has(r.id)) add('lint/rule-id', `Regel-ID „${r.id}“ ist doppelt.`); ids.add(r.id); if (!r.why) add('lint/why', `Regel ${r.id} hat keine Begründung.`); if (r.check && !IMPLEMENTED.includes(r.check)) add('lint/check-missing', `Regel ${r.id} verspricht den Check „${r.check}“, den die CLI nicht umsetzt.`); else if (r.check && !emittedId(r)) add('lint/check-unwired', `Regel ${r.id} hat check „${r.check}“, aber die CLI gibt keinen Befund für diese Regel-ID aus (nicht in CHECKED_IDS in cli/fundament.mjs). Check dort verdrahten oder in specs/rules.json auf null setzen.`); }
+  const byId = new Map(rules.map((r) => [r.id, r]));
+  for (const id of CHECKED_IDS) { const scope = id.split('/')[0]; if (scope === 'principles' ? !(spec.principles || []).length : !spec.components.some((c) => c.name.toLowerCase() === scope)) continue; const r = byId.get(id);
+    if (!r) add('lint/check-orphan', `Die CLI prüft „${id}“, diese Regel gibt es in specs/rules.json nicht (mehr). Regel wieder anlegen oder die Prüfung in cli/fundament.mjs entfernen.`); else if (!r.check) add('lint/check-orphan', `Die CLI prüft „${id}“, aber die Regel hat check: null. Einen Check-Namen eintragen (und in IMPLEMENTED aufführen) oder die Prüfung entfernen.`); }
   for (const c of spec.components) {
     if (names.has(c.name)) add('lint/component', `Komponente ${c.name} ist doppelt.`); names.add(c.name);
     for (const f of ['purpose', 'a11y', 'version', 'status']) if (!c[f]) add('lint/component', `${c.name}: „${f}“ fehlt.`);
     for (const p of c.props) { if (p.type === 'variant' && !p.values.includes(String(p.default))) add('lint/prop', `${c.name}.${p.name}: Standard „${p.default}“ ist kein erlaubter Wert.`); if (p.type === 'instance' && !spec.components.some((x) => x.name === p.default)) add('lint/prop', `${c.name}.${p.name}: Standard-Komponente „${p.default}“ gibt es nicht.`); }
+    if (c.missingCode) add('lint/code', `${c.name}: Regeleintrag ohne Komponente im Code. Komponente in ui/elements.js anlegen oder den Eintrag aus specs/rules.json entfernen.`);
     if (c.missingRules) add('lint/rules', `${c.name} ist im Code umgesetzt, hat aber keinen Eintrag in specs/rules.json (Zweck, Regeln, Barrierefreiheit).`);
     if (spec.assembled) { if (!Object.keys(c.looks).length) add('lint/figma', `${c.name}: kein Aussehen im Figma-Schnappschuss. Komponente in Figma anlegen und neu exportieren.`); for (const [variant, st] of Object.entries(c.looks)) for (const [role, tok] of Object.entries(st)) { if (tok.startsWith('(')) add('lint/figma', `${c.name} [${variant}]: ${role} ist in Figma nicht an eine Variable gebunden.`); else if (/Width$/.test(role) ? !spec.semantic['border-width']?.[tok] : !colors.has(tok)) add('lint/figma', `${c.name} [${variant}]: ${role} nutzt „${tok}“, das kein semantisches Token ist.`); } }
-    else if (c.status !== 'deprecated' && !c.styles) add('lint/styles', `${c.name}: styles fehlen.`);
+    if (spec.assembled) { // Textrollen und Schiebergriff, die die Standardvariante trägt, dürfen in keiner Variante ohne Grund fehlen (Fläche, Rahmen, Ring und Haken wechseln mit dem Zustand)
+      const vp = c.props.filter((p) => p.type === 'variant'); const dflt = Object.entries(c.looks).find(([k]) => k === 'default' || (vp.length && k.split(', ').length === vp.length && k.split(', ').every((kv) => { const [a, b] = kv.split('='); return String(vp.find((p) => p.name === a)?.default) === b; })));
+      if (dflt) for (const role of ['fg', 'body', 'helper', 'thumb']) if (dflt[1][role]) for (const [variant, st] of Object.entries(c.looks)) if (!st[role]) add('lint/figma', `${c.name} [${variant}]: ${role} fehlt, die Standardvariante [${dflt[0]}] hat es. In Figma die Ebene ergänzen und neu exportieren.`); }
+    if (!spec.assembled && c.status !== 'deprecated' && !c.styles) add('lint/styles', `${c.name}: styles fehlen.`);
     for (const [key, st] of Object.entries(c.styles || {})) {
       for (const [role, tok] of Object.entries(st)) { if (tok === null) continue; if (/Width$/.test(role)) { if (!spec.semantic['border-width']?.[tok]) add('lint/styles', `${c.name} [${key}]: Rahmenstärke „${tok}“ gibt es nicht.`); } else if (!colors.has(tok)) add('lint/styles', `${c.name} [${key}]: Token „${tok}“ gibt es nicht.`); }
       if (key !== 'default') for (const kv of key.split(', ')) { const [prop, val] = kv.split('='); const p = c.props.find((x) => x.name === prop); if (!p || !p.values?.includes(val)) add('lint/styles', `${c.name}: styles-Schlüssel „${kv}“ passt zu keinem Prop-Wert.`); }
@@ -90,7 +104,9 @@ export function check(files, C = read('generated/contracts.json'), opts = {}) {
   // Eine einzelne Seite wählt die Fassung mit <html data-fd-html>.
   let H = null; const htmlClasses = () => new Set(Object.values((() => { try { return read('generated/html.json'); } catch { return {}; } })()).flatMap((h) => [...h.matchAll(/class="([^"]*)"/g)].flatMap((m) => m[1].split(/\s+/))));
   const vague = (t) => C.vagueActions.includes(t.trim().toLowerCase().replace(/[.!→>\s]+$/g, ''));
-  const add = (file, line, id, message, fix) => findings.push({ file, line, id, message, fix });
+  // Befunde zu Regel-IDs, die es im Vertrag nicht gibt, werden nicht ausgegeben (lint meldet die Lücke)
+  const known = new Set([...Object.values(C.components).flatMap((c) => c.rules || []), ...(C.principles || [])].map((r) => r.id));
+  const add = (file, line, id, message, fix) => { if (CHECKED_IDS.includes(id) && !known.has(id)) return; findings.push({ file, line, id, message, fix }); };
   // name = Art der Komponente für die Regeln (bei "impl" die der Umsetzung), title = Name im System
   const byEl = Object.fromEntries(Object.entries(C.components).map(([name, c]) => [c.element, { ...c, title: name, name: c.impl || name }]));
   const byClass = Object.fromEntries(Object.entries(C.components).map(([name, c]) => [c.class, { name, ...c }]));

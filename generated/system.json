@@ -813,7 +813,7 @@
           "id": "textfield/error-text",
           "text": "Im Fehlerzustand ersetzt errorText den Hilfstext und erklärt, wie man den Fehler behebt.",
           "why": "Rot allein sagt nicht, was zu tun ist.",
-          "check": null
+          "check": "required-when-error"
         },
         {
           "id": "textfield/trailing-slot",

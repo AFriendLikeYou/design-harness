@@ -1,19 +1,19 @@
 // Prüft den Schnappschuss aus Figma (specs/figma.snapshot.json) gegen die beiden anderen Quellen:
 //   gegen den Code (ui/elements.js): Stimmen Komponenten, Properties, Werte und Standards überein?
-//   gegen die Regeldatei (specs/rules.json): Steht in Figma die aktuelle Beschreibung?
+//   gegen die Regeldatei (specs/rules.json): Trägt die Figma-Beschreibung die Zeile „Spec: ds/<name>“ (Pflicht)? Weicht der übrige Text von der Regeldatei ab, ist das nur ein Hinweis.
 // Dazu, ob die Figma-Datei in sich stimmt: Variablen mit Beschreibung, Scope und Code-Syntax, kein Aussehen ohne Variable.
 // Tokenwerte und Aussehen werden nicht verglichen, sondern übernommen: Dafür ist Figma die Quelle.
 //   node tooling/figma-diff.mjs                 zeigt Abweichungen, Exit 1 wenn es welche gibt
 //   --snapshot <Datei>                          anderen Schnappschuss prüfen
 //   --root <Ordner>                             anderes System prüfen (z. B. probe-zds)
 import { readFileSync } from 'node:fs';
-import { loadSpec, describe, kebab } from './assemble.mjs';
+import { loadSpec, describe, kebab, validateSnapshot } from './assemble.mjs';
 const arg = (n, d) => { const i = process.argv.indexOf(n); return i > 0 ? process.argv[i + 1] : d; };
 const root = arg('--root') ? new URL(arg('--root').replace(/\/?$/, '/'), `file://${process.cwd()}/`).pathname : new URL('..', import.meta.url).pathname;
 const isBool = (p) => p.values && p.values.join() === 'false,true';
 
 export function diff(snap, spec) {
-  const P = spec.cssPrefix; const out = []; const add = (kind, where, figma, soll, todo) => out.push({ kind, where, figma, soll, todo });
+  const P = spec.cssPrefix; const out = []; const add = (kind, where, figma, soll, todo, hint = false) => out.push({ kind, where, figma, soll, todo, hint });
   // 1) Figma in sich
   const names = new Set(snap.variables.map((v) => v[1]));
   for (const [col, name, type, values, scopes, syntax, description, hidden] of snap.variables) {
@@ -37,7 +37,9 @@ export function diff(snap, spec) {
       if (type === 'VARIANT') { const a = [...p.values].sort().join(' | '), b = q[2].join(' | '); if (a !== b) add('Varianten-Werte', where, b, a, 'Neuer Wert in Figma: in ui/elements.js und im CSS umsetzen. Fehlt er in Figma: dort die Variante anlegen.'); if (String(p.default) !== q[3]) add('Standard', where, q[3], String(p.default), 'Standard auf einer Seite angleichen.'); }
       if ((type === 'TEXT' || type === 'BOOLEAN') && q[2] !== p.default) add('Standard', where, String(q[2]), String(p.default), 'Standard auf einer Seite angleichen.'); }
     for (const q of f[1]) if (!want.some((p) => p.name === q[0])) add('Property nur in Figma', `${c.name}.${q[0]}`, `${q[1]} ${JSON.stringify(q[2])}`, '', 'Im Code umsetzen (ui/elements.js, fundament.js) oder in Figma entfernen.');
-    const d = describe(c, spec); if (f[2] !== d) { const a = f[2].split('\n'), b = d.split('\n'); const i = b.findIndex((l, n) => l !== a[n]); add('Beschreibung in Figma veraltet', c.name, a[i] || '(Zeile fehlt)', b[i] || '(Zeile zu viel)', 'Beschreibung aus generated/components/' + kebab(c.name) + '.figma.txt in Figma einfügen.'); }
+    const d = describe(c, spec); const specLine = `Spec: ds/${kebab(c.name)}`;
+    if (!String(f[2]).split('\n').some((l) => l.trim() === specLine)) add('Beschreibung ohne Spec-Zeile', c.name, '(Zeile fehlt)', specLine, 'Die Zeile „' + specLine + '“ in die Beschreibung der Komponente in Figma setzen (Vorschlag: generated/components/' + kebab(c.name) + '.figma.txt).');
+    else if (f[2] !== d) { const a = f[2].split('\n'), b = d.split('\n'); const i = b.findIndex((l, n) => l !== a[n]); add('Hinweis: Beschreibung weicht ab', c.name, a[i] || '(Zeile fehlt)', b[i] || '(Zeile zu viel)', 'Kein Fehler. Wer will, übernimmt den Text aus generated/components/' + kebab(c.name) + '.figma.txt in Figma.', true); }
     if (c.missingRules) add('Komponente ohne Regeln', c.name, '', '', 'Eintrag in specs/rules.json anlegen: Zweck, Regeln mit Warum, Barrierefreiheit.');
   }
   for (const f of snap.components) if (!spec.components.some((c) => c.name === f[0])) add('Komponente nur in Figma', f[0], f[1].map((p) => `${p[0]}: ${p[1]}`).join(', '), '', 'Im Code umsetzen (ui/elements.js, fundament.js, components.css) und in specs/rules.json eintragen. Bis dahin ist sie ein Entwurf.');
@@ -49,10 +51,14 @@ export function diff(snap, spec) {
 
 if (process.argv[1]?.endsWith('figma-diff.mjs')) {
   const snapPath = arg('--snapshot', root + 'specs/figma.snapshot.json'); let snap;
-  try { snap = JSON.parse(readFileSync(snapPath, 'utf8')); } catch { console.error(`Kein Schnappschuss unter ${snapPath}. In Figma das Plugin „Fundament Export“ ausführen und das Ergebnis dort speichern.`); process.exit(2); }
-  const spec = await loadSpec(root); const d = diff(snap, spec);
-  if (!d.length) { console.log(`Figma (Stand ${snap.exportedAt}), Code und Regeln passen zusammen: ${snap.variables.length} Variablen, ${snap.components.length} Komponenten, Aussehen von ${(snap.styles || []).length} Varianten.`); process.exit(0); }
-  for (const x of d) console.log(`${x.kind}: ${x.where}\n    Figma: ${x.figma || '(fehlt)'}\n    Soll:  ${x.soll || '(fehlt)'}\n    Tun:   ${x.todo}`);
+  let text; try { text = readFileSync(snapPath, 'utf8'); } catch { console.error(`Kein Schnappschuss unter ${snapPath}. In Figma das Plugin „Fundament Export“ ausführen und das Ergebnis dort speichern.`); process.exit(2); }
+  try { snap = JSON.parse(text); } catch (e) { console.error(`Fehler: ${snapPath} ist kein gültiges JSON (${e.message}). Mit dem Plugin „Fundament Export“ neu exportieren.`); process.exit(2); }
+  let spec; try { validateSnapshot(snap); spec = await loadSpec(root); } catch (e) { console.error('Fehler: ' + e.message); process.exit(2); }
+  const all = diff(snap, spec); const d = all.filter((x) => !x.hint); const hints = all.filter((x) => x.hint);
+  const show = (x) => console.log(`${x.kind}: ${x.where}\n    Figma: ${x.figma || '(fehlt)'}\n    Soll:  ${x.soll || '(fehlt)'}\n    Tun:   ${x.todo}`);
+  for (const x of hints) show(x);
+  if (!d.length) { console.log(`Figma (Stand ${snap.exportedAt}), Code und Regeln passen zusammen: ${snap.variables.length} Variablen, ${snap.components.length} Komponenten, Aussehen von ${(snap.styles || []).length} Varianten.${hints.length ? ` ${hints.length} Hinweise zur Beschreibung (kein Fehler).` : ''}`); process.exit(0); }
+  for (const x of d) show(x);
   console.log(`\n${d.length} Abweichungen zwischen Figma (Stand ${snap.exportedAt}) und Code oder Regeln.`);
   process.exit(1);
 }

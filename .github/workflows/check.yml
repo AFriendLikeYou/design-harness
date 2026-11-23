@@ -14,5 +14,7 @@ jobs:
           node-version: 22
       - name: Bauen, Kontrast, Lint, Check, Figma-Abgleich, CLI-Test, Browser-Test, gerenderte Prüfung
         run: node tooling/verify.mjs
-      - name: Erzeugte Dateien sind eingecheckt
-        run: git diff --exit-code -- generated ui/tokens.css ui/contract.generated.js ui/custom-elements.json ui/package.json docs plugin-export LEITFADEN.md
+      - name: Erzeugte Dateien sind eingecheckt (auch neue, unversionierte fallen auf)
+        run: |
+          changes=$(git status --porcelain -- generated ui/tokens.css ui/contract.generated.js ui/custom-elements.json ui/package.json docs plugin-export LEITFADEN.md)
+          if [ -n "$changes" ]; then echo "Erzeugte Dateien weichen vom Stand im Repo ab:"; echo "$changes"; exit 1; fi
