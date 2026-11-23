@@ -5,10 +5,11 @@
 // Tokenwerte und Aussehen werden nicht verglichen, sondern übernommen: Dafür ist Figma die Quelle.
 //   node tooling/figma-diff.mjs                 zeigt Abweichungen, Exit 1 wenn es welche gibt
 //   --snapshot <Datei>                          anderen Schnappschuss prüfen
+//   --root <Ordner>                             anderes System prüfen (z. B. probe-zds)
 import { readFileSync } from 'node:fs';
 import { loadSpec, describe, kebab } from './assemble.mjs';
 const arg = (n, d) => { const i = process.argv.indexOf(n); return i > 0 ? process.argv[i + 1] : d; };
-const root = new URL('..', import.meta.url).pathname;
+const root = arg('--root') ? new URL(arg('--root').replace(/\/?$/, '/'), `file://${process.cwd()}/`).pathname : new URL('..', import.meta.url).pathname;
 const isBool = (p) => p.values && p.values.join() === 'false,true';
 
 export function diff(snap, spec) {
@@ -18,7 +19,7 @@ export function diff(snap, spec) {
   for (const [col, name, type, values, scopes, syntax, description, hidden] of snap.variables) {
     const where = `${col}/${name}`; const group = name.split('/')[0];
     for (const v of Object.values(values)) if (typeof v === 'string' && v.startsWith('>') && !names.has(v.slice(1))) add('Verweis ins Leere', where, v, '', 'In Figma auf eine vorhandene Variable zeigen.');
-    if (col === 'semantic') {
+    if (col !== 'primitives') {
       if (!description.trim()) add('Variable ohne Beschreibung', where, '', 'Einsatz und Grenze in einem Satz', 'Beschreibung in Figma ergänzen. Ohne sie weiß kein Agent, wofür das Token gedacht ist.');
       if (!scopes.length) add('Variable ohne Scope', where, '', '', 'Scope in Figma setzen, damit das Token nur dort angeboten wird, wo es hingehört.');
       const want = `var(--${P}-${group}-${kebab(name.split('/').slice(1).join('/'))})`; if (syntax !== want) add('Code-Syntax', where, syntax || '(leer)', want, 'Code-Syntax (Web) in Figma so eintragen. Daran erkennen Entwickler und Agenten den Namen im Code.');

@@ -1,4 +1,4 @@
-<!-- Generiert aus specs/system.json – nicht von Hand bearbeiten. -->
+<!-- Generiert aus specs/figma.snapshot.json, ui/elements.js und specs/rules.json – nicht von Hand bearbeiten. -->
 # Input
 Status: stable · v0.1.0 · Spec: ds/input
 Einzeilige Texteingabe.
@@ -24,10 +24,10 @@ Props sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attr
 
 | Für | Tokens |
 |---|---|
-| `default` | bg: `background/0`, fg: `text/100`, border: `border/100`, borderWidth: `default`, helper: `text/70` |
-| `state=focus` | border: `text/55` |
-| `state=error` | border: `error/70`, helper: `error/70` |
-| `state=disabled` | fg: `text/40` |
+| `state=default` | bg: `background-0`, border: `border-100`, borderWidth: `default`, fg: `text-100`, helper: `text-70` |
+| `state=disabled` | bg: `background-0`, border: `border-100`, borderWidth: `default`, fg: `text-40`, helper: `text-70` |
+| `state=error` | bg: `background-0`, border: `error-70`, borderWidth: `default`, fg: `text-100`, helper: `error-70` |
+| `state=focus` | bg: `background-0`, border: `text-55`, borderWidth: `default`, fg: `text-100`, helper: `text-70` |
 
 ## Regeln
 

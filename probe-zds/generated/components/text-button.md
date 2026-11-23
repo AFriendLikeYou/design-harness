@@ -1,4 +1,4 @@
-<!-- Generiert aus specs/system.json – nicht von Hand bearbeiten. -->
+<!-- Generiert aus specs/figma.snapshot.json, ui/elements.js und specs/rules.json – nicht von Hand bearbeiten. -->
 # TextButton
 Status: stable · v0.1.0 · Spec: ds/text-button
 Zurückhaltende Aktion ohne Fläche, etwa in Leisten und neben Inhalten.
@@ -23,9 +23,14 @@ Props sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attr
 
 | Für | Tokens |
 |---|---|
-| `default` | fg: `text/70` |
-| `state=hover` | bg: `background/10`, fg: `text/100` |
-| `state=focus` | ring: `focus/100`, ringWidth: `strong` |
+| `size=default, bold=false, disabled=false, state=default` | fg: `text-70` |
+| `size=default, bold=false, disabled=false, state=focus` | fg: `text-70`, ring: `focus-100`, ringWidth: `strong` |
+| `size=default, bold=false, disabled=false, state=hover` | bg: `background-10`, fg: `text-100` |
+| `size=default, bold=false, disabled=true, state=default` | fg: `text-70` |
+| `size=default, bold=true, disabled=false, state=default` | fg: `text-70` |
+| `size=large, bold=false, disabled=false, state=default` | fg: `text-70` |
+| `size=large, bold=true, disabled=false, state=default` | fg: `text-70` |
+| `size=slim, bold=false, disabled=false, state=default` | fg: `text-70` |
 
 ## Regeln
 

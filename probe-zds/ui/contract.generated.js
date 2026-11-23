@@ -1,5 +1,5 @@
-// Generiert aus specs/system.json – nicht von Hand bearbeiten.
-export const VERSION = "0.2.0";
+// Generiert aus specs/figma.snapshot.json, ui/elements.js und specs/rules.json – nicht von Hand bearbeiten.
+export const VERSION = "0.3.0";
 export const PREFIX = "z-ds";
 export const ELEMENTS = {
   "z-ds-button": {

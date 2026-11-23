@@ -29,7 +29,7 @@ Regeln mit `"check": null` verlangen Urteil. Lies ihre Begründung (`why`) und `
 
 ## Veraltetes
 
-`node cli/fundament.mjs migrate <Pfad> --write` ersetzt veraltete Elemente laut Spec.
+`node cli/fundament.mjs migrate <Pfad> --write` ersetzt veraltete Elemente laut `migrations` in `specs/rules.json`.
 
 ## Nach Änderungen am System
 

@@ -154,7 +154,7 @@ else {
 // 9) Leitfaden als Markdown (LEITFADEN.md) aus specs/leitfaden.json; dieselbe Datei speist die Figma-Seite
 try {
   const g = JSON.parse(readFileSync('specs/leitfaden.json', 'utf8')); const L = ['<!-- Generiert aus specs/leitfaden.json – nicht von Hand bearbeiten. -->', '# ' + g.title, '', g.intro, ''];
-  for (const s of g.sections) { L.push('## ' + s.title, ''); if (s.intro) L.push(s.intro, ''); if (s.code) L.push('```json', s.code, '```', ''); for (const [t, x] of s.items || []) L.push(`- **${t}.** ${x}`); if (s.compare) { L.push('| So nicht | So |', '|---|---|'); for (const [a, c] of s.compare) L.push(`| ${a} | ${c} |`); } L.push(''); }
+  for (const s of g.sections) { L.push('## ' + s.title, ''); if (s.intro) L.push(s.intro, ''); if (s.code) L.push('```json', s.code, '```', ''); for (const f of s.flows || []) { L.push('**' + f.title + '**', ''); f.steps.forEach(([who, t, d], i) => L.push(`${i + 1}. ${t} (${who}): ${d}`)); L.push(''); } for (const [t, x] of s.items || []) L.push(`- **${t}.** ${x}`); if (s.compare) { L.push('| So nicht | So |', '|---|---|'); for (const [a, c] of s.compare) L.push(`| ${a} | ${c} |`); } L.push(''); }
   writeFileSync('LEITFADEN.md', L.join('\n')); console.log('gebaut: LEITFADEN.md');
 } catch (e) { if (e.code !== 'ENOENT') throw e; }
 

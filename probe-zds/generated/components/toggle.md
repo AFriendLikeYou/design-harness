@@ -1,4 +1,4 @@
-<!-- Generiert aus specs/system.json – nicht von Hand bearbeiten. -->
+<!-- Generiert aus specs/figma.snapshot.json, ui/elements.js und specs/rules.json – nicht von Hand bearbeiten. -->
 # Toggle
 Status: stable · v0.1.0 · Spec: ds/toggle
 Schaltet eine Einstellung sofort ein oder aus.
@@ -23,9 +23,10 @@ Props sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attr
 
 | Für | Tokens |
 |---|---|
-| `default` | bg: `background/20`, thumb: `general/white-100`, fg: `text/100`, helper: `text/70` |
-| `checked=true` | bg: `text/100` |
-| `state=focus` | ring: `focus/100`, ringWidth: `strong` |
+| `checked=false, state=default` | bg: `background-20`, fg: `text-100`, helper: `text-70`, thumb: `general-white-100` |
+| `checked=false, state=focus` | bg: `background-20`, fg: `text-100`, helper: `text-70`, ring: `focus-100`, ringWidth: `strong`, thumb: `general-white-100` |
+| `checked=true, state=default` | bg: `text-100`, fg: `text-100`, helper: `text-70`, thumb: `general-white-100` |
+| `checked=true, state=focus` | bg: `text-100`, fg: `text-100`, helper: `text-70`, ring: `focus-100`, ringWidth: `strong`, thumb: `general-white-100` |
 
 ## Regeln
 

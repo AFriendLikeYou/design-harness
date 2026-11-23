@@ -1,6 +1,6 @@
 # Fundament: Grundsätze für Gestaltungsentscheidungen
 
-Der Check (`node cli/fundament.mjs check`) findet falsche Namen, Regelverstöße und die fünf prüfbaren Grundsätze aus der Spec (keine Verläufe und Schatten, Satzschreibung, Aktionen sagen, was passiert, Abstände aus der Skala, Bedienelemente aus dem System). Er kann nicht beurteilen, ob eine Oberfläche gut ist. Dafür sind diese Grundsätze da. Sie enthalten bewusst keine Listen von Komponenten oder Tokens; die stehen in `generated/contracts.json`.
+Der Check (`node cli/fundament.mjs check`) findet falsche Namen, Regelverstöße und die fünf prüfbaren Grundsätze aus `specs/rules.json` (keine Verläufe und Schatten, Satzschreibung, Aktionen sagen, was passiert, Abstände aus der Skala, Bedienelemente aus dem System). Er kann nicht beurteilen, ob eine Oberfläche gut ist. Dafür sind diese Grundsätze da. Sie enthalten bewusst keine Listen von Komponenten oder Tokens; die stehen in `generated/contracts.json`.
 
 ## 1. Eine Ansicht hat eine Hauptsache
 

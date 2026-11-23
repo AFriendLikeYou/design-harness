@@ -19,11 +19,16 @@ export async function loadSpec(dir) {
   for (const [col, name, , values, scopes, , description] of snap.variables) {
     const [group, ...rest] = name.split('/'); const n = rest.join('/');
     if (col === 'primitives') { if (group === 'color') (primitives.color[rest[0]] ??= {})[rest[1]] = values.value; else if (group === 'dimension') primitives.dimension.push(values.value); else if (group === 'font-size') primitives.fontSize.push(values.value); else if (group === 'line-height') primitives.lineHeight.push(values.value); }
-    else if (group === 'color') semantic.color[n] = { light: String(values.light).replace('>color/', ''), dark: String(values.dark).replace('>color/', ''), scopes, why: description };
-    else (semantic[group] ??= {})[n] = { value: num(values.light), why: description };
+    else if (group === 'color') {
+      // Verweist die Variable auf ein Primitiv, gilt der Verweis. Trägt sie den Wert selbst (Sammlung ohne Primitive), wird je Mode ein Primitiv mitgeführt.
+      const ref = (mode) => { const v = String(values[mode] ?? values.light); if (v.startsWith('>color/')) return v.slice(7); (primitives.color[mode] ??= {})[kebab(n)] = v; return `${mode}/${kebab(n)}`; };
+      semantic.color[n] = { light: ref('light'), dark: ref('dark'), scopes, why: description };
+    } else { const v = num(values.light); (semantic[group] ??= {})[n] = { value: v, why: description }; if (typeof values.light === 'number' && group !== 'radius' && !primitives.dimension.includes(v)) primitives.dimension.push(v); }
   }
   for (const k of ['dimension', 'fontSize', 'lineHeight']) primitives[k].sort((a, b) => a - b);
   for (const g of Object.keys(semantic)) if (g !== 'color') semantic[g] = Object.fromEntries(Object.entries(semantic[g]).sort((a, b) => a[1].value - b[1].value));
+  const textStylesRaw = snap.textStyles; for (const t of textStylesRaw) { if (!primitives.fontSize.includes(t[2])) primitives.fontSize.push(t[2]); if (!primitives.lineHeight.includes(t[3])) primitives.lineHeight.push(t[3]); }
+  for (const k of ['dimension', 'fontSize', 'lineHeight']) primitives[k].sort((x, y) => x - y);
   const textStyles = snap.textStyles.map(([name, weight, size, line, description]) => ({ name, size, line, weight, why: description.replace(/ Code: var\([^)]*\)$/, '') })).sort((a, b) => b.size - a.size || a.name.localeCompare(b.name));
   // Aussehen je Variante, wie es in Figma gebunden ist
   const looks = {}; for (const [comp, variant, roles] of snap.styles || []) (looks[comp] ??= {})[variant || 'default'] = roles;

@@ -47,24 +47,24 @@
   ],
   "migrations": [],
   "system": "ZDS-Probe",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "cssPrefix": "z-ds",
   "codePackage": "@zeit/zds-probe",
   "tokens": {
+    "--z-ds-color-accent-100": true,
+    "--z-ds-color-accent-70": true,
     "--z-ds-color-background-0": true,
     "--z-ds-color-background-10": true,
     "--z-ds-color-background-20": true,
-    "--z-ds-color-text-100": true,
-    "--z-ds-color-text-70": true,
-    "--z-ds-color-text-40": true,
     "--z-ds-color-border-100": true,
     "--z-ds-color-border-70": true,
-    "--z-ds-color-accent-100": true,
-    "--z-ds-color-accent-70": true,
+    "--z-ds-color-error-70": true,
     "--z-ds-color-focus-100": true,
     "--z-ds-color-general-white-100": true,
+    "--z-ds-color-text-100": true,
+    "--z-ds-color-text-40": true,
     "--z-ds-color-text-55": true,
-    "--z-ds-color-error-70": true,
+    "--z-ds-color-text-70": true,
     "--z-ds-space-2": true,
     "--z-ds-space-4": true,
     "--z-ds-space-6": true,
@@ -80,65 +80,61 @@
     "--z-ds-radius-full": true,
     "--z-ds-border-width-default": true,
     "--z-ds-border-width-strong": true,
+    "--z-ds-size-toggle-thumb": true,
     "--z-ds-size-checkbox": true,
     "--z-ds-size-toggle-width": true,
-    "--z-ds-size-toggle-thumb": true,
     "--z-ds-size-touch-target": true,
-    "--z-ds-size-panel": true,
     "--z-ds-size-input": true,
     "--z-ds-text-display": true,
     "--z-ds-text-heading-lg": true,
-    "--z-ds-text-heading-md": true,
     "--z-ds-text-body-md": true,
-    "--z-ds-text-body-sm": true,
     "--z-ds-text-label-md": true,
+    "--z-ds-text-body-sm": true,
     "--z-ds-text-label-sm": true,
     "--z-ds-text-caption": true
   },
   "tokenDescriptions": {
-    "--z-ds-color-background-0": "Seitengrund und Fläche der Checkbox. Beschriftung des Primary-Buttons.",
-    "--z-ds-color-background-10": "Fläche des Default-Buttons, Hover-Fläche der Checkbox.",
-    "--z-ds-color-background-20": "Hover-Fläche des Default-Buttons, Bahn des Toggles im Aus-Zustand.",
-    "--z-ds-color-text-100": "Text. Fläche des Primary-Buttons, der angehakten Checkbox und des Toggles im An-Zustand.",
-    "--z-ds-color-text-70": "Sekundärer Text. Hover-Fläche des Primary-Buttons und der angehakten Checkbox.",
-    "--z-ds-color-text-40": "Deaktivierter Text und deaktivierte angehakte Checkbox. Muss keinen Kontrast erfüllen.",
-    "--z-ds-color-border-100": "Rahmen der Checkbox.",
-    "--z-ds-color-border-70": "Rahmen der deaktivierten Checkbox.",
     "--z-ds-color-accent-100": "ZEIT-Rot. Fläche des Z+-Buttons.",
     "--z-ds-color-accent-70": "Hover-Fläche des Z+-Buttons.",
-    "--z-ds-color-focus-100": "Fokus-Outline, 2 px.",
-    "--z-ds-color-general-white-100": "Festes Weiß: Beschriftung des Z+-Buttons, Haken der Checkbox, Knopf des Toggles.",
-    "--z-ds-color-text-55": "Platzhalter im Input. Rahmen des Inputs im Fokus.",
+    "--z-ds-color-background-0": "Seitengrund und Fläche der Checkbox. Beschriftung des Primary-Buttons.",
+    "--z-ds-color-background-10": "Fläche des Default-Buttons, Hover-Fläche von Checkbox und Text-Button.",
+    "--z-ds-color-background-20": "Hover-Fläche des Default-Buttons, Bahn des Toggles im Aus-Zustand.",
+    "--z-ds-color-border-100": "Rahmen von Checkbox und Input. Bekannter Verstoß: 1,6:1 statt 3:1.",
+    "--z-ds-color-border-70": "Rahmen der deaktivierten Checkbox.",
     "--z-ds-color-error-70": "Rahmen des Inputs im Fehlerzustand; in der Probe auch der Fehlertext.",
-    "--z-ds-space-2": "Abstand des Toggle-Knopfs zum Rand.",
-    "--z-ds-space-4": "Feinabstand.",
-    "--z-ds-space-6": "Innenabstand des schmalen Text-Buttons vertikal (--z-ds-space-6).",
-    "--z-ds-space-8": "Abstand zwischen Bedienelement und Beschriftung.",
-    "--z-ds-space-10": "Innenabstand Button vertikal (--z-ds-space-10).",
-    "--z-ds-space-12": "Innenabstand des Inputs horizontal (--z-ds-space-s).",
-    "--z-ds-space-16": "Innenabstand Button horizontal (--z-ds-space-16).",
-    "--z-ds-space-24": "Abstand zwischen Gruppen.",
+    "--z-ds-color-focus-100": "Fokus-Outline, 2 px.",
+    "--z-ds-color-general-white-100": "Festes Weiß: Beschriftung des Z+-Buttons, Haken, Knopf des Toggles.",
+    "--z-ds-color-text-100": "Text. Fläche des Primary-Buttons, der angehakten Checkbox und des Toggles im An-Zustand.",
+    "--z-ds-color-text-40": "Deaktivierter Text. Muss keinen Kontrast erfüllen.",
+    "--z-ds-color-text-55": "Platzhalter im Input. Rahmen des Inputs im Fokus.",
+    "--z-ds-color-text-70": "Sekundärer Text. Hover-Fläche des Primary-Buttons.",
+    "--z-ds-space-2": "Abstand aus der ZDS-Skala (2 px).",
+    "--z-ds-space-4": "Abstand aus der ZDS-Skala (4 px).",
+    "--z-ds-space-6": "Abstand aus der ZDS-Skala (6 px).",
+    "--z-ds-space-8": "Abstand aus der ZDS-Skala (8 px).",
+    "--z-ds-space-10": "Abstand aus der ZDS-Skala (10 px).",
+    "--z-ds-space-12": "Abstand aus der ZDS-Skala (12 px).",
+    "--z-ds-space-16": "Abstand aus der ZDS-Skala (16 px).",
+    "--z-ds-space-24": "Abstand aus der ZDS-Skala (24 px).",
     "--z-ds-space-32": "Abstand zwischen Abschnitten.",
-    "--z-ds-space-48": "Seitenrand.",
-    "--z-ds-radius-2": "Checkbox (--z-ds-border-radius-2).",
-    "--z-ds-radius-4": "Button (--z-ds-border-radius-4).",
-    "--z-ds-radius-full": "Toggle.",
-    "--z-ds-border-width-default": "Rahmen der Checkbox.",
-    "--z-ds-border-width-strong": "Fokus-Outline und Haken.",
-    "--z-ds-size-checkbox": "Kantenlänge der Checkbox.",
-    "--z-ds-size-toggle-width": "Breite der Toggle-Bahn.",
-    "--z-ds-size-toggle-thumb": "Durchmesser des Toggle-Knopfs.",
-    "--z-ds-size-touch-target": "Mindesthöhe der Klickzeile aus Bedienelement und Beschriftung (Fundament-Regel).",
-    "--z-ds-size-panel": "Höchstbreite schmaler Module (Annahme der Probe).",
-    "--z-ds-size-input": "Vorschaubreite des Inputs laut ZDS; im Layout füllt er seinen Container.",
-    "--z-ds-text-display": "Modultitel (Annahme der Probe).",
-    "--z-ds-text-heading-lg": "Abschnittstitel (Annahme der Probe).",
-    "--z-ds-text-heading-md": "Gruppentitel (Annahme der Probe).",
-    "--z-ds-text-body-md": "Fließtext und Beschriftungen (Annahme der Probe).",
-    "--z-ds-text-body-sm": "Hilfstext (Annahme der Probe).",
-    "--z-ds-text-label-md": "Beschriftung des Buttons: Tablet Gothic Bold 16, Zeilenhöhe 20 (aus button.css).",
-    "--z-ds-text-label-sm": "Kleine Beschriftung (Annahme der Probe).",
-    "--z-ds-text-caption": "Metadaten (Annahme der Probe)."
+    "--z-ds-space-48": "Abstand aus der ZDS-Skala (48 px).",
+    "--z-ds-radius-2": "Radius aus dem ZDS.",
+    "--z-ds-radius-4": "Radius aus dem ZDS.",
+    "--z-ds-radius-full": "Radius aus dem ZDS.",
+    "--z-ds-border-width-default": "Rahmenstärke.",
+    "--z-ds-border-width-strong": "Rahmenstärke.",
+    "--z-ds-size-toggle-thumb": "Maß der Komponente im ZDS.",
+    "--z-ds-size-checkbox": "Maß der Komponente im ZDS.",
+    "--z-ds-size-toggle-width": "Maß der Komponente im ZDS.",
+    "--z-ds-size-touch-target": "Mindesthöhe der Klickzeile aus Bedienelement und Beschriftung (Regel aus Fundament).",
+    "--z-ds-size-input": "Maß der Komponente im ZDS.",
+    "--z-ds-text-display": "ZDS-Probe.",
+    "--z-ds-text-heading-lg": "ZDS-Probe.",
+    "--z-ds-text-body-md": "ZDS-Probe.",
+    "--z-ds-text-label-md": "ZDS-Probe.",
+    "--z-ds-text-body-sm": "ZDS-Probe.",
+    "--z-ds-text-label-sm": "ZDS-Probe.",
+    "--z-ds-text-caption": "ZDS-Probe."
   },
   "components": {
     "Button": {
@@ -174,42 +170,83 @@
         "z-ds-button__label"
       ],
       "styles": {
-        "variant=default": {
-          "bg": "background/10",
-          "fg": "text/100"
+        "variant=default, fullwidth=false, disabled=false, state=default": {
+          "bg": "background-10",
+          "fg": "text-100"
         },
-        "variant=default, state=hover": {
-          "bg": "background/20"
-        },
-        "variant=primary": {
-          "bg": "text/100",
-          "fg": "background/0"
-        },
-        "variant=primary, state=hover": {
-          "bg": "text/70"
-        },
-        "variant=zplus": {
-          "bg": "accent/100",
-          "fg": "general/white-100"
-        },
-        "variant=zplus, state=hover": {
-          "bg": "accent/70"
-        },
-        "state=focus": {
-          "ring": "focus/100",
+        "variant=default, fullwidth=false, disabled=false, state=focus": {
+          "bg": "background-10",
+          "fg": "text-100",
+          "ring": "focus-100",
           "ringWidth": "strong"
+        },
+        "variant=default, fullwidth=false, disabled=false, state=hover": {
+          "bg": "background-20",
+          "fg": "text-100"
+        },
+        "variant=default, fullwidth=false, disabled=true, state=default": {
+          "bg": "background-10",
+          "fg": "text-100"
+        },
+        "variant=default, fullwidth=true, disabled=false, state=default": {
+          "bg": "background-10",
+          "fg": "text-100"
+        },
+        "variant=primary, fullwidth=false, disabled=false, state=default": {
+          "bg": "text-100",
+          "fg": "background-0"
+        },
+        "variant=primary, fullwidth=false, disabled=false, state=focus": {
+          "bg": "text-100",
+          "fg": "background-0",
+          "ring": "focus-100",
+          "ringWidth": "strong"
+        },
+        "variant=primary, fullwidth=false, disabled=false, state=hover": {
+          "bg": "text-70",
+          "fg": "background-0"
+        },
+        "variant=primary, fullwidth=false, disabled=true, state=default": {
+          "bg": "text-100",
+          "fg": "background-0"
+        },
+        "variant=primary, fullwidth=true, disabled=false, state=default": {
+          "bg": "text-100",
+          "fg": "background-0"
+        },
+        "variant=zplus, fullwidth=false, disabled=false, state=default": {
+          "bg": "accent-100",
+          "fg": "general-white-100"
+        },
+        "variant=zplus, fullwidth=false, disabled=false, state=focus": {
+          "bg": "accent-100",
+          "fg": "general-white-100",
+          "ring": "focus-100",
+          "ringWidth": "strong"
+        },
+        "variant=zplus, fullwidth=false, disabled=false, state=hover": {
+          "bg": "accent-70",
+          "fg": "general-white-100"
+        },
+        "variant=zplus, fullwidth=false, disabled=true, state=default": {
+          "bg": "accent-100",
+          "fg": "general-white-100"
+        },
+        "variant=zplus, fullwidth=true, disabled=false, state=default": {
+          "bg": "accent-100",
+          "fg": "general-white-100"
         }
       },
       "colorTokens": [
         "--z-ds-color-background-10",
         "--z-ds-color-text-100",
+        "--z-ds-color-focus-100",
         "--z-ds-color-background-20",
         "--z-ds-color-background-0",
         "--z-ds-color-text-70",
         "--z-ds-color-accent-100",
         "--z-ds-color-general-white-100",
-        "--z-ds-color-accent-70",
-        "--z-ds-color-focus-100"
+        "--z-ds-color-accent-70"
       ],
       "slots": [],
       "rules": [
@@ -302,35 +339,59 @@
         "z-ds-checkbox__helper-text"
       ],
       "styles": {
-        "default": {
-          "bg": "background/0",
-          "border": "border/100",
+        "checked=false, disabled=false, state=default": {
+          "bg": "background-0",
+          "border": "border-100",
           "borderWidth": "default",
-          "fg": "text/100",
-          "helper": "text/70"
+          "fg": "text-100",
+          "helper": "text-70"
         },
-        "checked=false, state=hover": {
-          "bg": "background/10"
-        },
-        "checked=true": {
-          "bg": "text/100",
-          "mark": "general/white-100",
-          "border": null,
-          "borderWidth": null
-        },
-        "checked=true, state=hover": {
-          "bg": "text/70"
-        },
-        "state=focus": {
-          "ring": "focus/100",
+        "checked=false, disabled=false, state=focus": {
+          "bg": "background-0",
+          "border": "border-100",
+          "borderWidth": "default",
+          "fg": "text-100",
+          "helper": "text-70",
+          "ring": "focus-100",
           "ringWidth": "strong"
         },
-        "disabled=true": {
-          "border": "border/70",
-          "fg": "text/40"
+        "checked=false, disabled=false, state=hover": {
+          "bg": "background-10",
+          "border": "border-100",
+          "borderWidth": "default",
+          "fg": "text-100",
+          "helper": "text-70"
         },
-        "checked=true, disabled=true": {
-          "bg": "text/40"
+        "checked=false, disabled=true, state=default": {
+          "bg": "background-0",
+          "border": "border-70",
+          "borderWidth": "default",
+          "fg": "text-40",
+          "helper": "text-70"
+        },
+        "checked=true, disabled=false, state=default": {
+          "bg": "text-100",
+          "border": "text-100",
+          "borderWidth": "default",
+          "fg": "text-100",
+          "helper": "text-70",
+          "mark": "general-white-100"
+        },
+        "checked=true, disabled=false, state=hover": {
+          "bg": "text-70",
+          "border": "text-70",
+          "borderWidth": "default",
+          "fg": "text-100",
+          "helper": "text-70",
+          "mark": "general-white-100"
+        },
+        "checked=true, disabled=true, state=default": {
+          "bg": "text-40",
+          "border": "text-40",
+          "borderWidth": "default",
+          "fg": "text-40",
+          "helper": "text-70",
+          "mark": "general-white-100"
         }
       },
       "colorTokens": [
@@ -338,11 +399,11 @@
         "--z-ds-color-border-100",
         "--z-ds-color-text-100",
         "--z-ds-color-text-70",
-        "--z-ds-color-background-10",
-        "--z-ds-color-general-white-100",
         "--z-ds-color-focus-100",
+        "--z-ds-color-background-10",
         "--z-ds-color-border-70",
-        "--z-ds-color-text-40"
+        "--z-ds-color-text-40",
+        "--z-ds-color-general-white-100"
       ],
       "slots": [],
       "rules": [
@@ -424,25 +485,40 @@
         "z-ds-toggle__helper-text"
       ],
       "styles": {
-        "default": {
-          "bg": "background/20",
-          "thumb": "general/white-100",
-          "fg": "text/100",
-          "helper": "text/70"
+        "checked=false, state=default": {
+          "bg": "background-20",
+          "fg": "text-100",
+          "helper": "text-70",
+          "thumb": "general-white-100"
         },
-        "checked=true": {
-          "bg": "text/100"
+        "checked=false, state=focus": {
+          "bg": "background-20",
+          "fg": "text-100",
+          "helper": "text-70",
+          "ring": "focus-100",
+          "ringWidth": "strong",
+          "thumb": "general-white-100"
         },
-        "state=focus": {
-          "ring": "focus/100",
-          "ringWidth": "strong"
+        "checked=true, state=default": {
+          "bg": "text-100",
+          "fg": "text-100",
+          "helper": "text-70",
+          "thumb": "general-white-100"
+        },
+        "checked=true, state=focus": {
+          "bg": "text-100",
+          "fg": "text-100",
+          "helper": "text-70",
+          "ring": "focus-100",
+          "ringWidth": "strong",
+          "thumb": "general-white-100"
         }
       },
       "colorTokens": [
         "--z-ds-color-background-20",
-        "--z-ds-color-general-white-100",
         "--z-ds-color-text-100",
         "--z-ds-color-text-70",
+        "--z-ds-color-general-white-100",
         "--z-ds-color-focus-100"
       ],
       "slots": [],
@@ -522,32 +598,43 @@
         "z-ds-input__error-text"
       ],
       "styles": {
-        "default": {
-          "bg": "background/0",
-          "fg": "text/100",
-          "border": "border/100",
+        "state=default": {
+          "bg": "background-0",
+          "border": "border-100",
           "borderWidth": "default",
-          "helper": "text/70"
-        },
-        "state=focus": {
-          "border": "text/55"
-        },
-        "state=error": {
-          "border": "error/70",
-          "helper": "error/70"
+          "fg": "text-100",
+          "helper": "text-70"
         },
         "state=disabled": {
-          "fg": "text/40"
+          "bg": "background-0",
+          "border": "border-100",
+          "borderWidth": "default",
+          "fg": "text-40",
+          "helper": "text-70"
+        },
+        "state=error": {
+          "bg": "background-0",
+          "border": "error-70",
+          "borderWidth": "default",
+          "fg": "text-100",
+          "helper": "error-70"
+        },
+        "state=focus": {
+          "bg": "background-0",
+          "border": "text-55",
+          "borderWidth": "default",
+          "fg": "text-100",
+          "helper": "text-70"
         }
       },
       "colorTokens": [
         "--z-ds-color-background-0",
-        "--z-ds-color-text-100",
         "--z-ds-color-border-100",
+        "--z-ds-color-text-100",
         "--z-ds-color-text-70",
-        "--z-ds-color-text-55",
+        "--z-ds-color-text-40",
         "--z-ds-color-error-70",
-        "--z-ds-color-text-40"
+        "--z-ds-color-text-55"
       ],
       "slots": [],
       "rules": [
@@ -643,23 +730,39 @@
         "z-ds-text-button__label"
       ],
       "styles": {
-        "default": {
-          "fg": "text/70"
+        "size=default, bold=false, disabled=false, state=default": {
+          "fg": "text-70"
         },
-        "state=hover": {
-          "bg": "background/10",
-          "fg": "text/100"
-        },
-        "state=focus": {
-          "ring": "focus/100",
+        "size=default, bold=false, disabled=false, state=focus": {
+          "fg": "text-70",
+          "ring": "focus-100",
           "ringWidth": "strong"
+        },
+        "size=default, bold=false, disabled=false, state=hover": {
+          "bg": "background-10",
+          "fg": "text-100"
+        },
+        "size=default, bold=false, disabled=true, state=default": {
+          "fg": "text-70"
+        },
+        "size=default, bold=true, disabled=false, state=default": {
+          "fg": "text-70"
+        },
+        "size=large, bold=false, disabled=false, state=default": {
+          "fg": "text-70"
+        },
+        "size=large, bold=true, disabled=false, state=default": {
+          "fg": "text-70"
+        },
+        "size=slim, bold=false, disabled=false, state=default": {
+          "fg": "text-70"
         }
       },
       "colorTokens": [
         "--z-ds-color-text-70",
+        "--z-ds-color-focus-100",
         "--z-ds-color-background-10",
-        "--z-ds-color-text-100",
-        "--z-ds-color-focus-100"
+        "--z-ds-color-text-100"
       ],
       "slots": [],
       "rules": [

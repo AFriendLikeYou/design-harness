@@ -2,35 +2,35 @@
   "space": {
     "2": {
       "$value": "{dimension.2}",
-      "$description": "Abstand des Toggle-Knopfs zum Rand."
+      "$description": "Abstand aus der ZDS-Skala (2 px)."
     },
     "4": {
       "$value": "{dimension.4}",
-      "$description": "Feinabstand."
+      "$description": "Abstand aus der ZDS-Skala (4 px)."
     },
     "6": {
       "$value": "{dimension.6}",
-      "$description": "Innenabstand des schmalen Text-Buttons vertikal (--z-ds-space-6)."
+      "$description": "Abstand aus der ZDS-Skala (6 px)."
     },
     "8": {
       "$value": "{dimension.8}",
-      "$description": "Abstand zwischen Bedienelement und Beschriftung."
+      "$description": "Abstand aus der ZDS-Skala (8 px)."
     },
     "10": {
       "$value": "{dimension.10}",
-      "$description": "Innenabstand Button vertikal (--z-ds-space-10)."
+      "$description": "Abstand aus der ZDS-Skala (10 px)."
     },
     "12": {
       "$value": "{dimension.12}",
-      "$description": "Innenabstand des Inputs horizontal (--z-ds-space-s)."
+      "$description": "Abstand aus der ZDS-Skala (12 px)."
     },
     "16": {
       "$value": "{dimension.16}",
-      "$description": "Innenabstand Button horizontal (--z-ds-space-16)."
+      "$description": "Abstand aus der ZDS-Skala (16 px)."
     },
     "24": {
       "$value": "{dimension.24}",
-      "$description": "Abstand zwischen Gruppen."
+      "$description": "Abstand aus der ZDS-Skala (24 px)."
     },
     "32": {
       "$value": "{dimension.32}",
@@ -38,18 +38,18 @@
     },
     "48": {
       "$value": "{dimension.48}",
-      "$description": "Seitenrand."
+      "$description": "Abstand aus der ZDS-Skala (48 px)."
     },
     "$type": "dimension"
   },
   "radius": {
     "2": {
       "$value": "{dimension.2}",
-      "$description": "Checkbox (--z-ds-border-radius-2)."
+      "$description": "Radius aus dem ZDS."
     },
     "4": {
       "$value": "{dimension.4}",
-      "$description": "Button (--z-ds-border-radius-4)."
+      "$description": "Radius aus dem ZDS."
     },
     "$type": "dimension",
     "full": {
@@ -57,45 +57,41 @@
         "value": 999,
         "unit": "px"
       },
-      "$description": "Toggle."
+      "$description": "Radius aus dem ZDS."
     }
   },
   "border-width": {
     "$type": "dimension",
     "default": {
       "$value": "{dimension.1}",
-      "$description": "Rahmen der Checkbox."
+      "$description": "Rahmenstärke."
     },
     "strong": {
       "$value": "{dimension.2}",
-      "$description": "Fokus-Outline und Haken."
+      "$description": "Rahmenstärke."
     }
   },
   "size": {
     "$type": "dimension",
+    "toggle-thumb": {
+      "$value": "{dimension.12}",
+      "$description": "Maß der Komponente im ZDS."
+    },
     "checkbox": {
       "$value": "{dimension.16}",
-      "$description": "Kantenlänge der Checkbox."
+      "$description": "Maß der Komponente im ZDS."
     },
     "toggle-width": {
       "$value": "{dimension.26}",
-      "$description": "Breite der Toggle-Bahn."
-    },
-    "toggle-thumb": {
-      "$value": "{dimension.12}",
-      "$description": "Durchmesser des Toggle-Knopfs."
+      "$description": "Maß der Komponente im ZDS."
     },
     "touch-target": {
       "$value": "{dimension.44}",
-      "$description": "Mindesthöhe der Klickzeile aus Bedienelement und Beschriftung (Fundament-Regel)."
-    },
-    "panel": {
-      "$value": "{dimension.360}",
-      "$description": "Höchstbreite schmaler Module (Annahme der Probe)."
+      "$description": "Mindesthöhe der Klickzeile aus Bedienelement und Beschriftung (Regel aus Fundament)."
     },
     "input": {
       "$value": "{dimension.292}",
-      "$description": "Vorschaubreite des Inputs laut ZDS; im Layout füllt er seinen Container."
+      "$description": "Maß der Komponente im ZDS."
     }
   }
 }

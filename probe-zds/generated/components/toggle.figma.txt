@@ -1,0 +1,6 @@
+Status: stable · v0.1.0
+Schaltet eine Einstellung sofort ein oder aus.
+Regeln: Der Toggle hat immer eine sichtbare Beschriftung; sie gehört zur Klickfläche. [toggle/needs-label] Nur für Einstellungen, die sofort wirken. [toggle/immediate]
+A11y: Als <button role="switch"> mit aria-checked. Einen deaktivierten Zustand gibt es im ZDS nicht.
+Spec: ds/toggle
+Code: <z-ds-toggle> aus "@zeit/zds-probe"

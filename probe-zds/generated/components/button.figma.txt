@@ -1,0 +1,6 @@
+Status: stable · v0.1.0
+Löst eine Aktion aus.
+Regeln: Höchstens ein Primary-Button pro Ansicht. [button/one-primary] Beschriftung beginnt mit einem Verb und nennt das Ergebnis. [button/label-verb] variant=zplus nur für den Weg zu Z+-Inhalten oder zum Abo. [button/zplus-only-paid]
+A11y: Als <button> umsetzen. :focus-visible zeigt eine 2-px-Outline in focus/100. Deaktiviert senkt die Deckkraft auf 50 %.
+Spec: ds/button
+Code: <z-ds-button> aus "@zeit/zds-probe"

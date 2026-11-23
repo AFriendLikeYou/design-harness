@@ -1,4 +1,4 @@
-<!-- Generiert aus specs/system.json – nicht von Hand bearbeiten. -->
+<!-- Generiert aus specs/figma.snapshot.json, ui/elements.js und specs/rules.json – nicht von Hand bearbeiten. -->
 # Button
 Status: stable · v0.1.0 · Spec: ds/button
 Löst eine Aktion aus.
@@ -23,13 +23,21 @@ Props sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attr
 
 | Für | Tokens |
 |---|---|
-| `variant=default` | bg: `background/10`, fg: `text/100` |
-| `variant=default, state=hover` | bg: `background/20` |
-| `variant=primary` | bg: `text/100`, fg: `background/0` |
-| `variant=primary, state=hover` | bg: `text/70` |
-| `variant=zplus` | bg: `accent/100`, fg: `general/white-100` |
-| `variant=zplus, state=hover` | bg: `accent/70` |
-| `state=focus` | ring: `focus/100`, ringWidth: `strong` |
+| `variant=default, fullwidth=false, disabled=false, state=default` | bg: `background-10`, fg: `text-100` |
+| `variant=default, fullwidth=false, disabled=false, state=focus` | bg: `background-10`, fg: `text-100`, ring: `focus-100`, ringWidth: `strong` |
+| `variant=default, fullwidth=false, disabled=false, state=hover` | bg: `background-20`, fg: `text-100` |
+| `variant=default, fullwidth=false, disabled=true, state=default` | bg: `background-10`, fg: `text-100` |
+| `variant=default, fullwidth=true, disabled=false, state=default` | bg: `background-10`, fg: `text-100` |
+| `variant=primary, fullwidth=false, disabled=false, state=default` | bg: `text-100`, fg: `background-0` |
+| `variant=primary, fullwidth=false, disabled=false, state=focus` | bg: `text-100`, fg: `background-0`, ring: `focus-100`, ringWidth: `strong` |
+| `variant=primary, fullwidth=false, disabled=false, state=hover` | bg: `text-70`, fg: `background-0` |
+| `variant=primary, fullwidth=false, disabled=true, state=default` | bg: `text-100`, fg: `background-0` |
+| `variant=primary, fullwidth=true, disabled=false, state=default` | bg: `text-100`, fg: `background-0` |
+| `variant=zplus, fullwidth=false, disabled=false, state=default` | bg: `accent-100`, fg: `general-white-100` |
+| `variant=zplus, fullwidth=false, disabled=false, state=focus` | bg: `accent-100`, fg: `general-white-100`, ring: `focus-100`, ringWidth: `strong` |
+| `variant=zplus, fullwidth=false, disabled=false, state=hover` | bg: `accent-70`, fg: `general-white-100` |
+| `variant=zplus, fullwidth=false, disabled=true, state=default` | bg: `accent-100`, fg: `general-white-100` |
+| `variant=zplus, fullwidth=true, disabled=false, state=default` | bg: `accent-100`, fg: `general-white-100` |
 
 ## Regeln
 

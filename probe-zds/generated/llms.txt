@@ -1,6 +1,6 @@
-# ZDS-Probe Design System 0.2.0
+# ZDS-Probe Design System 0.3.0
 
-> Komponenten und Tokens. Quelle: specs/system.json. Code-Paket: @zeit/zds-probe.
+> Komponenten und Tokens. Quelle: specs/figma.snapshot.json, ui/elements.js und specs/rules.json. Code-Paket: @zeit/zds-probe.
 
 ## Komponenten
 

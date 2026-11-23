@@ -1,0 +1,6 @@
+Status: stable · v0.1.0
+Auswahl einer unabhängigen Option.
+Regeln: Die Checkbox hat immer eine sichtbare Beschriftung; sie gehört zur Klickfläche. [checkbox/needs-label] Ist die Checkbox deaktiviert, erklärt helperText den Grund. [checkbox/disabled-reason]
+A11y: Natives <input type="checkbox"> in einem <label>. Die ZDS-Doku beschreibt nur ein <span>; das ist nicht bedienbar.
+Spec: ds/checkbox
+Code: <z-ds-checkbox> aus "@zeit/zds-probe"

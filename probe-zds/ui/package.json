@@ -1,6 +1,6 @@
 {
   "name": "@zeit/zds-probe",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "ZDS-Probe Design System als Web Components",
   "type": "module",
   "main": "./fundament.js",

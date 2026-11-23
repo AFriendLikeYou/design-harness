@@ -2,6 +2,28 @@
   "color": {
     "$type": "color",
     "light": {
+      "accent-100": {
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.7255,
+            0.0667,
+            0.0353
+          ],
+          "hex": "#b91109"
+        }
+      },
+      "accent-70": {
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.5333,
+            0.051,
+            0.0275
+          ],
+          "hex": "#880d07"
+        }
+      },
       "background-0": {
         "$value": {
           "colorSpace": "srgb",
@@ -35,39 +57,6 @@
           "hex": "#dfdfe1"
         }
       },
-      "text-100": {
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.1451,
-            0.1451,
-            0.1451
-          ],
-          "hex": "#252525"
-        }
-      },
-      "text-70": {
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.2667,
-            0.2667,
-            0.2667
-          ],
-          "hex": "#444444"
-        }
-      },
-      "text-40": {
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.6,
-            0.6,
-            0.6
-          ],
-          "hex": "#999999"
-        }
-      },
       "border-100": {
         "$value": {
           "colorSpace": "srgb",
@@ -90,26 +79,15 @@
           "hex": "#e4e4e4"
         }
       },
-      "accent-100": {
+      "error-70": {
         "$value": {
           "colorSpace": "srgb",
           "components": [
-            0.7255,
-            0.0667,
-            0.0353
+            0.749,
+            0.251,
+            0.251
           ],
-          "hex": "#b91109"
-        }
-      },
-      "accent-70": {
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.5333,
-            0.051,
-            0.0275
-          ],
-          "hex": "#880d07"
+          "hex": "#bf4040"
         }
       },
       "focus-100": {
@@ -134,6 +112,28 @@
           "hex": "#ffffff"
         }
       },
+      "text-100": {
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.1451,
+            0.1451,
+            0.1451
+          ],
+          "hex": "#252525"
+        }
+      },
+      "text-40": {
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.6,
+            0.6,
+            0.6
+          ],
+          "hex": "#999999"
+        }
+      },
       "text-55": {
         "$value": {
           "colorSpace": "srgb",
@@ -145,19 +145,41 @@
           "hex": "#69696c"
         }
       },
-      "error-70": {
+      "text-70": {
         "$value": {
           "colorSpace": "srgb",
           "components": [
-            0.749,
-            0.251,
-            0.251
+            0.2667,
+            0.2667,
+            0.2667
           ],
-          "hex": "#bf4040"
+          "hex": "#444444"
         }
       }
     },
     "dark": {
+      "accent-100": {
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9216,
+            0.2118,
+            0.1804
+          ],
+          "hex": "#eb362e"
+        }
+      },
+      "accent-70": {
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.5333,
+            0.051,
+            0.0275
+          ],
+          "hex": "#880d07"
+        }
+      },
       "background-0": {
         "$value": {
           "colorSpace": "srgb",
@@ -191,39 +213,6 @@
           "hex": "#2e2e2e"
         }
       },
-      "text-100": {
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            1,
-            1,
-            1
-          ],
-          "hex": "#ffffff"
-        }
-      },
-      "text-70": {
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.7294,
-            0.7294,
-            0.7294
-          ],
-          "hex": "#bababa"
-        }
-      },
-      "text-40": {
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.5451,
-            0.5451,
-            0.5451
-          ],
-          "hex": "#8b8b8b"
-        }
-      },
       "border-100": {
         "$value": {
           "colorSpace": "srgb",
@@ -246,26 +235,15 @@
           "hex": "#2e2e2e"
         }
       },
-      "accent-100": {
+      "error-70": {
         "$value": {
           "colorSpace": "srgb",
           "components": [
-            0.9216,
+            0.9451,
             0.2118,
-            0.1804
+            0.2196
           ],
-          "hex": "#eb362e"
-        }
-      },
-      "accent-70": {
-        "$value": {
-          "colorSpace": "srgb",
-          "components": [
-            0.5333,
-            0.051,
-            0.0275
-          ],
-          "hex": "#880d07"
+          "hex": "#f13638"
         }
       },
       "focus-100": {
@@ -290,6 +268,28 @@
           "hex": "#ffffff"
         }
       },
+      "text-100": {
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "hex": "#ffffff"
+        }
+      },
+      "text-40": {
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.5451,
+            0.5451,
+            0.5451
+          ],
+          "hex": "#8b8b8b"
+        }
+      },
       "text-55": {
         "$value": {
           "colorSpace": "srgb",
@@ -301,26 +301,20 @@
           "hex": "#999999"
         }
       },
-      "error-70": {
+      "text-70": {
         "$value": {
           "colorSpace": "srgb",
           "components": [
-            0.9451,
-            0.2118,
-            0.2196
+            0.7294,
+            0.7294,
+            0.7294
           ],
-          "hex": "#f13638"
+          "hex": "#bababa"
         }
       }
     }
   },
   "dimension": {
-    "0": {
-      "$value": {
-        "value": 0,
-        "unit": "px"
-      }
-    },
     "1": {
       "$value": {
         "value": 1,
@@ -369,12 +363,6 @@
         "unit": "px"
       }
     },
-    "20": {
-      "$value": {
-        "value": 20,
-        "unit": "px"
-      }
-    },
     "24": {
       "$value": {
         "value": 24,
@@ -408,12 +396,6 @@
     "292": {
       "$value": {
         "value": 292,
-        "unit": "px"
-      }
-    },
-    "360": {
-      "$value": {
-        "value": 360,
         "unit": "px"
       }
     },

@@ -1,0 +1,6 @@
+Status: stable · v0.1.0
+Einzeilige Texteingabe.
+Regeln: Der Input hat immer eine sichtbare Beschriftung. [input/visible-label] Im Fehlerzustand erklärt errorText, wie man den Fehler behebt. [input/error-text]
+A11y: <label for> mit dem Feld verknüpfen, Fehlertext per aria-describedby, Fehler mit aria-invalid. Der Fokus zeigt sich im ZDS nur als dunklerer Rahmen; die Extras Leading Icon und Dropdown sind in der Probe nicht übertragen.
+Spec: ds/input
+Code: <z-ds-input> aus "@zeit/zds-probe"

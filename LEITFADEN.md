@@ -13,7 +13,48 @@ Fällt eines weg, raten Agenten wieder.
 - **4 / Verträge statt Listen.** Gültige Elemente, Werte und Tokens stehen nur im erzeugten Vertrag. AGENTS.md beschreibt den Ablauf und nennt bewusst keinen einzigen Namen. Handgeschriebene Listen veralten.
 - **5 / Prüfen in der Schleife.** Der Agent prüft seine Arbeit selbst: check gegen den Vertrag, audit im gerenderten Zustand, dann die Rubrik. Höchstens drei Runden, danach berichtet er, was offen ist.
 - **6 / Lücken melden statt nachbauen.** Fehlt eine Komponente, ein Wert oder ein Slot, baut der Agent nichts darüber. Er meldet die Lücke. So wächst das System an den richtigen Stellen.
-- **7 / Messen.** Agentenläufe mit und ohne System, die gerenderte Prüfung und der Abgleich zwischen Figma und Spec zeigen, ob es wirkt. Was nicht gemessen ist, gilt als Annahme.
+- **7 / Messen.** Agentenläufe mit und ohne System, die gerenderte Prüfung, der Abgleich zwischen Figma und Code und die Messung des Aussehens im Browser zeigen, ob es wirkt. Was nicht gemessen ist, gilt als Annahme.
+
+## Abläufe im Überblick
+
+Vier Wege, die im Alltag vorkommen. Jeder Schritt nennt, wer ihn macht.
+
+**Eine Designänderung kommt in den Code**
+
+1. In Figma ändern (Design): Variable, Variante oder Property
+2. Exportieren (Design): Plugin „Fundament Export“, Ergebnis als specs/figma.snapshot.json ins Repo
+3. Bauen (Automatisch): Tokenwerte fließen ins CSS. Fällt ein Kontrastpaar durch, bricht der Build ab: zurück zu Schritt 1
+4. Abgleich (Automatisch): Figma gegen Code: meldet neue Varianten, Properties, andere Standards
+5. Im Code nachziehen (Entwicklung): ui/elements.js, fundament.js, components.css
+6. Gate (Automatisch): node tooling/verify.mjs: alles grün, dann zusammenführen
+
+**Eine neue Komponente entsteht**
+
+1. In Figma bauen (Design): Varianten, Properties wie im Code, Ebenen nach Rolle benannt
+2. Exportieren (Design): Der Abgleich meldet „nur in Figma“: bis dahin ein Entwurf
+3. Im Code umsetzen (Entwicklung): Props in ui/elements.js, Element und Styles
+4. Regeln schreiben (Team): Zweck, Regeln mit Warum, Barrierefreiheit in specs/rules.json
+5. Beschreibung einfügen (Design): Text aus generated/components/<name>.figma.txt ins Beschreibungsfeld, neu exportieren
+6. Gate (Automatisch): Figma, Code und Regeln passen zusammen; Aussehen im Browser gemessen
+
+**Eine neue Regel kommt dazu**
+
+1. Beobachtung (Team): Ein Fehler, der wirklich passiert ist
+2. Regel und Warum (Team): Ein Satz mit Zahl oder Ort, dazu die Begründung, in specs/rules.json
+3. Check oder Urteil (Entwicklung): Check in der CLI bauen oder check auf null setzen
+4. Fehlerfall festhalten (Entwicklung): Beispiel in tooling/fixtures, ID im CLI-Test
+5. Bauen (Automatisch): Vertrag, Doku und Figma-Beschreibung entstehen neu
+6. Beschreibung einfügen (Design): Neuen Text in Figma einfügen, exportieren; das Gate bestätigt es
+
+**Ein Agent baut eine Seite**
+
+1. Kontext laden (Agent): Vertrag und Grundsätze lesen, nichts erfinden
+2. Komponieren (Agent): Nur Elemente des Systems, eigenes CSS nur fürs Layout
+3. Check (Automatisch): Befunde mit Behebung zurück an den Agenten
+4. Beheben (Agent): Zurück zum Check, höchstens drei Runden
+5. Gerendert prüfen (Automatisch): Überlauf, Kontrast, Namen, Klickflächen; dazu die Rubrik
+6. Berichten (Agent): Was offen bleibt und welche Lücke das System hat
+
 
 ## Vom Entwurf in Figma zum Stand im Code
 
@@ -53,7 +94,7 @@ Sechs Schritte. Die Regel steht danach in specs/rules.json, bei der Komponente o
 - **3 / Das Warum dazuschreiben.** Ein Satz, der sagt, wovor die Regel schützt. Ohne ihn wird sie in Grenzfällen wörtlich und falsch angewendet. lint lehnt Regeln ohne Begründung ab.
 - **4 / Entscheiden: Check oder Urteil.** Lässt sich die Regel automatisch prüfen, bekommt sie einen Check und die CLI setzt ihn um. Sonst steht check auf null, und die Regel gehört zum Urteil (DESIGN.md, Rubrik). lint meldet Checks, die versprochen, aber nicht gebaut sind.
 - **5 / Die Behebung in die Meldung schreiben.** Jeder Befund nennt, was zu tun ist und welche Werte erlaubt sind. Eine Meldung ohne Ausweg führt zum Raten.
-- **6 / Den Fehlerfall festhalten.** Ein Beispiel, das die Regel verletzt, kommt in tooling/fixtures. Der CLI-Test verlangt, dass die Regel dort anschlägt. Dann node tooling/verify.mjs.
+- **6 / Den Fehlerfall festhalten.** Ein Beispiel, das die Regel verletzt, kommt in tooling/fixtures/fehler.html, und ihre ID in die Liste in tooling/test-cli.mjs. Der Test verlangt dann, dass die Regel dort anschlägt. Danach node tooling/verify.mjs.
 
 ## Gut und schlecht formuliert
 

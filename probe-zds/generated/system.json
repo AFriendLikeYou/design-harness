@@ -1,0 +1,1138 @@
+{
+  "$comment": "Generiert zur Ansicht: das System, wie es aus Figma-Schnappschuss, Code und Regeldatei zusammengesetzt wird. Nicht von Hand bearbeiten.",
+  "name": "ZDS-Probe",
+  "version": "0.3.0",
+  "cssPrefix": "z-ds",
+  "codePackage": "@zeit/zds-probe",
+  "fontFamily": "\"Tablet Gothic\", TabletGothic, system-ui, sans-serif",
+  "primitives": {
+    "color": {
+      "light": {
+        "accent-100": "#b91109",
+        "accent-70": "#880d07",
+        "background-0": "#ffffff",
+        "background-10": "#eeeeee",
+        "background-20": "#dfdfe1",
+        "border-100": "#cccccf",
+        "border-70": "#e4e4e4",
+        "error-70": "#bf4040",
+        "focus-100": "#005fcc",
+        "general-white-100": "#ffffff",
+        "text-100": "#252525",
+        "text-40": "#999999",
+        "text-55": "#69696c",
+        "text-70": "#444444"
+      },
+      "dark": {
+        "accent-100": "#eb362e",
+        "accent-70": "#880d07",
+        "background-0": "#121212",
+        "background-10": "#232323",
+        "background-20": "#2e2e2e",
+        "border-100": "#363636",
+        "border-70": "#2e2e2e",
+        "error-70": "#f13638",
+        "focus-100": "#54a3fe",
+        "general-white-100": "#ffffff",
+        "text-100": "#ffffff",
+        "text-40": "#8b8b8b",
+        "text-55": "#999999",
+        "text-70": "#bababa"
+      }
+    },
+    "dimension": [
+      1,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      16,
+      24,
+      26,
+      32,
+      44,
+      48,
+      292
+    ],
+    "fontSize": [
+      12,
+      14,
+      16,
+      20,
+      28
+    ],
+    "lineHeight": [
+      16,
+      20,
+      24,
+      32
+    ]
+  },
+  "semantic": {
+    "color": {
+      "accent-100": {
+        "light": "light/accent-100",
+        "dark": "dark/accent-100",
+        "scopes": [
+          "FRAME_FILL",
+          "SHAPE_FILL"
+        ],
+        "why": "ZEIT-Rot. Fläche des Z+-Buttons."
+      },
+      "accent-70": {
+        "light": "light/accent-70",
+        "dark": "dark/accent-70",
+        "scopes": [
+          "FRAME_FILL",
+          "SHAPE_FILL"
+        ],
+        "why": "Hover-Fläche des Z+-Buttons."
+      },
+      "background-0": {
+        "light": "light/background-0",
+        "dark": "dark/background-0",
+        "scopes": [
+          "FRAME_FILL",
+          "SHAPE_FILL",
+          "STROKE_COLOR",
+          "TEXT_FILL"
+        ],
+        "why": "Seitengrund und Fläche der Checkbox. Beschriftung des Primary-Buttons."
+      },
+      "background-10": {
+        "light": "light/background-10",
+        "dark": "dark/background-10",
+        "scopes": [
+          "FRAME_FILL",
+          "SHAPE_FILL"
+        ],
+        "why": "Fläche des Default-Buttons, Hover-Fläche von Checkbox und Text-Button."
+      },
+      "background-20": {
+        "light": "light/background-20",
+        "dark": "dark/background-20",
+        "scopes": [
+          "FRAME_FILL",
+          "SHAPE_FILL"
+        ],
+        "why": "Hover-Fläche des Default-Buttons, Bahn des Toggles im Aus-Zustand."
+      },
+      "border-100": {
+        "light": "light/border-100",
+        "dark": "dark/border-100",
+        "scopes": [
+          "STROKE_COLOR"
+        ],
+        "why": "Rahmen von Checkbox und Input. Bekannter Verstoß: 1,6:1 statt 3:1."
+      },
+      "border-70": {
+        "light": "light/border-70",
+        "dark": "dark/border-70",
+        "scopes": [
+          "STROKE_COLOR"
+        ],
+        "why": "Rahmen der deaktivierten Checkbox."
+      },
+      "error-70": {
+        "light": "light/error-70",
+        "dark": "dark/error-70",
+        "scopes": [
+          "STROKE_COLOR",
+          "TEXT_FILL"
+        ],
+        "why": "Rahmen des Inputs im Fehlerzustand; in der Probe auch der Fehlertext."
+      },
+      "focus-100": {
+        "light": "light/focus-100",
+        "dark": "dark/focus-100",
+        "scopes": [
+          "STROKE_COLOR"
+        ],
+        "why": "Fokus-Outline, 2 px."
+      },
+      "general-white-100": {
+        "light": "light/general-white-100",
+        "dark": "dark/general-white-100",
+        "scopes": [
+          "FRAME_FILL",
+          "SHAPE_FILL",
+          "STROKE_COLOR",
+          "TEXT_FILL"
+        ],
+        "why": "Festes Weiß: Beschriftung des Z+-Buttons, Haken, Knopf des Toggles."
+      },
+      "text-100": {
+        "light": "light/text-100",
+        "dark": "dark/text-100",
+        "scopes": [
+          "FRAME_FILL",
+          "SHAPE_FILL",
+          "TEXT_FILL"
+        ],
+        "why": "Text. Fläche des Primary-Buttons, der angehakten Checkbox und des Toggles im An-Zustand."
+      },
+      "text-40": {
+        "light": "light/text-40",
+        "dark": "dark/text-40",
+        "scopes": [
+          "FRAME_FILL",
+          "SHAPE_FILL",
+          "TEXT_FILL"
+        ],
+        "why": "Deaktivierter Text. Muss keinen Kontrast erfüllen."
+      },
+      "text-55": {
+        "light": "light/text-55",
+        "dark": "dark/text-55",
+        "scopes": [
+          "STROKE_COLOR",
+          "TEXT_FILL"
+        ],
+        "why": "Platzhalter im Input. Rahmen des Inputs im Fokus."
+      },
+      "text-70": {
+        "light": "light/text-70",
+        "dark": "dark/text-70",
+        "scopes": [
+          "FRAME_FILL",
+          "SHAPE_FILL",
+          "TEXT_FILL"
+        ],
+        "why": "Sekundärer Text. Hover-Fläche des Primary-Buttons."
+      }
+    },
+    "border-width": {
+      "default": {
+        "value": 1,
+        "why": "Rahmenstärke."
+      },
+      "strong": {
+        "value": 2,
+        "why": "Rahmenstärke."
+      }
+    },
+    "radius": {
+      "2": {
+        "value": 2,
+        "why": "Radius aus dem ZDS."
+      },
+      "4": {
+        "value": 4,
+        "why": "Radius aus dem ZDS."
+      },
+      "full": {
+        "value": 999,
+        "why": "Radius aus dem ZDS."
+      }
+    },
+    "size": {
+      "toggle-thumb": {
+        "value": 12,
+        "why": "Maß der Komponente im ZDS."
+      },
+      "checkbox": {
+        "value": 16,
+        "why": "Maß der Komponente im ZDS."
+      },
+      "toggle-width": {
+        "value": 26,
+        "why": "Maß der Komponente im ZDS."
+      },
+      "touch-target": {
+        "value": 44,
+        "why": "Mindesthöhe der Klickzeile aus Bedienelement und Beschriftung (Regel aus Fundament)."
+      },
+      "input": {
+        "value": 292,
+        "why": "Maß der Komponente im ZDS."
+      }
+    },
+    "space": {
+      "2": {
+        "value": 2,
+        "why": "Abstand aus der ZDS-Skala (2 px)."
+      },
+      "4": {
+        "value": 4,
+        "why": "Abstand aus der ZDS-Skala (4 px)."
+      },
+      "6": {
+        "value": 6,
+        "why": "Abstand aus der ZDS-Skala (6 px)."
+      },
+      "8": {
+        "value": 8,
+        "why": "Abstand aus der ZDS-Skala (8 px)."
+      },
+      "10": {
+        "value": 10,
+        "why": "Abstand aus der ZDS-Skala (10 px)."
+      },
+      "12": {
+        "value": 12,
+        "why": "Abstand aus der ZDS-Skala (12 px)."
+      },
+      "16": {
+        "value": 16,
+        "why": "Abstand aus der ZDS-Skala (16 px)."
+      },
+      "24": {
+        "value": 24,
+        "why": "Abstand aus der ZDS-Skala (24 px)."
+      },
+      "32": {
+        "value": 32,
+        "why": "Abstand zwischen Abschnitten."
+      },
+      "48": {
+        "value": 48,
+        "why": "Abstand aus der ZDS-Skala (48 px)."
+      }
+    }
+  },
+  "textStyles": [
+    {
+      "name": "display",
+      "size": 28,
+      "line": 32,
+      "weight": "Bold",
+      "why": "ZDS-Probe."
+    },
+    {
+      "name": "heading-lg",
+      "size": 20,
+      "line": 24,
+      "weight": "Bold",
+      "why": "ZDS-Probe."
+    },
+    {
+      "name": "body-md",
+      "size": 16,
+      "line": 20,
+      "weight": "Regular",
+      "why": "ZDS-Probe."
+    },
+    {
+      "name": "label-md",
+      "size": 16,
+      "line": 20,
+      "weight": "Bold",
+      "why": "ZDS-Probe."
+    },
+    {
+      "name": "body-sm",
+      "size": 14,
+      "line": 20,
+      "weight": "Regular",
+      "why": "ZDS-Probe."
+    },
+    {
+      "name": "label-sm",
+      "size": 14,
+      "line": 20,
+      "weight": "Bold",
+      "why": "ZDS-Probe."
+    },
+    {
+      "name": "caption",
+      "size": 12,
+      "line": 16,
+      "weight": "Regular",
+      "why": "ZDS-Probe."
+    }
+  ],
+  "contrast": [
+    {
+      "fg": "text-100",
+      "on": [
+        "background-0",
+        "background-10",
+        "background-20"
+      ],
+      "min": 4.5,
+      "why": "Text und Beschriftung des Default-Buttons"
+    },
+    {
+      "fg": "text-70",
+      "on": [
+        "background-0"
+      ],
+      "min": 4.5,
+      "why": "Hilfstext"
+    },
+    {
+      "fg": "background-0",
+      "on": [
+        "text-100",
+        "text-70"
+      ],
+      "min": 4.5,
+      "why": "Beschriftung des Primary-Buttons, auch im Hover"
+    },
+    {
+      "fg": "general-white-100",
+      "on": [
+        "accent-100"
+      ],
+      "min": 4.5,
+      "why": "Beschriftung des Z+-Buttons",
+      "accept": "Im Dark Mode liegt Weiß auf #eb362e unter 4,5:1. Offen für ZDS."
+    },
+    {
+      "fg": "general-white-100",
+      "on": [
+        "accent-70"
+      ],
+      "min": 4.5,
+      "why": "Beschriftung des Z+-Buttons im Hover"
+    },
+    {
+      "fg": "general-white-100",
+      "on": [
+        "text-100"
+      ],
+      "min": 3,
+      "why": "Haken der Checkbox, Knopf des Toggles im An-Zustand",
+      "accept": "Im Dark Mode ist text/100 selbst Weiß: Haken und Knopf sind dann nicht sichtbar. Offen für ZDS."
+    },
+    {
+      "fg": "border-100",
+      "on": [
+        "background-0"
+      ],
+      "min": 3,
+      "why": "Rahmen der Checkbox",
+      "accept": "Border/100 erreicht rund 1,6:1 statt 3:1 (WCAG 1.4.11). Bekannter offener Punkt im ZDS."
+    },
+    {
+      "fg": "background-20",
+      "on": [
+        "background-0"
+      ],
+      "min": 3,
+      "why": "Toggle-Bahn im Aus-Zustand gegen den Seitengrund",
+      "accept": "Die Bahn hebt sich mit rund 1,3:1 kaum vom Grund ab (WCAG 1.4.11). Offen für ZDS."
+    },
+    {
+      "fg": "focus-100",
+      "on": [
+        "background-0"
+      ],
+      "min": 3,
+      "why": "Fokus-Outline"
+    },
+    {
+      "fg": "text-55",
+      "on": [
+        "background-0"
+      ],
+      "min": 4.5,
+      "why": "Platzhalter im Input"
+    },
+    {
+      "fg": "error-70",
+      "on": [
+        "background-0"
+      ],
+      "min": 4.5,
+      "why": "Fehlertext unter dem Input (Probe)"
+    },
+    {
+      "fg": "text-70",
+      "on": [
+        "background-10"
+      ],
+      "min": 4.5,
+      "why": "Text-Button im Ruhezustand auf getönter Fläche"
+    }
+  ],
+  "components": [
+    {
+      "name": "Button",
+      "kind": "component",
+      "status": "stable",
+      "version": "0.1.0",
+      "purpose": "Löst eine Aktion aus.",
+      "zds": {
+        "klasse": "z-button",
+        "quelle": "packages/components/src/button"
+      },
+      "rules": [
+        {
+          "id": "button/one-primary",
+          "text": "Höchstens ein Primary-Button pro Ansicht.",
+          "why": "Mehrere primäre Aktionen konkurrieren um Aufmerksamkeit.",
+          "check": "max-per-view",
+          "herkunft": "Fundament-Regel, für ZDS noch zu bestätigen"
+        },
+        {
+          "id": "button/label-verb",
+          "text": "Beschriftung beginnt mit einem Verb und nennt das Ergebnis.",
+          "why": "Man weiß vor dem Klick, was passiert.",
+          "check": null,
+          "herkunft": "Fundament-Regel, für ZDS noch zu bestätigen"
+        },
+        {
+          "id": "button/zplus-only-paid",
+          "text": "variant=zplus nur für den Weg zu Z+-Inhalten oder zum Abo.",
+          "why": "ZEIT-Rot ist die Farbe des Bezahlangebots; überall sonst verliert es diese Bedeutung.",
+          "check": null,
+          "herkunft": "Annahme der Probe aus dem Variantennamen, für ZDS noch zu bestätigen"
+        }
+      ],
+      "a11y": "Als <button> umsetzen. :focus-visible zeigt eine 2-px-Outline in focus/100. Deaktiviert senkt die Deckkraft auf 50 %.",
+      "do": [
+        "„Einstellungen speichern“"
+      ],
+      "dont": [
+        "„Click me“",
+        "Zwei Primary-Buttons nebeneinander"
+      ],
+      "props": [
+        {
+          "name": "variant",
+          "type": "variant",
+          "values": [
+            "default",
+            "primary",
+            "zplus"
+          ],
+          "default": "default"
+        },
+        {
+          "name": "fullwidth",
+          "type": "variant",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        {
+          "name": "disabled",
+          "type": "variant",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        {
+          "name": "state",
+          "type": "variant",
+          "values": [
+            "default",
+            "hover",
+            "focus"
+          ],
+          "default": "default"
+        },
+        {
+          "name": "label",
+          "type": "text",
+          "default": "Speichern"
+        }
+      ],
+      "passthrough": [
+        "type",
+        "name",
+        "value"
+      ],
+      "looks": {
+        "variant=default, fullwidth=false, disabled=false, state=default": {
+          "bg": "background-10",
+          "fg": "text-100"
+        },
+        "variant=default, fullwidth=false, disabled=false, state=focus": {
+          "bg": "background-10",
+          "fg": "text-100",
+          "ring": "focus-100",
+          "ringWidth": "strong"
+        },
+        "variant=default, fullwidth=false, disabled=false, state=hover": {
+          "bg": "background-20",
+          "fg": "text-100"
+        },
+        "variant=default, fullwidth=false, disabled=true, state=default": {
+          "bg": "background-10",
+          "fg": "text-100"
+        },
+        "variant=default, fullwidth=true, disabled=false, state=default": {
+          "bg": "background-10",
+          "fg": "text-100"
+        },
+        "variant=primary, fullwidth=false, disabled=false, state=default": {
+          "bg": "text-100",
+          "fg": "background-0"
+        },
+        "variant=primary, fullwidth=false, disabled=false, state=focus": {
+          "bg": "text-100",
+          "fg": "background-0",
+          "ring": "focus-100",
+          "ringWidth": "strong"
+        },
+        "variant=primary, fullwidth=false, disabled=false, state=hover": {
+          "bg": "text-70",
+          "fg": "background-0"
+        },
+        "variant=primary, fullwidth=false, disabled=true, state=default": {
+          "bg": "text-100",
+          "fg": "background-0"
+        },
+        "variant=primary, fullwidth=true, disabled=false, state=default": {
+          "bg": "text-100",
+          "fg": "background-0"
+        },
+        "variant=zplus, fullwidth=false, disabled=false, state=default": {
+          "bg": "accent-100",
+          "fg": "general-white-100"
+        },
+        "variant=zplus, fullwidth=false, disabled=false, state=focus": {
+          "bg": "accent-100",
+          "fg": "general-white-100",
+          "ring": "focus-100",
+          "ringWidth": "strong"
+        },
+        "variant=zplus, fullwidth=false, disabled=false, state=hover": {
+          "bg": "accent-70",
+          "fg": "general-white-100"
+        },
+        "variant=zplus, fullwidth=false, disabled=true, state=default": {
+          "bg": "accent-100",
+          "fg": "general-white-100"
+        },
+        "variant=zplus, fullwidth=true, disabled=false, state=default": {
+          "bg": "accent-100",
+          "fg": "general-white-100"
+        }
+      }
+    },
+    {
+      "name": "Checkbox",
+      "kind": "component",
+      "status": "stable",
+      "version": "0.1.0",
+      "purpose": "Auswahl einer unabhängigen Option.",
+      "zds": {
+        "klasse": "z-checkbox",
+        "quelle": "packages/components/src/checkbox"
+      },
+      "rules": [
+        {
+          "id": "checkbox/needs-label",
+          "text": "Die Checkbox hat immer eine sichtbare Beschriftung; sie gehört zur Klickfläche.",
+          "why": "Die ZDS-Checkbox ist als Kästchen von 16 px dokumentiert. Allein ist sie zu klein und hat keinen Namen.",
+          "check": "required-prop",
+          "herkunft": "Lücke der ZDS-Doku, in der Probe ergänzt"
+        },
+        {
+          "id": "checkbox/disabled-reason",
+          "text": "Ist die Checkbox deaktiviert, erklärt helperText den Grund.",
+          "why": "Ohne Erklärung wirkt ein deaktiviertes Element wie ein Fehler.",
+          "check": "required-when-disabled",
+          "herkunft": "Fundament-Regel, für ZDS noch zu bestätigen"
+        }
+      ],
+      "a11y": "Natives <input type=\"checkbox\"> in einem <label>. Die ZDS-Doku beschreibt nur ein <span>; das ist nicht bedienbar.",
+      "do": [
+        "Kurze Beschriftung in Satzschreibung"
+      ],
+      "dont": [
+        "Kästchen ohne Beschriftung"
+      ],
+      "props": [
+        {
+          "name": "checked",
+          "type": "variant",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        {
+          "name": "disabled",
+          "type": "variant",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        {
+          "name": "state",
+          "type": "variant",
+          "values": [
+            "default",
+            "hover",
+            "focus"
+          ],
+          "default": "default"
+        },
+        {
+          "name": "label",
+          "type": "text",
+          "default": "Auch Angebote der ZEIT erhalten"
+        },
+        {
+          "name": "helperText",
+          "type": "text",
+          "default": "Abbestellen ist jederzeit möglich."
+        },
+        {
+          "name": "showHelper",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "passthrough": [
+        "name",
+        "value"
+      ],
+      "looks": {
+        "checked=false, disabled=false, state=default": {
+          "bg": "background-0",
+          "border": "border-100",
+          "borderWidth": "default",
+          "fg": "text-100",
+          "helper": "text-70"
+        },
+        "checked=false, disabled=false, state=focus": {
+          "bg": "background-0",
+          "border": "border-100",
+          "borderWidth": "default",
+          "fg": "text-100",
+          "helper": "text-70",
+          "ring": "focus-100",
+          "ringWidth": "strong"
+        },
+        "checked=false, disabled=false, state=hover": {
+          "bg": "background-10",
+          "border": "border-100",
+          "borderWidth": "default",
+          "fg": "text-100",
+          "helper": "text-70"
+        },
+        "checked=false, disabled=true, state=default": {
+          "bg": "background-0",
+          "border": "border-70",
+          "borderWidth": "default",
+          "fg": "text-40",
+          "helper": "text-70"
+        },
+        "checked=true, disabled=false, state=default": {
+          "bg": "text-100",
+          "border": "text-100",
+          "borderWidth": "default",
+          "fg": "text-100",
+          "helper": "text-70",
+          "mark": "general-white-100"
+        },
+        "checked=true, disabled=false, state=hover": {
+          "bg": "text-70",
+          "border": "text-70",
+          "borderWidth": "default",
+          "fg": "text-100",
+          "helper": "text-70",
+          "mark": "general-white-100"
+        },
+        "checked=true, disabled=true, state=default": {
+          "bg": "text-40",
+          "border": "text-40",
+          "borderWidth": "default",
+          "fg": "text-40",
+          "helper": "text-70",
+          "mark": "general-white-100"
+        }
+      }
+    },
+    {
+      "name": "Toggle",
+      "kind": "component",
+      "status": "stable",
+      "version": "0.1.0",
+      "purpose": "Schaltet eine Einstellung sofort ein oder aus.",
+      "zds": {
+        "klasse": "z-switch",
+        "quelle": "packages/components/src/toggle"
+      },
+      "rules": [
+        {
+          "id": "toggle/needs-label",
+          "text": "Der Toggle hat immer eine sichtbare Beschriftung; sie gehört zur Klickfläche.",
+          "why": "Die Bahn misst 26 × 16 px und ist allein zu klein. Die ZDS-Doku behilft sich mit aria-label.",
+          "check": "required-prop",
+          "herkunft": "Lücke der ZDS-Doku, in der Probe ergänzt"
+        },
+        {
+          "id": "toggle/immediate",
+          "text": "Nur für Einstellungen, die sofort wirken.",
+          "why": "Ein Schalter verspricht, dass die Änderung schon gilt.",
+          "check": null,
+          "herkunft": "Fundament-Regel, für ZDS noch zu bestätigen"
+        }
+      ],
+      "a11y": "Als <button role=\"switch\"> mit aria-checked. Einen deaktivierten Zustand gibt es im ZDS nicht.",
+      "do": [
+        "Beschriftung nennt die Einstellung"
+      ],
+      "dont": [
+        "„An“ oder „Aus“ als Beschriftung"
+      ],
+      "impl": "Switch",
+      "props": [
+        {
+          "name": "checked",
+          "type": "variant",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        {
+          "name": "state",
+          "type": "variant",
+          "values": [
+            "default",
+            "focus"
+          ],
+          "default": "default"
+        },
+        {
+          "name": "label",
+          "type": "text",
+          "default": "Was jetzt? Der Morgenüberblick"
+        },
+        {
+          "name": "helperText",
+          "type": "text",
+          "default": "Montag bis Freitag um 6 Uhr."
+        },
+        {
+          "name": "showHelper",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "passthrough": [
+        "name"
+      ],
+      "looks": {
+        "checked=false, state=default": {
+          "bg": "background-20",
+          "fg": "text-100",
+          "helper": "text-70",
+          "thumb": "general-white-100"
+        },
+        "checked=false, state=focus": {
+          "bg": "background-20",
+          "fg": "text-100",
+          "helper": "text-70",
+          "ring": "focus-100",
+          "ringWidth": "strong",
+          "thumb": "general-white-100"
+        },
+        "checked=true, state=default": {
+          "bg": "text-100",
+          "fg": "text-100",
+          "helper": "text-70",
+          "thumb": "general-white-100"
+        },
+        "checked=true, state=focus": {
+          "bg": "text-100",
+          "fg": "text-100",
+          "helper": "text-70",
+          "ring": "focus-100",
+          "ringWidth": "strong",
+          "thumb": "general-white-100"
+        }
+      }
+    },
+    {
+      "name": "Input",
+      "kind": "component",
+      "status": "stable",
+      "version": "0.1.0",
+      "purpose": "Einzeilige Texteingabe.",
+      "zds": {
+        "klasse": "z-input",
+        "quelle": "packages/components/src/input"
+      },
+      "rules": [
+        {
+          "id": "input/visible-label",
+          "text": "Der Input hat immer eine sichtbare Beschriftung.",
+          "why": "Das ZDS dokumentiert den Input nur mit Platzhalter und aria-label. Platzhalter verschwinden beim Tippen.",
+          "check": "required-prop",
+          "herkunft": "Lücke der ZDS-Doku, in der Probe ergänzt"
+        },
+        {
+          "id": "input/error-text",
+          "text": "Im Fehlerzustand erklärt errorText, wie man den Fehler behebt.",
+          "why": "Das ZDS färbt nur den Rahmen. Rot allein sagt nicht, was zu tun ist.",
+          "check": null,
+          "herkunft": "Lücke der ZDS-Doku, in der Probe ergänzt"
+        }
+      ],
+      "a11y": "<label for> mit dem Feld verknüpfen, Fehlertext per aria-describedby, Fehler mit aria-invalid. Der Fokus zeigt sich im ZDS nur als dunklerer Rahmen; die Extras Leading Icon und Dropdown sind in der Probe nicht übertragen.",
+      "do": [
+        "Beschriftung über dem Feld"
+      ],
+      "dont": [
+        "Platzhalter als einzige Beschriftung"
+      ],
+      "impl": "TextField",
+      "props": [
+        {
+          "name": "state",
+          "type": "variant",
+          "values": [
+            "default",
+            "focus",
+            "error",
+            "disabled"
+          ],
+          "default": "default"
+        },
+        {
+          "name": "label",
+          "type": "text",
+          "default": "E-Mail-Adresse"
+        },
+        {
+          "name": "value",
+          "type": "text",
+          "default": "name@beispiel.de"
+        },
+        {
+          "name": "helperText",
+          "type": "text",
+          "default": "Wir schicken dir einen Bestätigungslink."
+        },
+        {
+          "name": "showHelper",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "errorText",
+          "type": "text",
+          "default": "Bitte gib eine gültige E-Mail-Adresse ein."
+        }
+      ],
+      "passthrough": [
+        "name",
+        "type",
+        "autocomplete",
+        "inputmode",
+        "required"
+      ],
+      "looks": {
+        "state=default": {
+          "bg": "background-0",
+          "border": "border-100",
+          "borderWidth": "default",
+          "fg": "text-100",
+          "helper": "text-70"
+        },
+        "state=disabled": {
+          "bg": "background-0",
+          "border": "border-100",
+          "borderWidth": "default",
+          "fg": "text-40",
+          "helper": "text-70"
+        },
+        "state=error": {
+          "bg": "background-0",
+          "border": "error-70",
+          "borderWidth": "default",
+          "fg": "text-100",
+          "helper": "error-70"
+        },
+        "state=focus": {
+          "bg": "background-0",
+          "border": "text-55",
+          "borderWidth": "default",
+          "fg": "text-100",
+          "helper": "text-70"
+        }
+      }
+    },
+    {
+      "name": "TextButton",
+      "kind": "component",
+      "status": "stable",
+      "version": "0.1.0",
+      "purpose": "Zurückhaltende Aktion ohne Fläche, etwa in Leisten und neben Inhalten.",
+      "zds": {
+        "klasse": "z-text-button",
+        "quelle": "packages/components/src/text-button"
+      },
+      "rules": [
+        {
+          "id": "textbutton/label-verb",
+          "text": "Beschriftung beginnt mit einem Verb und nennt das Ergebnis.",
+          "why": "Man weiß vor dem Klick, was passiert.",
+          "check": null,
+          "herkunft": "Fundament-Regel, für ZDS noch zu bestätigen"
+        }
+      ],
+      "a11y": "Als <button> umsetzen. Die Variante On Image des ZDS ist in der Probe nicht übertragen.",
+      "do": [
+        "„Merken“",
+        "„Teilen“"
+      ],
+      "dont": [
+        "Text-Button als Hauptaktion einer Seite"
+      ],
+      "impl": "Button",
+      "props": [
+        {
+          "name": "size",
+          "type": "variant",
+          "values": [
+            "default",
+            "slim",
+            "large"
+          ],
+          "default": "default"
+        },
+        {
+          "name": "bold",
+          "type": "variant",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        {
+          "name": "disabled",
+          "type": "variant",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        {
+          "name": "state",
+          "type": "variant",
+          "values": [
+            "default",
+            "hover",
+            "focus"
+          ],
+          "default": "default"
+        },
+        {
+          "name": "label",
+          "type": "text",
+          "default": "Merken"
+        }
+      ],
+      "passthrough": [
+        "type",
+        "name",
+        "value"
+      ],
+      "looks": {
+        "size=default, bold=false, disabled=false, state=default": {
+          "fg": "text-70"
+        },
+        "size=default, bold=false, disabled=false, state=focus": {
+          "fg": "text-70",
+          "ring": "focus-100",
+          "ringWidth": "strong"
+        },
+        "size=default, bold=false, disabled=false, state=hover": {
+          "bg": "background-10",
+          "fg": "text-100"
+        },
+        "size=default, bold=false, disabled=true, state=default": {
+          "fg": "text-70"
+        },
+        "size=default, bold=true, disabled=false, state=default": {
+          "fg": "text-70"
+        },
+        "size=large, bold=false, disabled=false, state=default": {
+          "fg": "text-70"
+        },
+        "size=large, bold=true, disabled=false, state=default": {
+          "fg": "text-70"
+        },
+        "size=slim, bold=false, disabled=false, state=default": {
+          "fg": "text-70"
+        }
+      }
+    }
+  ],
+  "principles": [
+    {
+      "id": "principles/surface-and-line",
+      "text": "Trennung über Fläche und Linie. Keine Verläufe, keine Schlagschatten.",
+      "why": "Verläufe und Schatten haben keine Tokens.",
+      "check": "no-decoration"
+    },
+    {
+      "id": "principles/sentence-case",
+      "text": "Satzschreibung. Keine Versalien per text-transform.",
+      "why": "Hausregel.",
+      "check": "no-uppercase"
+    },
+    {
+      "id": "principles/action-says-what",
+      "text": "Aktionen sagen, was passiert.",
+      "why": "„Mehr erfahren“ verrät nicht, was nach dem Klick kommt.",
+      "check": "no-vague-action"
+    },
+    {
+      "id": "principles/spacing-from-scale",
+      "text": "Abstände kommen aus der Skala.",
+      "why": "Zwischenwerte lassen sich nicht gemeinsam ändern.",
+      "check": "no-raw-space"
+    },
+    {
+      "id": "principles/system-controls",
+      "text": "Bedienelemente kommen aus dem System.",
+      "why": "Nur Systemkomponenten bringen Fokus und Zustände mit.",
+      "check": "registered-only"
+    }
+  ],
+  "vagueActions": [
+    "mehr erfahren",
+    "hier klicken",
+    "klick hier",
+    "klicken",
+    "click me",
+    "weiter",
+    "ok",
+    "mehr",
+    "los",
+    "absenden",
+    "senden"
+  ],
+  "migrations": [],
+  "changelog": [
+    {
+      "version": "0.3.0",
+      "text": "Aufbau wie Fundament: Tokenwerte und Aussehen aus Figma, Props aus dem Code, Regeln in rules.json."
+    },
+    {
+      "version": "0.2.0",
+      "text": "Input und Text-Button aufgenommen."
+    },
+    {
+      "version": "0.1.0",
+      "text": "Probe mit Button, Checkbox und Toggle aus dem ZDS."
+    }
+  ],
+  "figma": {
+    "exportedAt": "2026-11-23",
+    "file": "Untitled (zS8ZMBxGCXjeL0Sygvsbti), Seite ZDS-Probe"
+  },
+  "assembled": true
+}

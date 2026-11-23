@@ -4,7 +4,8 @@
 import { readFileSync } from 'node:fs';
 import { withServer, dumpDom, resultOf } from './browser.mjs';
 import { loadSpec } from './assemble.mjs';
-const root = new URL('..', import.meta.url).pathname;
+const ri = process.argv.indexOf('--root'); // --root <Ordner>: anderes System messen (z. B. probe-zds)
+const root = ri > 0 ? new URL(process.argv[ri + 1].replace(/\/?$/, '/'), `file://${process.cwd()}/`).pathname : new URL('..', import.meta.url).pathname;
 const spec = await loadSpec(root); const snap = JSON.parse(readFileSync(root + 'specs/figma.snapshot.json', 'utf8'));
 const P = spec.cssPrefix; const kebab = (s) => s.replace(/([a-z0-9])([A-Z])/g, '$1-$2').replace(/[\/ ]+/g, '-').toLowerCase();
 const cases = (snap.styles || []).map(([comp, variant]) => { const c = spec.components.find((x) => x.name === comp); if (!c) return null;

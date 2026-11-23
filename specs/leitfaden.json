@@ -32,8 +32,154 @@
     ],
     [
      "7 / Messen",
-     "Agentenläufe mit und ohne System, die gerenderte Prüfung und der Abgleich zwischen Figma und Spec zeigen, ob es wirkt. Was nicht gemessen ist, gilt als Annahme."
+     "Agentenläufe mit und ohne System, die gerenderte Prüfung, der Abgleich zwischen Figma und Code und die Messung des Aussehens im Browser zeigen, ob es wirkt. Was nicht gemessen ist, gilt als Annahme."
     ]
+   ]
+  },
+  {
+   "title": "Abläufe im Überblick",
+   "intro": "Vier Wege, die im Alltag vorkommen. Jeder Schritt nennt, wer ihn macht.",
+   "flows": [
+    {
+     "title": "Eine Designänderung kommt in den Code",
+     "steps": [
+      [
+       "Design",
+       "In Figma ändern",
+       "Variable, Variante oder Property"
+      ],
+      [
+       "Design",
+       "Exportieren",
+       "Plugin „Fundament Export“, Ergebnis als specs/figma.snapshot.json ins Repo"
+      ],
+      [
+       "Automatisch",
+       "Bauen",
+       "Tokenwerte fließen ins CSS. Fällt ein Kontrastpaar durch, bricht der Build ab: zurück zu Schritt 1"
+      ],
+      [
+       "Automatisch",
+       "Abgleich",
+       "Figma gegen Code: meldet neue Varianten, Properties, andere Standards"
+      ],
+      [
+       "Entwicklung",
+       "Im Code nachziehen",
+       "ui/elements.js, fundament.js, components.css"
+      ],
+      [
+       "Automatisch",
+       "Gate",
+       "node tooling/verify.mjs: alles grün, dann zusammenführen"
+      ]
+     ]
+    },
+    {
+     "title": "Eine neue Komponente entsteht",
+     "steps": [
+      [
+       "Design",
+       "In Figma bauen",
+       "Varianten, Properties wie im Code, Ebenen nach Rolle benannt"
+      ],
+      [
+       "Design",
+       "Exportieren",
+       "Der Abgleich meldet „nur in Figma“: bis dahin ein Entwurf"
+      ],
+      [
+       "Entwicklung",
+       "Im Code umsetzen",
+       "Props in ui/elements.js, Element und Styles"
+      ],
+      [
+       "Team",
+       "Regeln schreiben",
+       "Zweck, Regeln mit Warum, Barrierefreiheit in specs/rules.json"
+      ],
+      [
+       "Design",
+       "Beschreibung einfügen",
+       "Text aus generated/components/<name>.figma.txt ins Beschreibungsfeld, neu exportieren"
+      ],
+      [
+       "Automatisch",
+       "Gate",
+       "Figma, Code und Regeln passen zusammen; Aussehen im Browser gemessen"
+      ]
+     ]
+    },
+    {
+     "title": "Eine neue Regel kommt dazu",
+     "steps": [
+      [
+       "Team",
+       "Beobachtung",
+       "Ein Fehler, der wirklich passiert ist"
+      ],
+      [
+       "Team",
+       "Regel und Warum",
+       "Ein Satz mit Zahl oder Ort, dazu die Begründung, in specs/rules.json"
+      ],
+      [
+       "Entwicklung",
+       "Check oder Urteil",
+       "Check in der CLI bauen oder check auf null setzen"
+      ],
+      [
+       "Entwicklung",
+       "Fehlerfall festhalten",
+       "Beispiel in tooling/fixtures, ID im CLI-Test"
+      ],
+      [
+       "Automatisch",
+       "Bauen",
+       "Vertrag, Doku und Figma-Beschreibung entstehen neu"
+      ],
+      [
+       "Design",
+       "Beschreibung einfügen",
+       "Neuen Text in Figma einfügen, exportieren; das Gate bestätigt es"
+      ]
+     ]
+    },
+    {
+     "title": "Ein Agent baut eine Seite",
+     "steps": [
+      [
+       "Agent",
+       "Kontext laden",
+       "Vertrag und Grundsätze lesen, nichts erfinden"
+      ],
+      [
+       "Agent",
+       "Komponieren",
+       "Nur Elemente des Systems, eigenes CSS nur fürs Layout"
+      ],
+      [
+       "Automatisch",
+       "Check",
+       "Befunde mit Behebung zurück an den Agenten"
+      ],
+      [
+       "Agent",
+       "Beheben",
+       "Zurück zum Check, höchstens drei Runden"
+      ],
+      [
+       "Automatisch",
+       "Gerendert prüfen",
+       "Überlauf, Kontrast, Namen, Klickflächen; dazu die Rubrik"
+      ],
+      [
+       "Agent",
+       "Berichten",
+       "Was offen bleibt und welche Lücke das System hat"
+      ]
+     ]
+    }
    ]
   },
   {
@@ -115,7 +261,7 @@
     ],
     [
      "6 / Den Fehlerfall festhalten",
-     "Ein Beispiel, das die Regel verletzt, kommt in tooling/fixtures. Der CLI-Test verlangt, dass die Regel dort anschlägt. Dann node tooling/verify.mjs."
+     "Ein Beispiel, das die Regel verletzt, kommt in tooling/fixtures/fehler.html, und ihre ID in die Liste in tooling/test-cli.mjs. Der Test verlangt dann, dass die Regel dort anschlägt. Danach node tooling/verify.mjs."
     ]
    ]
   },

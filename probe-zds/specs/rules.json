@@ -1,0 +1,345 @@
+{
+  "$hinweis": "ZDS-Probe. Von Hand gepflegt: Regeln, Begründungen, Barrierefreiheit, Kontrastzusagen. Tokenwerte und Aussehen kommen aus specs/figma.snapshot.json (Export der Seite ZDS-Probe), Props aus ui/elements.js. Regeln mit dem Feld herkunft stammen nicht aus der ZDS-Doku.",
+  "name": "ZDS-Probe",
+  "version": "0.3.0",
+  "fontFamily": "\"Tablet Gothic\", TabletGothic, system-ui, sans-serif",
+  "components": [
+    {
+      "name": "Button",
+      "kind": "component",
+      "status": "stable",
+      "version": "0.1.0",
+      "purpose": "Löst eine Aktion aus.",
+      "zds": {
+        "klasse": "z-button",
+        "quelle": "packages/components/src/button"
+      },
+      "rules": [
+        {
+          "id": "button/one-primary",
+          "text": "Höchstens ein Primary-Button pro Ansicht.",
+          "why": "Mehrere primäre Aktionen konkurrieren um Aufmerksamkeit.",
+          "check": "max-per-view",
+          "herkunft": "Fundament-Regel, für ZDS noch zu bestätigen"
+        },
+        {
+          "id": "button/label-verb",
+          "text": "Beschriftung beginnt mit einem Verb und nennt das Ergebnis.",
+          "why": "Man weiß vor dem Klick, was passiert.",
+          "check": null,
+          "herkunft": "Fundament-Regel, für ZDS noch zu bestätigen"
+        },
+        {
+          "id": "button/zplus-only-paid",
+          "text": "variant=zplus nur für den Weg zu Z+-Inhalten oder zum Abo.",
+          "why": "ZEIT-Rot ist die Farbe des Bezahlangebots; überall sonst verliert es diese Bedeutung.",
+          "check": null,
+          "herkunft": "Annahme der Probe aus dem Variantennamen, für ZDS noch zu bestätigen"
+        }
+      ],
+      "a11y": "Als <button> umsetzen. :focus-visible zeigt eine 2-px-Outline in focus/100. Deaktiviert senkt die Deckkraft auf 50 %.",
+      "do": [
+        "„Einstellungen speichern“"
+      ],
+      "dont": [
+        "„Click me“",
+        "Zwei Primary-Buttons nebeneinander"
+      ]
+    },
+    {
+      "name": "Checkbox",
+      "kind": "component",
+      "status": "stable",
+      "version": "0.1.0",
+      "purpose": "Auswahl einer unabhängigen Option.",
+      "zds": {
+        "klasse": "z-checkbox",
+        "quelle": "packages/components/src/checkbox"
+      },
+      "rules": [
+        {
+          "id": "checkbox/needs-label",
+          "text": "Die Checkbox hat immer eine sichtbare Beschriftung; sie gehört zur Klickfläche.",
+          "why": "Die ZDS-Checkbox ist als Kästchen von 16 px dokumentiert. Allein ist sie zu klein und hat keinen Namen.",
+          "check": "required-prop",
+          "herkunft": "Lücke der ZDS-Doku, in der Probe ergänzt"
+        },
+        {
+          "id": "checkbox/disabled-reason",
+          "text": "Ist die Checkbox deaktiviert, erklärt helperText den Grund.",
+          "why": "Ohne Erklärung wirkt ein deaktiviertes Element wie ein Fehler.",
+          "check": "required-when-disabled",
+          "herkunft": "Fundament-Regel, für ZDS noch zu bestätigen"
+        }
+      ],
+      "a11y": "Natives <input type=\"checkbox\"> in einem <label>. Die ZDS-Doku beschreibt nur ein <span>; das ist nicht bedienbar.",
+      "do": [
+        "Kurze Beschriftung in Satzschreibung"
+      ],
+      "dont": [
+        "Kästchen ohne Beschriftung"
+      ]
+    },
+    {
+      "name": "Toggle",
+      "kind": "component",
+      "status": "stable",
+      "version": "0.1.0",
+      "purpose": "Schaltet eine Einstellung sofort ein oder aus.",
+      "zds": {
+        "klasse": "z-switch",
+        "quelle": "packages/components/src/toggle"
+      },
+      "rules": [
+        {
+          "id": "toggle/needs-label",
+          "text": "Der Toggle hat immer eine sichtbare Beschriftung; sie gehört zur Klickfläche.",
+          "why": "Die Bahn misst 26 × 16 px und ist allein zu klein. Die ZDS-Doku behilft sich mit aria-label.",
+          "check": "required-prop",
+          "herkunft": "Lücke der ZDS-Doku, in der Probe ergänzt"
+        },
+        {
+          "id": "toggle/immediate",
+          "text": "Nur für Einstellungen, die sofort wirken.",
+          "why": "Ein Schalter verspricht, dass die Änderung schon gilt.",
+          "check": null,
+          "herkunft": "Fundament-Regel, für ZDS noch zu bestätigen"
+        }
+      ],
+      "a11y": "Als <button role=\"switch\"> mit aria-checked. Einen deaktivierten Zustand gibt es im ZDS nicht.",
+      "do": [
+        "Beschriftung nennt die Einstellung"
+      ],
+      "dont": [
+        "„An“ oder „Aus“ als Beschriftung"
+      ]
+    },
+    {
+      "name": "Input",
+      "kind": "component",
+      "status": "stable",
+      "version": "0.1.0",
+      "purpose": "Einzeilige Texteingabe.",
+      "zds": {
+        "klasse": "z-input",
+        "quelle": "packages/components/src/input"
+      },
+      "rules": [
+        {
+          "id": "input/visible-label",
+          "text": "Der Input hat immer eine sichtbare Beschriftung.",
+          "why": "Das ZDS dokumentiert den Input nur mit Platzhalter und aria-label. Platzhalter verschwinden beim Tippen.",
+          "check": "required-prop",
+          "herkunft": "Lücke der ZDS-Doku, in der Probe ergänzt"
+        },
+        {
+          "id": "input/error-text",
+          "text": "Im Fehlerzustand erklärt errorText, wie man den Fehler behebt.",
+          "why": "Das ZDS färbt nur den Rahmen. Rot allein sagt nicht, was zu tun ist.",
+          "check": null,
+          "herkunft": "Lücke der ZDS-Doku, in der Probe ergänzt"
+        }
+      ],
+      "a11y": "<label for> mit dem Feld verknüpfen, Fehlertext per aria-describedby, Fehler mit aria-invalid. Der Fokus zeigt sich im ZDS nur als dunklerer Rahmen; die Extras Leading Icon und Dropdown sind in der Probe nicht übertragen.",
+      "do": [
+        "Beschriftung über dem Feld"
+      ],
+      "dont": [
+        "Platzhalter als einzige Beschriftung"
+      ]
+    },
+    {
+      "name": "TextButton",
+      "kind": "component",
+      "status": "stable",
+      "version": "0.1.0",
+      "purpose": "Zurückhaltende Aktion ohne Fläche, etwa in Leisten und neben Inhalten.",
+      "zds": {
+        "klasse": "z-text-button",
+        "quelle": "packages/components/src/text-button"
+      },
+      "rules": [
+        {
+          "id": "textbutton/label-verb",
+          "text": "Beschriftung beginnt mit einem Verb und nennt das Ergebnis.",
+          "why": "Man weiß vor dem Klick, was passiert.",
+          "check": null,
+          "herkunft": "Fundament-Regel, für ZDS noch zu bestätigen"
+        }
+      ],
+      "a11y": "Als <button> umsetzen. Die Variante On Image des ZDS ist in der Probe nicht übertragen.",
+      "do": [
+        "„Merken“",
+        "„Teilen“"
+      ],
+      "dont": [
+        "Text-Button als Hauptaktion einer Seite"
+      ]
+    }
+  ],
+  "principles": [
+    {
+      "id": "principles/surface-and-line",
+      "text": "Trennung über Fläche und Linie. Keine Verläufe, keine Schlagschatten.",
+      "why": "Verläufe und Schatten haben keine Tokens.",
+      "check": "no-decoration"
+    },
+    {
+      "id": "principles/sentence-case",
+      "text": "Satzschreibung. Keine Versalien per text-transform.",
+      "why": "Hausregel.",
+      "check": "no-uppercase"
+    },
+    {
+      "id": "principles/action-says-what",
+      "text": "Aktionen sagen, was passiert.",
+      "why": "„Mehr erfahren“ verrät nicht, was nach dem Klick kommt.",
+      "check": "no-vague-action"
+    },
+    {
+      "id": "principles/spacing-from-scale",
+      "text": "Abstände kommen aus der Skala.",
+      "why": "Zwischenwerte lassen sich nicht gemeinsam ändern.",
+      "check": "no-raw-space"
+    },
+    {
+      "id": "principles/system-controls",
+      "text": "Bedienelemente kommen aus dem System.",
+      "why": "Nur Systemkomponenten bringen Fokus und Zustände mit.",
+      "check": "registered-only"
+    }
+  ],
+  "vagueActions": [
+    "mehr erfahren",
+    "hier klicken",
+    "klick hier",
+    "klicken",
+    "click me",
+    "weiter",
+    "ok",
+    "mehr",
+    "los",
+    "absenden",
+    "senden"
+  ],
+  "contrast": [
+    {
+      "fg": "text-100",
+      "on": [
+        "background-0",
+        "background-10",
+        "background-20"
+      ],
+      "min": 4.5,
+      "why": "Text und Beschriftung des Default-Buttons"
+    },
+    {
+      "fg": "text-70",
+      "on": [
+        "background-0"
+      ],
+      "min": 4.5,
+      "why": "Hilfstext"
+    },
+    {
+      "fg": "background-0",
+      "on": [
+        "text-100",
+        "text-70"
+      ],
+      "min": 4.5,
+      "why": "Beschriftung des Primary-Buttons, auch im Hover"
+    },
+    {
+      "fg": "general-white-100",
+      "on": [
+        "accent-100"
+      ],
+      "min": 4.5,
+      "why": "Beschriftung des Z+-Buttons",
+      "accept": "Im Dark Mode liegt Weiß auf #eb362e unter 4,5:1. Offen für ZDS."
+    },
+    {
+      "fg": "general-white-100",
+      "on": [
+        "accent-70"
+      ],
+      "min": 4.5,
+      "why": "Beschriftung des Z+-Buttons im Hover"
+    },
+    {
+      "fg": "general-white-100",
+      "on": [
+        "text-100"
+      ],
+      "min": 3,
+      "why": "Haken der Checkbox, Knopf des Toggles im An-Zustand",
+      "accept": "Im Dark Mode ist text/100 selbst Weiß: Haken und Knopf sind dann nicht sichtbar. Offen für ZDS."
+    },
+    {
+      "fg": "border-100",
+      "on": [
+        "background-0"
+      ],
+      "min": 3,
+      "why": "Rahmen der Checkbox",
+      "accept": "Border/100 erreicht rund 1,6:1 statt 3:1 (WCAG 1.4.11). Bekannter offener Punkt im ZDS."
+    },
+    {
+      "fg": "background-20",
+      "on": [
+        "background-0"
+      ],
+      "min": 3,
+      "why": "Toggle-Bahn im Aus-Zustand gegen den Seitengrund",
+      "accept": "Die Bahn hebt sich mit rund 1,3:1 kaum vom Grund ab (WCAG 1.4.11). Offen für ZDS."
+    },
+    {
+      "fg": "focus-100",
+      "on": [
+        "background-0"
+      ],
+      "min": 3,
+      "why": "Fokus-Outline"
+    },
+    {
+      "fg": "text-55",
+      "on": [
+        "background-0"
+      ],
+      "min": 4.5,
+      "why": "Platzhalter im Input"
+    },
+    {
+      "fg": "error-70",
+      "on": [
+        "background-0"
+      ],
+      "min": 4.5,
+      "why": "Fehlertext unter dem Input (Probe)"
+    },
+    {
+      "fg": "text-70",
+      "on": [
+        "background-10"
+      ],
+      "min": 4.5,
+      "why": "Text-Button im Ruhezustand auf getönter Fläche"
+    }
+  ],
+  "migrations": [],
+  "changelog": [
+    {
+      "version": "0.3.0",
+      "text": "Aufbau wie Fundament: Tokenwerte und Aussehen aus Figma, Props aus dem Code, Regeln in rules.json."
+    },
+    {
+      "version": "0.2.0",
+      "text": "Input und Text-Button aufgenommen."
+    },
+    {
+      "version": "0.1.0",
+      "text": "Probe mit Button, Checkbox und Toggle aus dem ZDS."
+    }
+  ]
+}

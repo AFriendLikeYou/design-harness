@@ -1,75 +1,61 @@
 {
   "color": {
     "$type": "color",
-    "background": {
-      "0": {
-        "$value": "{color.dark.background-0}",
-        "$description": "Seitengrund und Fläche der Checkbox. Beschriftung des Primary-Buttons."
-      },
-      "10": {
-        "$value": "{color.dark.background-10}",
-        "$description": "Fläche des Default-Buttons, Hover-Fläche der Checkbox."
-      },
-      "20": {
-        "$value": "{color.dark.background-20}",
-        "$description": "Hover-Fläche des Default-Buttons, Bahn des Toggles im Aus-Zustand."
-      }
+    "accent-100": {
+      "$value": "{color.dark.accent-100}",
+      "$description": "ZEIT-Rot. Fläche des Z+-Buttons."
     },
-    "text": {
-      "40": {
-        "$value": "{color.dark.text-40}",
-        "$description": "Deaktivierter Text und deaktivierte angehakte Checkbox. Muss keinen Kontrast erfüllen."
-      },
-      "55": {
-        "$value": "{color.dark.text-55}",
-        "$description": "Platzhalter im Input. Rahmen des Inputs im Fokus."
-      },
-      "70": {
-        "$value": "{color.dark.text-70}",
-        "$description": "Sekundärer Text. Hover-Fläche des Primary-Buttons und der angehakten Checkbox."
-      },
-      "100": {
-        "$value": "{color.dark.text-100}",
-        "$description": "Text. Fläche des Primary-Buttons, der angehakten Checkbox und des Toggles im An-Zustand."
-      }
+    "accent-70": {
+      "$value": "{color.dark.accent-70}",
+      "$description": "Hover-Fläche des Z+-Buttons."
     },
-    "border": {
-      "70": {
-        "$value": "{color.dark.border-70}",
-        "$description": "Rahmen der deaktivierten Checkbox."
-      },
-      "100": {
-        "$value": "{color.dark.border-100}",
-        "$description": "Rahmen der Checkbox."
-      }
+    "background-0": {
+      "$value": "{color.dark.background-0}",
+      "$description": "Seitengrund und Fläche der Checkbox. Beschriftung des Primary-Buttons."
     },
-    "accent": {
-      "70": {
-        "$value": "{color.dark.accent-70}",
-        "$description": "Hover-Fläche des Z+-Buttons."
-      },
-      "100": {
-        "$value": "{color.dark.accent-100}",
-        "$description": "ZEIT-Rot. Fläche des Z+-Buttons."
-      }
+    "background-10": {
+      "$value": "{color.dark.background-10}",
+      "$description": "Fläche des Default-Buttons, Hover-Fläche von Checkbox und Text-Button."
     },
-    "focus": {
-      "100": {
-        "$value": "{color.dark.focus-100}",
-        "$description": "Fokus-Outline, 2 px."
-      }
+    "background-20": {
+      "$value": "{color.dark.background-20}",
+      "$description": "Hover-Fläche des Default-Buttons, Bahn des Toggles im Aus-Zustand."
     },
-    "general": {
-      "white-100": {
-        "$value": "{color.dark.general-white-100}",
-        "$description": "Festes Weiß: Beschriftung des Z+-Buttons, Haken der Checkbox, Knopf des Toggles."
-      }
+    "border-100": {
+      "$value": "{color.dark.border-100}",
+      "$description": "Rahmen von Checkbox und Input. Bekannter Verstoß: 1,6:1 statt 3:1."
     },
-    "error": {
-      "70": {
-        "$value": "{color.dark.error-70}",
-        "$description": "Rahmen des Inputs im Fehlerzustand; in der Probe auch der Fehlertext."
-      }
+    "border-70": {
+      "$value": "{color.dark.border-70}",
+      "$description": "Rahmen der deaktivierten Checkbox."
+    },
+    "error-70": {
+      "$value": "{color.dark.error-70}",
+      "$description": "Rahmen des Inputs im Fehlerzustand; in der Probe auch der Fehlertext."
+    },
+    "focus-100": {
+      "$value": "{color.dark.focus-100}",
+      "$description": "Fokus-Outline, 2 px."
+    },
+    "general-white-100": {
+      "$value": "{color.dark.general-white-100}",
+      "$description": "Festes Weiß: Beschriftung des Z+-Buttons, Haken, Knopf des Toggles."
+    },
+    "text-100": {
+      "$value": "{color.dark.text-100}",
+      "$description": "Text. Fläche des Primary-Buttons, der angehakten Checkbox und des Toggles im An-Zustand."
+    },
+    "text-40": {
+      "$value": "{color.dark.text-40}",
+      "$description": "Deaktivierter Text. Muss keinen Kontrast erfüllen."
+    },
+    "text-55": {
+      "$value": "{color.dark.text-55}",
+      "$description": "Platzhalter im Input. Rahmen des Inputs im Fokus."
+    },
+    "text-70": {
+      "$value": "{color.dark.text-70}",
+      "$description": "Sekundärer Text. Hover-Fläche des Primary-Buttons."
     }
   }
 }

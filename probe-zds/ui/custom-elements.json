@@ -1,0 +1,293 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "fundament.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Button",
+          "tagName": "z-ds-button",
+          "description": "Löst eine Aktion aus.",
+          "attributes": [
+            {
+              "name": "variant",
+              "type": {
+                "text": "'default' | 'primary' | 'zplus'"
+              },
+              "default": "\"default\""
+            },
+            {
+              "name": "fullwidth",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "name": "state",
+              "type": {
+                "text": "'default' | 'hover' | 'focus'"
+              },
+              "default": "\"default\""
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Speichern\""
+            }
+          ],
+          "slots": []
+        },
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Checkbox",
+          "tagName": "z-ds-checkbox",
+          "description": "Auswahl einer unabhängigen Option.",
+          "attributes": [
+            {
+              "name": "checked",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "name": "state",
+              "type": {
+                "text": "'default' | 'hover' | 'focus'"
+              },
+              "default": "\"default\""
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Auch Angebote der ZEIT erhalten\""
+            },
+            {
+              "name": "helper-text",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Abbestellen ist jederzeit möglich.\""
+            },
+            {
+              "name": "show-helper",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            }
+          ],
+          "slots": []
+        },
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Toggle",
+          "tagName": "z-ds-toggle",
+          "description": "Schaltet eine Einstellung sofort ein oder aus.",
+          "attributes": [
+            {
+              "name": "checked",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "name": "state",
+              "type": {
+                "text": "'default' | 'focus'"
+              },
+              "default": "\"default\""
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Was jetzt? Der Morgenüberblick\""
+            },
+            {
+              "name": "helper-text",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Montag bis Freitag um 6 Uhr.\""
+            },
+            {
+              "name": "show-helper",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            }
+          ],
+          "slots": []
+        },
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "Input",
+          "tagName": "z-ds-input",
+          "description": "Einzeilige Texteingabe.",
+          "attributes": [
+            {
+              "name": "state",
+              "type": {
+                "text": "'default' | 'focus' | 'error' | 'disabled'"
+              },
+              "default": "\"default\""
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"E-Mail-Adresse\""
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"name@beispiel.de\""
+            },
+            {
+              "name": "helper-text",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Wir schicken dir einen Bestätigungslink.\""
+            },
+            {
+              "name": "show-helper",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true"
+            },
+            {
+              "name": "error-text",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Bitte gib eine gültige E-Mail-Adresse ein.\""
+            }
+          ],
+          "slots": []
+        },
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "TextButton",
+          "tagName": "z-ds-text-button",
+          "description": "Zurückhaltende Aktion ohne Fläche, etwa in Leisten und neben Inhalten.",
+          "attributes": [
+            {
+              "name": "size",
+              "type": {
+                "text": "'default' | 'slim' | 'large'"
+              },
+              "default": "\"default\""
+            },
+            {
+              "name": "bold",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "name": "state",
+              "type": {
+                "text": "'default' | 'hover' | 'focus'"
+              },
+              "default": "\"default\""
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Merken\""
+            }
+          ],
+          "slots": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "z-ds-button",
+          "declaration": {
+            "name": "Button",
+            "module": "fundament.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "z-ds-checkbox",
+          "declaration": {
+            "name": "Checkbox",
+            "module": "fundament.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "z-ds-toggle",
+          "declaration": {
+            "name": "Toggle",
+            "module": "fundament.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "z-ds-input",
+          "declaration": {
+            "name": "Input",
+            "module": "fundament.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "z-ds-text-button",
+          "declaration": {
+            "name": "TextButton",
+            "module": "fundament.js"
+          }
+        }
+      ]
+    }
+  ]
+}

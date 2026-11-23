@@ -2,8 +2,8 @@
   "$comment": "Generiert. Geprüfte Text/Fläche-Paare je Mode nach WCAG 2.x.",
   "pairs": [
     {
-      "fg": "text/100",
-      "on": "background/0",
+      "fg": "text-100",
+      "on": "background-0",
       "mode": "light",
       "ratio": 15.33,
       "min": 4.5,
@@ -11,8 +11,8 @@
       "why": "Text und Beschriftung des Default-Buttons"
     },
     {
-      "fg": "text/100",
-      "on": "background/0",
+      "fg": "text-100",
+      "on": "background-0",
       "mode": "dark",
       "ratio": 18.73,
       "min": 4.5,
@@ -20,8 +20,8 @@
       "why": "Text und Beschriftung des Default-Buttons"
     },
     {
-      "fg": "text/100",
-      "on": "background/10",
+      "fg": "text-100",
+      "on": "background-10",
       "mode": "light",
       "ratio": 13.21,
       "min": 4.5,
@@ -29,8 +29,8 @@
       "why": "Text und Beschriftung des Default-Buttons"
     },
     {
-      "fg": "text/100",
-      "on": "background/10",
+      "fg": "text-100",
+      "on": "background-10",
       "mode": "dark",
       "ratio": 15.72,
       "min": 4.5,
@@ -38,8 +38,8 @@
       "why": "Text und Beschriftung des Default-Buttons"
     },
     {
-      "fg": "text/100",
-      "on": "background/20",
+      "fg": "text-100",
+      "on": "background-20",
       "mode": "light",
       "ratio": 11.52,
       "min": 4.5,
@@ -47,8 +47,8 @@
       "why": "Text und Beschriftung des Default-Buttons"
     },
     {
-      "fg": "text/100",
-      "on": "background/20",
+      "fg": "text-100",
+      "on": "background-20",
       "mode": "dark",
       "ratio": 13.58,
       "min": 4.5,
@@ -56,8 +56,8 @@
       "why": "Text und Beschriftung des Default-Buttons"
     },
     {
-      "fg": "text/70",
-      "on": "background/0",
+      "fg": "text-70",
+      "on": "background-0",
       "mode": "light",
       "ratio": 9.74,
       "min": 4.5,
@@ -65,8 +65,8 @@
       "why": "Hilfstext"
     },
     {
-      "fg": "text/70",
-      "on": "background/0",
+      "fg": "text-70",
+      "on": "background-0",
       "mode": "dark",
       "ratio": 9.65,
       "min": 4.5,
@@ -74,8 +74,8 @@
       "why": "Hilfstext"
     },
     {
-      "fg": "background/0",
-      "on": "text/100",
+      "fg": "background-0",
+      "on": "text-100",
       "mode": "light",
       "ratio": 15.33,
       "min": 4.5,
@@ -83,8 +83,8 @@
       "why": "Beschriftung des Primary-Buttons, auch im Hover"
     },
     {
-      "fg": "background/0",
-      "on": "text/100",
+      "fg": "background-0",
+      "on": "text-100",
       "mode": "dark",
       "ratio": 18.73,
       "min": 4.5,
@@ -92,8 +92,8 @@
       "why": "Beschriftung des Primary-Buttons, auch im Hover"
     },
     {
-      "fg": "background/0",
-      "on": "text/70",
+      "fg": "background-0",
+      "on": "text-70",
       "mode": "light",
       "ratio": 9.74,
       "min": 4.5,
@@ -101,8 +101,8 @@
       "why": "Beschriftung des Primary-Buttons, auch im Hover"
     },
     {
-      "fg": "background/0",
-      "on": "text/70",
+      "fg": "background-0",
+      "on": "text-70",
       "mode": "dark",
       "ratio": 9.65,
       "min": 4.5,
@@ -110,8 +110,8 @@
       "why": "Beschriftung des Primary-Buttons, auch im Hover"
     },
     {
-      "fg": "general/white-100",
-      "on": "accent/100",
+      "fg": "general-white-100",
+      "on": "accent-100",
       "mode": "light",
       "ratio": 6.67,
       "min": 4.5,
@@ -119,8 +119,8 @@
       "why": "Beschriftung des Z+-Buttons"
     },
     {
-      "fg": "general/white-100",
-      "on": "accent/100",
+      "fg": "general-white-100",
+      "on": "accent-100",
       "mode": "dark",
       "ratio": 4.12,
       "min": 4.5,
@@ -129,8 +129,8 @@
       "accepted": "Im Dark Mode liegt Weiß auf #eb362e unter 4,5:1. Offen für ZDS."
     },
     {
-      "fg": "general/white-100",
-      "on": "accent/70",
+      "fg": "general-white-100",
+      "on": "accent-70",
       "mode": "light",
       "ratio": 9.96,
       "min": 4.5,
@@ -138,8 +138,8 @@
       "why": "Beschriftung des Z+-Buttons im Hover"
     },
     {
-      "fg": "general/white-100",
-      "on": "accent/70",
+      "fg": "general-white-100",
+      "on": "accent-70",
       "mode": "dark",
       "ratio": 9.96,
       "min": 4.5,
@@ -147,8 +147,8 @@
       "why": "Beschriftung des Z+-Buttons im Hover"
     },
     {
-      "fg": "general/white-100",
-      "on": "text/100",
+      "fg": "general-white-100",
+      "on": "text-100",
       "mode": "light",
       "ratio": 15.33,
       "min": 3,
@@ -156,8 +156,8 @@
       "why": "Haken der Checkbox, Knopf des Toggles im An-Zustand"
     },
     {
-      "fg": "general/white-100",
-      "on": "text/100",
+      "fg": "general-white-100",
+      "on": "text-100",
       "mode": "dark",
       "ratio": 1,
       "min": 3,
@@ -166,8 +166,8 @@
       "accepted": "Im Dark Mode ist text/100 selbst Weiß: Haken und Knopf sind dann nicht sichtbar. Offen für ZDS."
     },
     {
-      "fg": "border/100",
-      "on": "background/0",
+      "fg": "border-100",
+      "on": "background-0",
       "mode": "light",
       "ratio": 1.6,
       "min": 3,
@@ -176,8 +176,8 @@
       "accepted": "Border/100 erreicht rund 1,6:1 statt 3:1 (WCAG 1.4.11). Bekannter offener Punkt im ZDS."
     },
     {
-      "fg": "border/100",
-      "on": "background/0",
+      "fg": "border-100",
+      "on": "background-0",
       "mode": "dark",
       "ratio": 1.55,
       "min": 3,
@@ -186,8 +186,8 @@
       "accepted": "Border/100 erreicht rund 1,6:1 statt 3:1 (WCAG 1.4.11). Bekannter offener Punkt im ZDS."
     },
     {
-      "fg": "background/20",
-      "on": "background/0",
+      "fg": "background-20",
+      "on": "background-0",
       "mode": "light",
       "ratio": 1.33,
       "min": 3,
@@ -196,8 +196,8 @@
       "accepted": "Die Bahn hebt sich mit rund 1,3:1 kaum vom Grund ab (WCAG 1.4.11). Offen für ZDS."
     },
     {
-      "fg": "background/20",
-      "on": "background/0",
+      "fg": "background-20",
+      "on": "background-0",
       "mode": "dark",
       "ratio": 1.38,
       "min": 3,
@@ -206,8 +206,8 @@
       "accepted": "Die Bahn hebt sich mit rund 1,3:1 kaum vom Grund ab (WCAG 1.4.11). Offen für ZDS."
     },
     {
-      "fg": "focus/100",
-      "on": "background/0",
+      "fg": "focus-100",
+      "on": "background-0",
       "mode": "light",
       "ratio": 5.98,
       "min": 3,
@@ -215,8 +215,8 @@
       "why": "Fokus-Outline"
     },
     {
-      "fg": "focus/100",
-      "on": "background/0",
+      "fg": "focus-100",
+      "on": "background-0",
       "mode": "dark",
       "ratio": 7.18,
       "min": 3,
@@ -224,8 +224,8 @@
       "why": "Fokus-Outline"
     },
     {
-      "fg": "text/55",
-      "on": "background/0",
+      "fg": "text-55",
+      "on": "background-0",
       "mode": "light",
       "ratio": 5.47,
       "min": 4.5,
@@ -233,8 +233,8 @@
       "why": "Platzhalter im Input"
     },
     {
-      "fg": "text/55",
-      "on": "background/0",
+      "fg": "text-55",
+      "on": "background-0",
       "mode": "dark",
       "ratio": 6.58,
       "min": 4.5,
@@ -242,8 +242,8 @@
       "why": "Platzhalter im Input"
     },
     {
-      "fg": "error/70",
-      "on": "background/0",
+      "fg": "error-70",
+      "on": "background-0",
       "mode": "light",
       "ratio": 5.22,
       "min": 4.5,
@@ -251,8 +251,8 @@
       "why": "Fehlertext unter dem Input (Probe)"
     },
     {
-      "fg": "error/70",
-      "on": "background/0",
+      "fg": "error-70",
+      "on": "background-0",
       "mode": "dark",
       "ratio": 4.75,
       "min": 4.5,
@@ -260,8 +260,8 @@
       "why": "Fehlertext unter dem Input (Probe)"
     },
     {
-      "fg": "text/70",
-      "on": "background/10",
+      "fg": "text-70",
+      "on": "background-10",
       "mode": "light",
       "ratio": 8.39,
       "min": 4.5,
@@ -269,8 +269,8 @@
       "why": "Text-Button im Ruhezustand auf getönter Fläche"
     },
     {
-      "fg": "text/70",
-      "on": "background/10",
+      "fg": "text-70",
+      "on": "background-10",
       "mode": "dark",
       "ratio": 8.1,
       "min": 4.5,

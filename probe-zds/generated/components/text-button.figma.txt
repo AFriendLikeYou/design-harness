@@ -1,0 +1,6 @@
+Status: stable · v0.1.0
+Zurückhaltende Aktion ohne Fläche, etwa in Leisten und neben Inhalten.
+Regeln: Beschriftung beginnt mit einem Verb und nennt das Ergebnis. [textbutton/label-verb]
+A11y: Als <button> umsetzen. Die Variante On Image des ZDS ist in der Probe nicht übertragen.
+Spec: ds/text-button
+Code: <z-ds-text-button> aus "@zeit/zds-probe"

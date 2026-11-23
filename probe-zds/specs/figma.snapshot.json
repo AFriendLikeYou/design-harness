@@ -1,0 +1,1186 @@
+{
+ "schema": 2,
+ "file": "Untitled (zS8ZMBxGCXjeL0Sygvsbti), Seite ZDS-Probe",
+ "exportedAt": "2026-11-23",
+ "variables": [
+  [
+   "zds",
+   "border-width/default",
+   "FLOAT",
+   {
+    "light": 1,
+    "dark": 1
+   },
+   [
+    "STROKE_FLOAT"
+   ],
+   "var(--z-ds-border-width-default)",
+   "Rahmenstärke.",
+   0
+  ],
+  [
+   "zds",
+   "border-width/strong",
+   "FLOAT",
+   {
+    "light": 2,
+    "dark": 2
+   },
+   [
+    "STROKE_FLOAT"
+   ],
+   "var(--z-ds-border-width-strong)",
+   "Rahmenstärke.",
+   0
+  ],
+  [
+   "zds",
+   "color/accent-100",
+   "COLOR",
+   {
+    "light": "#b91109",
+    "dark": "#eb362e"
+   },
+   [
+    "FRAME_FILL",
+    "SHAPE_FILL"
+   ],
+   "var(--z-ds-color-accent-100)",
+   "ZEIT-Rot. Fläche des Z+-Buttons.",
+   0
+  ],
+  [
+   "zds",
+   "color/accent-70",
+   "COLOR",
+   {
+    "light": "#880d07",
+    "dark": "#880d07"
+   },
+   [
+    "FRAME_FILL",
+    "SHAPE_FILL"
+   ],
+   "var(--z-ds-color-accent-70)",
+   "Hover-Fläche des Z+-Buttons.",
+   0
+  ],
+  [
+   "zds",
+   "color/background-0",
+   "COLOR",
+   {
+    "light": "#ffffff",
+    "dark": "#121212"
+   },
+   [
+    "FRAME_FILL",
+    "SHAPE_FILL",
+    "STROKE_COLOR",
+    "TEXT_FILL"
+   ],
+   "var(--z-ds-color-background-0)",
+   "Seitengrund und Fläche der Checkbox. Beschriftung des Primary-Buttons.",
+   0
+  ],
+  [
+   "zds",
+   "color/background-10",
+   "COLOR",
+   {
+    "light": "#eeeeee",
+    "dark": "#232323"
+   },
+   [
+    "FRAME_FILL",
+    "SHAPE_FILL"
+   ],
+   "var(--z-ds-color-background-10)",
+   "Fläche des Default-Buttons, Hover-Fläche von Checkbox und Text-Button.",
+   0
+  ],
+  [
+   "zds",
+   "color/background-20",
+   "COLOR",
+   {
+    "light": "#dfdfe1",
+    "dark": "#2e2e2e"
+   },
+   [
+    "FRAME_FILL",
+    "SHAPE_FILL"
+   ],
+   "var(--z-ds-color-background-20)",
+   "Hover-Fläche des Default-Buttons, Bahn des Toggles im Aus-Zustand.",
+   0
+  ],
+  [
+   "zds",
+   "color/border-100",
+   "COLOR",
+   {
+    "light": "#cccccf",
+    "dark": "#363636"
+   },
+   [
+    "STROKE_COLOR"
+   ],
+   "var(--z-ds-color-border-100)",
+   "Rahmen von Checkbox und Input. Bekannter Verstoß: 1,6:1 statt 3:1.",
+   0
+  ],
+  [
+   "zds",
+   "color/border-70",
+   "COLOR",
+   {
+    "light": "#e4e4e4",
+    "dark": "#2e2e2e"
+   },
+   [
+    "STROKE_COLOR"
+   ],
+   "var(--z-ds-color-border-70)",
+   "Rahmen der deaktivierten Checkbox.",
+   0
+  ],
+  [
+   "zds",
+   "color/error-70",
+   "COLOR",
+   {
+    "light": "#bf4040",
+    "dark": "#f13638"
+   },
+   [
+    "STROKE_COLOR",
+    "TEXT_FILL"
+   ],
+   "var(--z-ds-color-error-70)",
+   "Rahmen des Inputs im Fehlerzustand; in der Probe auch der Fehlertext.",
+   0
+  ],
+  [
+   "zds",
+   "color/focus-100",
+   "COLOR",
+   {
+    "light": "#005fcc",
+    "dark": "#54a3fe"
+   },
+   [
+    "STROKE_COLOR"
+   ],
+   "var(--z-ds-color-focus-100)",
+   "Fokus-Outline, 2 px.",
+   0
+  ],
+  [
+   "zds",
+   "color/general-white-100",
+   "COLOR",
+   {
+    "light": "#ffffff",
+    "dark": "#ffffff"
+   },
+   [
+    "FRAME_FILL",
+    "SHAPE_FILL",
+    "STROKE_COLOR",
+    "TEXT_FILL"
+   ],
+   "var(--z-ds-color-general-white-100)",
+   "Festes Weiß: Beschriftung des Z+-Buttons, Haken, Knopf des Toggles.",
+   0
+  ],
+  [
+   "zds",
+   "color/text-100",
+   "COLOR",
+   {
+    "light": "#252525",
+    "dark": "#ffffff"
+   },
+   [
+    "FRAME_FILL",
+    "SHAPE_FILL",
+    "TEXT_FILL"
+   ],
+   "var(--z-ds-color-text-100)",
+   "Text. Fläche des Primary-Buttons, der angehakten Checkbox und des Toggles im An-Zustand.",
+   0
+  ],
+  [
+   "zds",
+   "color/text-40",
+   "COLOR",
+   {
+    "light": "#999999",
+    "dark": "#8b8b8b"
+   },
+   [
+    "FRAME_FILL",
+    "SHAPE_FILL",
+    "TEXT_FILL"
+   ],
+   "var(--z-ds-color-text-40)",
+   "Deaktivierter Text. Muss keinen Kontrast erfüllen.",
+   0
+  ],
+  [
+   "zds",
+   "color/text-55",
+   "COLOR",
+   {
+    "light": "#69696c",
+    "dark": "#999999"
+   },
+   [
+    "STROKE_COLOR",
+    "TEXT_FILL"
+   ],
+   "var(--z-ds-color-text-55)",
+   "Platzhalter im Input. Rahmen des Inputs im Fokus.",
+   0
+  ],
+  [
+   "zds",
+   "color/text-70",
+   "COLOR",
+   {
+    "light": "#444444",
+    "dark": "#bababa"
+   },
+   [
+    "FRAME_FILL",
+    "SHAPE_FILL",
+    "TEXT_FILL"
+   ],
+   "var(--z-ds-color-text-70)",
+   "Sekundärer Text. Hover-Fläche des Primary-Buttons.",
+   0
+  ],
+  [
+   "zds",
+   "radius/2",
+   "FLOAT",
+   {
+    "light": 2,
+    "dark": 2
+   },
+   [
+    "CORNER_RADIUS"
+   ],
+   "var(--z-ds-radius-2)",
+   "Radius aus dem ZDS.",
+   0
+  ],
+  [
+   "zds",
+   "radius/4",
+   "FLOAT",
+   {
+    "light": 4,
+    "dark": 4
+   },
+   [
+    "CORNER_RADIUS"
+   ],
+   "var(--z-ds-radius-4)",
+   "Radius aus dem ZDS.",
+   0
+  ],
+  [
+   "zds",
+   "radius/full",
+   "FLOAT",
+   {
+    "light": 999,
+    "dark": 999
+   },
+   [
+    "CORNER_RADIUS"
+   ],
+   "var(--z-ds-radius-full)",
+   "Radius aus dem ZDS.",
+   0
+  ],
+  [
+   "zds",
+   "size/checkbox",
+   "FLOAT",
+   {
+    "light": 16,
+    "dark": 16
+   },
+   [
+    "WIDTH_HEIGHT"
+   ],
+   "var(--z-ds-size-checkbox)",
+   "Maß der Komponente im ZDS.",
+   0
+  ],
+  [
+   "zds",
+   "size/input",
+   "FLOAT",
+   {
+    "light": 292,
+    "dark": 292
+   },
+   [
+    "WIDTH_HEIGHT"
+   ],
+   "var(--z-ds-size-input)",
+   "Maß der Komponente im ZDS.",
+   0
+  ],
+  [
+   "zds",
+   "size/toggle-thumb",
+   "FLOAT",
+   {
+    "light": 12,
+    "dark": 12
+   },
+   [
+    "WIDTH_HEIGHT"
+   ],
+   "var(--z-ds-size-toggle-thumb)",
+   "Maß der Komponente im ZDS.",
+   0
+  ],
+  [
+   "zds",
+   "size/toggle-width",
+   "FLOAT",
+   {
+    "light": 26,
+    "dark": 26
+   },
+   [
+    "WIDTH_HEIGHT"
+   ],
+   "var(--z-ds-size-toggle-width)",
+   "Maß der Komponente im ZDS.",
+   0
+  ],
+  [
+   "zds",
+   "size/touch-target",
+   "FLOAT",
+   {
+    "light": 44,
+    "dark": 44
+   },
+   [
+    "WIDTH_HEIGHT"
+   ],
+   "var(--z-ds-size-touch-target)",
+   "Mindesthöhe der Klickzeile aus Bedienelement und Beschriftung (Regel aus Fundament).",
+   0
+  ],
+  [
+   "zds",
+   "space/10",
+   "FLOAT",
+   {
+    "light": 10,
+    "dark": 10
+   },
+   [
+    "GAP"
+   ],
+   "var(--z-ds-space-10)",
+   "Abstand aus der ZDS-Skala (10 px).",
+   0
+  ],
+  [
+   "zds",
+   "space/12",
+   "FLOAT",
+   {
+    "light": 12,
+    "dark": 12
+   },
+   [
+    "GAP"
+   ],
+   "var(--z-ds-space-12)",
+   "Abstand aus der ZDS-Skala (12 px).",
+   0
+  ],
+  [
+   "zds",
+   "space/16",
+   "FLOAT",
+   {
+    "light": 16,
+    "dark": 16
+   },
+   [
+    "GAP"
+   ],
+   "var(--z-ds-space-16)",
+   "Abstand aus der ZDS-Skala (16 px).",
+   0
+  ],
+  [
+   "zds",
+   "space/2",
+   "FLOAT",
+   {
+    "light": 2,
+    "dark": 2
+   },
+   [
+    "GAP"
+   ],
+   "var(--z-ds-space-2)",
+   "Abstand aus der ZDS-Skala (2 px).",
+   0
+  ],
+  [
+   "zds",
+   "space/24",
+   "FLOAT",
+   {
+    "light": 24,
+    "dark": 24
+   },
+   [
+    "GAP"
+   ],
+   "var(--z-ds-space-24)",
+   "Abstand aus der ZDS-Skala (24 px).",
+   0
+  ],
+  [
+   "zds",
+   "space/32",
+   "FLOAT",
+   {
+    "light": 32,
+    "dark": 32
+   },
+   [
+    "GAP"
+   ],
+   "var(--z-ds-space-32)",
+   "Abstand zwischen Abschnitten.",
+   0
+  ],
+  [
+   "zds",
+   "space/4",
+   "FLOAT",
+   {
+    "light": 4,
+    "dark": 4
+   },
+   [
+    "GAP"
+   ],
+   "var(--z-ds-space-4)",
+   "Abstand aus der ZDS-Skala (4 px).",
+   0
+  ],
+  [
+   "zds",
+   "space/48",
+   "FLOAT",
+   {
+    "light": 48,
+    "dark": 48
+   },
+   [
+    "GAP"
+   ],
+   "var(--z-ds-space-48)",
+   "Abstand aus der ZDS-Skala (48 px).",
+   0
+  ],
+  [
+   "zds",
+   "space/6",
+   "FLOAT",
+   {
+    "light": 6,
+    "dark": 6
+   },
+   [
+    "GAP"
+   ],
+   "var(--z-ds-space-6)",
+   "Abstand aus der ZDS-Skala (6 px).",
+   0
+  ],
+  [
+   "zds",
+   "space/8",
+   "FLOAT",
+   {
+    "light": 8,
+    "dark": 8
+   },
+   [
+    "GAP"
+   ],
+   "var(--z-ds-space-8)",
+   "Abstand aus der ZDS-Skala (8 px).",
+   0
+  ]
+ ],
+ "textStyles": [
+  [
+   "body-md",
+   "Regular",
+   16,
+   20,
+   "ZDS-Probe. Code: var(--z-ds-text-body-md)"
+  ],
+  [
+   "body-sm",
+   "Regular",
+   14,
+   20,
+   "ZDS-Probe. Code: var(--z-ds-text-body-sm)"
+  ],
+  [
+   "caption",
+   "Regular",
+   12,
+   16,
+   "ZDS-Probe. Code: var(--z-ds-text-caption)"
+  ],
+  [
+   "display",
+   "Bold",
+   28,
+   32,
+   "ZDS-Probe. Code: var(--z-ds-text-display)"
+  ],
+  [
+   "heading-lg",
+   "Bold",
+   20,
+   24,
+   "ZDS-Probe. Code: var(--z-ds-text-heading-lg)"
+  ],
+  [
+   "label-md",
+   "Bold",
+   16,
+   20,
+   "ZDS-Probe. Code: var(--z-ds-text-label-md)"
+  ],
+  [
+   "label-sm",
+   "Bold",
+   14,
+   20,
+   "ZDS-Probe. Code: var(--z-ds-text-label-sm)"
+  ]
+ ],
+ "components": [
+  [
+   "Button",
+   [
+    [
+     "disabled",
+     "VARIANT",
+     [
+      "false",
+      "true"
+     ],
+     "false"
+    ],
+    [
+     "fullwidth",
+     "VARIANT",
+     [
+      "false",
+      "true"
+     ],
+     "false"
+    ],
+    [
+     "label",
+     "TEXT",
+     "Speichern",
+     ""
+    ],
+    [
+     "state",
+     "VARIANT",
+     [
+      "default",
+      "focus",
+      "hover"
+     ],
+     "default"
+    ],
+    [
+     "variant",
+     "VARIANT",
+     [
+      "default",
+      "primary",
+      "zplus"
+     ],
+     "default"
+    ]
+   ],
+   "Status: stable · v0.1.0\nLöst eine Aktion aus.\nRegeln: Höchstens ein Primary-Button pro Ansicht. [button/one-primary] Beschriftung beginnt mit einem Verb und nennt das Ergebnis. [button/label-verb] variant=zplus nur für den Weg zu Z+-Inhalten oder zum Abo. [button/zplus-only-paid]\nA11y: Als <button> umsetzen. :focus-visible zeigt eine 2-px-Outline in focus/100. Deaktiviert senkt die Deckkraft auf 50 %.\nSpec: ds/button\nCode: <z-ds-button> aus \"@zeit/zds-probe\""
+  ],
+  [
+   "Checkbox",
+   [
+    [
+     "checked",
+     "VARIANT",
+     [
+      "false",
+      "true"
+     ],
+     "false"
+    ],
+    [
+     "disabled",
+     "VARIANT",
+     [
+      "false",
+      "true"
+     ],
+     "false"
+    ],
+    [
+     "helperText",
+     "TEXT",
+     "Abbestellen ist jederzeit möglich.",
+     ""
+    ],
+    [
+     "label",
+     "TEXT",
+     "Auch Angebote der ZEIT erhalten",
+     ""
+    ],
+    [
+     "showHelper",
+     "BOOLEAN",
+     false,
+     ""
+    ],
+    [
+     "state",
+     "VARIANT",
+     [
+      "default",
+      "focus",
+      "hover"
+     ],
+     "default"
+    ]
+   ],
+   "Status: stable · v0.1.0\nAuswahl einer unabhängigen Option.\nRegeln: Die Checkbox hat immer eine sichtbare Beschriftung; sie gehört zur Klickfläche. [checkbox/needs-label] Ist die Checkbox deaktiviert, erklärt helperText den Grund. [checkbox/disabled-reason]\nA11y: Natives <input type=\"checkbox\"> in einem <label>. Die ZDS-Doku beschreibt nur ein <span>; das ist nicht bedienbar.\nSpec: ds/checkbox\nCode: <z-ds-checkbox> aus \"@zeit/zds-probe\""
+  ],
+  [
+   "Input",
+   [
+    [
+     "errorText",
+     "TEXT",
+     "Bitte gib eine gültige E-Mail-Adresse ein.",
+     ""
+    ],
+    [
+     "helperText",
+     "TEXT",
+     "Wir schicken dir einen Bestätigungslink.",
+     ""
+    ],
+    [
+     "label",
+     "TEXT",
+     "E-Mail-Adresse",
+     ""
+    ],
+    [
+     "showHelper",
+     "BOOLEAN",
+     true,
+     ""
+    ],
+    [
+     "state",
+     "VARIANT",
+     [
+      "default",
+      "disabled",
+      "error",
+      "focus"
+     ],
+     "default"
+    ],
+    [
+     "value",
+     "TEXT",
+     "name@beispiel.de",
+     ""
+    ]
+   ],
+   "Status: stable · v0.1.0\nEinzeilige Texteingabe.\nRegeln: Der Input hat immer eine sichtbare Beschriftung. [input/visible-label] Im Fehlerzustand erklärt errorText, wie man den Fehler behebt. [input/error-text]\nA11y: <label for> mit dem Feld verknüpfen, Fehlertext per aria-describedby, Fehler mit aria-invalid. Der Fokus zeigt sich im ZDS nur als dunklerer Rahmen; die Extras Leading Icon und Dropdown sind in der Probe nicht übertragen.\nSpec: ds/input\nCode: <z-ds-input> aus \"@zeit/zds-probe\""
+  ],
+  [
+   "TextButton",
+   [
+    [
+     "bold",
+     "VARIANT",
+     [
+      "false",
+      "true"
+     ],
+     "false"
+    ],
+    [
+     "disabled",
+     "VARIANT",
+     [
+      "false",
+      "true"
+     ],
+     "false"
+    ],
+    [
+     "label",
+     "TEXT",
+     "Merken",
+     ""
+    ],
+    [
+     "size",
+     "VARIANT",
+     [
+      "default",
+      "large",
+      "slim"
+     ],
+     "default"
+    ],
+    [
+     "state",
+     "VARIANT",
+     [
+      "default",
+      "focus",
+      "hover"
+     ],
+     "default"
+    ]
+   ],
+   "Status: stable · v0.1.0\nZurückhaltende Aktion ohne Fläche, etwa in Leisten und neben Inhalten.\nRegeln: Beschriftung beginnt mit einem Verb und nennt das Ergebnis. [textbutton/label-verb]\nA11y: Als <button> umsetzen. Die Variante On Image des ZDS ist in der Probe nicht übertragen.\nSpec: ds/text-button\nCode: <z-ds-text-button> aus \"@zeit/zds-probe\""
+  ],
+  [
+   "Toggle",
+   [
+    [
+     "checked",
+     "VARIANT",
+     [
+      "false",
+      "true"
+     ],
+     "false"
+    ],
+    [
+     "helperText",
+     "TEXT",
+     "Montag bis Freitag um 6 Uhr.",
+     ""
+    ],
+    [
+     "label",
+     "TEXT",
+     "Was jetzt? Der Morgenüberblick",
+     ""
+    ],
+    [
+     "showHelper",
+     "BOOLEAN",
+     false,
+     ""
+    ],
+    [
+     "state",
+     "VARIANT",
+     [
+      "default",
+      "focus"
+     ],
+     "default"
+    ]
+   ],
+   "Status: stable · v0.1.0\nSchaltet eine Einstellung sofort ein oder aus.\nRegeln: Der Toggle hat immer eine sichtbare Beschriftung; sie gehört zur Klickfläche. [toggle/needs-label] Nur für Einstellungen, die sofort wirken. [toggle/immediate]\nA11y: Als <button role=\"switch\"> mit aria-checked. Einen deaktivierten Zustand gibt es im ZDS nicht.\nSpec: ds/toggle\nCode: <z-ds-toggle> aus \"@zeit/zds-probe\""
+  ]
+ ],
+ "styles": [
+  [
+   "Button",
+   "variant=default, fullwidth=false, disabled=false, state=default",
+   {
+    "bg": "background-10",
+    "fg": "text-100"
+   }
+  ],
+  [
+   "Button",
+   "variant=default, fullwidth=false, disabled=false, state=focus",
+   {
+    "bg": "background-10",
+    "fg": "text-100",
+    "ring": "focus-100",
+    "ringWidth": "strong"
+   }
+  ],
+  [
+   "Button",
+   "variant=default, fullwidth=false, disabled=false, state=hover",
+   {
+    "bg": "background-20",
+    "fg": "text-100"
+   }
+  ],
+  [
+   "Button",
+   "variant=default, fullwidth=false, disabled=true, state=default",
+   {
+    "bg": "background-10",
+    "fg": "text-100"
+   }
+  ],
+  [
+   "Button",
+   "variant=default, fullwidth=true, disabled=false, state=default",
+   {
+    "bg": "background-10",
+    "fg": "text-100"
+   }
+  ],
+  [
+   "Button",
+   "variant=primary, fullwidth=false, disabled=false, state=default",
+   {
+    "bg": "text-100",
+    "fg": "background-0"
+   }
+  ],
+  [
+   "Button",
+   "variant=primary, fullwidth=false, disabled=false, state=focus",
+   {
+    "bg": "text-100",
+    "fg": "background-0",
+    "ring": "focus-100",
+    "ringWidth": "strong"
+   }
+  ],
+  [
+   "Button",
+   "variant=primary, fullwidth=false, disabled=false, state=hover",
+   {
+    "bg": "text-70",
+    "fg": "background-0"
+   }
+  ],
+  [
+   "Button",
+   "variant=primary, fullwidth=false, disabled=true, state=default",
+   {
+    "bg": "text-100",
+    "fg": "background-0"
+   }
+  ],
+  [
+   "Button",
+   "variant=primary, fullwidth=true, disabled=false, state=default",
+   {
+    "bg": "text-100",
+    "fg": "background-0"
+   }
+  ],
+  [
+   "Button",
+   "variant=zplus, fullwidth=false, disabled=false, state=default",
+   {
+    "bg": "accent-100",
+    "fg": "general-white-100"
+   }
+  ],
+  [
+   "Button",
+   "variant=zplus, fullwidth=false, disabled=false, state=focus",
+   {
+    "bg": "accent-100",
+    "fg": "general-white-100",
+    "ring": "focus-100",
+    "ringWidth": "strong"
+   }
+  ],
+  [
+   "Button",
+   "variant=zplus, fullwidth=false, disabled=false, state=hover",
+   {
+    "bg": "accent-70",
+    "fg": "general-white-100"
+   }
+  ],
+  [
+   "Button",
+   "variant=zplus, fullwidth=false, disabled=true, state=default",
+   {
+    "bg": "accent-100",
+    "fg": "general-white-100"
+   }
+  ],
+  [
+   "Button",
+   "variant=zplus, fullwidth=true, disabled=false, state=default",
+   {
+    "bg": "accent-100",
+    "fg": "general-white-100"
+   }
+  ],
+  [
+   "Checkbox",
+   "checked=false, disabled=false, state=default",
+   {
+    "bg": "background-0",
+    "border": "border-100",
+    "borderWidth": "default",
+    "fg": "text-100",
+    "helper": "text-70"
+   }
+  ],
+  [
+   "Checkbox",
+   "checked=false, disabled=false, state=focus",
+   {
+    "bg": "background-0",
+    "border": "border-100",
+    "borderWidth": "default",
+    "fg": "text-100",
+    "helper": "text-70",
+    "ring": "focus-100",
+    "ringWidth": "strong"
+   }
+  ],
+  [
+   "Checkbox",
+   "checked=false, disabled=false, state=hover",
+   {
+    "bg": "background-10",
+    "border": "border-100",
+    "borderWidth": "default",
+    "fg": "text-100",
+    "helper": "text-70"
+   }
+  ],
+  [
+   "Checkbox",
+   "checked=false, disabled=true, state=default",
+   {
+    "bg": "background-0",
+    "border": "border-70",
+    "borderWidth": "default",
+    "fg": "text-40",
+    "helper": "text-70"
+   }
+  ],
+  [
+   "Checkbox",
+   "checked=true, disabled=false, state=default",
+   {
+    "bg": "text-100",
+    "border": "text-100",
+    "borderWidth": "default",
+    "fg": "text-100",
+    "helper": "text-70",
+    "mark": "general-white-100"
+   }
+  ],
+  [
+   "Checkbox",
+   "checked=true, disabled=false, state=hover",
+   {
+    "bg": "text-70",
+    "border": "text-70",
+    "borderWidth": "default",
+    "fg": "text-100",
+    "helper": "text-70",
+    "mark": "general-white-100"
+   }
+  ],
+  [
+   "Checkbox",
+   "checked=true, disabled=true, state=default",
+   {
+    "bg": "text-40",
+    "border": "text-40",
+    "borderWidth": "default",
+    "fg": "text-40",
+    "helper": "text-70",
+    "mark": "general-white-100"
+   }
+  ],
+  [
+   "Input",
+   "state=default",
+   {
+    "bg": "background-0",
+    "border": "border-100",
+    "borderWidth": "default",
+    "fg": "text-100",
+    "helper": "text-70"
+   }
+  ],
+  [
+   "Input",
+   "state=disabled",
+   {
+    "bg": "background-0",
+    "border": "border-100",
+    "borderWidth": "default",
+    "fg": "text-40",
+    "helper": "text-70"
+   }
+  ],
+  [
+   "Input",
+   "state=error",
+   {
+    "bg": "background-0",
+    "border": "error-70",
+    "borderWidth": "default",
+    "fg": "text-100",
+    "helper": "error-70"
+   }
+  ],
+  [
+   "Input",
+   "state=focus",
+   {
+    "bg": "background-0",
+    "border": "text-55",
+    "borderWidth": "default",
+    "fg": "text-100",
+    "helper": "text-70"
+   }
+  ],
+  [
+   "TextButton",
+   "size=default, bold=false, disabled=false, state=default",
+   {
+    "fg": "text-70"
+   }
+  ],
+  [
+   "TextButton",
+   "size=default, bold=false, disabled=false, state=focus",
+   {
+    "fg": "text-70",
+    "ring": "focus-100",
+    "ringWidth": "strong"
+   }
+  ],
+  [
+   "TextButton",
+   "size=default, bold=false, disabled=false, state=hover",
+   {
+    "bg": "background-10",
+    "fg": "text-100"
+   }
+  ],
+  [
+   "TextButton",
+   "size=default, bold=false, disabled=true, state=default",
+   {
+    "fg": "text-70"
+   }
+  ],
+  [
+   "TextButton",
+   "size=default, bold=true, disabled=false, state=default",
+   {
+    "fg": "text-70"
+   }
+  ],
+  [
+   "TextButton",
+   "size=large, bold=false, disabled=false, state=default",
+   {
+    "fg": "text-70"
+   }
+  ],
+  [
+   "TextButton",
+   "size=large, bold=true, disabled=false, state=default",
+   {
+    "fg": "text-70"
+   }
+  ],
+  [
+   "TextButton",
+   "size=slim, bold=false, disabled=false, state=default",
+   {
+    "fg": "text-70"
+   }
+  ],
+  [
+   "Toggle",
+   "checked=false, state=default",
+   {
+    "bg": "background-20",
+    "fg": "text-100",
+    "helper": "text-70",
+    "thumb": "general-white-100"
+   }
+  ],
+  [
+   "Toggle",
+   "checked=false, state=focus",
+   {
+    "bg": "background-20",
+    "fg": "text-100",
+    "helper": "text-70",
+    "ring": "focus-100",
+    "ringWidth": "strong",
+    "thumb": "general-white-100"
+   }
+  ],
+  [
+   "Toggle",
+   "checked=true, state=default",
+   {
+    "bg": "text-100",
+    "fg": "text-100",
+    "helper": "text-70",
+    "thumb": "general-white-100"
+   }
+  ],
+  [
+   "Toggle",
+   "checked=true, state=focus",
+   {
+    "bg": "text-100",
+    "fg": "text-100",
+    "helper": "text-70",
+    "ring": "focus-100",
+    "ringWidth": "strong",
+    "thumb": "general-white-100"
+   }
+  ]
+ ]
+}
