@@ -9,6 +9,11 @@ Einzeilige Texteingabe mit sichtbarem Label und optionalem Hilfstext.
 
 Props sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attribute.
 
+## Nicht verwenden für
+
+- Mehrzeiligen Text: dafür gibt es noch keinen Baustein, Lücke melden
+- Auswahl aus festen Optionen: stattdessen `Radio`
+
 ## Props
 
 | Prop | Typ | Werte | Standard |

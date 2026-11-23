@@ -9,6 +9,10 @@ Schaltet eine Einstellung sofort ein oder aus, ohne Speichern.
 
 Props sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attribute.
 
+## Nicht verwenden für
+
+- Einstellungen, die erst mit Speichern gelten: stattdessen `Checkbox`
+
 ## Props
 
 | Prop | Typ | Werte | Standard |

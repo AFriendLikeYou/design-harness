@@ -1,4 +1,4 @@
-# Fundament Design System 1.8.0
+# Fundament Design System 1.9.0
 
 > Komponenten und Tokens. Quelle: specs/figma.snapshot.json, ui/elements.js und specs/rules.json. Code-Paket: @fundament/ui.
 

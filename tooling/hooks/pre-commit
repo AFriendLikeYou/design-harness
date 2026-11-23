@@ -1,0 +1,6 @@
+#!/bin/sh
+# Schnelle Prüfung vor jedem Commit (ohne Browser): System in sich und die eigenen Dateien.
+# Einmal einschalten: git config core.hooksPath tooling/hooks
+# Das volle Gate bleibt node tooling/verify.mjs und läuft auf GitHub.
+node cli/fundament.mjs lint || { echo 'Commit abgebrochen: Das System ist in sich nicht stimmig (siehe oben).'; exit 1; }
+node cli/fundament.mjs check ui docs || { echo 'Commit abgebrochen: Der Check hat Fehler gefunden (siehe oben).'; exit 1; }

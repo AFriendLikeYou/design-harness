@@ -1,7 +1,7 @@
 {
   "$comment": "Generiert zur Ansicht: das System, wie es aus Figma-Schnappschuss, Code und Regeldatei zusammengesetzt wird. Nicht von Hand bearbeiten.",
   "name": "Fundament",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "cssPrefix": "fd",
   "codePackage": "@fundament/ui",
   "primitives": {
@@ -551,6 +551,16 @@
       "status": "stable",
       "version": "1.4.1",
       "purpose": "Löst eine Aktion aus. Für Navigation zu einer anderen Seite einen Link verwenden.",
+      "notFor": [
+        {
+          "text": "Navigation zu einer anderen Seite",
+          "use": "Link"
+        },
+        {
+          "text": "Filter zum An- und Abwählen",
+          "use": "Chip"
+        }
+      ],
       "rules": [
         {
           "id": "button/one-primary",
@@ -803,6 +813,15 @@
       "status": "stable",
       "version": "1.3.0",
       "purpose": "Einzeilige Texteingabe mit sichtbarem Label und optionalem Hilfstext.",
+      "notFor": [
+        {
+          "text": "Mehrzeiligen Text"
+        },
+        {
+          "text": "Auswahl aus festen Optionen",
+          "use": "Radio"
+        }
+      ],
       "rules": [
         {
           "id": "textfield/visible-label",
@@ -942,6 +961,16 @@
       "status": "stable",
       "version": "1.2.0",
       "purpose": "Auswahl einer unabhängigen Option, die man an- oder abwählen kann.",
+      "notFor": [
+        {
+          "text": "Einstellungen, die sofort wirken",
+          "use": "Switch"
+        },
+        {
+          "text": "Eine Auswahl aus mehreren",
+          "use": "Radio"
+        }
+      ],
       "rules": [
         {
           "id": "checkbox/label-clickable",
@@ -1064,6 +1093,15 @@
       "status": "beta",
       "version": "0.1.0",
       "purpose": "Eine Auswahl aus mehreren. Steht immer in einer Gruppe von mindestens zwei.",
+      "notFor": [
+        {
+          "text": "Eine einzelne Ja-oder-Nein-Frage",
+          "use": "Checkbox"
+        },
+        {
+          "text": "Mehr als fünf Optionen"
+        }
+      ],
       "rules": [
         {
           "id": "radio/in-group",
@@ -1188,6 +1226,12 @@
       "status": "stable",
       "version": "1.0.0",
       "purpose": "Schaltet eine Einstellung sofort ein oder aus, ohne Speichern.",
+      "notFor": [
+        {
+          "text": "Einstellungen, die erst mit Speichern gelten",
+          "use": "Checkbox"
+        }
+      ],
       "rules": [
         {
           "id": "switch/immediate",
@@ -1307,6 +1351,16 @@
       "status": "beta",
       "version": "0.1.0",
       "purpose": "Filter zum An- und Abwählen. Mehrere Chips bilden eine Filterzeile.",
+      "notFor": [
+        {
+          "text": "Aktionen, die einmal etwas auslösen",
+          "use": "Button"
+        },
+        {
+          "text": "Status oder Kategorie ohne Bedienung",
+          "use": "Badge"
+        }
+      ],
       "rules": [
         {
           "id": "chip/short-label",
@@ -1421,6 +1475,16 @@
       "status": "stable",
       "version": "1.0.0",
       "purpose": "Kurzer Status oder Kategorie, nicht interaktiv.",
+      "notFor": [
+        {
+          "text": "Filter oder andere Bedienung",
+          "use": "Chip"
+        },
+        {
+          "text": "Hinweise in ganzen Sätzen",
+          "use": "Alert"
+        }
+      ],
       "rules": [
         {
           "id": "badge/short-label",
@@ -1494,6 +1558,15 @@
       "status": "stable",
       "version": "1.0.2",
       "purpose": "Hinweis im Seitenfluss zu Status, Erfolg, Warnung oder Fehler.",
+      "notFor": [
+        {
+          "text": "Fehler an einem einzelnen Feld",
+          "use": "TextField"
+        },
+        {
+          "text": "Aktionen"
+        }
+      ],
       "rules": [
         {
           "id": "alert/one-per-area",
@@ -1583,6 +1656,12 @@
       "status": "stable",
       "version": "1.1.0",
       "purpose": "Gruppiert zusammengehörige Inhalte mit optionaler Aktion.",
+      "notFor": [
+        {
+          "text": "Hinweise und Rückmeldungen",
+          "use": "Alert"
+        }
+      ],
       "rules": [
         {
           "id": "card/one-action",
@@ -1661,6 +1740,12 @@
       "status": "stable",
       "version": "1.0.0",
       "purpose": "Führt zu einer anderen Seite oder Stelle. Für Aktionen einen Button verwenden.",
+      "notFor": [
+        {
+          "text": "Aktionen ohne Ziel",
+          "use": "Button"
+        }
+      ],
       "rules": [
         {
           "id": "link/names-destination",
@@ -1761,6 +1846,12 @@
       "status": "stable",
       "version": "1.0.0",
       "purpose": "Sichert eine unwiderrufliche Aktion ab: Der danger-Button wird erst aktiv, wenn das Bestätigungswort eingegeben ist.",
+      "notFor": [
+        {
+          "text": "Aktionen, die sich rückgängig machen lassen",
+          "use": "Button"
+        }
+      ],
       "rules": [
         {
           "id": "confirmaction/for-irreversible",
@@ -1896,6 +1987,10 @@
     }
   ],
   "changelog": [
+    {
+      "version": "1.9.0",
+      "text": "Export als Pull Request über GitHub. Jeder Baustein nennt, wofür er nicht gedacht ist und was stattdessen passt. Der Check nennt bei festen Farben und Abständen das passende Token. Festes Format für gemeldete Lücken. Prüfung vor jedem Commit."
+    },
     {
       "version": "1.8.0",
       "text": "Maße je Variante werden gegen Figma gemessen (Radius, Innenabstand, Lücke, Textstil). Der Check kennt Hinweise neben Fehlern und begründete Einzelausnahmen (data-fd-allow). „Weiter“, „Absenden“, „Senden“ und „OK“ sind nur noch ein Hinweis. Ein primärer Button zählt je Ansicht, Karte oder Formular."

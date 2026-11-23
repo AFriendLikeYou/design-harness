@@ -94,6 +94,74 @@
     "--z-ds-text-label-sm": true,
     "--z-ds-text-caption": true
   },
+  "tokenValues": {
+    "--z-ds-color-accent-100": {
+      "light": "#b91109",
+      "dark": "#eb362e"
+    },
+    "--z-ds-color-accent-70": {
+      "light": "#880d07",
+      "dark": "#880d07"
+    },
+    "--z-ds-color-background-0": {
+      "light": "#ffffff",
+      "dark": "#121212"
+    },
+    "--z-ds-color-background-10": {
+      "light": "#eeeeee",
+      "dark": "#232323"
+    },
+    "--z-ds-color-background-20": {
+      "light": "#dfdfe1",
+      "dark": "#2e2e2e"
+    },
+    "--z-ds-color-border-100": {
+      "light": "#cccccf",
+      "dark": "#363636"
+    },
+    "--z-ds-color-border-70": {
+      "light": "#e4e4e4",
+      "dark": "#2e2e2e"
+    },
+    "--z-ds-color-error-70": {
+      "light": "#bf4040",
+      "dark": "#f13638"
+    },
+    "--z-ds-color-focus-100": {
+      "light": "#005fcc",
+      "dark": "#54a3fe"
+    },
+    "--z-ds-color-general-white-100": {
+      "light": "#ffffff",
+      "dark": "#ffffff"
+    },
+    "--z-ds-color-text-100": {
+      "light": "#252525",
+      "dark": "#ffffff"
+    },
+    "--z-ds-color-text-40": {
+      "light": "#999999",
+      "dark": "#8b8b8b"
+    },
+    "--z-ds-color-text-55": {
+      "light": "#69696c",
+      "dark": "#999999"
+    },
+    "--z-ds-color-text-70": {
+      "light": "#444444",
+      "dark": "#bababa"
+    },
+    "--z-ds-space-2": 2,
+    "--z-ds-space-4": 4,
+    "--z-ds-space-6": 6,
+    "--z-ds-space-8": 8,
+    "--z-ds-space-10": 10,
+    "--z-ds-space-12": 12,
+    "--z-ds-space-16": 16,
+    "--z-ds-space-24": 24,
+    "--z-ds-space-32": 32,
+    "--z-ds-space-48": 48
+  },
   "tokenDescriptions": {
     "--z-ds-color-accent-100": "ZEIT-Rot. Fläche des Z+-Buttons.",
     "--z-ds-color-accent-70": "Hover-Fläche des Z+-Buttons.",
@@ -250,6 +318,7 @@
         "--z-ds-color-accent-70"
       ],
       "slots": [],
+      "notFor": [],
       "rules": [
         {
           "id": "button/one-primary",
@@ -407,6 +476,7 @@
         "--z-ds-color-general-white-100"
       ],
       "slots": [],
+      "notFor": [],
       "rules": [
         {
           "id": "checkbox/needs-label",
@@ -523,6 +593,7 @@
         "--z-ds-color-focus-100"
       ],
       "slots": [],
+      "notFor": [],
       "rules": [
         {
           "id": "toggle/needs-label",
@@ -638,6 +709,7 @@
         "--z-ds-color-text-55"
       ],
       "slots": [],
+      "notFor": [],
       "rules": [
         {
           "id": "input/visible-label",
@@ -766,6 +838,7 @@
         "--z-ds-color-text-100"
       ],
       "slots": [],
+      "notFor": [],
       "rules": [
         {
           "id": "textbutton/label-verb",

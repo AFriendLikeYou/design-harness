@@ -9,6 +9,10 @@ Sichert eine unwiderrufliche Aktion ab: Der danger-Button wird erst aktiv, wenn 
 
 Props sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attribute.
 
+## Nicht verwenden für
+
+- Aktionen, die sich rückgängig machen lassen: stattdessen `Button`
+
 ## Props
 
 | Prop | Typ | Werte | Standard |

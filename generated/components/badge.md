@@ -9,6 +9,11 @@ Kurzer Status oder Kategorie, nicht interaktiv.
 
 Props sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attribute.
 
+## Nicht verwenden für
+
+- Filter oder andere Bedienung: stattdessen `Chip`
+- Hinweise in ganzen Sätzen: stattdessen `Alert`
+
 ## Props
 
 | Prop | Typ | Werte | Standard |

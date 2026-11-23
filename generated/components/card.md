@@ -9,6 +9,10 @@ Gruppiert zusammengehörige Inhalte mit optionaler Aktion.
 
 Props sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attribute.
 
+## Nicht verwenden für
+
+- Hinweise und Rückmeldungen: stattdessen `Alert`
+
 ## Props
 
 | Prop | Typ | Werte | Standard |

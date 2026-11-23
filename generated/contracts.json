@@ -58,7 +58,7 @@
     }
   ],
   "system": "Fundament",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "cssPrefix": "fd",
   "codePackage": "@fundament/ui",
   "tokens": {
@@ -114,6 +114,108 @@
     "--fd-text-label-md": true,
     "--fd-text-caption": true,
     "--fd-text-label-sm": true
+  },
+  "tokenValues": {
+    "--fd-color-action-danger": {
+      "light": "#c02b2b",
+      "dark": "#c02b2b"
+    },
+    "--fd-color-action-danger-hover": {
+      "light": "#9c1f1f",
+      "dark": "#9c1f1f"
+    },
+    "--fd-color-action-primary": {
+      "light": "#2557c7",
+      "dark": "#2557c7"
+    },
+    "--fd-color-action-primary-hover": {
+      "light": "#1c449e",
+      "dark": "#1c449e"
+    },
+    "--fd-color-bg-canvas": {
+      "light": "#f7f8fa",
+      "dark": "#0f1216"
+    },
+    "--fd-color-bg-disabled": {
+      "light": "#eef0f3",
+      "dark": "#272c35"
+    },
+    "--fd-color-bg-subtle": {
+      "light": "#eef0f3",
+      "dark": "#272c35"
+    },
+    "--fd-color-bg-surface": {
+      "light": "#ffffff",
+      "dark": "#181c22"
+    },
+    "--fd-color-border-default": {
+      "light": "#dde1e7",
+      "dark": "#3d4451"
+    },
+    "--fd-color-border-input": {
+      "light": "#6b7380",
+      "dark": "#6b7380"
+    },
+    "--fd-color-feedback-danger-bg": {
+      "light": "#fdeeee",
+      "dark": "#272c35"
+    },
+    "--fd-color-feedback-danger-fg": {
+      "light": "#9c1f1f",
+      "dark": "#f2a0a0"
+    },
+    "--fd-color-feedback-info-bg": {
+      "light": "#eef4ff",
+      "dark": "#272c35"
+    },
+    "--fd-color-feedback-info-fg": {
+      "light": "#1c449e",
+      "dark": "#93b4f5"
+    },
+    "--fd-color-feedback-success-bg": {
+      "light": "#ecf8f0",
+      "dark": "#272c35"
+    },
+    "--fd-color-feedback-success-fg": {
+      "light": "#17603a",
+      "dark": "#86d3a2"
+    },
+    "--fd-color-feedback-warning-bg": {
+      "light": "#fdf5e6",
+      "dark": "#272c35"
+    },
+    "--fd-color-feedback-warning-fg": {
+      "light": "#7a4700",
+      "dark": "#f2c46b"
+    },
+    "--fd-color-focus-ring": {
+      "light": "#3b6fe0",
+      "dark": "#93b4f5"
+    },
+    "--fd-color-text-disabled": {
+      "light": "#6b7380",
+      "dark": "#6b7380"
+    },
+    "--fd-color-text-on-action": {
+      "light": "#ffffff",
+      "dark": "#ffffff"
+    },
+    "--fd-color-text-primary": {
+      "light": "#181c22",
+      "dark": "#f7f8fa"
+    },
+    "--fd-color-text-secondary": {
+      "light": "#3d4451",
+      "dark": "#c3c9d2"
+    },
+    "--fd-space-2xs": 2,
+    "--fd-space-xs": 4,
+    "--fd-space-sm": 8,
+    "--fd-space-md": 12,
+    "--fd-space-lg": 16,
+    "--fd-space-xl": 24,
+    "--fd-space-2xl": 32,
+    "--fd-space-3xl": 48
   },
   "tokenDescriptions": {
     "--fd-color-action-danger": "Aktion, die etwas unwiderruflich löscht oder beendet. Besteht 4,5:1 mit text/on-action.",
@@ -377,6 +479,16 @@
         "--fd-color-text-primary"
       ],
       "slots": [],
+      "notFor": [
+        {
+          "text": "Navigation zu einer anderen Seite",
+          "use": "Link"
+        },
+        {
+          "text": "Filter zum An- und Abwählen",
+          "use": "Chip"
+        }
+      ],
       "rules": [
         {
           "id": "button/one-primary",
@@ -529,6 +641,15 @@
           "default": "Button",
           "element": "fd-button",
           "show": "show-trailing"
+        }
+      ],
+      "notFor": [
+        {
+          "text": "Mehrzeiligen Text"
+        },
+        {
+          "text": "Auswahl aus festen Optionen",
+          "use": "Radio"
         }
       ],
       "rules": [
@@ -696,6 +817,16 @@
         "--fd-color-text-on-action"
       ],
       "slots": [],
+      "notFor": [
+        {
+          "text": "Einstellungen, die sofort wirken",
+          "use": "Switch"
+        },
+        {
+          "text": "Eine Auswahl aus mehreren",
+          "use": "Radio"
+        }
+      ],
       "rules": [
         {
           "id": "checkbox/label-clickable",
@@ -829,6 +960,15 @@
         "--fd-color-text-on-action"
       ],
       "slots": [],
+      "notFor": [
+        {
+          "text": "Eine einzelne Ja-oder-Nein-Frage",
+          "use": "Checkbox"
+        },
+        {
+          "text": "Mehr als fünf Optionen"
+        }
+      ],
       "rules": [
         {
           "id": "radio/in-group",
@@ -959,6 +1099,12 @@
         "--fd-color-action-primary"
       ],
       "slots": [],
+      "notFor": [
+        {
+          "text": "Einstellungen, die erst mit Speichern gelten",
+          "use": "Checkbox"
+        }
+      ],
       "rules": [
         {
           "id": "switch/immediate",
@@ -1091,6 +1237,16 @@
         "--fd-color-action-primary-hover"
       ],
       "slots": [],
+      "notFor": [
+        {
+          "text": "Aktionen, die einmal etwas auslösen",
+          "use": "Button"
+        },
+        {
+          "text": "Status oder Kategorie ohne Bedienung",
+          "use": "Badge"
+        }
+      ],
       "rules": [
         {
           "id": "chip/short-label",
@@ -1194,6 +1350,16 @@
         "--fd-color-feedback-warning-fg"
       ],
       "slots": [],
+      "notFor": [
+        {
+          "text": "Filter oder andere Bedienung",
+          "use": "Chip"
+        },
+        {
+          "text": "Hinweise in ganzen Sätzen",
+          "use": "Alert"
+        }
+      ],
       "rules": [
         {
           "id": "badge/short-label",
@@ -1295,6 +1461,15 @@
         "--fd-color-feedback-warning-fg"
       ],
       "slots": [],
+      "notFor": [
+        {
+          "text": "Fehler an einem einzelnen Feld",
+          "use": "TextField"
+        },
+        {
+          "text": "Aktionen"
+        }
+      ],
       "rules": [
         {
           "id": "alert/one-per-area",
@@ -1384,6 +1559,12 @@
           "show": "show-badge"
         }
       ],
+      "notFor": [
+        {
+          "text": "Hinweise und Rückmeldungen",
+          "use": "Alert"
+        }
+      ],
       "rules": [
         {
           "id": "card/one-action",
@@ -1470,6 +1651,12 @@
         "--fd-color-text-primary"
       ],
       "slots": [],
+      "notFor": [
+        {
+          "text": "Aktionen ohne Ziel",
+          "use": "Button"
+        }
+      ],
       "rules": [
         {
           "id": "link/names-destination",
@@ -1532,6 +1719,7 @@
         "--fd-color-text-primary"
       ],
       "slots": [],
+      "notFor": [],
       "rules": [
         {
           "id": "signinform/compose-from-system",
@@ -1561,6 +1749,12 @@
       },
       "colorTokens": [],
       "slots": [],
+      "notFor": [
+        {
+          "text": "Aktionen, die sich rückgängig machen lassen",
+          "use": "Button"
+        }
+      ],
       "rules": [
         {
           "id": "confirmaction/for-irreversible",
@@ -1618,6 +1812,7 @@
         "--fd-color-feedback-info-fg"
       ],
       "slots": [],
+      "notFor": [],
       "rules": [],
       "a11y": "–",
       "element": "fd-link-button",

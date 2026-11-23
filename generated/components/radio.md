@@ -9,6 +9,11 @@ Eine Auswahl aus mehreren. Steht immer in einer Gruppe von mindestens zwei.
 
 Props sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attribute.
 
+## Nicht verwenden für
+
+- Eine einzelne Ja-oder-Nein-Frage: stattdessen `Checkbox`
+- Mehr als fünf Optionen: dafür gibt es noch keinen Baustein, Lücke melden
+
 ## Props
 
 | Prop | Typ | Werte | Standard |

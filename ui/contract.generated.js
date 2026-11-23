@@ -1,5 +1,5 @@
 // Generiert aus specs/figma.snapshot.json, ui/elements.js und specs/rules.json – nicht von Hand bearbeiten.
-export const VERSION = "1.8.0";
+export const VERSION = "1.9.0";
 export const PREFIX = "fd";
 export const ELEMENTS = {
   "fd-button": {

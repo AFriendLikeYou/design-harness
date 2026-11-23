@@ -9,6 +9,10 @@ Führt zu einer anderen Seite oder Stelle. Für Aktionen einen Button verwenden.
 
 Props sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attribute.
 
+## Nicht verwenden für
+
+- Aktionen ohne Ziel: stattdessen `Button`
+
 ## Props
 
 | Prop | Typ | Werte | Standard |

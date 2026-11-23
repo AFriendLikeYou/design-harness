@@ -9,6 +9,11 @@ Löst eine Aktion aus. Für Navigation zu einer anderen Seite einen Link verwend
 
 Props sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attribute.
 
+## Nicht verwenden für
+
+- Navigation zu einer anderen Seite: stattdessen `Link`
+- Filter zum An- und Abwählen: stattdessen `Chip`
+
 ## Props
 
 | Prop | Typ | Werte | Standard |

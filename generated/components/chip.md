@@ -9,6 +9,11 @@ Filter zum An- und Abwählen. Mehrere Chips bilden eine Filterzeile.
 
 Props sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attribute.
 
+## Nicht verwenden für
+
+- Aktionen, die einmal etwas auslösen: stattdessen `Button`
+- Status oder Kategorie ohne Bedienung: stattdessen `Badge`
+
 ## Props
 
 | Prop | Typ | Werte | Standard |

@@ -1,6 +1,7 @@
 Status: stable · v1.0.0
 Sichert eine unwiderrufliche Aktion ab: Der danger-Button wird erst aktiv, wenn das Bestätigungswort eingegeben ist.
 Regeln: Jede Aktion, die Daten unwiderruflich löscht, läuft über ConfirmAction. [confirmaction/for-irreversible] Das Freischalten kommt aus dem Muster, nicht aus eigenem Skript. [confirmaction/no-custom-script]
+Nicht für: Aktionen, die sich rückgängig machen lassen (dafür Button)
 A11y: Der Button nennt die Aktion. Warum er deaktiviert ist, steht als Hilfstext am Feld und ist per aria-describedby verknüpft.
 Spec: ds/confirm-action
 Code: <fd-confirm-action> aus "@fundament/ui"

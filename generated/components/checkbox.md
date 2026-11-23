@@ -9,6 +9,11 @@ Auswahl einer unabhängigen Option, die man an- oder abwählen kann.
 
 Props sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attribute.
 
+## Nicht verwenden für
+
+- Einstellungen, die sofort wirken: stattdessen `Switch`
+- Eine Auswahl aus mehreren: stattdessen `Radio`
+
 ## Props
 
 | Prop | Typ | Werte | Standard |

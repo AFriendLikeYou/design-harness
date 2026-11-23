@@ -1,6 +1,9 @@
 Status: stable · v1.3.0
 Einzeilige Texteingabe mit sichtbarem Label und optionalem Hilfstext.
 Regeln: Label ist immer sichtbar, nie nur als Platzhalter. [textfield/visible-label] Im Fehlerzustand ersetzt errorText den Hilfstext und erklärt, wie man den Fehler behebt. [textfield/error-text] Aktionen im Feld (Passwort anzeigen, Eingabe leeren) nur über den Slot trailing, mit einem Button variant=ghost size=sm. [textfield/trailing-slot] Passwort anzeigen und Eingabe leeren kommen über trailingAction (reveal, clear), nicht über eigenes Skript. [textfield/trailing-behavior]
+Slots: trailing (nimmt Button)
+Verhalten im Code: trailingAction = none | reveal | clear
+Nicht für: Mehrzeiligen Text; Auswahl aus festen Optionen (dafür Radio)
 A11y: Label per <label for> verknüpfen, Hilfs- und Fehlertext per aria-describedby; Fehler mit aria-invalid.
 Spec: ds/text-field
 Code: <fd-text-field> aus "@fundament/ui"

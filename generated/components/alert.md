@@ -9,6 +9,11 @@ Hinweis im Seitenfluss zu Status, Erfolg, Warnung oder Fehler.
 
 Props sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attribute.
 
+## Nicht verwenden für
+
+- Fehler an einem einzelnen Feld: stattdessen `TextField`
+- Aktionen: dafür gibt es noch keinen Baustein, Lücke melden
+
 ## Props
 
 | Prop | Typ | Werte | Standard |

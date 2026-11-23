@@ -19,6 +19,9 @@ for (const id of EXPECT_HTML) if (!foundHtml.has(id)) fails.push(`Regel ${id} sc
   if (ids('warning') !== 'principles/action-says-what') fails.push(`Stufen: erwartet genau einen Hinweis für „Weiter“, bekommen: ${ids('warning') || 'keinen'}`);
   if (ids('error') !== 'allow/needs-reason,allow/unknown-rule,principles/action-says-what') fails.push(`Stufen: erwartet Fehler für Ausnahme ohne Grund, unbekannte Regel und „Mehr“, bekommen: ${ids('error') || 'keine'}`);
   if (f.allowed.length !== 1 || f.allowed[0].id !== 'button/one-primary') fails.push(`Stufen: erwartet eine begründete Ausnahme für button/one-primary, bekommen: ${f.allowed.map((x) => x.id).join(',') || 'keine'}`); }
+// Der Check nennt zu festen Werten das passende Token
+{ const { writeFileSync, mkdtempSync } = await import('node:fs'); const { tmpdir } = await import('node:os'); const dir = mkdtempSync(tmpdir() + '/fd-'); const file = dir + '/t.css'; writeFileSync(file, '.x { color: #2557c7; background: #2658c8; margin: 16px; padding: 13px; }');
+  const fixes = check([file]).map((x) => x.fix).join(' | '); for (const want of ['Der Wert entspricht var(--fd-color-action-primary)', 'Vermutlich gemeint: var(--fd-color-action-primary)', 'Der Wert entspricht var(--fd-space-lg)', 'Am nächsten: 12px']) if (!fixes.includes(want)) fails.push(`Token-Vorschlag fehlt: „${want}“`); }
 const clean = check([here('../ui/components.css'), here('../ui/examples/konto-einstellungen.html'), here('../ui/examples/zustaende.html'), here('../ui/examples/nur-html.html'), here('../docs/index.html')]);
 if (clean.length) fails.push(`${clean.length} Befunde in den eigenen Dateien: ${clean.map((f) => f.id).join(', ')}`);
 const l = lint(spec); if (l.length) fails.push(`lint: ${l.map((f) => f.message).join(' | ')}`);

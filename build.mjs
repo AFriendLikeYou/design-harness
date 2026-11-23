@@ -49,6 +49,7 @@ for (const c of spec.components) {
     c.purpose, '',
     c.deprecated ? `> Veraltet seit ${c.deprecated.since}. Stattdessen: ${c.deprecated.use}.\n` : '',
     c.status !== 'deprecated' ? `\`\`\`html\n<script type="module">import "${spec.codePackage}";</script>\n${usage(c)}\n\`\`\`\n\nProps sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attribute.\n` : '',
+    (c.notFor || []).length ? '## Nicht verwenden für\n\n' + c.notFor.map((x) => `- ${x.text}: ${x.use ? `stattdessen \`${x.use}\`` : 'dafür gibt es noch keinen Baustein, Lücke melden'}`).join('\n') + '\n' : '',
     c.props.length ? '## Props\n\n| Prop | Typ | Werte | Standard |\n|---|---|---|---|\n' + c.props.map((p) => `| \`${p.name}\` | ${p.type} | ${p.values ? p.values.map((v) => `\`${v}\``).join(', ') : '–'} | ${p.default ?? '–'} |`).join('\n') + '\n' : '',
     c.props.some((p) => p.type === 'instance') ? '## Slots\n\n' + c.props.filter((p) => p.type === 'instance').map((p) => `- \`${p.name}\`: Standard ${p.default}`).join('\n') + '\n' : '',
     (c.looks && Object.keys(c.looks).length) || c.styles ? '## Aussehen (Tokens je Variante oder Zustand)\n\n| Für | Tokens |\n|---|---|\n' + Object.entries(c.looks && Object.keys(c.looks).length ? c.looks : c.styles).map(([k, st]) => `| \`${k}\` | ${Object.entries(st).map(([role, t]) => t ? `${role}: \`${t}\`` : `${role}: entfällt`).join(', ') || 'keine eigenen Farben'} |`).join('\n') + '\n' : '',
@@ -90,6 +91,8 @@ const contracts = {
   principles: spec.principles || [], vagueActions: spec.vagueActions || [], weakActions: spec.weakActions || [], migrations: spec.migrations || [],
   system: spec.name, version: spec.version, cssPrefix: spec.cssPrefix, codePackage: spec.codePackage,
   tokens: Object.fromEntries(tokenNames.map((n) => [n, true])),
+  // Werte der Farb- und Abstands-Tokens, damit der Check bei einem festen Wert das passende Token nennen kann
+  tokenValues: { ...Object.fromEntries(Object.entries(spec.semantic.color).map(([n, t]) => [`--${spec.cssPrefix}-color-${kebab(n)}`, Object.fromEntries(['light', 'dark'].map((m) => { const [h, s] = t[m].split('/'); return [m, spec.primitives.color[h]?.[s]]; }))])), ...Object.fromEntries(Object.entries(spec.semantic.space || {}).map(([n, t]) => [`--${spec.cssPrefix}-space-${n}`, t.value])) },
   tokenDescriptions: Object.fromEntries([
     ...Object.entries(spec.semantic.color).map(([n, t]) => [`--${spec.cssPrefix}-color-${kebab(n)}`, t.why]),
     ...FLOAT_GROUPS.flatMap((g) => Object.entries(spec.semantic[g]).map(([n, t]) => [`--${spec.cssPrefix}-${g}-${n}`, t.why])),
@@ -106,7 +109,7 @@ const contracts = {
     styles: c.looks && Object.keys(c.looks).length ? c.looks : c.styles || {},
     colorTokens: colorRoles(c).map((v) => `--${spec.cssPrefix}-color-${kebab(v)}`),
     slots: c.props.filter((p) => p.type === 'instance').map((p) => ({ name: p.name, class: `${spec.cssPrefix}-${kebab(c.name)}__${kebab(p.name)}`, default: p.default, element: `${spec.cssPrefix}-${kebab(p.default)}`, show: `show-${kebab(p.name)}` })),
-    rules: c.rules, a11y: c.a11y,
+    notFor: c.notFor || [], rules: c.rules, a11y: c.a11y,
   }])),
 };
 write('generated/contracts.json', JSON.stringify(contracts, null, 2) + '\n');

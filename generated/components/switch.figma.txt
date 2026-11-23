@@ -1,6 +1,7 @@
 Status: stable · v1.0.0
 Schaltet eine Einstellung sofort ein oder aus, ohne Speichern.
 Regeln: Nur für Einstellungen, die sofort wirken. Braucht es Speichern, eine Checkbox verwenden. [switch/immediate] Ist der Schalter deaktiviert, erklärt helperText den Grund. [switch/disabled-reason]
+Nicht für: Einstellungen, die erst mit Speichern gelten (dafür Checkbox)
 A11y: Als <button role="switch"> mit aria-checked umsetzen; das Label benennt die Einstellung, nicht den Zustand.
 Spec: ds/switch
 Code: <fd-switch> aus "@fundament/ui"

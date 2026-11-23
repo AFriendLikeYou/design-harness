@@ -1,6 +1,8 @@
 Status: stable · v1.1.0
 Gruppiert zusammengehörige Inhalte mit optionaler Aktion.
 Regeln: Höchstens eine Aktion im Footer. [card/one-action] Keine Karten in Karten. [card/no-nesting] Eine Kennzeichnung der Karte (z. B. „Aktuell“) gehört in den Slot badge, nicht daneben oder darüber. [card/badge-slot]
+Slots: action (nimmt Button), badge (nimmt Badge)
+Nicht für: Hinweise und Rückmeldungen (dafür Alert)
 A11y: Titel als Überschrift passender Ebene; ist die ganze Karte klickbar, nur ein Link darin.
 Spec: ds/card
 Code: <fd-card> aus "@fundament/ui"
