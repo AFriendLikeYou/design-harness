@@ -1,7 +1,7 @@
 {
   "$comment": "Generiert zur Ansicht: das System, wie es aus Figma-Schnappschuss, Code und Regeldatei zusammengesetzt wird. Nicht von Hand bearbeiten.",
   "name": "Fundament",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "cssPrefix": "fd",
   "codePackage": "@fundament/ui",
   "primitives": {
@@ -1174,6 +1174,119 @@
       }
     },
     {
+      "name": "Chip",
+      "kind": "component",
+      "status": "beta",
+      "version": "0.1.0",
+      "purpose": "Filter zum An- und Abwählen. Mehrere Chips bilden eine Filterzeile.",
+      "rules": [
+        {
+          "id": "chip/short-label",
+          "text": "Höchstens zwei Wörter.",
+          "why": "Eine Filterzeile wird überflogen und soll in eine Zeile passen.",
+          "check": "max-words"
+        },
+        {
+          "id": "chip/filter-only",
+          "text": "Nur zum Filtern oder Auswählen. Für Aktionen einen Button verwenden.",
+          "why": "Ein Chip bleibt gewählt, eine Aktion passiert einmal.",
+          "check": null
+        }
+      ],
+      "a11y": "Als <button> mit aria-pressed umsetzen. Die Beschriftung nennt den Filter, nicht den Zustand.",
+      "do": [
+        "„Kostenlos“",
+        "„Diese Woche“"
+      ],
+      "dont": [
+        "Chip als Aktion, zum Beispiel „Speichern“",
+        "„An“ oder „Aus“ als Beschriftung"
+      ],
+      "props": [
+        {
+          "name": "selected",
+          "type": "variant",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        {
+          "name": "disabled",
+          "type": "variant",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        {
+          "name": "state",
+          "type": "variant",
+          "values": [
+            "default",
+            "hover",
+            "focus"
+          ],
+          "default": "default"
+        },
+        {
+          "name": "label",
+          "type": "text",
+          "default": "Kostenlos"
+        }
+      ],
+      "passthrough": [
+        "name",
+        "value"
+      ],
+      "looks": {
+        "selected=false, disabled=false, state=default": {
+          "bg": "bg/surface",
+          "border": "border/input",
+          "borderWidth": "default",
+          "fg": "text/primary"
+        },
+        "selected=false, disabled=false, state=focus": {
+          "bg": "bg/surface",
+          "border": "border/input",
+          "borderWidth": "default",
+          "fg": "text/primary",
+          "ring": "focus/ring",
+          "ringWidth": "strong"
+        },
+        "selected=false, disabled=false, state=hover": {
+          "bg": "bg/subtle",
+          "border": "border/input",
+          "borderWidth": "default",
+          "fg": "text/primary"
+        },
+        "selected=false, disabled=true, state=default": {
+          "bg": "bg/disabled",
+          "fg": "text/disabled"
+        },
+        "selected=true, disabled=false, state=default": {
+          "bg": "action/primary",
+          "fg": "text/on-action"
+        },
+        "selected=true, disabled=false, state=focus": {
+          "bg": "action/primary",
+          "fg": "text/on-action",
+          "ring": "focus/ring",
+          "ringWidth": "strong"
+        },
+        "selected=true, disabled=false, state=hover": {
+          "bg": "action/primary-hover",
+          "fg": "text/on-action"
+        },
+        "selected=true, disabled=true, state=default": {
+          "bg": "bg/disabled",
+          "fg": "text/disabled"
+        }
+      }
+    },
+    {
       "name": "Badge",
       "kind": "component",
       "status": "stable",
@@ -1644,6 +1757,10 @@
   ],
   "changelog": [
     {
+      "version": "1.6.0",
+      "text": "Neu: Chip (beta) als Filter zum An- und Abwählen, erster Baustein, der über den Export mit einem Klick aus Figma kam. Jeder Baustein auch als reines HTML und CSS (generated/html/, check --html). Leitfaden gekürzt, Abläufe als Zeitleisten."
+    },
+    {
       "version": "1.5.0",
       "text": "Neue Aufteilung: Tokenwerte und Aussehen kommen aus Figma, Props aus dem Code, von Hand bleibt nur die Regeldatei. Die große Spec entfällt."
     },
@@ -1674,7 +1791,7 @@
   ],
   "figma": {
     "exportedAt": "2026-11-23",
-    "file": "Untitled (zS8ZMBxGCXjeL0Sygvsbti)"
+    "file": "Founfations-System"
   },
   "assembled": true
 }

@@ -56,7 +56,7 @@
     }
   ],
   "system": "Fundament",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "cssPrefix": "fd",
   "codePackage": "@fundament/ui",
   "tokens": {
@@ -871,6 +871,132 @@
       },
       "passthrough": [
         "name"
+      ],
+      "slotNames": []
+    },
+    "Chip": {
+      "class": "fd-chip",
+      "kind": "component",
+      "status": "beta",
+      "version": "0.1.0",
+      "purpose": "Filter zum An- und Abwählen. Mehrere Chips bilden eine Filterzeile.",
+      "deprecated": null,
+      "booleans": [
+        "selected",
+        "disabled"
+      ],
+      "attributes": {
+        "data-state": {
+          "values": [
+            "default",
+            "hover",
+            "focus"
+          ],
+          "default": "default"
+        }
+      },
+      "parts": [
+        "fd-chip__label"
+      ],
+      "styles": {
+        "selected=false, disabled=false, state=default": {
+          "bg": "bg/surface",
+          "border": "border/input",
+          "borderWidth": "default",
+          "fg": "text/primary"
+        },
+        "selected=false, disabled=false, state=focus": {
+          "bg": "bg/surface",
+          "border": "border/input",
+          "borderWidth": "default",
+          "fg": "text/primary",
+          "ring": "focus/ring",
+          "ringWidth": "strong"
+        },
+        "selected=false, disabled=false, state=hover": {
+          "bg": "bg/subtle",
+          "border": "border/input",
+          "borderWidth": "default",
+          "fg": "text/primary"
+        },
+        "selected=false, disabled=true, state=default": {
+          "bg": "bg/disabled",
+          "fg": "text/disabled"
+        },
+        "selected=true, disabled=false, state=default": {
+          "bg": "action/primary",
+          "fg": "text/on-action"
+        },
+        "selected=true, disabled=false, state=focus": {
+          "bg": "action/primary",
+          "fg": "text/on-action",
+          "ring": "focus/ring",
+          "ringWidth": "strong"
+        },
+        "selected=true, disabled=false, state=hover": {
+          "bg": "action/primary-hover",
+          "fg": "text/on-action"
+        },
+        "selected=true, disabled=true, state=default": {
+          "bg": "bg/disabled",
+          "fg": "text/disabled"
+        }
+      },
+      "colorTokens": [
+        "--fd-color-bg-surface",
+        "--fd-color-border-input",
+        "--fd-color-text-primary",
+        "--fd-color-focus-ring",
+        "--fd-color-bg-subtle",
+        "--fd-color-bg-disabled",
+        "--fd-color-text-disabled",
+        "--fd-color-action-primary",
+        "--fd-color-text-on-action",
+        "--fd-color-action-primary-hover"
+      ],
+      "slots": [],
+      "rules": [
+        {
+          "id": "chip/short-label",
+          "text": "Höchstens zwei Wörter.",
+          "why": "Eine Filterzeile wird überflogen und soll in eine Zeile passen.",
+          "check": "max-words"
+        },
+        {
+          "id": "chip/filter-only",
+          "text": "Nur zum Filtern oder Auswählen. Für Aktionen einen Button verwenden.",
+          "why": "Ein Chip bleibt gewählt, eine Aktion passiert einmal.",
+          "check": null
+        }
+      ],
+      "a11y": "Als <button> mit aria-pressed umsetzen. Die Beschriftung nennt den Filter, nicht den Zustand.",
+      "element": "fd-chip",
+      "attrs": {
+        "selected": {
+          "type": "boolean",
+          "default": false
+        },
+        "disabled": {
+          "type": "boolean",
+          "default": false
+        },
+        "state": {
+          "type": "enum",
+          "values": [
+            "default",
+            "hover",
+            "focus"
+          ],
+          "default": "default"
+        },
+        "label": {
+          "type": "text",
+          "default": "Kostenlos"
+        }
+      },
+      "passthrough": [
+        "name",
+        "value"
       ],
       "slotNames": []
     },

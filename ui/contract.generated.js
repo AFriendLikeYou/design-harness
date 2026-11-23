@@ -1,5 +1,5 @@
 // Generiert aus specs/figma.snapshot.json, ui/elements.js und specs/rules.json – nicht von Hand bearbeiten.
-export const VERSION = "1.5.0";
+export const VERSION = "1.6.0";
 export const PREFIX = "fd";
 export const ELEMENTS = {
   "fd-button": {
@@ -186,6 +186,39 @@ export const ELEMENTS = {
     },
     "passthrough": [
       "name"
+    ],
+    "slots": []
+  },
+  "fd-chip": {
+    "name": "Chip",
+    "status": "beta",
+    "deprecated": null,
+    "attrs": {
+      "selected": {
+        "type": "boolean",
+        "default": false
+      },
+      "disabled": {
+        "type": "boolean",
+        "default": false
+      },
+      "state": {
+        "type": "enum",
+        "values": [
+          "default",
+          "hover",
+          "focus"
+        ],
+        "default": "default"
+      },
+      "label": {
+        "type": "text",
+        "default": "Kostenlos"
+      }
+    },
+    "passthrough": [
+      "name",
+      "value"
     ],
     "slots": []
   },

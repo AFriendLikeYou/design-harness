@@ -229,6 +229,44 @@
         {
           "kind": "class",
           "customElement": true,
+          "name": "Chip",
+          "tagName": "fd-chip",
+          "description": "Filter zum An- und Abwählen. Mehrere Chips bilden eine Filterzeile.",
+          "attributes": [
+            {
+              "name": "selected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "name": "state",
+              "type": {
+                "text": "'default' | 'hover' | 'focus'"
+              },
+              "default": "\"default\""
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Kostenlos\""
+            }
+          ],
+          "slots": []
+        },
+        {
+          "kind": "class",
+          "customElement": true,
           "name": "Badge",
           "tagName": "fd-badge",
           "description": "Kurzer Status oder Kategorie, nicht interaktiv.",
@@ -441,6 +479,14 @@
           "name": "fd-switch",
           "declaration": {
             "name": "Switch",
+            "module": "fundament.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "fd-chip",
+          "declaration": {
+            "name": "Chip",
             "module": "fundament.js"
           }
         },

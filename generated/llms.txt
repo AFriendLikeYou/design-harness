@@ -1,4 +1,4 @@
-# Fundament Design System 1.5.0
+# Fundament Design System 1.6.0
 
 > Komponenten und Tokens. Quelle: specs/figma.snapshot.json, ui/elements.js und specs/rules.json. Code-Paket: @fundament/ui.
 
@@ -8,6 +8,7 @@
 - [TextField](components/text-field.md): Einzeilige Texteingabe mit sichtbarem Label und optionalem Hilfstext.
 - [Checkbox](components/checkbox.md): Auswahl einer unabhängigen Option, die man an- oder abwählen kann.
 - [Switch](components/switch.md): Schaltet eine Einstellung sofort ein oder aus, ohne Speichern.
+- [Chip](components/chip.md): Filter zum An- und Abwählen. Mehrere Chips bilden eine Filterzeile. (beta)
 - [Badge](components/badge.md): Kurzer Status oder Kategorie, nicht interaktiv.
 - [Alert](components/alert.md): Hinweis im Seitenfluss zu Status, Erfolg, Warnung oder Fehler.
 - [Card](components/card.md): Gruppiert zusammengehörige Inhalte mit optionaler Aktion.

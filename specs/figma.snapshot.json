@@ -1,5 +1,8 @@
 {
  "schema": 2,
+ "file": "Founfations-System",
+ "fileKey": "",
+ "exportedAt": "2026-11-23",
  "variables": [
   [
    "primitives",
@@ -1627,6 +1630,46 @@
    "Status: stable · v1.2.0\nAuswahl einer unabhängigen Option, die man an- oder abwählen kann.\nRegeln: Das Label ist Teil der Klickfläche. [checkbox/label-clickable] Ist die Checkbox deaktiviert, erklärt helperText den Grund. [checkbox/disabled-reason]\nA11y: Natives <input type=\"checkbox\"> mit <label>; Klickfläche mindestens 44 × 44 px.\nSpec: ds/checkbox\nCode: <fd-checkbox> aus \"@fundament/ui\""
   ],
   [
+   "Chip",
+   [
+    [
+     "disabled",
+     "VARIANT",
+     [
+      "false",
+      "true"
+     ],
+     "false"
+    ],
+    [
+     "label",
+     "TEXT",
+     "Kostenlos",
+     ""
+    ],
+    [
+     "selected",
+     "VARIANT",
+     [
+      "false",
+      "true"
+     ],
+     "false"
+    ],
+    [
+     "state",
+     "VARIANT",
+     [
+      "default",
+      "focus",
+      "hover"
+     ],
+     "default"
+    ]
+   ],
+   "Status: beta · v0.1.0\nFilter zum An- und Abwählen. Mehrere Chips bilden eine Filterzeile.\nSpec: ds/chip"
+  ],
+  [
    "ConfirmAction",
    [],
    "Status: stable · v1.0.0\nSichert eine unwiderrufliche Aktion ab: Der danger-Button wird erst aktiv, wenn das Bestätigungswort eingegeben ist.\nRegeln: Jede Aktion, die Daten unwiderruflich löscht, läuft über ConfirmAction. [confirmaction/for-irreversible] Das Freischalten kommt aus dem Muster, nicht aus eigenem Skript. [confirmaction/no-custom-script]\nA11y: Der Button nennt die Aktion. Warum er deaktiviert ist, steht als Hilfstext am Feld und ist per aria-describedby verknüpft.\nSpec: ds/confirm-action\nCode: <fd-confirm-action> aus \"@fundament/ui\""
@@ -2223,6 +2266,80 @@
    }
   ],
   [
+   "Chip",
+   "selected=false, disabled=false, state=default",
+   {
+    "bg": "bg/surface",
+    "border": "border/input",
+    "borderWidth": "default",
+    "fg": "text/primary"
+   }
+  ],
+  [
+   "Chip",
+   "selected=false, disabled=false, state=focus",
+   {
+    "bg": "bg/surface",
+    "border": "border/input",
+    "borderWidth": "default",
+    "fg": "text/primary",
+    "ring": "focus/ring",
+    "ringWidth": "strong"
+   }
+  ],
+  [
+   "Chip",
+   "selected=false, disabled=false, state=hover",
+   {
+    "bg": "bg/subtle",
+    "border": "border/input",
+    "borderWidth": "default",
+    "fg": "text/primary"
+   }
+  ],
+  [
+   "Chip",
+   "selected=false, disabled=true, state=default",
+   {
+    "bg": "bg/disabled",
+    "fg": "text/disabled"
+   }
+  ],
+  [
+   "Chip",
+   "selected=true, disabled=false, state=default",
+   {
+    "bg": "action/primary",
+    "fg": "text/on-action"
+   }
+  ],
+  [
+   "Chip",
+   "selected=true, disabled=false, state=focus",
+   {
+    "bg": "action/primary",
+    "fg": "text/on-action",
+    "ring": "focus/ring",
+    "ringWidth": "strong"
+   }
+  ],
+  [
+   "Chip",
+   "selected=true, disabled=false, state=hover",
+   {
+    "bg": "action/primary-hover",
+    "fg": "text/on-action"
+   }
+  ],
+  [
+   "Chip",
+   "selected=true, disabled=true, state=default",
+   {
+    "bg": "bg/disabled",
+    "fg": "text/disabled"
+   }
+  ],
+  [
    "ConfirmAction",
    "",
    {}
@@ -2377,8 +2494,5 @@
     "ringWidth": "strong"
    }
   ]
- ],
- "file": "Untitled (zS8ZMBxGCXjeL0Sygvsbti)",
- "exportedAt": "2026-11-23",
- "herkunft": "Inhalt identisch mit dem Export aus Figma vom 23.11.2026: Prüfsummen für Variablen (69526ccf), Text-Styles (597f025f), Komponenten (63f5566b) und das Aussehen von 64 Varianten (4bfc49a4) stimmen überein. Künftige Schnappschüsse kommen aus dem Plugin „Fundament Export“."
+ ]
 }

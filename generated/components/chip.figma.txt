@@ -1,0 +1,6 @@
+Status: beta · v0.1.0
+Filter zum An- und Abwählen. Mehrere Chips bilden eine Filterzeile.
+Regeln: Höchstens zwei Wörter. [chip/short-label] Nur zum Filtern oder Auswählen. Für Aktionen einen Button verwenden. [chip/filter-only]
+A11y: Als <button> mit aria-pressed umsetzen. Die Beschriftung nennt den Filter, nicht den Zustand.
+Spec: ds/chip
+Code: <fd-chip> aus "@fundament/ui"

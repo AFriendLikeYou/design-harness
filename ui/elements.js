@@ -350,6 +350,15 @@ export const COMPONENTS = {
       }
     ]
   },
+  Chip: {
+    props: [
+      { name: "selected", type: "variant", values: ["false", "true"], default: "false" },
+      { name: "disabled", type: "variant", values: ["false", "true"], default: "false" },
+      { name: "state", type: "variant", values: ["default", "hover", "focus"], default: "default" },
+      { name: "label", type: "text", default: "Kostenlos" }
+    ],
+    passthrough: ["name", "value"]
+  },
   LinkButton: {
     props: [
       {

@@ -8,6 +8,7 @@
 <fd-text-field id="t" state="error" label="E-Mail" value="x" error-text="Bitte prüfen." show-trailing><fd-button slot="trailing" variant="ghost" size="sm" label="Leeren"></fd-button></fd-text-field>
 <fd-checkbox id="c" label="A" disabled show-helper helper-text="Grund"></fd-checkbox>
 <fd-switch id="s" label="Schalter"></fd-switch>
+<fd-chip id="chip" label="Kostenlos"></fd-chip>
 <fd-alert id="a" tone="danger" title="Titel" description="Text"></fd-alert>
 <fd-alert id="a2" tone="info" title="Info"></fd-alert>
 <fd-card id="k" title="Karte" body="Text"><fd-button slot="action" variant="secondary" label="Öffnen"></fd-button></fd-card>
@@ -38,6 +39,10 @@ s.querySelector('button').click();
 ok('switch schaltet und meldet change', s.checked === true && s.querySelector('button').getAttribute('aria-checked') === 'true' && changed === 1);
 s.querySelector('.fd-switch__label').click();
 ok('switch label schaltet', s.checked === false && changed === 2);
+const chip = document.getElementById('chip'); let chipChanged = 0; chip.addEventListener('change', () => chipChanged++);
+ok('chip ist ein Button mit aria-pressed', chip.querySelector('button').getAttribute('aria-pressed') === 'false');
+chip.querySelector('button').click();
+ok('chip wählt und meldet change', chip.selected === true && chip.querySelector('button').getAttribute('aria-pressed') === 'true' && chipChanged === 1);
 ok('alert rolle alert', $('#a .fd-alert').getAttribute('role') === 'alert' && $('#a2 .fd-alert').getAttribute('role') === 'status');
 ok('alert title ohne tooltip', !$('#a').hasAttribute('title') && $('#a .fd-alert__title').textContent === 'Titel');
 ok('alert ohne beschreibung', $('#a2 .fd-alert__description').hidden);

@@ -138,6 +138,19 @@ class Switch extends Base {
   set checked(v) { this.touched = true; this.on = !!v; if (this.ready) this.q('button').setAttribute('aria-checked', String(this.on)); }
 }
 
+class Chip extends Base {
+  // Ein Filter zum An- und Abwählen: <button aria-pressed>. Der gewählte Zustand steht nur in aria-pressed; das CSS liest ihn dort.
+  build() { const B = this.localName; this.innerHTML = `<button class="${B}" type="button"><span class="${B}__label"></span></button>`; this.on = this.a('selected'); }
+  update() { const B = this.localName; const b = this.q('button');
+    if (!this.touched) this.on = this.a('selected');
+    this.reflect(b, ['disabled', 'selected']); b.disabled = this.a('disabled'); b.setAttribute('aria-pressed', String(!!this.on)); this.pass(b);
+    this.q(`.${B}__label`).textContent = this.a('label');
+    if (!this.listening) { this.listening = true; b.addEventListener('click', () => { this.touched = true; this.on = !this.on; b.setAttribute('aria-pressed', String(this.on)); this.dispatchEvent(new Event('change', { bubbles: true })); }); }
+  }
+  get selected() { return !!this.on; }
+  set selected(v) { this.touched = true; this.on = !!v; if (this.ready) this.q('button').setAttribute('aria-pressed', String(this.on)); }
+}
+
 class Badge extends Base {
   build() { this.innerHTML = `<span class="${P}-badge"><span class="${P}-badge__label"></span></span>`; }
   update() { this.q(`.${P}-badge`).dataset.tone = this.a('tone'); this.q(`.${P}-badge__label`).textContent = this.a('label'); }
@@ -196,7 +209,7 @@ class LinkButton extends Base {
 }
 
 // Umsetzung je Komponentenname aus dem Vertrag. Heißt eine Komponente anders, nennt die Spec die Umsetzung im Feld "impl".
-const IMPL = { Button, TextField, Checkbox, Switch, Badge, Alert, Card, Link, SignInForm, ConfirmAction, LinkButton };
+const IMPL = { Button, TextField, Checkbox, Switch, Chip, Badge, Alert, Card, Link, SignInForm, ConfirmAction, LinkButton };
 for (const [tag, def] of Object.entries(ELEMENTS)) {
   if (!IMPL[def.impl || def.name]) { console.warn(`Für <${tag}> aus dem Vertrag fehlt die Umsetzung in fundament.js.`); continue; }
   IMPL[def.impl || def.name].define(tag);
