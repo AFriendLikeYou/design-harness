@@ -82,7 +82,7 @@ In dieser Reihenfolge. verify meldet, wenn ein Schritt fehlt.
 - **2 / Bauen.** node build.mjs erzeugt Vertrag, Doku, Tokens. Der Build bricht ab, wenn ein Kontrastpaar durchfällt.
 - **3 / Umsetzen.** Element in ui/fundament.js, Styles in ui/components.css (nur Tokens aus dem Vertrag der Komponente), Builder im Plugin.
 - **4 / Prüfen.** node tooling/verify.mjs: Spec, Check, CLI-Test, Plugin, Verhalten im Browser, gerenderte Prüfung.
-- **5 / Figma.** Plugin in leerer Datei ausführen oder die Datei nachziehen, dann den Abgleich per Prüfsummen (tooling/figma-soll.mjs und figma-ist.js).
+- **5 / Figma.** Plugin in leerer Datei ausführen oder die Datei nachziehen, dann exportieren und abgleichen (Plugin „Fundament Export“, node tooling/figma-diff.mjs).
 - **6 / Messen.** Eine Aufgabe, die die neue Komponente braucht, in evals/tasks.md ergänzen und einen Lauf machen.
 
 ## Was man lassen sollte

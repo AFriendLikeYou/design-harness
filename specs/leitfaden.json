@@ -188,7 +188,7 @@
     ],
     [
      "5 / Figma",
-     "Plugin in leerer Datei ausführen oder die Datei nachziehen, dann den Abgleich per Prüfsummen (tooling/figma-soll.mjs und figma-ist.js)."
+     "Plugin in leerer Datei ausführen oder die Datei nachziehen, dann exportieren und abgleichen (Plugin „Fundament Export“, node tooling/figma-diff.mjs)."
     ],
     [
      "6 / Messen",
