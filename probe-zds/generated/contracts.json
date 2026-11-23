@@ -302,7 +302,7 @@
         "z-ds-checkbox__helper-text"
       ],
       "styles": {
-        "checked=false": {
+        "default": {
           "bg": "background/0",
           "border": "border/100",
           "borderWidth": "default",
@@ -314,7 +314,9 @@
         },
         "checked=true": {
           "bg": "text/100",
-          "mark": "general/white-100"
+          "mark": "general/white-100",
+          "border": null,
+          "borderWidth": null
         },
         "checked=true, state=hover": {
           "bg": "text/70"
@@ -422,7 +424,7 @@
         "z-ds-toggle__helper-text"
       ],
       "styles": {
-        "checked=false": {
+        "default": {
           "bg": "background/20",
           "thumb": "general/white-100",
           "fg": "text/100",
@@ -520,7 +522,7 @@
         "z-ds-input__error-text"
       ],
       "styles": {
-        "state=default": {
+        "default": {
           "bg": "background/0",
           "fg": "text/100",
           "border": "border/100",
@@ -641,7 +643,7 @@
         "z-ds-text-button__label"
       ],
       "styles": {
-        "state=default": {
+        "default": {
           "fg": "text/70"
         },
         "state=hover": {

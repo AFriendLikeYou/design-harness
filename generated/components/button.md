@@ -32,7 +32,8 @@ Props sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attr
 | `variant=danger` | bg: `action/danger`, fg: `text/on-action` |
 | `variant=danger, state=hover` | bg: `action/danger-hover` |
 | `state=focus` | ring: `focus/ring`, ringWidth: `strong` |
-| `disabled=true` | bg: `bg/disabled`, fg: `text/disabled` |
+| `disabled=true` | bg: `bg/disabled`, fg: `text/disabled`, border: entfällt, borderWidth: entfällt |
+| `variant=ghost, disabled=true` | bg: entfällt |
 
 ## Regeln
 

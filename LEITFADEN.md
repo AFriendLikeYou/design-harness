@@ -21,10 +21,10 @@ Designer arbeiten in Figma. So kommt ihre Änderung an, ohne dass jemand abtippt
 
 - **1 / In Figma gestalten.** Werte an Variablen ändern, Varianten und Properties anlegen, die Beschreibung nach dem Muster pflegen. Properties heißen so, wie sie im Code heißen sollen.
 - **2 / Stand exportieren.** Das Plugin „Fundament Export“ liest Variablen, Text-Styles und Komponenten aus. Das Ergebnis kommt als specs/figma.snapshot.json ins Repo.
-- **3 / Abgleich lesen.** node tooling/figma-diff.mjs zeigt jede Abweichung: was Figma hat, was die Spec hat, und ob sie eindeutig übernehmbar ist.
+- **3 / Abgleich lesen.** node tooling/figma-diff.mjs zeigt jede Abweichung: Werte, Properties, Beschreibungen und je Variante, welche Variable an Fläche, Text, Rahmen und Fokusring hängt. Dazu, ob die Abweichung eindeutig übernehmbar ist.
 - **4 / Übernehmen und entscheiden.** --apply schreibt Eindeutiges in die Spec: Werte, Verweise, Beschreibungen, Standards, neue Varianten-Werte. Neues braucht eine Entscheidung: Ein Token braucht ein Warum, eine Variante ihr Aussehen und ihre Umsetzung.
 - **5 / Bauen und umsetzen.** node build.mjs erzeugt Verträge, Tokens und Doku neu. Der Build rechnet den Kontrast nach; eine Farbänderung, die ein Paar unter die Grenze drückt, fällt hier auf.
-- **6 / Gate.** node tooling/verify.mjs vergleicht den Figma-Stand mit der Spec und prüft Code und Beispiele. Weicht etwas ab, ist der Stand rot, egal auf welcher Seite die Änderung begann.
+- **6 / Gate.** node tooling/verify.mjs vergleicht den Figma-Stand mit der Spec und misst im Browser, ob jede Variante im Code dieselben Farben trägt. Weicht etwas ab, ist der Stand rot, egal auf welcher Seite die Änderung begann.
 
 ## Wer hat das letzte Wort
 
@@ -78,7 +78,7 @@ Jede Aussage hat genau einen Ort.
 
 Der Entwurf beginnt in Figma. verify meldet, wenn ein Schritt fehlt.
 
-- **1 / In Figma bauen.** Set mit Varianten, Properties mit den Namen aus dem Code, Farben und Maße an Variablen, Beschreibung nach dem Muster (Status, Zweck, Regeln mit ID, A11y).
+- **1 / In Figma bauen.** Set mit Varianten, Properties mit den Namen aus dem Code, Farben und Maße an Variablen, Beschreibung nach dem Muster. Ebenen heißen nach ihrer Rolle (label, value, input, box, track, thumb, check, helperText, focusRing): Daran erkennt der Export das Aussehen.
 - **2 / Exportieren und abgleichen.** Plugin „Fundament Export“, dann node tooling/figma-diff.mjs --apply. Für eine neue Komponente legt der Abgleich ein Gerüst in der Spec an: Properties, Zweck, Regeln und A11y aus Figma.
 - **3 / Spec vervollständigen.** Was Figma nicht tragen kann: styles je Variante, das Warum jeder Regel, Checks, Do und Don’t. node cli/fundament.mjs lint zeigt jede Lücke.
 - **4 / Umsetzen.** Element in ui/fundament.js, Styles in ui/components.css. Erlaubt sind nur die Tokens aus dem Vertrag der Komponente.

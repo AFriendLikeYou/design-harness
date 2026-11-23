@@ -17,8 +17,23 @@ for (const col of cols) for (const v of all.filter((x) => x.variableCollectionId
 const textStyles = (await figma.getLocalTextStylesAsync()).filter((s) => !OPT.skip.some((p) => s.name.startsWith(p.trim().toLowerCase() + '/'))).map((s) => [s.name, s.fontName.style, s.fontSize, s.lineHeight.value, s.description]);
 const components = figma.root.findAll((n) => n.type === 'COMPONENT_SET' || (n.type === 'COMPONENT' && n.parent.type === 'PAGE')).filter((n) => !OPT.skip.some((p) => n.name.startsWith(p))).map((n) => [n.name,
   Object.entries(n.componentPropertyDefinitions).map(([k, d]) => [k.split('#')[0], d.type, d.type === 'VARIANT' ? [...d.variantOptions].sort() : d.type === 'INSTANCE_SWAP' ? '' : d.defaultValue, d.type === 'VARIANT' ? d.defaultValue : '']).sort((p, q) => p[0].localeCompare(q[0])), n.description]).sort((p, q) => p[0].localeCompare(q[0]));
+// Aussehen je Variante: welche Variable an welcher Rolle hängt. Die Rollen folgen den Ebenennamen:
+// Fläche und Rahmen = Ebene input, box oder track, sonst die Variante selbst; Text = value, label oder title; body/description; helperText/errorText; check; thumb; focusRing.
+const inInstance = (n, top) => { let x = n.parent; while (x && x !== top) { if (x.type === 'INSTANCE') return true; x = x.parent; } return false; };
+const bound = (paints) => { const p = Array.isArray(paints) ? paints.find((q) => q.type === 'SOLID' && q.visible !== false) : null; const id = p && p.boundVariables && p.boundVariables.color && p.boundVariables.color.id; return id && byId[id] ? byId[id].name.replace(/^color\//, '') : (p ? '(ohne Variable)' : null); };
+const weight = (n) => { const b = n.boundVariables || {}; const id = (b.strokeWeight || b.strokeLeftWeight || {}).id; return id && byId[id] ? byId[id].name.replace(/^border-width\//, '') : '(ohne Variable)'; };
+const look = (c) => { const find = (...names) => { for (const nm of names) { const n = c.findOne((x) => x.name === nm && x.type !== 'INSTANCE' && !inInstance(x, c)); if (n) return n; } return null; };
+  const surface = find('input', 'box', 'track') || c; const r = {}; const set = (k, v) => { if (v) r[k] = v; };
+  set('bg', bound(surface.fills)); if (surface.strokes && surface.strokes.length) { set('border', bound(surface.strokes)); set('borderWidth', weight(surface)); }
+  const fg = find('value', 'label', 'title'); if (fg) set('fg', bound(fg.fills)); const body = find('body', 'description'); if (body) set('body', bound(body.fills));
+  const helper = find('helperText', 'errorText'); if (helper) set('helper', bound(helper.fills)); const mark = find('check'); if (mark) set('mark', bound(mark.strokes)); const thumb = find('thumb'); if (thumb) set('thumb', bound(thumb.fills));
+  const ring = find('focusRing'); if (ring) { set('ring', bound(ring.strokes)); set('ringWidth', weight(ring)); }
+  return Object.fromEntries(Object.keys(r).sort().map((k) => [k, r[k]])); };
+const styles = [];
+for (const n of figma.root.findAll((x) => x.type === 'COMPONENT_SET' || (x.type === 'COMPONENT' && x.parent.type === 'PAGE')).filter((x) => !OPT.skip.some((p) => x.name.startsWith(p)))) { if (n.type === 'COMPONENT_SET') for (const v of n.children) styles.push([n.name, v.name, look(v)]); else styles.push([n.name, '', look(n)]); }
+styles.sort((p, q) => (p[0] + '|' + p[1]).localeCompare(q[0] + '|' + q[1]));
 variables.sort((p, q) => (p[0] + p[1]).localeCompare(q[0] + q[1])); textStyles.sort((p, q) => p[0].localeCompare(q[0]));
-const snapshot = { schema: 1, file: figma.root.name, fileKey: figma.fileKey || '', exportedAt: new Date().toISOString().slice(0, 10), variables, textStyles, components };
+const snapshot = { schema: 2, file: figma.root.name, fileKey: figma.fileKey || '', exportedAt: new Date().toISOString().slice(0, 10), variables, textStyles, components, styles };
 
 figma.ui.postMessage(JSON.stringify(snapshot, null, 1));
 })().catch((e) => figma.ui.postMessage('Fehler: ' + e.message));

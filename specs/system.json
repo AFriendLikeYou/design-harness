@@ -1,6 +1,6 @@
 {
   "name": "Fundament",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "cssPrefix": "fd",
   "codePackage": "@fundament/ui",
   "primitives": {
@@ -559,7 +559,12 @@
         },
         "disabled=true": {
           "bg": "bg/disabled",
-          "fg": "text/disabled"
+          "fg": "text/disabled",
+          "border": null,
+          "borderWidth": null
+        },
+        "variant=ghost, disabled=true": {
+          "bg": null
         }
       }
     },
@@ -662,7 +667,7 @@
         "Label als Platzhalter"
       ],
       "styles": {
-        "state=default": {
+        "default": {
           "bg": "bg/surface",
           "fg": "text/primary",
           "border": "border/input",
@@ -756,7 +761,7 @@
         "Checkbox für sofort wirksame Einstellungen (dafür Switch)"
       ],
       "styles": {
-        "checked=false": {
+        "default": {
           "bg": "bg/surface",
           "fg": "text/primary",
           "border": "border/input",
@@ -765,7 +770,9 @@
         },
         "checked=true": {
           "bg": "action/primary",
-          "mark": "text/on-action"
+          "mark": "text/on-action",
+          "border": null,
+          "borderWidth": null
         },
         "state=focus": {
           "ring": "focus/ring",
@@ -773,7 +780,9 @@
         },
         "disabled=true": {
           "bg": "bg/disabled",
-          "fg": "text/disabled",
+          "fg": "text/disabled"
+        },
+        "checked=true, disabled=true": {
           "mark": "text/disabled"
         }
       }
@@ -829,7 +838,7 @@
         }
       ],
       "styles": {
-        "checked=false": {
+        "default": {
           "bg": "border/input",
           "thumb": "text/on-action",
           "fg": "text/primary",
@@ -1129,7 +1138,7 @@
         }
       ],
       "styles": {
-        "state=default": {
+        "default": {
           "fg": "feedback/info-fg"
         },
         "state=hover": {
@@ -1218,9 +1227,7 @@
         }
       ],
       "styles": {
-        "default": {
-          "fg": "text/primary"
-        }
+        "default": {}
       },
       "rules": [
         {
@@ -1390,6 +1397,10 @@
     }
   ],
   "changelog": [
+    {
+      "version": "1.4.1",
+      "text": "Aussehen je Variante ist jetzt eindeutig beschrieben (default als Basis, null entfernt eine Rolle) und wird mit Figma abgeglichen."
+    },
     {
       "version": "1.4.0",
       "text": "Neu: Link für Navigation und das Muster ConfirmAction für unwiderrufliche Aktionen. Alert bleibt ohne Aktion (Regel alert/no-action). Check mit eigenem HTML-Parser und Prüfung im gerenderten Zustand (audit)."

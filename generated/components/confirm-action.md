@@ -21,7 +21,7 @@ Props sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attr
 
 | Für | Tokens |
 |---|---|
-| `default` | fg: `text/primary` |
+| `default` | keine eigenen Farben |
 
 ## Regeln
 

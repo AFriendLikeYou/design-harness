@@ -1,5 +1,5 @@
 {
- "schema": 1,
+ "schema": 2,
  "variables": [
   [
    "primitives",
@@ -1781,7 +1781,604 @@
    "Status: stable · v1.3.0\nEinzeilige Texteingabe mit sichtbarem Label und optionalem Hilfstext.\nRegeln: Label ist immer sichtbar, nie nur als Platzhalter. [textfield/visible-label] Im Fehlerzustand ersetzt errorText den Hilfstext und erklärt, wie man den Fehler behebt. [textfield/error-text] Aktionen im Feld (Passwort anzeigen, Eingabe leeren) nur über den Slot trailing, mit einem Button variant=ghost size=sm. [textfield/trailing-slot] Passwort anzeigen und Eingabe leeren kommen über trailingAction (reveal, clear), nicht über eigenes Skript. [textfield/trailing-behavior]\nA11y: Label per <label for> verknüpfen, Hilfs- und Fehlertext per aria-describedby; Fehler mit aria-invalid.\nSpec: ds/text-field\nCode: <fd-text-field> aus \"@fundament/ui\""
   ]
  ],
+ "styles": [
+  [
+   "Alert",
+   "tone=danger",
+   {
+    "bg": "feedback/danger-bg",
+    "body": "text/primary",
+    "border": "feedback/danger-fg",
+    "borderWidth": "accent",
+    "fg": "feedback/danger-fg"
+   }
+  ],
+  [
+   "Alert",
+   "tone=info",
+   {
+    "bg": "feedback/info-bg",
+    "body": "text/primary",
+    "border": "feedback/info-fg",
+    "borderWidth": "accent",
+    "fg": "feedback/info-fg"
+   }
+  ],
+  [
+   "Alert",
+   "tone=success",
+   {
+    "bg": "feedback/success-bg",
+    "body": "text/primary",
+    "border": "feedback/success-fg",
+    "borderWidth": "accent",
+    "fg": "feedback/success-fg"
+   }
+  ],
+  [
+   "Alert",
+   "tone=warning",
+   {
+    "bg": "feedback/warning-bg",
+    "body": "text/primary",
+    "border": "feedback/warning-fg",
+    "borderWidth": "accent",
+    "fg": "feedback/warning-fg"
+   }
+  ],
+  [
+   "Badge",
+   "tone=danger",
+   {
+    "bg": "feedback/danger-bg",
+    "fg": "feedback/danger-fg"
+   }
+  ],
+  [
+   "Badge",
+   "tone=info",
+   {
+    "bg": "feedback/info-bg",
+    "fg": "feedback/info-fg"
+   }
+  ],
+  [
+   "Badge",
+   "tone=neutral",
+   {
+    "bg": "bg/subtle",
+    "fg": "text/secondary"
+   }
+  ],
+  [
+   "Badge",
+   "tone=success",
+   {
+    "bg": "feedback/success-bg",
+    "fg": "feedback/success-fg"
+   }
+  ],
+  [
+   "Badge",
+   "tone=warning",
+   {
+    "bg": "feedback/warning-bg",
+    "fg": "feedback/warning-fg"
+   }
+  ],
+  [
+   "Button",
+   "variant=danger, size=md, disabled=false, state=default",
+   {
+    "bg": "action/danger",
+    "fg": "text/on-action"
+   }
+  ],
+  [
+   "Button",
+   "variant=danger, size=md, disabled=false, state=focus",
+   {
+    "bg": "action/danger",
+    "fg": "text/on-action",
+    "ring": "focus/ring",
+    "ringWidth": "strong"
+   }
+  ],
+  [
+   "Button",
+   "variant=danger, size=md, disabled=false, state=hover",
+   {
+    "bg": "action/danger-hover",
+    "fg": "text/on-action"
+   }
+  ],
+  [
+   "Button",
+   "variant=danger, size=md, disabled=true, state=default",
+   {
+    "bg": "bg/disabled",
+    "fg": "text/disabled"
+   }
+  ],
+  [
+   "Button",
+   "variant=danger, size=sm, disabled=false, state=default",
+   {
+    "bg": "action/danger",
+    "fg": "text/on-action"
+   }
+  ],
+  [
+   "Button",
+   "variant=danger, size=sm, disabled=false, state=focus",
+   {
+    "bg": "action/danger",
+    "fg": "text/on-action",
+    "ring": "focus/ring",
+    "ringWidth": "strong"
+   }
+  ],
+  [
+   "Button",
+   "variant=danger, size=sm, disabled=false, state=hover",
+   {
+    "bg": "action/danger-hover",
+    "fg": "text/on-action"
+   }
+  ],
+  [
+   "Button",
+   "variant=danger, size=sm, disabled=true, state=default",
+   {
+    "bg": "bg/disabled",
+    "fg": "text/disabled"
+   }
+  ],
+  [
+   "Button",
+   "variant=ghost, size=md, disabled=false, state=default",
+   {
+    "fg": "feedback/info-fg"
+   }
+  ],
+  [
+   "Button",
+   "variant=ghost, size=md, disabled=false, state=focus",
+   {
+    "fg": "feedback/info-fg",
+    "ring": "focus/ring",
+    "ringWidth": "strong"
+   }
+  ],
+  [
+   "Button",
+   "variant=ghost, size=md, disabled=false, state=hover",
+   {
+    "bg": "bg/subtle",
+    "fg": "feedback/info-fg"
+   }
+  ],
+  [
+   "Button",
+   "variant=ghost, size=md, disabled=true, state=default",
+   {
+    "fg": "text/disabled"
+   }
+  ],
+  [
+   "Button",
+   "variant=ghost, size=sm, disabled=false, state=default",
+   {
+    "fg": "feedback/info-fg"
+   }
+  ],
+  [
+   "Button",
+   "variant=ghost, size=sm, disabled=false, state=focus",
+   {
+    "fg": "feedback/info-fg",
+    "ring": "focus/ring",
+    "ringWidth": "strong"
+   }
+  ],
+  [
+   "Button",
+   "variant=ghost, size=sm, disabled=false, state=hover",
+   {
+    "bg": "bg/subtle",
+    "fg": "feedback/info-fg"
+   }
+  ],
+  [
+   "Button",
+   "variant=ghost, size=sm, disabled=true, state=default",
+   {
+    "fg": "text/disabled"
+   }
+  ],
+  [
+   "Button",
+   "variant=primary, size=md, disabled=false, state=default",
+   {
+    "bg": "action/primary",
+    "fg": "text/on-action"
+   }
+  ],
+  [
+   "Button",
+   "variant=primary, size=md, disabled=false, state=focus",
+   {
+    "bg": "action/primary",
+    "fg": "text/on-action",
+    "ring": "focus/ring",
+    "ringWidth": "strong"
+   }
+  ],
+  [
+   "Button",
+   "variant=primary, size=md, disabled=false, state=hover",
+   {
+    "bg": "action/primary-hover",
+    "fg": "text/on-action"
+   }
+  ],
+  [
+   "Button",
+   "variant=primary, size=md, disabled=true, state=default",
+   {
+    "bg": "bg/disabled",
+    "fg": "text/disabled"
+   }
+  ],
+  [
+   "Button",
+   "variant=primary, size=sm, disabled=false, state=default",
+   {
+    "bg": "action/primary",
+    "fg": "text/on-action"
+   }
+  ],
+  [
+   "Button",
+   "variant=primary, size=sm, disabled=false, state=focus",
+   {
+    "bg": "action/primary",
+    "fg": "text/on-action",
+    "ring": "focus/ring",
+    "ringWidth": "strong"
+   }
+  ],
+  [
+   "Button",
+   "variant=primary, size=sm, disabled=false, state=hover",
+   {
+    "bg": "action/primary-hover",
+    "fg": "text/on-action"
+   }
+  ],
+  [
+   "Button",
+   "variant=primary, size=sm, disabled=true, state=default",
+   {
+    "bg": "bg/disabled",
+    "fg": "text/disabled"
+   }
+  ],
+  [
+   "Button",
+   "variant=secondary, size=md, disabled=false, state=default",
+   {
+    "bg": "bg/surface",
+    "border": "border/input",
+    "borderWidth": "default",
+    "fg": "text/primary"
+   }
+  ],
+  [
+   "Button",
+   "variant=secondary, size=md, disabled=false, state=focus",
+   {
+    "bg": "bg/surface",
+    "border": "border/input",
+    "borderWidth": "default",
+    "fg": "text/primary",
+    "ring": "focus/ring",
+    "ringWidth": "strong"
+   }
+  ],
+  [
+   "Button",
+   "variant=secondary, size=md, disabled=false, state=hover",
+   {
+    "bg": "bg/subtle",
+    "border": "border/input",
+    "borderWidth": "default",
+    "fg": "text/primary"
+   }
+  ],
+  [
+   "Button",
+   "variant=secondary, size=md, disabled=true, state=default",
+   {
+    "bg": "bg/disabled",
+    "fg": "text/disabled"
+   }
+  ],
+  [
+   "Button",
+   "variant=secondary, size=sm, disabled=false, state=default",
+   {
+    "bg": "bg/surface",
+    "border": "border/input",
+    "borderWidth": "default",
+    "fg": "text/primary"
+   }
+  ],
+  [
+   "Button",
+   "variant=secondary, size=sm, disabled=false, state=focus",
+   {
+    "bg": "bg/surface",
+    "border": "border/input",
+    "borderWidth": "default",
+    "fg": "text/primary",
+    "ring": "focus/ring",
+    "ringWidth": "strong"
+   }
+  ],
+  [
+   "Button",
+   "variant=secondary, size=sm, disabled=false, state=hover",
+   {
+    "bg": "bg/subtle",
+    "border": "border/input",
+    "borderWidth": "default",
+    "fg": "text/primary"
+   }
+  ],
+  [
+   "Button",
+   "variant=secondary, size=sm, disabled=true, state=default",
+   {
+    "bg": "bg/disabled",
+    "fg": "text/disabled"
+   }
+  ],
+  [
+   "Card",
+   "",
+   {
+    "bg": "bg/surface",
+    "body": "text/secondary",
+    "border": "border/default",
+    "borderWidth": "default",
+    "fg": "text/primary"
+   }
+  ],
+  [
+   "Checkbox",
+   "checked=false, disabled=false, state=default",
+   {
+    "bg": "bg/surface",
+    "border": "border/input",
+    "borderWidth": "default",
+    "fg": "text/primary",
+    "helper": "text/secondary"
+   }
+  ],
+  [
+   "Checkbox",
+   "checked=false, disabled=false, state=focus",
+   {
+    "bg": "bg/surface",
+    "border": "border/input",
+    "borderWidth": "default",
+    "fg": "text/primary",
+    "helper": "text/secondary",
+    "ring": "focus/ring",
+    "ringWidth": "strong"
+   }
+  ],
+  [
+   "Checkbox",
+   "checked=false, disabled=true, state=default",
+   {
+    "bg": "bg/disabled",
+    "border": "border/input",
+    "borderWidth": "default",
+    "fg": "text/disabled",
+    "helper": "text/secondary"
+   }
+  ],
+  [
+   "Checkbox",
+   "checked=true, disabled=false, state=default",
+   {
+    "bg": "action/primary",
+    "fg": "text/primary",
+    "helper": "text/secondary",
+    "mark": "text/on-action"
+   }
+  ],
+  [
+   "Checkbox",
+   "checked=true, disabled=false, state=focus",
+   {
+    "bg": "action/primary",
+    "fg": "text/primary",
+    "helper": "text/secondary",
+    "mark": "text/on-action",
+    "ring": "focus/ring",
+    "ringWidth": "strong"
+   }
+  ],
+  [
+   "Checkbox",
+   "checked=true, disabled=true, state=default",
+   {
+    "bg": "bg/disabled",
+    "fg": "text/disabled",
+    "helper": "text/secondary",
+    "mark": "text/disabled"
+   }
+  ],
+  [
+   "ConfirmAction",
+   "",
+   {}
+  ],
+  [
+   "Link",
+   "state=default",
+   {
+    "fg": "feedback/info-fg"
+   }
+  ],
+  [
+   "Link",
+   "state=focus",
+   {
+    "fg": "feedback/info-fg",
+    "ring": "focus/ring",
+    "ringWidth": "strong"
+   }
+  ],
+  [
+   "Link",
+   "state=hover",
+   {
+    "fg": "text/primary"
+   }
+  ],
+  [
+   "LinkButton",
+   "",
+   {
+    "fg": "feedback/info-fg"
+   }
+  ],
+  [
+   "SignInForm",
+   "",
+   {
+    "bg": "bg/surface",
+    "border": "border/default",
+    "borderWidth": "default",
+    "fg": "text/primary"
+   }
+  ],
+  [
+   "Switch",
+   "checked=false, disabled=false, state=default",
+   {
+    "bg": "border/input",
+    "fg": "text/primary",
+    "helper": "text/secondary",
+    "thumb": "text/on-action"
+   }
+  ],
+  [
+   "Switch",
+   "checked=false, disabled=false, state=focus",
+   {
+    "bg": "border/input",
+    "fg": "text/primary",
+    "helper": "text/secondary",
+    "ring": "focus/ring",
+    "ringWidth": "strong",
+    "thumb": "text/on-action"
+   }
+  ],
+  [
+   "Switch",
+   "checked=false, disabled=true, state=default",
+   {
+    "bg": "bg/disabled",
+    "fg": "text/disabled",
+    "helper": "text/secondary",
+    "thumb": "text/disabled"
+   }
+  ],
+  [
+   "Switch",
+   "checked=true, disabled=false, state=default",
+   {
+    "bg": "action/primary",
+    "fg": "text/primary",
+    "helper": "text/secondary",
+    "thumb": "text/on-action"
+   }
+  ],
+  [
+   "Switch",
+   "checked=true, disabled=false, state=focus",
+   {
+    "bg": "action/primary",
+    "fg": "text/primary",
+    "helper": "text/secondary",
+    "ring": "focus/ring",
+    "ringWidth": "strong",
+    "thumb": "text/on-action"
+   }
+  ],
+  [
+   "Switch",
+   "checked=true, disabled=true, state=default",
+   {
+    "bg": "bg/disabled",
+    "fg": "text/disabled",
+    "helper": "text/secondary",
+    "thumb": "text/disabled"
+   }
+  ],
+  [
+   "TextField",
+   "state=default",
+   {
+    "bg": "bg/surface",
+    "border": "border/input",
+    "borderWidth": "default",
+    "fg": "text/primary",
+    "helper": "text/secondary"
+   }
+  ],
+  [
+   "TextField",
+   "state=disabled",
+   {
+    "bg": "bg/disabled",
+    "border": "border/input",
+    "borderWidth": "default",
+    "fg": "text/disabled",
+    "helper": "text/secondary"
+   }
+  ],
+  [
+   "TextField",
+   "state=error",
+   {
+    "bg": "bg/surface",
+    "border": "feedback/danger-fg",
+    "borderWidth": "strong",
+    "fg": "text/primary",
+    "helper": "feedback/danger-fg"
+   }
+  ],
+  [
+   "TextField",
+   "state=focus",
+   {
+    "bg": "bg/surface",
+    "border": "border/input",
+    "borderWidth": "default",
+    "fg": "text/primary",
+    "helper": "text/secondary",
+    "ring": "focus/ring",
+    "ringWidth": "strong"
+   }
+  ]
+ ],
  "file": "Untitled (zS8ZMBxGCXjeL0Sygvsbti)",
  "exportedAt": "2026-11-23",
- "herkunft": "Inhalt identisch mit dem Export aus Figma vom 23.11.2026: Prüfsummen für Variablen (69526ccf), Text-Styles (597f025f) und Komponenten (63f5566b) stimmen überein. Künftige Schnappschüsse kommen aus dem Plugin „Fundament Export“."
+ "herkunft": "Inhalt identisch mit dem Export aus Figma vom 23.11.2026: Prüfsummen für Variablen (69526ccf), Text-Styles (597f025f), Komponenten (63f5566b) und das Aussehen von 64 Varianten (4bfc49a4) stimmen überein. Künftige Schnappschüsse kommen aus dem Plugin „Fundament Export“."
 }

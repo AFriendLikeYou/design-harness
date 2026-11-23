@@ -43,7 +43,7 @@ for (const c of spec.components) {
     c.status !== 'deprecated' ? `\`\`\`html\n<script type="module">import "${spec.codePackage}";</script>\n${usage(c)}\n\`\`\`\n\nProps sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attribute.\n` : '',
     c.props.length ? '## Props\n\n| Prop | Typ | Werte | Standard |\n|---|---|---|---|\n' + c.props.map((p) => `| \`${p.name}\` | ${p.type} | ${p.values ? p.values.map((v) => `\`${v}\``).join(', ') : '–'} | ${p.default ?? '–'} |`).join('\n') + '\n' : '',
     c.props.some((p) => p.type === 'instance') ? '## Slots\n\n' + c.props.filter((p) => p.type === 'instance').map((p) => `- \`${p.name}\`: Standard ${p.default}`).join('\n') + '\n' : '',
-    c.styles ? '## Aussehen (Tokens je Variante oder Zustand)\n\n| Für | Tokens |\n|---|---|\n' + Object.entries(c.styles).map(([k, st]) => `| \`${k}\` | ${Object.entries(st).map(([role, t]) => `${role}: \`${t}\``).join(', ')} |`).join('\n') + '\n' : '',
+    c.styles ? '## Aussehen (Tokens je Variante oder Zustand)\n\n| Für | Tokens |\n|---|---|\n' + Object.entries(c.styles).map(([k, st]) => `| \`${k}\` | ${Object.entries(st).map(([role, t]) => t ? `${role}: \`${t}\`` : `${role}: entfällt`).join(', ') || 'keine eigenen Farben'} |`).join('\n') + '\n' : '',
     c.rules.length ? '## Regeln\n\n' + c.rules.map((r) => `- **${r.text}** Warum: ${r.why} (\`${r.id}\`, ${r.check ? `Check: \`${r.check}\`` : 'manuell'})`).join('\n') + '\n' : '',
     `## Barrierefreiheit\n\n${c.a11y}\n`,
     c.do.length ? `## Do\n\n${c.do.map((d) => `- ${d}`).join('\n')}\n` : '',
@@ -98,7 +98,7 @@ const contracts = {
     parts: c.props.filter((p) => p.type === 'text').map((p) => `${spec.cssPrefix}-${kebab(c.name)}__${kebab(p.name)}`),
     // Aussehen je Variante oder Zustand; colorTokens ist die vollständige Liste der Farb-Tokens, die diese Komponente verwenden darf
     styles: c.styles || {},
-    colorTokens: [...new Set(Object.values(c.styles || {}).flatMap((st) => Object.entries(st).filter(([k]) => !/Width$/.test(k)).map(([, v]) => `--${spec.cssPrefix}-color-${kebab(v)}`)))],
+    colorTokens: [...new Set(Object.values(c.styles || {}).flatMap((st) => Object.entries(st).filter(([k, v]) => !/Width$/.test(k) && v).map(([, v]) => `--${spec.cssPrefix}-color-${kebab(v)}`)))],
     slots: c.props.filter((p) => p.type === 'instance').map((p) => ({ name: p.name, class: `${spec.cssPrefix}-${kebab(c.name)}__${kebab(p.name)}`, default: p.default, element: `${spec.cssPrefix}-${kebab(p.default)}`, show: `show-${kebab(p.name)}` })),
     rules: c.rules, a11y: c.a11y,
   }])),

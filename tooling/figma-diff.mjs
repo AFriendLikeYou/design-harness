@@ -27,6 +27,14 @@ export function expected(s = spec) {
   variables.sort((a, b) => (a[0] + a[1]).localeCompare(b[0] + b[1])); textStyles.sort((a, b) => a[0].localeCompare(b[0])); components.sort((a, b) => a[0].localeCompare(b[0]));
   return { schema: 1, variables, textStyles, components };
 }
+// Aussehen einer Variante laut Spec: "default" gilt immer, dann alle Einträge, deren Bedingungen zur Variante passen, die spezielleren zuletzt; null entfernt eine Rolle
+export function effective(c, variantName) {
+  const props = Object.fromEntries((variantName || '').split(', ').filter(Boolean).map((kv) => kv.split('=')));
+  const entries = Object.entries(c.styles || {}).map(([key, st], i) => ({ conds: key === 'default' ? [] : key.split(', ').map((kv) => kv.split('=')), st, i })).filter((x) => x.conds.every(([p, v]) => props[p] === v)).sort((a, b) => a.conds.length - b.conds.length || a.i - b.i);
+  const r = {}; for (const x of entries) for (const [role, tok] of Object.entries(x.st)) { if (tok === null) delete r[role]; else r[role] = tok; }
+  return Object.fromEntries(Object.keys(r).sort().map((k) => [k, r[k]]));
+}
+export const expectedStyles = (names, s = spec) => names.map(([comp, variant]) => { const c = s.components.find((x) => x.name === comp); return [comp, variant, c ? effective(c, variant) : {}]; });
 export const sums = (x) => ({ variables: [x.variables.length, hash(JSON.stringify(x.variables))], textStyles: [x.textStyles.length, hash(JSON.stringify(x.textStyles))], components: [x.components.length, hash(JSON.stringify(x.components))] });
 
 export function diff(snap, s = spec) {
@@ -68,14 +76,18 @@ export function diff(snap, s = spec) {
     if (f[2] !== w[2]) add('Beschreibung der Komponente', f[0], f[2].split('\n').find((l, i) => l !== w[2].split('\n')[i]) || '(Zeile entfernt)', w[2].split('\n').find((l, i) => l !== f[2].split('\n')[i]) || '', null);
   }
   for (const w of want.components) if (!snap.components.some((f) => f[0] === w[0])) add('Komponente fehlt in Figma', w[0], '', '', null);
+  // Aussehen je Variante
+  for (const [comp, variant, got] of snap.styles || []) { const c = s.components.find((x) => x.name === comp); if (!c) continue; const exp = effective(c, variant);
+    for (const role of new Set([...Object.keys(got), ...Object.keys(exp)])) if (got[role] !== exp[role]) add('Aussehen', `${comp}${variant ? ' [' + variant + ']' : ''} / ${role}`, got[role] || '(nichts)', exp[role] || '(nichts)', null); }
+  if (!snap.styles) add('Schnappschuss ohne Aussehen', 'styles', '(alter Export)', '', null);
   return out;
 }
 
 if (process.argv[1]?.endsWith('figma-diff.mjs')) {
-  if (process.argv.includes('--soll')) { const x = expected(); if (process.argv.includes('--summen')) console.log(JSON.stringify(sums(x))); else { writeFileSync(snapPath, JSON.stringify({ ...x, file: 'aus der Spec erzeugt', exportedAt: new Date().toISOString().slice(0, 10) }, null, 1) + '\n'); console.log('geschrieben: ' + snapPath); } process.exit(0); }
+  if (process.argv.includes('--soll')) { const x = expected(); let names = []; try { names = JSON.parse(readFileSync(arg('--varianten', snapPath), 'utf8')); names = (names.styles || names).map((n) => [n[0], n[1]]); } catch {} x.schema = 2; x.styles = expectedStyles(names); if (process.argv.includes('--summen')) { console.log(JSON.stringify({ ...sums(x), styles: [x.styles.length, hash(JSON.stringify(x.styles))] })); process.exit(0); } if (process.argv.includes('--summen')) console.log(JSON.stringify(sums(x))); else { writeFileSync(snapPath, JSON.stringify({ ...x, file: 'aus der Spec erzeugt', exportedAt: new Date().toISOString().slice(0, 10) }, null, 1) + '\n'); console.log('geschrieben: ' + snapPath); } process.exit(0); }
   let snap; try { snap = JSON.parse(readFileSync(snapPath, 'utf8')); } catch { console.error(`Kein Schnappschuss unter ${snapPath}. In Figma das Plugin „Fundament Export“ ausführen und das Ergebnis dort speichern.`); process.exit(2); }
   const d = diff(snap);
-  if (!d.length) { console.log(`Figma (Stand ${snap.exportedAt}) und Spec stimmen überein: ${snap.variables.length} Variablen, ${snap.textStyles.length} Text-Styles, ${snap.components.length} Komponenten.`); process.exit(0); }
+  if (!d.length) { console.log(`Figma (Stand ${snap.exportedAt}) und Spec stimmen überein: ${snap.variables.length} Variablen, ${snap.textStyles.length} Text-Styles, ${snap.components.length} Komponenten, Aussehen von ${(snap.styles || []).length} Varianten.`); process.exit(0); }
   const apply = process.argv.includes('--apply'); const next = JSON.parse(JSON.stringify(spec)); let done = 0;
   for (const x of d) { let note = x.apply ? 'übernehmbar mit --apply' : 'braucht eine Entscheidung'; if (apply && x.apply) { const r = x.apply(next); if (r) { done++; note = r === true ? 'in die Spec übernommen' : `in die Spec übernommen; ${r}`; } else note = 'nicht eindeutig, braucht eine Entscheidung'; }
     console.log(`${x.kind}: ${x.where}\n    Figma: ${x.figma || '(fehlt)'}\n    Spec:  ${x.spec || '(fehlt)'}\n    ${note}`); }

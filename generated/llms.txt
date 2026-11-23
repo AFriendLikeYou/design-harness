@@ -1,4 +1,4 @@
-# Fundament Design System 1.4.0
+# Fundament Design System 1.4.1
 
 > Komponenten und Tokens. Quelle: specs/system.json. Code-Paket: @fundament/ui.
 

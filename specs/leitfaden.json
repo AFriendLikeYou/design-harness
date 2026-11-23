@@ -50,7 +50,7 @@
     ],
     [
      "3 / Abgleich lesen",
-     "node tooling/figma-diff.mjs zeigt jede Abweichung: was Figma hat, was die Spec hat, und ob sie eindeutig übernehmbar ist."
+     "node tooling/figma-diff.mjs zeigt jede Abweichung: Werte, Properties, Beschreibungen und je Variante, welche Variable an Fläche, Text, Rahmen und Fokusring hängt. Dazu, ob die Abweichung eindeutig übernehmbar ist."
     ],
     [
      "4 / Übernehmen und entscheiden",
@@ -62,7 +62,7 @@
     ],
     [
      "6 / Gate",
-     "node tooling/verify.mjs vergleicht den Figma-Stand mit der Spec und prüft Code und Beispiele. Weicht etwas ab, ist der Stand rot, egal auf welcher Seite die Änderung begann."
+     "node tooling/verify.mjs vergleicht den Figma-Stand mit der Spec und misst im Browser, ob jede Variante im Code dieselben Farben trägt. Weicht etwas ab, ist der Stand rot, egal auf welcher Seite die Änderung begann."
     ]
    ]
   },
@@ -172,7 +172,7 @@
    "items": [
     [
      "1 / In Figma bauen",
-     "Set mit Varianten, Properties mit den Namen aus dem Code, Farben und Maße an Variablen, Beschreibung nach dem Muster (Status, Zweck, Regeln mit ID, A11y)."
+     "Set mit Varianten, Properties mit den Namen aus dem Code, Farben und Maße an Variablen, Beschreibung nach dem Muster. Ebenen heißen nach ihrer Rolle (label, value, input, box, track, thumb, check, helperText, focusRing): Daran erkennt der Export das Aussehen."
     ],
     [
      "2 / Exportieren und abgleichen",

@@ -24,10 +24,11 @@ Props sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attr
 
 | Für | Tokens |
 |---|---|
-| `checked=false` | bg: `bg/surface`, fg: `text/primary`, border: `border/input`, borderWidth: `default`, helper: `text/secondary` |
-| `checked=true` | bg: `action/primary`, mark: `text/on-action` |
+| `default` | bg: `bg/surface`, fg: `text/primary`, border: `border/input`, borderWidth: `default`, helper: `text/secondary` |
+| `checked=true` | bg: `action/primary`, mark: `text/on-action`, border: entfällt, borderWidth: entfällt |
 | `state=focus` | ring: `focus/ring`, ringWidth: `strong` |
-| `disabled=true` | bg: `bg/disabled`, fg: `text/disabled`, mark: `text/disabled` |
+| `disabled=true` | bg: `bg/disabled`, fg: `text/disabled` |
+| `checked=true, disabled=true` | mark: `text/disabled` |
 
 ## Regeln
 

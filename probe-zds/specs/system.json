@@ -645,7 +645,7 @@
         }
       ],
       "styles": {
-        "checked=false": {
+        "default": {
           "bg": "background/0",
           "border": "border/100",
           "borderWidth": "default",
@@ -657,7 +657,9 @@
         },
         "checked=true": {
           "bg": "text/100",
-          "mark": "general/white-100"
+          "mark": "general/white-100",
+          "border": null,
+          "borderWidth": null
         },
         "checked=true, state=hover": {
           "bg": "text/70"
@@ -744,7 +746,7 @@
         }
       ],
       "styles": {
-        "checked=false": {
+        "default": {
           "bg": "background/20",
           "thumb": "general/white-100",
           "fg": "text/100",
@@ -833,7 +835,7 @@
         }
       ],
       "styles": {
-        "state=default": {
+        "default": {
           "bg": "background/0",
           "fg": "text/100",
           "border": "border/100",
@@ -932,7 +934,7 @@
         }
       ],
       "styles": {
-        "state=default": {
+        "default": {
           "fg": "text/70"
         },
         "state=hover": {

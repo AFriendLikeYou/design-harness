@@ -20,7 +20,7 @@ Props sind Attribute in kebab-case. Varianten mit false/true sind boolesche Attr
 
 | Für | Tokens |
 |---|---|
-| `state=default` | fg: `feedback/info-fg` |
+| `default` | fg: `feedback/info-fg` |
 | `state=hover` | fg: `text/primary` |
 | `state=focus` | ring: `focus/ring`, ringWidth: `strong` |
 

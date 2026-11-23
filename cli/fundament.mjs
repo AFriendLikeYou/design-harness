@@ -73,7 +73,7 @@ export function lint(spec = read('specs/system.json')) {
     for (const p of c.props) { if (p.type === 'variant' && !p.values.includes(String(p.default))) add('lint/prop', `${c.name}.${p.name}: Standard „${p.default}“ ist kein erlaubter Wert.`); if (p.type === 'instance' && !spec.components.some((x) => x.name === p.default)) add('lint/prop', `${c.name}.${p.name}: Standard-Komponente „${p.default}“ gibt es nicht.`); }
     if (c.status !== 'deprecated' && !c.styles) add('lint/styles', `${c.name}: styles fehlen.`);
     for (const [key, st] of Object.entries(c.styles || {})) {
-      for (const [role, tok] of Object.entries(st)) { if (/Width$/.test(role)) { if (!spec.semantic['border-width']?.[tok]) add('lint/styles', `${c.name} [${key}]: Rahmenstärke „${tok}“ gibt es nicht.`); } else if (!colors.has(tok)) add('lint/styles', `${c.name} [${key}]: Token „${tok}“ gibt es nicht.`); }
+      for (const [role, tok] of Object.entries(st)) { if (tok === null) continue; if (/Width$/.test(role)) { if (!spec.semantic['border-width']?.[tok]) add('lint/styles', `${c.name} [${key}]: Rahmenstärke „${tok}“ gibt es nicht.`); } else if (!colors.has(tok)) add('lint/styles', `${c.name} [${key}]: Token „${tok}“ gibt es nicht.`); }
       if (key !== 'default') for (const kv of key.split(', ')) { const [prop, val] = kv.split('='); const p = c.props.find((x) => x.name === prop); if (!p || !p.values?.includes(val)) add('lint/styles', `${c.name}: styles-Schlüssel „${kv}“ passt zu keinem Prop-Wert.`); }
     }
     if (c.status === 'deprecated' && !(spec.migrations || []).some((m) => m.from.endsWith(c.name.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()))) add('lint/migration', `${c.name} ist veraltet, hat aber keinen Eintrag in migrations.`);
