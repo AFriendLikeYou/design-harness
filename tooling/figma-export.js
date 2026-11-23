@@ -27,8 +27,18 @@ const look = (c) => { const find = (...names) => { for (const nm of names) { con
   const helper = find('helperText', 'errorText'); if (helper) set('helper', bound(helper.fills)); const mark = find('check'); if (mark) set('mark', bound(mark.strokes) || bound(mark.fills)); const thumb = find('thumb'); if (thumb) set('thumb', bound(thumb.fills));
   const ring = find('focusRing'); if (ring) { set('ring', bound(ring.strokes)); set('ringWidth', weight(ring)); }
   return Object.fromEntries(Object.keys(r).sort().map((k) => [k, r[k]])); };
+// Maße je Variante: welche Variable an Radius, Innenabstand und Lücke der Fläche hängt und welcher Textstil an der Beschriftung.
+// Nur gebundene Werte zählen; die Fläche ist dieselbe Ebene wie beim Aussehen (input, box oder track, sonst die Variante selbst).
+const styleName = Object.fromEntries((await figma.getLocalTextStylesAsync()).map((s) => [s.id, s.name]));
+const dim = (node, prop) => { const b = node.boundVariables && node.boundVariables[prop]; return b && b.id && byId[b.id] ? byId[b.id].name : null; };
+const measure = (c) => { const find = (...names) => { for (const nm of names) { const n = c.findOne((q) => q.name === nm && q.type !== 'INSTANCE' && !inInstance(q, c)); if (n) return n; } return null; };
+  const surface = find('input', 'box', 'track') || c; const m = {}; const set = (k, v) => { if (v) m[k] = v; };
+  set('radius', dim(surface, 'topLeftRadius'));
+  if (surface.layoutMode && surface.layoutMode !== 'NONE') { set('padX', dim(surface, 'paddingLeft')); set('padY', dim(surface, 'paddingTop')); set('gap', dim(surface, 'itemSpacing')); }
+  const fg = find('value', 'label', 'title'); if (fg && typeof fg.textStyleId === 'string' && styleName[fg.textStyleId]) set('textStyle', styleName[fg.textStyleId]);
+  return m; };
 const styles = [];
-for (const n of figma.root.findAll((x) => x.type === 'COMPONENT_SET' || (x.type === 'COMPONENT' && x.parent.type === 'PAGE')).filter((x) => !OPT.skip.some((p) => x.name.startsWith(p)))) { if (n.type === 'COMPONENT_SET') for (const v of n.children) styles.push([n.name, v.name, look(v)]); else styles.push([n.name, '', look(n)]); }
+for (const n of figma.root.findAll((x) => x.type === 'COMPONENT_SET' || (x.type === 'COMPONENT' && x.parent.type === 'PAGE')).filter((x) => !OPT.skip.some((p) => x.name.startsWith(p)))) { if (n.type === 'COMPONENT_SET') for (const v of n.children) styles.push([n.name, v.name, look(v), measure(v)]); else styles.push([n.name, '', look(n), measure(n)]); }
 styles.sort((p, q) => (p[0] + '|' + p[1]).localeCompare(q[0] + '|' + q[1]));
 variables.sort((p, q) => (p[0] + p[1]).localeCompare(q[0] + q[1])); textStyles.sort((p, q) => p[0].localeCompare(q[0]));
 return { schema: 2, file: figma.root.name, fileKey: figma.fileKey || '', exportedAt: new Date().toISOString().slice(0, 10), variables, textStyles, components, styles };
