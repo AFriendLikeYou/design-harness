@@ -74,7 +74,9 @@ ok('signin passwort anzeigen', pw.type === 'text' && toggle.getAttribute('label'
 let submitted = 0; f.querySelector('form').addEventListener('submit', (e) => { e.preventDefault(); submitted++; }); f.querySelector('fd-button[type="submit"] button').click();
 ok('signin submit', submitted === 1);
 const cs = getComputedStyle($('#b button'));
-ok('tokens wirken', cs.backgroundColor !== 'rgba(0, 0, 0, 0)' && cs.borderRadius === '8px');
+// Erwartet wird der Wert des Tokens, kein fester Pixelwert: Ändert das Design den Radius, bleibt der Test gültig
+const radiusProbe = document.body.appendChild(document.createElement('i')); radiusProbe.style.borderRadius = 'var(--fd-radius-md)';
+ok('tokens wirken', cs.backgroundColor !== 'rgba(0, 0, 0, 0)' && parseFloat(cs.borderRadius) > 0 && cs.borderRadius === getComputedStyle(radiusProbe).borderRadius);
 document.body.setAttribute('data-result', JSON.stringify({ r, warns: warns.length }));
 </script>
 </body>

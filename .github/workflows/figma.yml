@@ -50,6 +50,6 @@ jobs:
       - name: Status am letzten Commit setzen
         run: |
           sha=$(git rev-parse HEAD)
-          if [ "${{ steps.gate.outputs.code }}" = "0" ]; then state=success; text="Figma und Code passen zusammen"; elif [ "${{ steps.bericht.outputs.code }}" != "0" ]; then state=failure; text="In Figma zu beheben"; else state=failure; text="Im Code noch nachzuziehen"; fi
+          if [ "${{ steps.gate.outputs.code }}" = "0" ]; then state=success; text="Figma und Code passen zusammen"; elif [ "${{ steps.bericht.outputs.code }}" != "0" ]; then state=failure; text="In Figma zu beheben"; elif grep -q "^FEHL  Figma gegen Code" gate.txt; then state=failure; text="Im Code noch nachzuziehen"; else state=failure; text="Prüfungen nicht bestanden, siehe Kommentar"; fi
           gh api "repos/$GITHUB_REPOSITORY/statuses/$sha" -f state="$state" -f context="Figma-Stand" -f description="$text" >/dev/null
           [ "$state" = "success" ]
