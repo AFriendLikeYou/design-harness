@@ -30,7 +30,7 @@ Vier Wege, die im Alltag vorkommen. Von oben nach unten lesen. Die Farbe zeigt, 
 Eine Farbe, ein Abstand oder eine Variante soll anders werden.
 
 1. **In Figma ändern** (Design): Den Wert an der Variable ändern oder die Variante an der Komponente.
-2. **Stand exportieren** (Design): Plugin „Fundament Export“ starten und die Datei ins Repo legen.
+2. **Stand exportieren** (Design): Plugin „Fundament Export“ starten und auf „Ins Repo übernehmen“ klicken.
 3. **Bauen und nachrechnen** (Automatisch): Neue Werte landen im CSS. Der Kontrast wird nachgerechnet.
 4. **Code nachziehen** (Entwicklung): Nur nötig, wenn der Abgleich etwas meldet, zum Beispiel eine neue Variante.
 5. **Freigabe** (Automatisch): Alle Prüfungen sind grün. Die Änderung darf zusammengeführt werden.

@@ -10,6 +10,10 @@
   "networkAccess": {
     "allowedDomains": [
       "none"
-    ]
+    ],
+    "devAllowedDomains": [
+      "http://localhost:4321"
+    ],
+    "reasoning": "Schickt den Export an den lokalen Fundament-Server auf dem eigenen Rechner."
   }
 }

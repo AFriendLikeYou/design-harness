@@ -1,0 +1,25 @@
+<style>
+  body { font: 12px/1.5 Inter, system-ui, sans-serif; margin: 16px; color: #1a1a1a; }
+  h1 { font-size: 14px; margin: 0 0 4px; } p { margin: 0 0 12px; color: #5e5e5a; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; }
+  button { font: inherit; padding: 8px 12px; border-radius: 6px; border: 1px solid #c9c9c4; background: #fff; cursor: pointer; }
+  button.main { background: #1f4fd8; border-color: #1f4fd8; color: #fff; } button:disabled { opacity: .5; cursor: default; }
+  #out { margin-top: 12px; padding: 12px; border-radius: 6px; background: #f4f4f1; white-space: pre-wrap; overflow-wrap: anywhere; max-height: 190px; overflow: auto; }
+  #out.ok { background: #e6f4ea; } #out.bad { background: #fde8e6; } #out b { display: block; margin-bottom: 4px; }
+</style>
+<h1 id="h">Lese Datei …</h1>
+<p id="s"></p>
+<div class="row"><button class="main" id="send" disabled>Ins Repo übernehmen</button><button id="save" disabled>Als Datei speichern</button><button id="copy" disabled>Kopieren</button></div>
+<div id="out" hidden></div>
+<script>
+const SERVER = 'http://localhost:4321/__snapshot'; let json = ''; const $ = (i) => document.getElementById(i);
+const show = (cls, title, lines) => { const o = $('out'); o.hidden = false; o.className = cls; o.textContent = ''; const b = document.createElement('b'); b.textContent = title; o.append(b, (lines || []).join('\n')); };
+onmessage = async (e) => { const m = e.data.pluginMessage; if (m.error) { $('h').textContent = 'Export fehlgeschlagen'; show('bad', m.error, []); return; }
+  json = m.json; $('h').textContent = 'Stand gelesen'; $('s').textContent = m.info; $('save').disabled = $('copy').disabled = false;
+  try { const r = await fetch(SERVER); if (!r.ok) throw 0; $('send').disabled = false; } catch { show('', 'Der lokale Server läuft nicht.', ['Im Repo starten: node tooling/serve.mjs', 'Oder den Stand als Datei speichern und als specs/figma.snapshot.json ins Repo legen.']); } };
+$('send').onclick = async () => { $('send').disabled = true; show('', 'Übernehme …', []);
+  try { const r = await (await fetch(SERVER, { method: 'POST', headers: { 'content-type': 'text/plain' }, body: json })).json(); show(r.ok ? 'ok' : 'bad', r.title, r.lines); } catch (err) { show('bad', 'Der Server ist nicht erreichbar.', ['Im Repo starten: node tooling/serve.mjs']); }
+  $('send').disabled = false; };
+$('save').onclick = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([json], { type: 'application/json' })); a.download = 'figma.snapshot.json'; a.click(); show('', 'Gespeichert als figma.snapshot.json.', ['Im Repo unter specs/ ablegen, dann node build.mjs.']); };
+$('copy').onclick = () => { const t = document.createElement('textarea'); t.value = json; document.body.append(t); t.select(); document.execCommand('copy'); t.remove(); show('', 'Kopiert.', ['Im Repo als specs/figma.snapshot.json speichern, dann node build.mjs.']); };
+</script>
