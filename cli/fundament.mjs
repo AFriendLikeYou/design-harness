@@ -15,10 +15,10 @@ const ROOT = rootDir ? new URL(rootDir.replace(/\/?$/, '/'), `file://${process.c
 const read = (p) => JSON.parse(readFileSync(new URL(p, ROOT), 'utf8'));
 export const systemRoot = ROOT;
 // Checks, die diese CLI wirklich umsetzt. lint meldet Regeln, die einen anderen Check versprechen.
-export const IMPLEMENTED = ['max-per-view', 'no-raw-color', 'required-prop', 'slot-content', 'max-words', 'max-per-parent', 'max-children', 'no-nesting', 'registered-only', 'required-when-disabled', 'no-decoration', 'no-uppercase', 'no-vague-action', 'no-raw-space', 'required-when-error'];
+export const IMPLEMENTED = ['max-per-view', 'no-raw-color', 'required-prop', 'slot-content', 'max-words', 'max-per-parent', 'max-children', 'no-nesting', 'registered-only', 'required-when-disabled', 'no-decoration', 'no-uppercase', 'no-vague-action', 'no-raw-space', 'required-when-error', 'min-per-group'];
 // Regel-IDs, unter denen check() Befunde ausgibt (komponentenbezogen und Grundsätze). Alles andere sind allgemeine IDs (tokens/…, props/…, components/…, slots/…).
 // lint gleicht diese Liste mit specs/rules.json ab: Jede Regel mit "check" muss hier stehen (oder über CHECK_EMITS abgedeckt sein), jede Regel hier muss in den Regeln stehen und einen check tragen.
-export const CHECKED_IDS = ['button/one-primary', 'textfield/visible-label', 'textfield/error-text', 'textfield/trailing-slot', 'checkbox/disabled-reason', 'switch/disabled-reason', 'badge/short-label', 'chip/short-label', 'alert/one-per-area', 'card/one-action', 'card/no-nesting', 'card/badge-slot', 'link/has-target', 'link/names-destination', 'principles/spacing-from-scale', 'principles/surface-and-line', 'principles/sentence-case', 'principles/action-says-what', 'principles/system-controls'];
+export const CHECKED_IDS = ['button/one-primary', 'textfield/visible-label', 'textfield/error-text', 'textfield/trailing-slot', 'checkbox/disabled-reason', 'switch/disabled-reason', 'radio/disabled-reason', 'radio/in-group', 'badge/short-label', 'chip/short-label', 'alert/one-per-area', 'card/one-action', 'card/no-nesting', 'card/badge-slot', 'link/has-target', 'link/names-destination', 'principles/spacing-from-scale', 'principles/surface-and-line', 'principles/sentence-case', 'principles/action-says-what', 'principles/system-controls'];
 // Checks, die ihre Befunde unter einer allgemeinen ID ausgeben, nicht unter der Regel-ID
 export const CHECK_EMITS = { 'no-raw-color': 'tokens/no-raw-color', 'required-prop': 'props/required', 'registered-only': 'components/unknown' };
 // Unter welcher ID erscheint der Befund einer Regel mit check? undefined = die CLI gibt für diese Regel nichts aus
@@ -159,7 +159,7 @@ export function check(files, C = read('generated/contracts.json'), opts = {}) {
     toks.forEach((tk, i) => { if (!tk.close && tk.tag === 'style' && toks[i + 1]?.close) css(file, src.slice(tk.end, toks[i + 1].index), L(tk.index) - 1); });
     H = opts.html || toks.some((tk) => !tk.close && tk.tag === 'html' && 'data-fd-html' in tk.attrs) ? htmlClasses() : null;
     const specimen = toks.some((tk) => !tk.close && tk.tag === 'html' && 'data-fd-specimen' in tk.attrs);
-    const VOID = new Set(['input', 'br', 'img', 'meta', 'link', 'hr']); const stack = []; let primary = 0; const alerts = new Map();
+    const VOID = new Set(['input', 'br', 'img', 'meta', 'link', 'hr']); const stack = []; let primary = 0; const alerts = new Map(); const radios = new Map();
     for (const [ti, m] of toks.entries()) {
       const { close, tag: t, attrs } = m;
       if (close) { for (let i = stack.length - 1; i >= 0; i--) if (stack[i].tag === t) { stack.length = i; break; } continue; }
@@ -201,7 +201,8 @@ export function check(files, C = read('generated/contracts.json'), opts = {}) {
           if (comp.attrs['trailing-action'] && v('trailing-action') !== 'none' && !(attrs['show-trailing'] !== undefined && attrs['show-trailing'] !== 'false')) add(file, line, 'textfield/trailing-slot', 'trailing-action ohne sichtbaren Slot.', 'show-trailing setzen und einen <fd-button slot="trailing" variant="ghost" size="sm"> einfügen.');
           if (v('state') === 'error' && !v('error-text').trim()) add(file, line, 'textfield/error-text', 'Fehlerzustand ohne error-text.', 'error-text="…" setzen und darin sagen, wie man den Fehler behebt.');
         }
-        if (['Checkbox', 'Switch'].includes(comp.name) && v('disabled') && !(v('show-helper') && v('helper-text').trim())) add(file, line, `${comp.name.toLowerCase()}/disabled-reason`, `Deaktiviert ohne Erklärung.`, 'show-helper und helper-text="…" setzen und den Grund nennen.');
+        if (comp.name === 'Radio') { const g = typeof attrs.name === 'string' ? attrs.name : ''; if (!radios.has(g)) radios.set(g, []); radios.get(g).push(line); }
+        if (['Checkbox', 'Switch', 'Radio'].includes(comp.name) && v('disabled') && !(v('show-helper') && v('helper-text').trim())) add(file, line, `${comp.name.toLowerCase()}/disabled-reason`, `Deaktiviert ohne Erklärung.`, 'show-helper und helper-text="…" setzen und den Grund nennen.');
         if (comp.name === 'Chip' && v('label').trim().split(/\s+/).length > 2) add(file, line, 'chip/short-label', `Chip-Text „${v('label')}“ hat mehr als zwei Wörter.`, 'Auf höchstens zwei Wörter kürzen.');
         if (comp.name === 'Badge' && v('label').trim().split(/\s+/).length > 2) add(file, line, 'badge/short-label', `Badge-Text „${v('label')}“ hat mehr als zwei Wörter.`, 'Auf höchstens zwei Wörter kürzen.');
         if (comp.name === 'Card' && stack.some((s) => s.comp?.name === 'Card')) add(file, line, 'card/no-nesting', 'Karte in einer Karte.', 'Innere Karte auflösen oder neben die äußere stellen.');
@@ -221,6 +222,7 @@ export function check(files, C = read('generated/contracts.json'), opts = {}) {
       }
       if (!VOID.has(t) && !m.selfClosing) stack.push({ tag: t, comp, sys: cls.length > 0, owner: cls.map((c) => byClass[c]).find(Boolean), id: m.index, slots: {}, shown: Object.keys(attrs).filter((a) => a.startsWith('show-') && attrs[a] !== 'false') });
     }
+    if (!specimen) for (const [g, lines] of radios) if (!g || lines.length < 2) for (const l of lines) add(file, l, 'radio/in-group', g ? `Radio mit name="${g}" steht allein.` : 'Radio ohne name.', 'Mindestens zwei Radios mit demselben name="…" zu einer Gruppe machen. Für eine einzelne Ja-oder-Nein-Frage eine Checkbox verwenden.');
   }
   for (const f of files) { if (/^(tokens\.css|contract\.generated\.js)$/.test(basename(f))) continue; const src = readFileSync(f, 'utf8'); extname(f) === '.css' ? css(f, src) : html(f, src); }
   return findings;

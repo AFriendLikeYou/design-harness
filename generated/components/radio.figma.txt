@@ -1,0 +1,6 @@
+Status: beta · v0.1.0
+Eine Auswahl aus mehreren. Steht immer in einer Gruppe von mindestens zwei.
+Regeln: Mindestens zwei Radios mit demselben name bilden eine Gruppe. [radio/in-group] Ist das Radio deaktiviert, erklärt helperText den Grund. [radio/disabled-reason]
+A11y: Natives <input type="radio"> mit <label>. Die Gruppe bekommt eine gemeinsame Überschrift, die sagt, worum es geht.
+Spec: ds/radio
+Code: <fd-radio> aus "@fundament/ui"

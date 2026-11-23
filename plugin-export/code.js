@@ -18,6 +18,7 @@ for (const col of cols) for (const v of all.filter((x) => x.variableCollectionId
 const textStyles = (await figma.getLocalTextStylesAsync()).filter((s) => !OPT.skip.some((p) => s.name.startsWith(p.trim().toLowerCase() + '/'))).map((s) => [s.name, s.fontName.style, s.fontSize, s.lineHeight.value, s.description]);
 const components = figma.root.findAll((n) => n.type === 'COMPONENT_SET' || (n.type === 'COMPONENT' && n.parent.type === 'PAGE')).filter((n) => !OPT.skip.some((p) => n.name.startsWith(p))).map((n) => [n.name,
   Object.entries(n.componentPropertyDefinitions).map(([k, d]) => [k.split('#')[0], d.type, d.type === 'VARIANT' ? [...d.variantOptions].sort() : d.type === 'INSTANCE_SWAP' ? '' : d.defaultValue, d.type === 'VARIANT' ? d.defaultValue : '']).sort((p, q) => p[0].localeCompare(q[0])), n.description]).sort((p, q) => p[0].localeCompare(q[0]));
+// Die Markierung (Ebene check) ist bei der Checkbox ein gezeichneter Haken (Strich), beim Radio ein gefüllter Punkt.
 // Aussehen je Variante: welche Variable an welcher Rolle hängt. Die Rollen folgen den Ebenennamen:
 // Fläche und Rahmen = Ebene input, box oder track, sonst die Variante selbst; Text = value, label oder title; body/description; helperText/errorText; check; thumb; focusRing.
 const inInstance = (n, top) => { let x = n.parent; while (x && x !== top) { if (x.type === 'INSTANCE') return true; x = x.parent; } return false; };
@@ -27,7 +28,7 @@ const look = (c) => { const find = (...names) => { for (const nm of names) { con
   const surface = find('input', 'box', 'track') || c; const r = {}; const set = (k, v) => { if (v) r[k] = v; };
   set('bg', bound(surface.fills)); if (surface.strokes && surface.strokes.length) { set('border', bound(surface.strokes)); set('borderWidth', weight(surface)); }
   const fg = find('value', 'label', 'title'); if (fg) set('fg', bound(fg.fills)); const body = find('body', 'description'); if (body) set('body', bound(body.fills));
-  const helper = find('helperText', 'errorText'); if (helper) set('helper', bound(helper.fills)); const mark = find('check'); if (mark) set('mark', bound(mark.strokes) || bound(mark.fills)); // Haken ist gezeichnet (Strich), der Punkt im Radio gefüllt const thumb = find('thumb'); if (thumb) set('thumb', bound(thumb.fills));
+  const helper = find('helperText', 'errorText'); if (helper) set('helper', bound(helper.fills)); const mark = find('check'); if (mark) set('mark', bound(mark.strokes) || bound(mark.fills)); const thumb = find('thumb'); if (thumb) set('thumb', bound(thumb.fills));
   const ring = find('focusRing'); if (ring) { set('ring', bound(ring.strokes)); set('ringWidth', weight(ring)); }
   return Object.fromEntries(Object.keys(r).sort().map((k) => [k, r[k]])); };
 const styles = [];

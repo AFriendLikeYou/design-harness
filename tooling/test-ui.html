@@ -9,6 +9,7 @@
 <fd-checkbox id="c" label="A" disabled show-helper helper-text="Grund"></fd-checkbox>
 <fd-switch id="s" label="Schalter"></fd-switch>
 <fd-chip id="chip" label="Kostenlos"></fd-chip>
+<fd-radio id="r1" name="g" value="a" checked label="A"></fd-radio><fd-radio id="r2" name="g" value="b" label="B"></fd-radio>
 <fd-alert id="a" tone="danger" title="Titel" description="Text"></fd-alert>
 <fd-alert id="a2" tone="info" title="Info"></fd-alert>
 <fd-card id="k" title="Karte" body="Text"><fd-button slot="action" variant="secondary" label="Öffnen"></fd-button></fd-card>
@@ -39,6 +40,10 @@ s.querySelector('button').click();
 ok('switch schaltet und meldet change', s.checked === true && s.querySelector('button').getAttribute('aria-checked') === 'true' && changed === 1);
 s.querySelector('.fd-switch__label').click();
 ok('switch label schaltet', s.checked === false && changed === 2);
+const r1 = document.getElementById('r1'), r2 = document.getElementById('r2');
+ok('radio ist ein natives Radio in einer Gruppe', r1.querySelector('input').type === 'radio' && r1.querySelector('input').name === 'g' && r1.checked === true && r2.checked === false);
+r2.querySelector('.fd-radio__label').click();
+ok('radio wählt und wählt das andere ab', r2.checked === true && r1.checked === false);
 const chip = document.getElementById('chip'); let chipChanged = 0; chip.addEventListener('change', () => chipChanged++);
 ok('chip ist ein Button mit aria-pressed', chip.querySelector('button').getAttribute('aria-pressed') === 'false');
 chip.querySelector('button').click();

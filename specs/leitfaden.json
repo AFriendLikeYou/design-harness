@@ -1,6 +1,6 @@
 {
  "title": "So funktioniert es",
- "intro": "Design entsteht in Figma, Code im Repo. Diese Seite zeigt, wie beides zusammenkommt und woran man erkennt, dass der Code so aussieht wie die Vorlage.",
+ "intro": "Design entsteht in Figma, Code im Repo. Diese Seite zeigt, wie beides zusammenkommt und wie geprüft wird, ob der Code zur Vorlage passt.",
  "sections": [
   {
    "id": "bild",
@@ -37,7 +37,7 @@
   {
    "id": "design",
    "title": "Ich gestalte",
-   "intro": "Du arbeitest nur in Figma. Ein Terminal brauchst du nicht.",
+   "intro": "Du arbeitest in Figma. Auf deinem Rechner muss dafür heute ein kleiner Server laufen, siehe unten.",
    "steps": [
     [
      "In Figma bauen",
@@ -92,7 +92,7 @@
     ],
     [
      "Prüfen",
-     "Grün heißt: Der Code sieht aus wie die Vorlage.",
+     "Grün heißt: Alle Prüfungen sind bestanden, Farben und Rahmen stimmen mit Figma überein.",
      "node tooling/verify.mjs"
     ]
    ],
@@ -103,7 +103,7 @@
   },
   {
    "id": "gleich",
-   "title": "So sieht der Code aus wie die Vorlage",
+   "title": "Wie wir prüfen, dass der Code zur Vorlage passt",
    "intro": "Drei Messungen. Jede läuft von selbst, bei jeder Änderung.",
    "checks": [
     [

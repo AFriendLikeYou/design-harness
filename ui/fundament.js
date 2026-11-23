@@ -106,7 +106,8 @@ class TextField extends Base {
 }
 
 class Checkbox extends Base {
-  build() { const B = this.localName; const id = this.uid; this.innerHTML = `<div class="${B}-field"><label class="${B}"><input class="${B}__box" type="checkbox"><span class="${B}__label"></span></label><span class="${B}__helper-text" id="${id}-h"></span></div>`; this.q('input').checked = this.a('checked'); }
+  get inputType() { return 'checkbox'; }
+  build() { const B = this.localName; const id = this.uid; this.innerHTML = `<div class="${B}-field"><label class="${B}"><input class="${B}__box" type="${this.inputType}"><span class="${B}__label"></span></label><span class="${B}__helper-text" id="${id}-h"></span></div>`; this.q('input').checked = this.a('checked'); }
   update() { const B = this.localName;
     const input = this.q('input'), help = this.q(`.${B}__helper-text`);
     if (!this.touched) input.checked = this.a('checked');
@@ -119,6 +120,11 @@ class Checkbox extends Base {
   }
   get checked() { return this.q('input')?.checked ?? this.a('checked'); }
   set checked(v) { this.touched = true; if (this.ready) this.q('input').checked = !!v; }
+}
+
+// Eine Auswahl aus mehreren: natives <input type="radio">. Radios mit demselben name bilden eine Gruppe; der Browser wählt die anderen ab.
+class Radio extends Checkbox {
+  get inputType() { return 'radio'; }
 }
 
 class Switch extends Base {
@@ -209,7 +215,7 @@ class LinkButton extends Base {
 }
 
 // Umsetzung je Komponentenname aus dem Vertrag. Heißt eine Komponente anders, nennt die Spec die Umsetzung im Feld "impl".
-const IMPL = { Button, TextField, Checkbox, Switch, Chip, Badge, Alert, Card, Link, SignInForm, ConfirmAction, LinkButton };
+const IMPL = { Button, TextField, Checkbox, Radio, Switch, Chip, Badge, Alert, Card, Link, SignInForm, ConfirmAction, LinkButton };
 for (const [tag, def] of Object.entries(ELEMENTS)) {
   if (!IMPL[def.impl || def.name]) { console.warn(`Für <${tag}> aus dem Vertrag fehlt die Umsetzung in fundament.js.`); continue; }
   IMPL[def.impl || def.name].define(tag);

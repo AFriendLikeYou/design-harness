@@ -1709,6 +1709,57 @@
    "VERALTET seit 1.0.0 – nutze Button variant=ghost.\nStatus: deprecated · v0.9.0\nVeraltet seit 1.0. Ersetzt durch Button variant=ghost.\nA11y: –\nSpec: ds/link-button"
   ],
   [
+   "Radio",
+   [
+    [
+     "checked",
+     "VARIANT",
+     [
+      "false",
+      "true"
+     ],
+     "false"
+    ],
+    [
+     "disabled",
+     "VARIANT",
+     [
+      "false",
+      "true"
+     ],
+     "false"
+    ],
+    [
+     "helperText",
+     "TEXT",
+     "Du kannst jederzeit wechseln.",
+     ""
+    ],
+    [
+     "label",
+     "TEXT",
+     "Monatlich zahlen",
+     ""
+    ],
+    [
+     "showHelper",
+     "BOOLEAN",
+     false,
+     ""
+    ],
+    [
+     "state",
+     "VARIANT",
+     [
+      "default",
+      "focus"
+     ],
+     "default"
+    ]
+   ],
+   "Status: beta · v0.1.0\nEine Auswahl aus mehreren. Steht immer in einer Gruppe von mindestens zwei.\nSpec: ds/radio"
+  ],
+  [
    "SignInForm",
    [],
    "Status: stable · v1.0.2\nVollständiges Anmeldeformular aus TextField, Checkbox und Button. Als Ganzes verwenden statt neu zusammenzubauen.\nRegeln: Nur aus Systemkomponenten zusammensetzen. [signinform/compose-from-system]\nA11y: Fehlermeldungen oberhalb der Felder zusammenfassen und fokussieren.\nSpec: ds/sign-in-form\nCode: <fd-sign-in-form> aus \"@fundament/ui\""
@@ -2372,6 +2423,73 @@
    "",
    {
     "fg": "feedback/info-fg"
+   }
+  ],
+  [
+   "Radio",
+   "checked=false, disabled=false, state=default",
+   {
+    "bg": "bg/surface",
+    "border": "border/input",
+    "borderWidth": "default",
+    "fg": "text/primary",
+    "helper": "text/secondary"
+   }
+  ],
+  [
+   "Radio",
+   "checked=false, disabled=false, state=focus",
+   {
+    "bg": "bg/surface",
+    "border": "border/input",
+    "borderWidth": "default",
+    "fg": "text/primary",
+    "helper": "text/secondary",
+    "ring": "focus/ring",
+    "ringWidth": "strong"
+   }
+  ],
+  [
+   "Radio",
+   "checked=false, disabled=true, state=default",
+   {
+    "bg": "bg/disabled",
+    "border": "border/input",
+    "borderWidth": "default",
+    "fg": "text/disabled",
+    "helper": "text/secondary"
+   }
+  ],
+  [
+   "Radio",
+   "checked=true, disabled=false, state=default",
+   {
+    "bg": "action/primary",
+    "fg": "text/primary",
+    "helper": "text/secondary",
+    "mark": "text/on-action"
+   }
+  ],
+  [
+   "Radio",
+   "checked=true, disabled=false, state=focus",
+   {
+    "bg": "action/primary",
+    "fg": "text/primary",
+    "helper": "text/secondary",
+    "mark": "text/on-action",
+    "ring": "focus/ring",
+    "ringWidth": "strong"
+   }
+  ],
+  [
+   "Radio",
+   "checked=true, disabled=true, state=default",
+   {
+    "bg": "bg/disabled",
+    "fg": "text/disabled",
+    "helper": "text/secondary",
+    "mark": "text/disabled"
    }
   ],
   [

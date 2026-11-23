@@ -1,7 +1,7 @@
 {
  "$hinweis": "Von Hand gepflegt: Regeln, Begründungen, Barrierefreiheit, Kontrastzusagen, Lebenszyklus. Tokenwerte und Aussehen kommen aus specs/figma.snapshot.json (Export aus Figma), Props aus ui/elements.js (Code).",
  "name": "Fundament",
- "version": "1.6.0",
+ "version": "1.7.0",
  "components": [
   {
    "name": "Button",
@@ -118,6 +118,35 @@
    ],
    "dont": [
     "Checkbox für sofort wirksame Einstellungen (dafür Switch)"
+   ]
+  },
+  {
+   "name": "Radio",
+   "kind": "component",
+   "status": "beta",
+   "version": "0.1.0",
+   "purpose": "Eine Auswahl aus mehreren. Steht immer in einer Gruppe von mindestens zwei.",
+   "rules": [
+    {
+     "id": "radio/in-group",
+     "text": "Mindestens zwei Radios mit demselben name bilden eine Gruppe.",
+     "why": "Ein einzelnes Radio lässt sich nicht wieder abwählen.",
+     "check": "min-per-group"
+    },
+    {
+     "id": "radio/disabled-reason",
+     "text": "Ist das Radio deaktiviert, erklärt helperText den Grund.",
+     "why": "Ohne Erklärung wirkt ein deaktiviertes Element wie ein Fehler.",
+     "check": "required-when-disabled"
+    }
+   ],
+   "a11y": "Natives <input type=\"radio\"> mit <label>. Die Gruppe bekommt eine gemeinsame Überschrift, die sagt, worum es geht.",
+   "do": [
+    "Zwei bis fünf Optionen",
+    "Eine Option ist vorausgewählt"
+   ],
+   "dont": [
+    "Radio für eine einzelne Ja-oder-Nein-Frage (dafür Checkbox oder Switch)"
    ]
   },
   {
@@ -546,6 +575,10 @@
   }
  ],
  "changelog": [
+  {
+   "version": "1.7.0",
+   "text": "Neu: Radio (beta) für eine Auswahl aus mehreren. Das Export-Plugin prüft vor dem Übernehmen und zeigt, was sich ändert. Doku nach Rollen geordnet."
+  },
   {
    "version": "1.6.0",
    "text": "Neu: Chip (beta) als Filter zum An- und Abwählen, erster Baustein, der über den Export mit einem Klick aus Figma kam. Jeder Baustein auch als reines HTML und CSS (generated/html/, check --html). Leitfaden gekürzt, Abläufe als Zeitleisten."

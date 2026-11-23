@@ -25,7 +25,8 @@ function changes(old, snap) {
   const CA = by(old.components, 1), CB = by(snap.components, 1); const SA = by(old.styles, 2), SB = by(snap.styles, 2);
   for (const [name, v] of CB) { if (!CA.has(name)) { out.push('Neue Komponente: ' + name + ' (' + (snap.styles || []).filter((x) => x[0] === name).length + ' Varianten)'); continue; }
     const props = JSON.stringify(CA.get(name)[1]) !== JSON.stringify(v[1]); let looks = 0, added = 0, removed = 0; for (const [k, x] of SB) if (x[0] === name) { if (!SA.has(k)) added++; else if (JSON.stringify(SA.get(k)) !== JSON.stringify(x)) looks++; } for (const [k, x] of SA) if (x[0] === name && !SB.has(k)) removed++;
-    const parts = [props && 'Properties geändert', added && added + ' neue Varianten', removed && removed + ' Varianten entfernt', looks && 'Aussehen von ' + looks + ' Varianten geändert'].filter(Boolean);
+    const lost = new Set(); for (const [k, x] of SB) if (x[0] === name && SA.has(k)) for (const role of Object.keys(SA.get(k)[2])) if (!(role in x[2])) lost.add(role);
+    const parts = [lost.size && 'Achtung, Rolle entfällt: ' + [...lost].join(', ') + ' (Ebene umbenannt oder gelöscht?)', props && 'Properties geändert', added && added + ' neue Varianten', removed && removed + ' Varianten entfernt', looks && 'Aussehen von ' + looks + ' Varianten geändert'].filter(Boolean);
     if (parts.length) out.push(name + ': ' + parts.join(', ')); else if (JSON.stringify(CA.get(name)) !== JSON.stringify(v)) out.push(name + ': Beschreibung geändert'); }
   for (const name of CA.keys()) if (!CB.has(name)) out.push('Entfernte Komponente: ' + name);
   return out;

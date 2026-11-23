@@ -8,7 +8,7 @@
    im Betrieb entstehen beide über :hover und :focus-visible. */
 
 /* ---------- Elemente ---------- */
-fd-button, fd-chip, fd-badge, fd-checkbox, fd-link, fd-link-button { display: inline-block; }
+fd-button, fd-chip, fd-badge, fd-checkbox, fd-radio, fd-link, fd-link-button { display: inline-block; }
 fd-text-field, fd-switch, fd-alert, fd-card, fd-sign-in-form, fd-confirm-action { display: block; }
 fd-button[slot="trailing"] { display: flex; }
 [hidden] { display: none !important; }
@@ -71,6 +71,23 @@ fd-button[slot="trailing"] { display: flex; }
 /* Hilfstext unter der Checkbox, z. B. der Grund, warum sie deaktiviert ist (checkbox/disabled-reason). */
 .fd-checkbox-field { display: inline-flex; flex-direction: column; vertical-align: top; align-self: flex-start; }
 .fd-checkbox__helper-text { padding-left: calc(var(--fd-size-checkbox) + var(--fd-space-sm)); font: var(--fd-text-body-sm); color: var(--fd-color-text-secondary); }
+
+/* ---------- Radio ---------- */
+/* Wie die Checkbox aufgebaut, aber rund und mit Punkt statt Haken. Größe: dasselbe Token wie die Checkbox. */
+.fd-radio { display: inline-flex; align-items: center; gap: var(--fd-space-sm); min-height: var(--fd-size-touch-target); font: var(--fd-text-body-md); color: var(--fd-color-text-primary); cursor: pointer; }
+.fd-radio__box {
+  appearance: none; display: grid; place-content: center; width: var(--fd-size-checkbox); height: var(--fd-size-checkbox); margin: 0;
+  border: var(--fd-border-width-default) solid var(--fd-color-border-input); border-radius: var(--fd-radius-full); background: var(--fd-color-bg-surface); cursor: inherit;
+}
+.fd-radio__box:checked { background: var(--fd-color-action-primary); border-color: transparent; }
+.fd-radio__box:checked::after { content: ""; width: var(--fd-space-sm); height: var(--fd-space-sm); border-radius: var(--fd-radius-full); background: var(--fd-color-text-on-action); }
+.fd-radio__box:focus-visible, .fd-radio[data-state="focus"] .fd-radio__box { outline: var(--fd-border-width-strong) solid var(--fd-color-focus-ring); outline-offset: var(--fd-border-width-strong); }
+.fd-radio:has(.fd-radio__box:disabled) { color: var(--fd-color-text-disabled); cursor: not-allowed; }
+.fd-radio__box:disabled { background: var(--fd-color-bg-disabled); }
+.fd-radio__box:disabled:checked::after { background: var(--fd-color-text-disabled); }
+
+.fd-radio-field { display: inline-flex; flex-direction: column; vertical-align: top; align-self: flex-start; }
+.fd-radio__helper-text { padding-left: calc(var(--fd-size-checkbox) + var(--fd-space-sm)); font: var(--fd-text-body-sm); color: var(--fd-color-text-secondary); }
 
 /* ---------- Switch ---------- */
 /* Bahn und Beschriftung liegen in einem <label>: Die ganze Zeile ist die Klickfläche. */

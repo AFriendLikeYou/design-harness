@@ -1,7 +1,7 @@
 <!-- Generiert aus specs/leitfaden.json – nicht von Hand bearbeiten. -->
 # So funktioniert es
 
-Design entsteht in Figma, Code im Repo. Diese Seite zeigt, wie beides zusammenkommt und woran man erkennt, dass der Code so aussieht wie die Vorlage.
+Design entsteht in Figma, Code im Repo. Diese Seite zeigt, wie beides zusammenkommt und wie geprüft wird, ob der Code zur Vorlage passt.
 
 ## Das Ganze in einem Bild
 
@@ -12,7 +12,7 @@ Ein Klick bringt den Stand aus Figma ins Repo. Dort wird nachgemessen.
 
 ## Ich gestalte
 
-Du arbeitest nur in Figma. Ein Terminal brauchst du nicht.
+Du arbeitest in Figma. Auf deinem Rechner muss dafür heute ein kleiner Server laufen, siehe unten.
 
 1. **In Figma bauen.** Farben und Abstände an Variablen binden. Properties so nennen, wie sie im Code heißen sollen.
 2. **Plugin starten.** „Fundament Export“ liest die Datei und prüft sie gegen den Code. In Figma ändert es nichts.
@@ -34,13 +34,13 @@ Du setzt um, was der Abgleich meldet.
 
 1. **Abgleich lesen.** Zeigt, was in Figma neu oder anders ist, und sagt, was zu tun ist. `node tooling/figma-diff.mjs`
 2. **Umsetzen.** Attribute, Verhalten, Aussehen. Nur mit Tokens, nie mit festen Werten. `ui/elements.js`, `ui/fundament.js`, `ui/components.css`
-3. **Prüfen.** Grün heißt: Der Code sieht aus wie die Vorlage. `node tooling/verify.mjs`
+3. **Prüfen.** Grün heißt: Alle Prüfungen sind bestanden, Farben und Rahmen stimmen mit Figma überein. `node tooling/verify.mjs`
 
 
 > **Und die Regeln?.** Wofür ein Baustein da ist und was für ihn gilt, steht in specs/rules.json. Jede Regel ist ein Satz mit Begründung.
 
 
-## So sieht der Code aus wie die Vorlage
+## Wie wir prüfen, dass der Code zur Vorlage passt
 
 Drei Messungen. Jede läuft von selbst, bei jeder Änderung.
 

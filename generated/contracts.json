@@ -56,7 +56,7 @@
     }
   ],
   "system": "Fundament",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "cssPrefix": "fd",
   "codePackage": "@fundament/ui",
   "tokens": {
@@ -743,6 +743,140 @@
       "passthrough": [
         "name",
         "value"
+      ],
+      "slotNames": []
+    },
+    "Radio": {
+      "class": "fd-radio",
+      "kind": "component",
+      "status": "beta",
+      "version": "0.1.0",
+      "purpose": "Eine Auswahl aus mehreren. Steht immer in einer Gruppe von mindestens zwei.",
+      "deprecated": null,
+      "booleans": [
+        "checked",
+        "disabled"
+      ],
+      "attributes": {
+        "data-state": {
+          "values": [
+            "default",
+            "focus"
+          ],
+          "default": "default"
+        }
+      },
+      "parts": [
+        "fd-radio__label",
+        "fd-radio__helper-text"
+      ],
+      "styles": {
+        "checked=false, disabled=false, state=default": {
+          "bg": "bg/surface",
+          "border": "border/input",
+          "borderWidth": "default",
+          "fg": "text/primary",
+          "helper": "text/secondary"
+        },
+        "checked=false, disabled=false, state=focus": {
+          "bg": "bg/surface",
+          "border": "border/input",
+          "borderWidth": "default",
+          "fg": "text/primary",
+          "helper": "text/secondary",
+          "ring": "focus/ring",
+          "ringWidth": "strong"
+        },
+        "checked=false, disabled=true, state=default": {
+          "bg": "bg/disabled",
+          "border": "border/input",
+          "borderWidth": "default",
+          "fg": "text/disabled",
+          "helper": "text/secondary"
+        },
+        "checked=true, disabled=false, state=default": {
+          "bg": "action/primary",
+          "fg": "text/primary",
+          "helper": "text/secondary",
+          "mark": "text/on-action"
+        },
+        "checked=true, disabled=false, state=focus": {
+          "bg": "action/primary",
+          "fg": "text/primary",
+          "helper": "text/secondary",
+          "mark": "text/on-action",
+          "ring": "focus/ring",
+          "ringWidth": "strong"
+        },
+        "checked=true, disabled=true, state=default": {
+          "bg": "bg/disabled",
+          "fg": "text/disabled",
+          "helper": "text/secondary",
+          "mark": "text/disabled"
+        }
+      },
+      "colorTokens": [
+        "--fd-color-bg-surface",
+        "--fd-color-border-input",
+        "--fd-color-text-primary",
+        "--fd-color-text-secondary",
+        "--fd-color-focus-ring",
+        "--fd-color-bg-disabled",
+        "--fd-color-text-disabled",
+        "--fd-color-action-primary",
+        "--fd-color-text-on-action"
+      ],
+      "slots": [],
+      "rules": [
+        {
+          "id": "radio/in-group",
+          "text": "Mindestens zwei Radios mit demselben name bilden eine Gruppe.",
+          "why": "Ein einzelnes Radio lässt sich nicht wieder abwählen.",
+          "check": "min-per-group"
+        },
+        {
+          "id": "radio/disabled-reason",
+          "text": "Ist das Radio deaktiviert, erklärt helperText den Grund.",
+          "why": "Ohne Erklärung wirkt ein deaktiviertes Element wie ein Fehler.",
+          "check": "required-when-disabled"
+        }
+      ],
+      "a11y": "Natives <input type=\"radio\"> mit <label>. Die Gruppe bekommt eine gemeinsame Überschrift, die sagt, worum es geht.",
+      "element": "fd-radio",
+      "attrs": {
+        "checked": {
+          "type": "boolean",
+          "default": false
+        },
+        "disabled": {
+          "type": "boolean",
+          "default": false
+        },
+        "state": {
+          "type": "enum",
+          "values": [
+            "default",
+            "focus"
+          ],
+          "default": "default"
+        },
+        "label": {
+          "type": "text",
+          "default": "Monatlich zahlen"
+        },
+        "helper-text": {
+          "type": "text",
+          "default": "Du kannst jederzeit wechseln."
+        },
+        "show-helper": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "passthrough": [
+        "name",
+        "value",
+        "required"
       ],
       "slotNames": []
     },

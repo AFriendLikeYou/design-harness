@@ -1,5 +1,5 @@
 // Generiert aus specs/figma.snapshot.json, ui/elements.js und specs/rules.json – nicht von Hand bearbeiten.
-export const VERSION = "1.6.0";
+export const VERSION = "1.7.0";
 export const PREFIX = "fd";
 export const ELEMENTS = {
   "fd-button": {
@@ -147,6 +147,47 @@ export const ELEMENTS = {
     "passthrough": [
       "name",
       "value"
+    ],
+    "slots": []
+  },
+  "fd-radio": {
+    "name": "Radio",
+    "status": "beta",
+    "deprecated": null,
+    "attrs": {
+      "checked": {
+        "type": "boolean",
+        "default": false
+      },
+      "disabled": {
+        "type": "boolean",
+        "default": false
+      },
+      "state": {
+        "type": "enum",
+        "values": [
+          "default",
+          "focus"
+        ],
+        "default": "default"
+      },
+      "label": {
+        "type": "text",
+        "default": "Monatlich zahlen"
+      },
+      "helper-text": {
+        "type": "text",
+        "default": "Du kannst jederzeit wechseln."
+      },
+      "show-helper": {
+        "type": "boolean",
+        "default": false
+      }
+    },
+    "passthrough": [
+      "name",
+      "value",
+      "required"
     ],
     "slots": []
   },

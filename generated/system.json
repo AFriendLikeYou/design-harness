@@ -1,7 +1,7 @@
 {
   "$comment": "Generiert zur Ansicht: das System, wie es aus Figma-Schnappschuss, Code und Regeldatei zusammengesetzt wird. Nicht von Hand bearbeiten.",
   "name": "Fundament",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "cssPrefix": "fd",
   "codePackage": "@fundament/ui",
   "primitives": {
@@ -1056,6 +1056,129 @@
       }
     },
     {
+      "name": "Radio",
+      "kind": "component",
+      "status": "beta",
+      "version": "0.1.0",
+      "purpose": "Eine Auswahl aus mehreren. Steht immer in einer Gruppe von mindestens zwei.",
+      "rules": [
+        {
+          "id": "radio/in-group",
+          "text": "Mindestens zwei Radios mit demselben name bilden eine Gruppe.",
+          "why": "Ein einzelnes Radio lässt sich nicht wieder abwählen.",
+          "check": "min-per-group"
+        },
+        {
+          "id": "radio/disabled-reason",
+          "text": "Ist das Radio deaktiviert, erklärt helperText den Grund.",
+          "why": "Ohne Erklärung wirkt ein deaktiviertes Element wie ein Fehler.",
+          "check": "required-when-disabled"
+        }
+      ],
+      "a11y": "Natives <input type=\"radio\"> mit <label>. Die Gruppe bekommt eine gemeinsame Überschrift, die sagt, worum es geht.",
+      "do": [
+        "Zwei bis fünf Optionen",
+        "Eine Option ist vorausgewählt"
+      ],
+      "dont": [
+        "Radio für eine einzelne Ja-oder-Nein-Frage (dafür Checkbox oder Switch)"
+      ],
+      "props": [
+        {
+          "name": "checked",
+          "type": "variant",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        {
+          "name": "disabled",
+          "type": "variant",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        {
+          "name": "state",
+          "type": "variant",
+          "values": [
+            "default",
+            "focus"
+          ],
+          "default": "default"
+        },
+        {
+          "name": "label",
+          "type": "text",
+          "default": "Monatlich zahlen"
+        },
+        {
+          "name": "helperText",
+          "type": "text",
+          "default": "Du kannst jederzeit wechseln."
+        },
+        {
+          "name": "showHelper",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "passthrough": [
+        "name",
+        "value",
+        "required"
+      ],
+      "looks": {
+        "checked=false, disabled=false, state=default": {
+          "bg": "bg/surface",
+          "border": "border/input",
+          "borderWidth": "default",
+          "fg": "text/primary",
+          "helper": "text/secondary"
+        },
+        "checked=false, disabled=false, state=focus": {
+          "bg": "bg/surface",
+          "border": "border/input",
+          "borderWidth": "default",
+          "fg": "text/primary",
+          "helper": "text/secondary",
+          "ring": "focus/ring",
+          "ringWidth": "strong"
+        },
+        "checked=false, disabled=true, state=default": {
+          "bg": "bg/disabled",
+          "border": "border/input",
+          "borderWidth": "default",
+          "fg": "text/disabled",
+          "helper": "text/secondary"
+        },
+        "checked=true, disabled=false, state=default": {
+          "bg": "action/primary",
+          "fg": "text/primary",
+          "helper": "text/secondary",
+          "mark": "text/on-action"
+        },
+        "checked=true, disabled=false, state=focus": {
+          "bg": "action/primary",
+          "fg": "text/primary",
+          "helper": "text/secondary",
+          "mark": "text/on-action",
+          "ring": "focus/ring",
+          "ringWidth": "strong"
+        },
+        "checked=true, disabled=true, state=default": {
+          "bg": "bg/disabled",
+          "fg": "text/disabled",
+          "helper": "text/secondary",
+          "mark": "text/disabled"
+        }
+      }
+    },
+    {
       "name": "Switch",
       "kind": "component",
       "status": "stable",
@@ -1756,6 +1879,10 @@
     }
   ],
   "changelog": [
+    {
+      "version": "1.7.0",
+      "text": "Neu: Radio (beta) für eine Auswahl aus mehreren. Das Export-Plugin prüft vor dem Übernehmen und zeigt, was sich ändert. Doku nach Rollen geordnet."
+    },
     {
       "version": "1.6.0",
       "text": "Neu: Chip (beta) als Filter zum An- und Abwählen, erster Baustein, der über den Export mit einem Klick aus Figma kam. Jeder Baustein auch als reines HTML und CSS (generated/html/, check --html). Leitfaden gekürzt, Abläufe als Zeitleisten."

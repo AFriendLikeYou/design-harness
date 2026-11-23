@@ -177,6 +177,58 @@
         {
           "kind": "class",
           "customElement": true,
+          "name": "Radio",
+          "tagName": "fd-radio",
+          "description": "Eine Auswahl aus mehreren. Steht immer in einer Gruppe von mindestens zwei.",
+          "attributes": [
+            {
+              "name": "checked",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "name": "state",
+              "type": {
+                "text": "'default' | 'focus'"
+              },
+              "default": "\"default\""
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Monatlich zahlen\""
+            },
+            {
+              "name": "helper-text",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Du kannst jederzeit wechseln.\""
+            },
+            {
+              "name": "show-helper",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            }
+          ],
+          "slots": []
+        },
+        {
+          "kind": "class",
+          "customElement": true,
           "name": "Switch",
           "tagName": "fd-switch",
           "description": "Schaltet eine Einstellung sofort ein oder aus, ohne Speichern.",
@@ -471,6 +523,14 @@
           "name": "fd-checkbox",
           "declaration": {
             "name": "Checkbox",
+            "module": "fundament.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "fd-radio",
+          "declaration": {
+            "name": "Radio",
             "module": "fundament.js"
           }
         },

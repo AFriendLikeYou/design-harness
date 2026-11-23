@@ -175,6 +175,57 @@ export const COMPONENTS = {
       "value"
     ]
   },
+  Radio: {
+    props: [
+      {
+        name: "checked",
+        type: "variant",
+        values: [
+          "false",
+          "true"
+        ],
+        default: "false"
+      },
+      {
+        name: "disabled",
+        type: "variant",
+        values: [
+          "false",
+          "true"
+        ],
+        default: "false"
+      },
+      {
+        name: "state",
+        type: "variant",
+        values: [
+          "default",
+          "focus"
+        ],
+        default: "default"
+      },
+      {
+        name: "label",
+        type: "text",
+        default: "Monatlich zahlen"
+      },
+      {
+        name: "helperText",
+        type: "text",
+        default: "Du kannst jederzeit wechseln."
+      },
+      {
+        name: "showHelper",
+        type: "boolean",
+        default: false
+      }
+    ],
+    passthrough: [
+      "name",
+      "value",
+      "required"
+    ]
+  },
   Switch: {
     props: [
       {
