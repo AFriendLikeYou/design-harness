@@ -1,0 +1,55 @@
+# Ein Figma-Stand kommt als Branch figma/… aus dem Plugin „Fundament Export“.
+# Dieser Lauf baut die erzeugten Dateien dazu, prüft alles, schreibt das Ergebnis an den Pull Request und setzt den Status am letzten Commit.
+name: Figma-Stand prüfen
+on:
+  push:
+    branches: ['figma/**']
+permissions:
+  contents: write
+  pull-requests: write
+  statuses: write
+jobs:
+  uebernehmen:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      BRANCH: ${{ github.ref_name }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Stand auf main holen (zum Vergleich)
+        run: git fetch origin main --depth=1
+      - name: Bericht (was ändert sich, was ist zu tun)
+        id: bericht
+        run: |
+          code=0; node tooling/pr-report.mjs > bericht.md || code=$?
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+      - name: Alle Prüfungen
+        id: gate
+        run: |
+          code=0; node tooling/verify.mjs > gate.txt 2>&1 || code=$?
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          tail -n 40 gate.txt
+          {
+            echo "### Prüfungen"; echo
+            if [ "$code" = "0" ]; then echo "Alle Prüfungen bestanden."; else echo "Nicht bestanden:"; echo; grep '^FEHL' gate.txt | sed 's/^FEHL  /- /' || true; fi
+            echo; echo "<sub>Erzeugt von tooling/pr-report.mjs und tooling/verify.mjs für $GITHUB_SHA</sub>"
+          } >> bericht.md
+      - name: Erzeugte Dateien dazulegen
+        if: steps.bericht.outputs.code == '0'
+        run: |
+          git config user.name "fundament-bot"
+          git config user.email "fundament-bot@users.noreply.github.com"
+          git add -A generated ui/tokens.css ui/contract.generated.js ui/custom-elements.json ui/package.json docs plugin-export LEITFADEN.md
+          if git diff --cached --quiet; then echo "Nichts zu ergänzen."; else git commit -m "Erzeugte Dateien zum Figma-Stand" && git push origin "HEAD:$BRANCH"; fi
+      - name: Ergebnis an den Pull Request schreiben
+        run: |
+          if gh pr view "$BRANCH" --json number >/dev/null 2>&1; then gh pr comment "$BRANCH" --edit-last --body-file bericht.md 2>/dev/null || gh pr comment "$BRANCH" --body-file bericht.md; else echo "Noch kein Pull Request für $BRANCH."; cat bericht.md; fi
+      - name: Status am letzten Commit setzen
+        run: |
+          sha=$(git rev-parse HEAD)
+          if [ "${{ steps.gate.outputs.code }}" = "0" ]; then state=success; text="Figma und Code passen zusammen"; elif [ "${{ steps.bericht.outputs.code }}" != "0" ]; then state=failure; text="In Figma zu beheben"; else state=failure; text="Im Code noch nachzuziehen"; fi
+          gh api "repos/$GITHUB_REPOSITORY/statuses/$sha" -f state="$state" -f context="Figma-Stand" -f description="$text" >/dev/null
+          [ "$state" = "success" ]

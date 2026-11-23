@@ -38,7 +38,7 @@ probe-zds/                fünf ZDS-Komponenten im selben System (noch mit einer
 ## Der Weg einer Änderung
 
 1. In Figma gestalten.
-2. Plugin „Fundament Export“ ausführen und auf „Ins Repo übernehmen“ klicken. Dafür muss im Repo `node tooling/serve.mjs` laufen: Der Server legt den Stand als `specs/figma.snapshot.json` ab, baut und meldet im Plugin, was sich geändert hat und was im Code nachzuziehen ist. Scheitert der Build (zum Beispiel am Kontrast), bleibt der alte Stand erhalten. Ohne Server: im Plugin „Als Datei speichern“ und die Datei selbst unter `specs/` ablegen.
+2. Plugin „Fundament Export“ ausführen und „Als Pull Request senden“ klicken (einmalig ein eigenes GitHub-Token im Plugin hinterlegen). Das Plugin legt einen Branch `figma/…` mit dem neuen `specs/figma.snapshot.json` an und öffnet den Pull Request. Der Lauf „Figma-Stand prüfen“ (`.github/workflows/figma.yml`) legt die erzeugten Dateien dazu, prüft alles und schreibt den Bericht als Kommentar: was sich ändert, was in Figma zu beheben und was im Code nachzuziehen ist. Schneller Weg auf dem eigenen Rechner: `node tooling/serve.mjs` starten, dann prüft das Plugin vor dem Senden und „Lokal übernehmen“ legt den Stand direkt ins Arbeitsverzeichnis. Ohne beides: im Plugin „Als Datei speichern“.
 3. `node build.mjs`: Tokenwerte fließen von selbst in CSS, Verträge und Doku. Der Kontrast wird nachgerechnet.
 4. `node tooling/figma-diff.mjs`: zeigt, wo Figma und Code auseinanderliegen, mit dem nächsten Schritt je Zeile.
 5. Im Code nachziehen (`ui/elements.js`, `ui/fundament.js`, `ui/components.css`), Regeln in `specs/rules.json` ergänzen.

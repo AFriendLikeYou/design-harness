@@ -6,6 +6,8 @@ on:
     branches: [main]
 jobs:
   pruefen:
+    # Pull Requests aus dem Figma-Plugin prüft der Lauf „Figma-Stand prüfen“ (er legt erst die erzeugten Dateien dazu)
+    if: ${{ !startsWith(github.head_ref, 'figma/') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

@@ -9,11 +9,11 @@
   "documentAccess": "dynamic-page",
   "networkAccess": {
     "allowedDomains": [
-      "none"
+      "https://api.github.com"
     ],
     "devAllowedDomains": [
       "http://localhost:4321"
     ],
-    "reasoning": "Schickt den Export an den lokalen Fundament-Server auf dem eigenen Rechner."
+    "reasoning": "Sendet den Stand als Pull Request an GitHub. In der Entwicklung zusätzlich an den lokalen Fundament-Server für die schnelle Vorab-Prüfung."
   }
 }

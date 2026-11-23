@@ -5,7 +5,7 @@
   {
    "id": "bild",
    "title": "Das Ganze in einem Bild",
-   "intro": "Ein Klick bringt den Stand aus Figma ins Repo. Dort wird nachgemessen.",
+   "intro": "Ein Klick bringt den Stand aus Figma als Pull Request ins Repo. Dort wird nachgemessen.",
    "pipeline": [
     [
      "Figma",
@@ -37,7 +37,7 @@
   {
    "id": "design",
    "title": "Ich gestalte",
-   "intro": "Du arbeitest in Figma. Auf deinem Rechner muss dafür heute ein kleiner Server laufen, siehe unten.",
+   "intro": "Du arbeitest in Figma. Der Stand geht per Klick als Pull Request ins Repo.",
    "steps": [
     [
      "In Figma bauen",
@@ -48,8 +48,8 @@
      "„Fundament Export“ liest die Datei und prüft sie gegen den Code. In Figma ändert es nichts."
     ],
     [
-     "Übernehmen",
-     "Ein Klick legt den Stand ins Repo."
+     "Senden",
+     "„Als Pull Request senden“ legt den Stand auf GitHub ab. Dort laufen alle Prüfungen, das Ergebnis steht nach etwa zwei Minuten am Pull Request."
     ]
    ],
    "signalsTitle": "Was das Plugin dir sagt",
@@ -71,8 +71,8 @@
     ]
    ],
    "note": [
-    "Voraussetzung heute",
-    "Auf dem Rechner läuft der lokale Server (node tooling/serve.mjs). Geplant ist, dass das Plugin stattdessen direkt einen Pull Request auf GitHub anlegt."
+    "Zwei Wege zum Senden",
+    "Als Pull Request: einmal ein eigenes GitHub-Token im Plugin hinterlegen, mehr braucht es nicht. Lokal: Läuft auf dem Rechner der Server (node tooling/serve.mjs), prüft das Plugin schon vor dem Senden und kann den Stand direkt ins Repo legen."
    ]
   },
   {

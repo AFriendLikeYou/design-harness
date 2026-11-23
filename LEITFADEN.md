@@ -5,18 +5,18 @@ Design entsteht in Figma, Code im Repo. Diese Seite zeigt, wie beides zusammenko
 
 ## Das Ganze in einem Bild
 
-Ein Klick bringt den Stand aus Figma ins Repo. Dort wird nachgemessen.
+Ein Klick bringt den Stand aus Figma als Pull Request ins Repo. Dort wird nachgemessen.
 
 **Figma** (Design zeichnet) → **Plugin** (ein Klick) → **Repo** (Code und Regeln) → **Prüfung** (misst nach) → **Ergebnis** (Bausteine, Doku, Seiten)
 
 
 ## Ich gestalte
 
-Du arbeitest in Figma. Auf deinem Rechner muss dafür heute ein kleiner Server laufen, siehe unten.
+Du arbeitest in Figma. Der Stand geht per Klick als Pull Request ins Repo.
 
 1. **In Figma bauen.** Farben und Abstände an Variablen binden. Properties so nennen, wie sie im Code heißen sollen.
 2. **Plugin starten.** „Fundament Export“ liest die Datei und prüft sie gegen den Code. In Figma ändert es nichts.
-3. **Übernehmen.** Ein Klick legt den Stand ins Repo.
+3. **Senden.** „Als Pull Request senden“ legt den Stand auf GitHub ab. Dort laufen alle Prüfungen, das Ergebnis steht nach etwa zwei Minuten am Pull Request.
 
 **Was das Plugin dir sagt**
 
@@ -25,7 +25,7 @@ Du arbeitest in Figma. Auf deinem Rechner muss dafür heute ein kleiner Server l
 - **In Figma beheben:** Zum Beispiel ein zu schwacher Kontrast. „Zeigen“ springt zur Stelle.
 
 
-> **Voraussetzung heute.** Auf dem Rechner läuft der lokale Server (node tooling/serve.mjs). Geplant ist, dass das Plugin stattdessen direkt einen Pull Request auf GitHub anlegt.
+> **Zwei Wege zum Senden.** Als Pull Request: einmal ein eigenes GitHub-Token im Plugin hinterlegen, mehr braucht es nicht. Lokal: Läuft auf dem Rechner der Server (node tooling/serve.mjs), prüft das Plugin schon vor dem Senden und kann den Stand direkt ins Repo legen.
 
 
 ## Ich entwickle
