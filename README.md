@@ -1,6 +1,6 @@
 # Fundament – Beispiel-Designsystem für Menschen und KI-Agenten
 
-Ein generisches Designsystem, das zeigt, wie ein agententaugliches System aufgebaut ist. Alles entsteht aus **einer Quelle**: `specs/system.json`.
+Ein generisches Designsystem, das zeigt, wie ein agententaugliches System aufgebaut ist. Gestaltet wird in Figma, umgesetzt im Code; der **Vertrag dazwischen** ist `specs/system.json`. Ein Abgleich hält alle drei gleich.
 
 ```
 Specs als einzige Quelle  (Tokens, Komponenten, Regeln, Grundsätze, Versionen)
@@ -69,6 +69,10 @@ node evals/auswerten.mjs                     # Messläufe auswerten
 ```
 
 ## Figma
+
+**Von Figma ins Repo (der normale Weg für Designer):** In Figma ändern, das Plugin `plugin-export/` ausführen, das Ergebnis als `specs/figma.snapshot.json` speichern, dann `node tooling/figma-diff.mjs`. Der Abgleich zeigt jede Abweichung als Vorschlag; `--apply` übernimmt die eindeutigen in die Spec.
+
+**Vom Repo nach Figma (neue Datei):**
 
 Plugins → Entwicklung → Plugin aus Manifest importieren → `plugin/manifest.json`, in einer **leeren** Datei ausführen. Das Plugin bricht ab, wenn die Datei schon Variablen enthält.
 

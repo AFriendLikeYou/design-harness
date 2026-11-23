@@ -1,0 +1,1787 @@
+{
+ "schema": 1,
+ "variables": [
+  [
+   "primitives",
+   "color/amber/300",
+   "COLOR",
+   {
+    "value": "#f2c46b"
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "color/amber/50",
+   "COLOR",
+   {
+    "value": "#fdf5e6"
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "color/amber/600",
+   "COLOR",
+   {
+    "value": "#9a5b00"
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "color/amber/700",
+   "COLOR",
+   {
+    "value": "#7a4700"
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "color/blue/300",
+   "COLOR",
+   {
+    "value": "#93b4f5"
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "color/blue/50",
+   "COLOR",
+   {
+    "value": "#eef4ff"
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "color/blue/500",
+   "COLOR",
+   {
+    "value": "#3b6fe0"
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "color/blue/600",
+   "COLOR",
+   {
+    "value": "#2557c7"
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "color/blue/700",
+   "COLOR",
+   {
+    "value": "#1c449e"
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "color/green/300",
+   "COLOR",
+   {
+    "value": "#86d3a2"
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "color/green/50",
+   "COLOR",
+   {
+    "value": "#ecf8f0"
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "color/green/600",
+   "COLOR",
+   {
+    "value": "#1f7a43"
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "color/green/700",
+   "COLOR",
+   {
+    "value": "#17603a"
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "color/neutral/0",
+   "COLOR",
+   {
+    "value": "#ffffff"
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "color/neutral/100",
+   "COLOR",
+   {
+    "value": "#eef0f3"
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "color/neutral/200",
+   "COLOR",
+   {
+    "value": "#dde1e7"
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "color/neutral/300",
+   "COLOR",
+   {
+    "value": "#c3c9d2"
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "color/neutral/50",
+   "COLOR",
+   {
+    "value": "#f7f8fa"
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "color/neutral/500",
+   "COLOR",
+   {
+    "value": "#6b7380"
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "color/neutral/700",
+   "COLOR",
+   {
+    "value": "#3d4451"
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "color/neutral/800",
+   "COLOR",
+   {
+    "value": "#272c35"
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "color/neutral/900",
+   "COLOR",
+   {
+    "value": "#181c22"
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "color/neutral/950",
+   "COLOR",
+   {
+    "value": "#0f1216"
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "color/red/300",
+   "COLOR",
+   {
+    "value": "#f2a0a0"
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "color/red/50",
+   "COLOR",
+   {
+    "value": "#fdeeee"
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "color/red/600",
+   "COLOR",
+   {
+    "value": "#c02b2b"
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "color/red/700",
+   "COLOR",
+   {
+    "value": "#9c1f1f"
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "dimension/0",
+   "FLOAT",
+   {
+    "value": 0
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "dimension/1",
+   "FLOAT",
+   {
+    "value": 1
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "dimension/12",
+   "FLOAT",
+   {
+    "value": 12
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "dimension/16",
+   "FLOAT",
+   {
+    "value": 16
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "dimension/2",
+   "FLOAT",
+   {
+    "value": 2
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "dimension/20",
+   "FLOAT",
+   {
+    "value": 20
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "dimension/24",
+   "FLOAT",
+   {
+    "value": 24
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "dimension/32",
+   "FLOAT",
+   {
+    "value": 32
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "dimension/320",
+   "FLOAT",
+   {
+    "value": 320
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "dimension/36",
+   "FLOAT",
+   {
+    "value": 36
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "dimension/360",
+   "FLOAT",
+   {
+    "value": 360
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "dimension/4",
+   "FLOAT",
+   {
+    "value": 4
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "dimension/40",
+   "FLOAT",
+   {
+    "value": 40
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "dimension/44",
+   "FLOAT",
+   {
+    "value": 44
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "dimension/48",
+   "FLOAT",
+   {
+    "value": 48
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "dimension/64",
+   "FLOAT",
+   {
+    "value": 64
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "dimension/8",
+   "FLOAT",
+   {
+    "value": 8
+   },
+   [],
+   "",
+   "Primitiv. Nicht direkt verwenden.",
+   1
+  ],
+  [
+   "primitives",
+   "font-size/12",
+   "FLOAT",
+   {
+    "value": 12
+   },
+   [
+    "FONT_SIZE"
+   ],
+   "var(--fd-font-size-12)",
+   "Schriftgröße, gebunden in Text-Styles.",
+   0
+  ],
+  [
+   "primitives",
+   "font-size/14",
+   "FLOAT",
+   {
+    "value": 14
+   },
+   [
+    "FONT_SIZE"
+   ],
+   "var(--fd-font-size-14)",
+   "Schriftgröße, gebunden in Text-Styles.",
+   0
+  ],
+  [
+   "primitives",
+   "font-size/16",
+   "FLOAT",
+   {
+    "value": 16
+   },
+   [
+    "FONT_SIZE"
+   ],
+   "var(--fd-font-size-16)",
+   "Schriftgröße, gebunden in Text-Styles.",
+   0
+  ],
+  [
+   "primitives",
+   "font-size/20",
+   "FLOAT",
+   {
+    "value": 20
+   },
+   [
+    "FONT_SIZE"
+   ],
+   "var(--fd-font-size-20)",
+   "Schriftgröße, gebunden in Text-Styles.",
+   0
+  ],
+  [
+   "primitives",
+   "font-size/24",
+   "FLOAT",
+   {
+    "value": 24
+   },
+   [
+    "FONT_SIZE"
+   ],
+   "var(--fd-font-size-24)",
+   "Schriftgröße, gebunden in Text-Styles.",
+   0
+  ],
+  [
+   "primitives",
+   "font-size/32",
+   "FLOAT",
+   {
+    "value": 32
+   },
+   [
+    "FONT_SIZE"
+   ],
+   "var(--fd-font-size-32)",
+   "Schriftgröße, gebunden in Text-Styles.",
+   0
+  ],
+  [
+   "primitives",
+   "line-height/16",
+   "FLOAT",
+   {
+    "value": 16
+   },
+   [
+    "LINE_HEIGHT"
+   ],
+   "var(--fd-line-height-16)",
+   "Zeilenhöhe, gebunden in Text-Styles.",
+   0
+  ],
+  [
+   "primitives",
+   "line-height/20",
+   "FLOAT",
+   {
+    "value": 20
+   },
+   [
+    "LINE_HEIGHT"
+   ],
+   "var(--fd-line-height-20)",
+   "Zeilenhöhe, gebunden in Text-Styles.",
+   0
+  ],
+  [
+   "primitives",
+   "line-height/24",
+   "FLOAT",
+   {
+    "value": 24
+   },
+   [
+    "LINE_HEIGHT"
+   ],
+   "var(--fd-line-height-24)",
+   "Zeilenhöhe, gebunden in Text-Styles.",
+   0
+  ],
+  [
+   "primitives",
+   "line-height/28",
+   "FLOAT",
+   {
+    "value": 28
+   },
+   [
+    "LINE_HEIGHT"
+   ],
+   "var(--fd-line-height-28)",
+   "Zeilenhöhe, gebunden in Text-Styles.",
+   0
+  ],
+  [
+   "primitives",
+   "line-height/32",
+   "FLOAT",
+   {
+    "value": 32
+   },
+   [
+    "LINE_HEIGHT"
+   ],
+   "var(--fd-line-height-32)",
+   "Zeilenhöhe, gebunden in Text-Styles.",
+   0
+  ],
+  [
+   "primitives",
+   "line-height/40",
+   "FLOAT",
+   {
+    "value": 40
+   },
+   [
+    "LINE_HEIGHT"
+   ],
+   "var(--fd-line-height-40)",
+   "Zeilenhöhe, gebunden in Text-Styles.",
+   0
+  ],
+  [
+   "semantic",
+   "border-width/accent",
+   "FLOAT",
+   {
+    "light": ">dimension/4",
+    "dark": ">dimension/4"
+   },
+   [
+    "STROKE_FLOAT"
+   ],
+   "var(--fd-border-width-accent)",
+   "Akzentkante von Hinweisen.",
+   0
+  ],
+  [
+   "semantic",
+   "border-width/default",
+   "FLOAT",
+   {
+    "light": ">dimension/1",
+    "dark": ">dimension/1"
+   },
+   [
+    "STROKE_FLOAT"
+   ],
+   "var(--fd-border-width-default)",
+   "Rahmen von Feldern, Karten und sekundären Buttons.",
+   0
+  ],
+  [
+   "semantic",
+   "border-width/strong",
+   "FLOAT",
+   {
+    "light": ">dimension/2",
+    "dark": ">dimension/2"
+   },
+   [
+    "STROKE_FLOAT"
+   ],
+   "var(--fd-border-width-strong)",
+   "Fehlerrahmen und Fokusring.",
+   0
+  ],
+  [
+   "semantic",
+   "color/action/danger",
+   "COLOR",
+   {
+    "light": ">color/red/600",
+    "dark": ">color/red/600"
+   },
+   [
+    "FRAME_FILL",
+    "SHAPE_FILL"
+   ],
+   "var(--fd-color-action-danger)",
+   "Aktion, die etwas unwiderruflich löscht oder beendet. Besteht 4,5:1 mit text/on-action.",
+   0
+  ],
+  [
+   "semantic",
+   "color/action/danger-hover",
+   "COLOR",
+   {
+    "light": ">color/red/700",
+    "dark": ">color/red/700"
+   },
+   [
+    "FRAME_FILL",
+    "SHAPE_FILL"
+   ],
+   "var(--fd-color-action-danger-hover)",
+   "Hover-Zustand der gefährlichen Aktion.",
+   0
+  ],
+  [
+   "semantic",
+   "color/action/primary",
+   "COLOR",
+   {
+    "light": ">color/blue/600",
+    "dark": ">color/blue/600"
+   },
+   [
+    "FRAME_FILL",
+    "SHAPE_FILL"
+   ],
+   "var(--fd-color-action-primary)",
+   "Eine primäre Aktion pro Ansicht. Besteht 4,5:1 mit text/on-action.",
+   0
+  ],
+  [
+   "semantic",
+   "color/action/primary-hover",
+   "COLOR",
+   {
+    "light": ">color/blue/700",
+    "dark": ">color/blue/700"
+   },
+   [
+    "FRAME_FILL",
+    "SHAPE_FILL"
+   ],
+   "var(--fd-color-action-primary-hover)",
+   "Hover-Zustand der primären Aktion.",
+   0
+  ],
+  [
+   "semantic",
+   "color/bg/canvas",
+   "COLOR",
+   {
+    "light": ">color/neutral/50",
+    "dark": ">color/neutral/950"
+   },
+   [
+    "FRAME_FILL"
+   ],
+   "var(--fd-color-bg-canvas)",
+   "Grundfläche jeder Seite.",
+   0
+  ],
+  [
+   "semantic",
+   "color/bg/disabled",
+   "COLOR",
+   {
+    "light": ">color/neutral/100",
+    "dark": ">color/neutral/800"
+   },
+   [
+    "FRAME_FILL",
+    "SHAPE_FILL"
+   ],
+   "var(--fd-color-bg-disabled)",
+   "Fläche deaktivierter Bedienelemente. Heute gleicher Wert wie bg/subtle, aber eigene Rolle: nur für Deaktiviertes.",
+   0
+  ],
+  [
+   "semantic",
+   "color/bg/subtle",
+   "COLOR",
+   {
+    "light": ">color/neutral/100",
+    "dark": ">color/neutral/800"
+   },
+   [
+    "FRAME_FILL",
+    "SHAPE_FILL"
+   ],
+   "var(--fd-color-bg-subtle)",
+   "Neutrale Hervorhebung, z. B. neutrales Badge oder Hover von sekundären und Ghost-Buttons. Nicht für deaktivierte Elemente, dafür bg/disabled.",
+   0
+  ],
+  [
+   "semantic",
+   "color/bg/surface",
+   "COLOR",
+   {
+    "light": ">color/neutral/0",
+    "dark": ">color/neutral/900"
+   },
+   [
+    "FRAME_FILL",
+    "SHAPE_FILL"
+   ],
+   "var(--fd-color-bg-surface)",
+   "Karten, Eingabefelder und andere abgesetzte Flächen.",
+   0
+  ],
+  [
+   "semantic",
+   "color/border/default",
+   "COLOR",
+   {
+    "light": ">color/neutral/200",
+    "dark": ">color/neutral/700"
+   },
+   [
+    "STROKE_COLOR"
+   ],
+   "var(--fd-color-border-default)",
+   "Trennlinien und Kartenrahmen.",
+   0
+  ],
+  [
+   "semantic",
+   "color/border/input",
+   "COLOR",
+   {
+    "light": ">color/neutral/500",
+    "dark": ">color/neutral/500"
+   },
+   [
+    "STROKE_COLOR"
+   ],
+   "var(--fd-color-border-input)",
+   "Rahmen von Eingabefeldern. Besteht 3:1 für Bedienelemente.",
+   0
+  ],
+  [
+   "semantic",
+   "color/feedback/danger-bg",
+   "COLOR",
+   {
+    "light": ">color/red/50",
+    "dark": ">color/neutral/800"
+   },
+   [
+    "FRAME_FILL"
+   ],
+   "var(--fd-color-feedback-danger-bg)",
+   "Hintergrund für Fehler.",
+   0
+  ],
+  [
+   "semantic",
+   "color/feedback/danger-fg",
+   "COLOR",
+   {
+    "light": ">color/red/700",
+    "dark": ">color/red/300"
+   },
+   [
+    "STROKE_COLOR",
+    "TEXT_FILL"
+   ],
+   "var(--fd-color-feedback-danger-fg)",
+   "Text und Akzent für Fehler, auch Fehlerrahmen.",
+   0
+  ],
+  [
+   "semantic",
+   "color/feedback/info-bg",
+   "COLOR",
+   {
+    "light": ">color/blue/50",
+    "dark": ">color/neutral/800"
+   },
+   [
+    "FRAME_FILL"
+   ],
+   "var(--fd-color-feedback-info-bg)",
+   "Hintergrund für Hinweise.",
+   0
+  ],
+  [
+   "semantic",
+   "color/feedback/info-fg",
+   "COLOR",
+   {
+    "light": ">color/blue/700",
+    "dark": ">color/blue/300"
+   },
+   [
+    "STROKE_COLOR",
+    "TEXT_FILL"
+   ],
+   "var(--fd-color-feedback-info-fg)",
+   "Text und Akzent für Hinweise.",
+   0
+  ],
+  [
+   "semantic",
+   "color/feedback/success-bg",
+   "COLOR",
+   {
+    "light": ">color/green/50",
+    "dark": ">color/neutral/800"
+   },
+   [
+    "FRAME_FILL"
+   ],
+   "var(--fd-color-feedback-success-bg)",
+   "Hintergrund für Erfolgsmeldungen.",
+   0
+  ],
+  [
+   "semantic",
+   "color/feedback/success-fg",
+   "COLOR",
+   {
+    "light": ">color/green/700",
+    "dark": ">color/green/300"
+   },
+   [
+    "STROKE_COLOR",
+    "TEXT_FILL"
+   ],
+   "var(--fd-color-feedback-success-fg)",
+   "Text und Akzent für Erfolg.",
+   0
+  ],
+  [
+   "semantic",
+   "color/feedback/warning-bg",
+   "COLOR",
+   {
+    "light": ">color/amber/50",
+    "dark": ">color/neutral/800"
+   },
+   [
+    "FRAME_FILL"
+   ],
+   "var(--fd-color-feedback-warning-bg)",
+   "Hintergrund für Warnungen.",
+   0
+  ],
+  [
+   "semantic",
+   "color/feedback/warning-fg",
+   "COLOR",
+   {
+    "light": ">color/amber/700",
+    "dark": ">color/amber/300"
+   },
+   [
+    "STROKE_COLOR",
+    "TEXT_FILL"
+   ],
+   "var(--fd-color-feedback-warning-fg)",
+   "Text und Akzent für Warnungen.",
+   0
+  ],
+  [
+   "semantic",
+   "color/focus/ring",
+   "COLOR",
+   {
+    "light": ">color/blue/500",
+    "dark": ">color/blue/300"
+   },
+   [
+    "STROKE_COLOR"
+   ],
+   "var(--fd-color-focus-ring)",
+   "Sichtbarer Tastaturfokus, nie entfernen.",
+   0
+  ],
+  [
+   "semantic",
+   "color/text/disabled",
+   "COLOR",
+   {
+    "light": ">color/neutral/500",
+    "dark": ">color/neutral/500"
+   },
+   [
+    "TEXT_FILL"
+   ],
+   "var(--fd-color-text-disabled)",
+   "Nur für deaktivierte Elemente; muss keinen Kontrast erfüllen.",
+   0
+  ],
+  [
+   "semantic",
+   "color/text/on-action",
+   "COLOR",
+   {
+    "light": ">color/neutral/0",
+    "dark": ">color/neutral/0"
+   },
+   [
+    "STROKE_COLOR",
+    "TEXT_FILL"
+   ],
+   "var(--fd-color-text-on-action)",
+   "Text und Icons auf action/primary und action/danger.",
+   0
+  ],
+  [
+   "semantic",
+   "color/text/primary",
+   "COLOR",
+   {
+    "light": ">color/neutral/900",
+    "dark": ">color/neutral/50"
+   },
+   [
+    "TEXT_FILL"
+   ],
+   "var(--fd-color-text-primary)",
+   "Fließtext und Überschriften. Besteht 4,5:1 auf allen bg-Tokens.",
+   0
+  ],
+  [
+   "semantic",
+   "color/text/secondary",
+   "COLOR",
+   {
+    "light": ">color/neutral/700",
+    "dark": ">color/neutral/300"
+   },
+   [
+    "TEXT_FILL"
+   ],
+   "var(--fd-color-text-secondary)",
+   "Hilfstexte und Metadaten. Besteht 4,5:1 auf allen bg-Tokens.",
+   0
+  ],
+  [
+   "semantic",
+   "radius/full",
+   "FLOAT",
+   {
+    "light": 999,
+    "dark": 999
+   },
+   [
+    "CORNER_RADIUS"
+   ],
+   "var(--fd-radius-full)",
+   "Badges und Pillen.",
+   0
+  ],
+  [
+   "semantic",
+   "radius/lg",
+   "FLOAT",
+   {
+    "light": ">dimension/12",
+    "dark": ">dimension/12"
+   },
+   [
+    "CORNER_RADIUS"
+   ],
+   "var(--fd-radius-lg)",
+   "Karten und Hinweise.",
+   0
+  ],
+  [
+   "semantic",
+   "radius/md",
+   "FLOAT",
+   {
+    "light": ">dimension/8",
+    "dark": ">dimension/8"
+   },
+   [
+    "CORNER_RADIUS"
+   ],
+   "var(--fd-radius-md)",
+   "Buttons und Eingabefelder.",
+   0
+  ],
+  [
+   "semantic",
+   "radius/sm",
+   "FLOAT",
+   {
+    "light": ">dimension/4",
+    "dark": ">dimension/4"
+   },
+   [
+    "CORNER_RADIUS"
+   ],
+   "var(--fd-radius-sm)",
+   "Checkboxen und kleine Flächen.",
+   0
+  ],
+  [
+   "semantic",
+   "size/checkbox",
+   "FLOAT",
+   {
+    "light": ">dimension/20",
+    "dark": ">dimension/20"
+   },
+   [
+    "WIDTH_HEIGHT"
+   ],
+   "var(--fd-size-checkbox)",
+   "Kantenlänge der Checkbox.",
+   0
+  ],
+  [
+   "semantic",
+   "size/field",
+   "FLOAT",
+   {
+    "light": ">dimension/320",
+    "dark": ">dimension/320"
+   },
+   [
+    "WIDTH_HEIGHT"
+   ],
+   "var(--fd-size-field)",
+   "Vorschaubreite eines Eingabefelds; im Layout füllt das Feld seinen Container.",
+   0
+  ],
+  [
+   "semantic",
+   "size/panel",
+   "FLOAT",
+   {
+    "light": ">dimension/360",
+    "dark": ">dimension/360"
+   },
+   [
+    "WIDTH_HEIGHT"
+   ],
+   "var(--fd-size-panel)",
+   "Höchstbreite schmaler Formulare und Hinweise.",
+   0
+  ],
+  [
+   "semantic",
+   "size/switch-thumb",
+   "FLOAT",
+   {
+    "light": ">dimension/16",
+    "dark": ">dimension/16"
+   },
+   [
+    "WIDTH_HEIGHT"
+   ],
+   "var(--fd-size-switch-thumb)",
+   "Durchmesser des Schalterknopfs.",
+   0
+  ],
+  [
+   "semantic",
+   "size/switch-width",
+   "FLOAT",
+   {
+    "light": ">dimension/36",
+    "dark": ">dimension/36"
+   },
+   [
+    "WIDTH_HEIGHT"
+   ],
+   "var(--fd-size-switch-width)",
+   "Breite der Schalterbahn.",
+   0
+  ],
+  [
+   "semantic",
+   "size/touch-target",
+   "FLOAT",
+   {
+    "light": ">dimension/44",
+    "dark": ">dimension/44"
+   },
+   [
+    "WIDTH_HEIGHT"
+   ],
+   "var(--fd-size-touch-target)",
+   "Mindesthöhe der Klickfläche von Bedienelementen mit kleiner Darstellung.",
+   0
+  ],
+  [
+   "semantic",
+   "space/2xl",
+   "FLOAT",
+   {
+    "light": ">dimension/32",
+    "dark": ">dimension/32"
+   },
+   [
+    "GAP"
+   ],
+   "var(--fd-space-2xl)",
+   "Abstand zwischen Abschnitten.",
+   0
+  ],
+  [
+   "semantic",
+   "space/2xs",
+   "FLOAT",
+   {
+    "light": ">dimension/2",
+    "dark": ">dimension/2"
+   },
+   [
+    "GAP"
+   ],
+   "var(--fd-space-2xs)",
+   "Feinabstand, z. B. Label zu Feld.",
+   0
+  ],
+  [
+   "semantic",
+   "space/3xl",
+   "FLOAT",
+   {
+    "light": ">dimension/48",
+    "dark": ">dimension/48"
+   },
+   [
+    "GAP"
+   ],
+   "var(--fd-space-3xl)",
+   "Seitenränder auf großen Viewports.",
+   0
+  ],
+  [
+   "semantic",
+   "space/lg",
+   "FLOAT",
+   {
+    "light": ">dimension/16",
+    "dark": ">dimension/16"
+   },
+   [
+    "GAP"
+   ],
+   "var(--fd-space-lg)",
+   "Innenabstand Bedienelemente, Abstand zwischen Feldern.",
+   0
+  ],
+  [
+   "semantic",
+   "space/md",
+   "FLOAT",
+   {
+    "light": ">dimension/12",
+    "dark": ">dimension/12"
+   },
+   [
+    "GAP"
+   ],
+   "var(--fd-space-md)",
+   "Innenabstand kleiner Bedienelemente.",
+   0
+  ],
+  [
+   "semantic",
+   "space/sm",
+   "FLOAT",
+   {
+    "light": ">dimension/8",
+    "dark": ">dimension/8"
+   },
+   [
+    "GAP"
+   ],
+   "var(--fd-space-sm)",
+   "Standardabstand zwischen verwandten Elementen.",
+   0
+  ],
+  [
+   "semantic",
+   "space/xl",
+   "FLOAT",
+   {
+    "light": ">dimension/24",
+    "dark": ">dimension/24"
+   },
+   [
+    "GAP"
+   ],
+   "var(--fd-space-xl)",
+   "Innenabstand Karten, Abstand zwischen Gruppen.",
+   0
+  ],
+  [
+   "semantic",
+   "space/xs",
+   "FLOAT",
+   {
+    "light": ">dimension/4",
+    "dark": ">dimension/4"
+   },
+   [
+    "GAP"
+   ],
+   "var(--fd-space-xs)",
+   "Abstand innerhalb kleiner Elemente.",
+   0
+  ]
+ ],
+ "textStyles": [
+  [
+   "body/md",
+   "Regular",
+   16,
+   24,
+   "Standard-Fließtext. Code: var(--fd-text-body-md)"
+  ],
+  [
+   "body/sm",
+   "Regular",
+   14,
+   20,
+   "Hilfstexte und dichte Ansichten. Code: var(--fd-text-body-sm)"
+  ],
+  [
+   "caption",
+   "Regular",
+   12,
+   16,
+   "Metadaten, Bildunterschriften. Code: var(--fd-text-caption)"
+  ],
+  [
+   "display",
+   "Bold",
+   32,
+   40,
+   "Seitentitel. Einmal pro Seite. Code: var(--fd-text-display)"
+  ],
+  [
+   "heading/lg",
+   "Semi Bold",
+   24,
+   32,
+   "Abschnittsüberschriften. Code: var(--fd-text-heading-lg)"
+  ],
+  [
+   "heading/md",
+   "Semi Bold",
+   20,
+   28,
+   "Karten- und Gruppenüberschriften. Code: var(--fd-text-heading-md)"
+  ],
+  [
+   "label/md",
+   "Medium",
+   14,
+   20,
+   "Beschriftung von Buttons und Feldern. Code: var(--fd-text-label-md)"
+  ],
+  [
+   "label/sm",
+   "Medium",
+   12,
+   16,
+   "Badges und kompakte Labels. Code: var(--fd-text-label-sm)"
+  ]
+ ],
+ "components": [
+  [
+   "Alert",
+   [
+    [
+     "description",
+     "TEXT",
+     "Deine Einstellungen gelten ab sofort.",
+     ""
+    ],
+    [
+     "title",
+     "TEXT",
+     "Änderungen gespeichert",
+     ""
+    ],
+    [
+     "tone",
+     "VARIANT",
+     [
+      "danger",
+      "info",
+      "success",
+      "warning"
+     ],
+     "info"
+    ]
+   ],
+   "Status: stable · v1.0.2\nHinweis im Seitenfluss zu Status, Erfolg, Warnung oder Fehler.\nRegeln: Höchstens ein Alert pro Bereich. [alert/one-per-area] Titel nennt das Ergebnis, Beschreibung den nächsten Schritt. [alert/title-states-outcome] Ein Alert enthält keine Aktion. Die Beschreibung nennt den nächsten Schritt, die Aktion steht dort, wo sie wirkt. [alert/no-action]\nA11y: Fehler und Warnungen mit role=\"alert\", Info und Erfolg mit role=\"status\".\nSpec: ds/alert\nCode: <fd-alert> aus \"@fundament/ui\""
+  ],
+  [
+   "Badge",
+   [
+    [
+     "label",
+     "TEXT",
+     "Neu",
+     ""
+    ],
+    [
+     "tone",
+     "VARIANT",
+     [
+      "danger",
+      "info",
+      "neutral",
+      "success",
+      "warning"
+     ],
+     "neutral"
+    ]
+   ],
+   "Status: stable · v1.0.0\nKurzer Status oder Kategorie, nicht interaktiv.\nRegeln: Höchstens zwei Wörter. [badge/short-label] Nie klickbar; für Filter einen Chip verwenden. [badge/not-interactive]\nA11y: Bedeutung steht im Text, nicht nur in der Farbe.\nSpec: ds/badge\nCode: <fd-badge> aus \"@fundament/ui\""
+  ],
+  [
+   "Button",
+   [
+    [
+     "disabled",
+     "VARIANT",
+     [
+      "false",
+      "true"
+     ],
+     "false"
+    ],
+    [
+     "label",
+     "TEXT",
+     "Speichern",
+     ""
+    ],
+    [
+     "size",
+     "VARIANT",
+     [
+      "md",
+      "sm"
+     ],
+     "md"
+    ],
+    [
+     "state",
+     "VARIANT",
+     [
+      "default",
+      "focus",
+      "hover"
+     ],
+     "default"
+    ],
+    [
+     "variant",
+     "VARIANT",
+     [
+      "danger",
+      "ghost",
+      "primary",
+      "secondary"
+     ],
+     "primary"
+    ]
+   ],
+   "Status: stable · v1.4.1\nLöst eine Aktion aus. Für Navigation zu einer anderen Seite einen Link verwenden.\nRegeln: Höchstens ein primärer Button pro Ansicht; ein danger-Button und ConfirmAction zählen als primär. [button/one-primary] Beschriftung beginnt mit einem Verb und nennt das Ergebnis. [button/label-verb] Farbe nur über variant, nie eigene Füllungen. [button/no-custom-colors] Hover und Fokus kommen aus der Komponente, nie selbst gestaltet. [button/states-from-system] variant=danger nur für Aktionen, die etwas unwiderruflich löschen oder beenden, und nie als einzige Absicherung. [button/danger-confirm]\nA11y: Immer als <button> umsetzen. Deaktiviert nur, wenn ein Hinweis erklärt, warum.\nSpec: ds/button\nCode: <fd-button> aus \"@fundament/ui\""
+  ],
+  [
+   "Card",
+   [
+    [
+     "action",
+     "INSTANCE_SWAP",
+     "",
+     ""
+    ],
+    [
+     "badge",
+     "INSTANCE_SWAP",
+     "",
+     ""
+    ],
+    [
+     "body",
+     "TEXT",
+     "Kurze Beschreibung des Inhalts in ein bis zwei Sätzen.",
+     ""
+    ],
+    [
+     "showBadge",
+     "BOOLEAN",
+     false,
+     ""
+    ],
+    [
+     "showFooter",
+     "BOOLEAN",
+     true,
+     ""
+    ],
+    [
+     "title",
+     "TEXT",
+     "Kartentitel",
+     ""
+    ]
+   ],
+   "Status: stable · v1.1.0\nGruppiert zusammengehörige Inhalte mit optionaler Aktion.\nRegeln: Höchstens eine Aktion im Footer. [card/one-action] Keine Karten in Karten. [card/no-nesting] Eine Kennzeichnung der Karte (z. B. „Aktuell“) gehört in den Slot badge, nicht daneben oder darüber. [card/badge-slot]\nA11y: Titel als Überschrift passender Ebene; ist die ganze Karte klickbar, nur ein Link darin.\nSpec: ds/card\nCode: <fd-card> aus \"@fundament/ui\""
+  ],
+  [
+   "Checkbox",
+   [
+    [
+     "checked",
+     "VARIANT",
+     [
+      "false",
+      "true"
+     ],
+     "false"
+    ],
+    [
+     "disabled",
+     "VARIANT",
+     [
+      "false",
+      "true"
+     ],
+     "false"
+    ],
+    [
+     "helperText",
+     "TEXT",
+     "Du kannst das später ändern.",
+     ""
+    ],
+    [
+     "label",
+     "TEXT",
+     "Angemeldet bleiben",
+     ""
+    ],
+    [
+     "showHelper",
+     "BOOLEAN",
+     false,
+     ""
+    ],
+    [
+     "state",
+     "VARIANT",
+     [
+      "default",
+      "focus"
+     ],
+     "default"
+    ]
+   ],
+   "Status: stable · v1.2.0\nAuswahl einer unabhängigen Option, die man an- oder abwählen kann.\nRegeln: Das Label ist Teil der Klickfläche. [checkbox/label-clickable] Ist die Checkbox deaktiviert, erklärt helperText den Grund. [checkbox/disabled-reason]\nA11y: Natives <input type=\"checkbox\"> mit <label>; Klickfläche mindestens 44 × 44 px.\nSpec: ds/checkbox\nCode: <fd-checkbox> aus \"@fundament/ui\""
+  ],
+  [
+   "ConfirmAction",
+   [],
+   "Status: stable · v1.0.0\nSichert eine unwiderrufliche Aktion ab: Der danger-Button wird erst aktiv, wenn das Bestätigungswort eingegeben ist.\nRegeln: Jede Aktion, die Daten unwiderruflich löscht, läuft über ConfirmAction. [confirmaction/for-irreversible] Das Freischalten kommt aus dem Muster, nicht aus eigenem Skript. [confirmaction/no-custom-script]\nA11y: Der Button nennt die Aktion. Warum er deaktiviert ist, steht als Hilfstext am Feld und ist per aria-describedby verknüpft.\nSpec: ds/confirm-action\nCode: <fd-confirm-action> aus \"@fundament/ui\""
+  ],
+  [
+   "Link",
+   [
+    [
+     "label",
+     "TEXT",
+     "Alle Rechnungen ansehen",
+     ""
+    ],
+    [
+     "state",
+     "VARIANT",
+     [
+      "default",
+      "focus",
+      "hover"
+     ],
+     "default"
+    ]
+   ],
+   "Status: stable · v1.0.0\nFührt zu einer anderen Seite oder Stelle. Für Aktionen einen Button verwenden.\nRegeln: Der Linktext nennt das Ziel. [link/names-destination] Ein Link hat immer ein Ziel (href). [link/has-target]\nA11y: Als <a href> umsetzen. Öffnet der Link ein neues Fenster, steht das im Text.\nSpec: ds/link\nCode: <fd-link> aus \"@fundament/ui\""
+  ],
+  [
+   "LinkButton",
+   [
+    [
+     "label",
+     "TEXT",
+     "Mehr",
+     ""
+    ]
+   ],
+   "VERALTET seit 1.0.0 – nutze Button variant=ghost.\nStatus: deprecated · v0.9.0\nVeraltet seit 1.0. Ersetzt durch Button variant=ghost.\nA11y: –\nSpec: ds/link-button"
+  ],
+  [
+   "SignInForm",
+   [],
+   "Status: stable · v1.0.2\nVollständiges Anmeldeformular aus TextField, Checkbox und Button. Als Ganzes verwenden statt neu zusammenzubauen.\nRegeln: Nur aus Systemkomponenten zusammensetzen. [signinform/compose-from-system]\nA11y: Fehlermeldungen oberhalb der Felder zusammenfassen und fokussieren.\nSpec: ds/sign-in-form\nCode: <fd-sign-in-form> aus \"@fundament/ui\""
+  ],
+  [
+   "Switch",
+   [
+    [
+     "checked",
+     "VARIANT",
+     [
+      "false",
+      "true"
+     ],
+     "false"
+    ],
+    [
+     "disabled",
+     "VARIANT",
+     [
+      "false",
+      "true"
+     ],
+     "false"
+    ],
+    [
+     "helperText",
+     "TEXT",
+     "Wir schreiben dir höchstens einmal pro Woche.",
+     ""
+    ],
+    [
+     "label",
+     "TEXT",
+     "E-Mail-Benachrichtigungen",
+     ""
+    ],
+    [
+     "showHelper",
+     "BOOLEAN",
+     false,
+     ""
+    ],
+    [
+     "state",
+     "VARIANT",
+     [
+      "default",
+      "focus"
+     ],
+     "default"
+    ]
+   ],
+   "Status: stable · v1.0.0\nSchaltet eine Einstellung sofort ein oder aus, ohne Speichern.\nRegeln: Nur für Einstellungen, die sofort wirken. Braucht es Speichern, eine Checkbox verwenden. [switch/immediate] Ist der Schalter deaktiviert, erklärt helperText den Grund. [switch/disabled-reason]\nA11y: Als <button role=\"switch\"> mit aria-checked umsetzen; das Label benennt die Einstellung, nicht den Zustand.\nSpec: ds/switch\nCode: <fd-switch> aus \"@fundament/ui\""
+  ],
+  [
+   "TextField",
+   [
+    [
+     "errorText",
+     "TEXT",
+     "Bitte gib eine gültige E-Mail-Adresse ein.",
+     ""
+    ],
+    [
+     "helperText",
+     "TEXT",
+     "Wir senden dir einen Bestätigungslink.",
+     ""
+    ],
+    [
+     "label",
+     "TEXT",
+     "E-Mail-Adresse",
+     ""
+    ],
+    [
+     "showHelper",
+     "BOOLEAN",
+     true,
+     ""
+    ],
+    [
+     "showTrailing",
+     "BOOLEAN",
+     false,
+     ""
+    ],
+    [
+     "state",
+     "VARIANT",
+     [
+      "default",
+      "disabled",
+      "error",
+      "focus"
+     ],
+     "default"
+    ],
+    [
+     "trailing",
+     "INSTANCE_SWAP",
+     "",
+     ""
+    ],
+    [
+     "value",
+     "TEXT",
+     "name@beispiel.de",
+     ""
+    ]
+   ],
+   "Status: stable · v1.3.0\nEinzeilige Texteingabe mit sichtbarem Label und optionalem Hilfstext.\nRegeln: Label ist immer sichtbar, nie nur als Platzhalter. [textfield/visible-label] Im Fehlerzustand ersetzt errorText den Hilfstext und erklärt, wie man den Fehler behebt. [textfield/error-text] Aktionen im Feld (Passwort anzeigen, Eingabe leeren) nur über den Slot trailing, mit einem Button variant=ghost size=sm. [textfield/trailing-slot] Passwort anzeigen und Eingabe leeren kommen über trailingAction (reveal, clear), nicht über eigenes Skript. [textfield/trailing-behavior]\nA11y: Label per <label for> verknüpfen, Hilfs- und Fehlertext per aria-describedby; Fehler mit aria-invalid.\nSpec: ds/text-field\nCode: <fd-text-field> aus \"@fundament/ui\""
+  ]
+ ],
+ "file": "Untitled (zS8ZMBxGCXjeL0Sygvsbti)",
+ "exportedAt": "2026-11-23",
+ "herkunft": "Inhalt identisch mit dem Export aus Figma vom 23.11.2026: Prüfsummen für Variablen (69526ccf), Text-Styles (597f025f) und Komponenten (63f5566b) stimmen überein. Künftige Schnappschüsse kommen aus dem Plugin „Fundament Export“."
+}

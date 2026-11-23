@@ -10,7 +10,7 @@ Diese Datei nennt bewusst keine Komponenten, Attribute, Werte oder Tokens. Solch
 - `generated/contrast.json`: geprüfte Text/Fläche-Paare je Mode. Nur diese Paarungen sind zugesagt.
 - `DESIGN.md`: Grundsätze für Entscheidungen, die kein Check trifft. `rubric.md`: Fragen für den Kritiker-Durchlauf.
 - `ui/`: das Paket (Web Components, Tokens, Styles). `ui/examples/` zeigt eine komplette Seite und alle Zustände. `docs/index.html` ist die Doku für Menschen.
-- `specs/system.json`: Quelle der Wahrheit. Änderungen nur dort, danach `node build.mjs`.
+- `specs/system.json`: der Vertrag zwischen Figma und Code. Änderungen am Aussehen kommen meist aus Figma (`specs/figma.snapshot.json`, `node tooling/figma-diff.mjs`), Änderungen an Regeln und Verhalten direkt in der Spec. Danach `node build.mjs`.
 
 ## Die Schleife
 

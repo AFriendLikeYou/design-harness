@@ -1,19 +1,38 @@
 <!-- Generiert aus specs/leitfaden.json – nicht von Hand bearbeiten. -->
 # Leitfaden: So bleibt das System sicher für Agenten
 
-Was Fundament für KI-Agenten verlässlich macht und wie man neue Regeln, Tokens und Komponenten so ergänzt, dass es so bleibt. Stand 22.11.2026.
+Was Fundament für KI-Agenten verlässlich macht und wie man neue Regeln, Tokens und Komponenten so ergänzt, dass es so bleibt. Stand 23.11.2026.
 
 ## Die sieben Grundelemente
 
 Fällt eines weg, raten Agenten wieder.
 
-- **1 / Eine Quelle.** Alles steht in specs/system.json. Figma, Paket, Verträge, Doku und Prüfungen werden daraus erzeugt. Wer etwas ändern will, ändert die Spec und baut neu.
+- **1 / Ein Vertrag, zwei Werkbänke.** Gestaltet wird in Figma, umgesetzt im Code. Die Spec im Repo ist der Vertrag dazwischen. Ein Export aus Figma zeigt jede Änderung als Vorschlag für die Spec. Grün ist der Stand erst, wenn Figma, Spec und Code übereinstimmen.
 - **2 / Namen wie im Code.** Eine Komponente heißt überall gleich: Button, <fd-button>, Ebene „label“, Attribut label. Tokens heißen nach ihrer Aufgabe (text/primary), nicht nach ihrem Aussehen (blue/600).
 - **3 / Jede Entscheidung hat ein Warum.** Tokens, Regeln und Grundsätze tragen eine Begründung. Mit ihr entscheidet ein Agent die Fälle, die niemand vorhergesehen hat.
 - **4 / Verträge statt Listen.** Gültige Elemente, Werte und Tokens stehen nur im erzeugten Vertrag. AGENTS.md beschreibt den Ablauf und nennt bewusst keinen einzigen Namen. Handgeschriebene Listen veralten.
 - **5 / Prüfen in der Schleife.** Der Agent prüft seine Arbeit selbst: check gegen den Vertrag, audit im gerenderten Zustand, dann die Rubrik. Höchstens drei Runden, danach berichtet er, was offen ist.
 - **6 / Lücken melden statt nachbauen.** Fehlt eine Komponente, ein Wert oder ein Slot, baut der Agent nichts darüber. Er meldet die Lücke. So wächst das System an den richtigen Stellen.
 - **7 / Messen.** Agentenläufe mit und ohne System, die gerenderte Prüfung und der Abgleich zwischen Figma und Spec zeigen, ob es wirkt. Was nicht gemessen ist, gilt als Annahme.
+
+## Vom Entwurf in Figma zum Stand im Code
+
+Designer arbeiten in Figma. So kommt ihre Änderung an, ohne dass jemand abtippt.
+
+- **1 / In Figma gestalten.** Werte an Variablen ändern, Varianten und Properties anlegen, die Beschreibung nach dem Muster pflegen. Properties heißen so, wie sie im Code heißen sollen.
+- **2 / Stand exportieren.** Das Plugin „Fundament Export“ liest Variablen, Text-Styles und Komponenten aus. Das Ergebnis kommt als specs/figma.snapshot.json ins Repo.
+- **3 / Abgleich lesen.** node tooling/figma-diff.mjs zeigt jede Abweichung: was Figma hat, was die Spec hat, und ob sie eindeutig übernehmbar ist.
+- **4 / Übernehmen und entscheiden.** --apply schreibt Eindeutiges in die Spec: Werte, Verweise, Beschreibungen, Standards, neue Varianten-Werte. Neues braucht eine Entscheidung: Ein Token braucht ein Warum, eine Variante ihr Aussehen und ihre Umsetzung.
+- **5 / Bauen und umsetzen.** node build.mjs erzeugt Verträge, Tokens und Doku neu. Der Build rechnet den Kontrast nach; eine Farbänderung, die ein Paar unter die Grenze drückt, fällt hier auf.
+- **6 / Gate.** node tooling/verify.mjs vergleicht den Figma-Stand mit der Spec und prüft Code und Beispiele. Weicht etwas ab, ist der Stand rot, egal auf welcher Seite die Änderung begann.
+
+## Wer hat das letzte Wort
+
+Beide Seiten dürfen anfangen. Entschieden wird im Vorschlag für die Spec.
+
+- **Figma führt beim Aussehen.** Farbwerte, Abstände, Radien, Typografie, welche Varianten es gibt und wie Properties heißen.
+- **Das Repo führt beim Verhalten.** Regeln mit Warum, Checks, Barrierefreiheit, Verhalten wie trailingAction, Migrationen. Das steht in Figma nur als Beschreibung oder Annotation.
+- **Der Abgleich ist die Schnittstelle.** Niemand tippt Werte ab. Was Figma ändert, kommt als Vorschlag; was das Repo ändert, zieht Figma nach (Plugin oder Skript) und der Abgleich bestätigt es.
 
 ## Eine neue Regel schreiben
 

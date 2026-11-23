@@ -158,3 +158,11 @@ try {
   for (const s of g.sections) { L.push('## ' + s.title, ''); if (s.intro) L.push(s.intro, ''); if (s.code) L.push('```json', s.code, '```', ''); for (const [t, x] of s.items || []) L.push(`- **${t}.** ${x}`); if (s.compare) { L.push('| So nicht | So |', '|---|---|'); for (const [a, c] of s.compare) L.push(`| ${a} | ${c} |`); } L.push(''); }
   writeFileSync('LEITFADEN.md', L.join('\n')); console.log('gebaut: LEITFADEN.md');
 } catch (e) { if (e.code !== 'ENOENT') throw e; }
+
+// 10) Export-Plugin für Designer aus tooling/figma-export.js (nur im Hauptprojekt)
+if (!process.argv[2]) {
+  const body = readFileSync('tooling/figma-export.js', 'utf8');
+  const ui = '<style>body{font:12px Inter,sans-serif;margin:12px}textarea{width:100%;height:300px;font:11px monospace}button{margin-top:8px;padding:6px 12px}</style><p>Schnappschuss kopieren und im Repo als <b>specs/figma.snapshot.json</b> speichern. Danach <b>node tooling/figma-diff.mjs</b>.</p><textarea id="t" readonly>Lese Datei …</textarea><button id="c">Kopieren</button><script>onmessage=(e)=>{document.getElementById("t").value=e.data.pluginMessage};document.getElementById("c").onclick=()=>{const t=document.getElementById("t");t.select();document.execCommand("copy")}</script>';
+  mkdirSync('plugin-export', { recursive: true });
+  writeFileSync('plugin-export/code.js', `// Fundament Export – zeigt den Schnappschuss der Datei zum Kopieren. Erzeugt aus tooling/figma-export.js – nicht von Hand bearbeiten.\nfigma.showUI(${JSON.stringify(ui)}, { width: 420, height: 420 });\n(async () => {\n${body.replace(/^return /m, 'const snapshot = ')}\nfigma.ui.postMessage(JSON.stringify(snapshot, null, 1));\n})().catch((e) => figma.ui.postMessage('Fehler: ' + e.message));\n`);
+}
