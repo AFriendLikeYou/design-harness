@@ -47,7 +47,7 @@
   ],
   "migrations": [],
   "system": "ZDS-Probe",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "cssPrefix": "z-ds",
   "codePackage": "@zeit/zds-probe",
   "tokens": {
@@ -63,10 +63,14 @@
     "--z-ds-color-accent-70": true,
     "--z-ds-color-focus-100": true,
     "--z-ds-color-general-white-100": true,
+    "--z-ds-color-text-55": true,
+    "--z-ds-color-error-70": true,
     "--z-ds-space-2": true,
     "--z-ds-space-4": true,
+    "--z-ds-space-6": true,
     "--z-ds-space-8": true,
     "--z-ds-space-10": true,
+    "--z-ds-space-12": true,
     "--z-ds-space-16": true,
     "--z-ds-space-24": true,
     "--z-ds-space-32": true,
@@ -81,6 +85,7 @@
     "--z-ds-size-toggle-thumb": true,
     "--z-ds-size-touch-target": true,
     "--z-ds-size-panel": true,
+    "--z-ds-size-input": true,
     "--z-ds-text-display": true,
     "--z-ds-text-heading-lg": true,
     "--z-ds-text-heading-md": true,
@@ -103,10 +108,14 @@
     "--z-ds-color-accent-70": "Hover-Fläche des Z+-Buttons.",
     "--z-ds-color-focus-100": "Fokus-Outline, 2 px.",
     "--z-ds-color-general-white-100": "Festes Weiß: Beschriftung des Z+-Buttons, Haken der Checkbox, Knopf des Toggles.",
+    "--z-ds-color-text-55": "Platzhalter im Input. Rahmen des Inputs im Fokus.",
+    "--z-ds-color-error-70": "Rahmen des Inputs im Fehlerzustand; in der Probe auch der Fehlertext.",
     "--z-ds-space-2": "Abstand des Toggle-Knopfs zum Rand.",
     "--z-ds-space-4": "Feinabstand.",
+    "--z-ds-space-6": "Innenabstand des schmalen Text-Buttons vertikal (--z-ds-space-6).",
     "--z-ds-space-8": "Abstand zwischen Bedienelement und Beschriftung.",
     "--z-ds-space-10": "Innenabstand Button vertikal (--z-ds-space-10).",
+    "--z-ds-space-12": "Innenabstand des Inputs horizontal (--z-ds-space-s).",
     "--z-ds-space-16": "Innenabstand Button horizontal (--z-ds-space-16).",
     "--z-ds-space-24": "Abstand zwischen Gruppen.",
     "--z-ds-space-32": "Abstand zwischen Abschnitten.",
@@ -121,6 +130,7 @@
     "--z-ds-size-toggle-thumb": "Durchmesser des Toggle-Knopfs.",
     "--z-ds-size-touch-target": "Mindesthöhe der Klickzeile aus Bedienelement und Beschriftung (Fundament-Regel).",
     "--z-ds-size-panel": "Höchstbreite schmaler Module (Annahme der Probe).",
+    "--z-ds-size-input": "Vorschaubreite des Inputs laut ZDS; im Layout füllt er seinen Container.",
     "--z-ds-text-display": "Modultitel (Annahme der Probe).",
     "--z-ds-text-heading-lg": "Abschnittstitel (Annahme der Probe).",
     "--z-ds-text-heading-md": "Gruppentitel (Annahme der Probe).",
@@ -452,6 +462,7 @@
       ],
       "a11y": "Als <button role=\"switch\"> mit aria-checked. Einen deaktivierten Zustand gibt es im ZDS nicht.",
       "element": "z-ds-toggle",
+      "impl": "Switch",
       "attrs": {
         "checked": {
           "type": "boolean",
@@ -480,6 +491,223 @@
       },
       "passthrough": [
         "name"
+      ],
+      "slotNames": []
+    },
+    "Input": {
+      "class": "z-ds-input",
+      "kind": "component",
+      "status": "stable",
+      "version": "0.1.0",
+      "purpose": "Einzeilige Texteingabe.",
+      "deprecated": null,
+      "booleans": [],
+      "attributes": {
+        "data-state": {
+          "values": [
+            "default",
+            "focus",
+            "error",
+            "disabled"
+          ],
+          "default": "default"
+        }
+      },
+      "parts": [
+        "z-ds-input__label",
+        "z-ds-input__value",
+        "z-ds-input__helper-text",
+        "z-ds-input__error-text"
+      ],
+      "styles": {
+        "state=default": {
+          "bg": "background/0",
+          "fg": "text/100",
+          "border": "border/100",
+          "borderWidth": "default",
+          "helper": "text/70"
+        },
+        "state=focus": {
+          "border": "text/55"
+        },
+        "state=error": {
+          "border": "error/70",
+          "helper": "error/70"
+        },
+        "state=disabled": {
+          "fg": "text/40"
+        }
+      },
+      "colorTokens": [
+        "--z-ds-color-background-0",
+        "--z-ds-color-text-100",
+        "--z-ds-color-border-100",
+        "--z-ds-color-text-70",
+        "--z-ds-color-text-55",
+        "--z-ds-color-error-70",
+        "--z-ds-color-text-40"
+      ],
+      "slots": [],
+      "rules": [
+        {
+          "id": "input/visible-label",
+          "text": "Der Input hat immer eine sichtbare Beschriftung.",
+          "why": "Das ZDS dokumentiert den Input nur mit Platzhalter und aria-label. Platzhalter verschwinden beim Tippen.",
+          "check": "required-prop",
+          "herkunft": "Lücke der ZDS-Doku, in der Probe ergänzt"
+        },
+        {
+          "id": "input/error-text",
+          "text": "Im Fehlerzustand erklärt errorText, wie man den Fehler behebt.",
+          "why": "Das ZDS färbt nur den Rahmen. Rot allein sagt nicht, was zu tun ist.",
+          "check": null,
+          "herkunft": "Lücke der ZDS-Doku, in der Probe ergänzt"
+        }
+      ],
+      "a11y": "<label for> mit dem Feld verknüpfen, Fehlertext per aria-describedby, Fehler mit aria-invalid. Der Fokus zeigt sich im ZDS nur als dunklerer Rahmen; die Extras Leading Icon und Dropdown sind in der Probe nicht übertragen.",
+      "element": "z-ds-input",
+      "impl": "TextField",
+      "attrs": {
+        "state": {
+          "type": "enum",
+          "values": [
+            "default",
+            "focus",
+            "error",
+            "disabled"
+          ],
+          "default": "default"
+        },
+        "label": {
+          "type": "text",
+          "default": "E-Mail-Adresse"
+        },
+        "value": {
+          "type": "text",
+          "default": "name@beispiel.de"
+        },
+        "helper-text": {
+          "type": "text",
+          "default": "Wir schicken dir einen Bestätigungslink."
+        },
+        "show-helper": {
+          "type": "boolean",
+          "default": true
+        },
+        "error-text": {
+          "type": "text",
+          "default": "Bitte gib eine gültige E-Mail-Adresse ein."
+        }
+      },
+      "passthrough": [
+        "name",
+        "type",
+        "autocomplete",
+        "inputmode",
+        "required"
+      ],
+      "slotNames": []
+    },
+    "TextButton": {
+      "class": "z-ds-text-button",
+      "kind": "component",
+      "status": "stable",
+      "version": "0.1.0",
+      "purpose": "Zurückhaltende Aktion ohne Fläche, etwa in Leisten und neben Inhalten.",
+      "deprecated": null,
+      "booleans": [
+        "bold",
+        "disabled"
+      ],
+      "attributes": {
+        "data-size": {
+          "values": [
+            "default",
+            "slim",
+            "large"
+          ],
+          "default": "default"
+        },
+        "data-state": {
+          "values": [
+            "default",
+            "hover",
+            "focus"
+          ],
+          "default": "default"
+        }
+      },
+      "parts": [
+        "z-ds-text-button__label"
+      ],
+      "styles": {
+        "state=default": {
+          "fg": "text/70"
+        },
+        "state=hover": {
+          "bg": "background/10",
+          "fg": "text/100"
+        },
+        "state=focus": {
+          "ring": "focus/100",
+          "ringWidth": "strong"
+        }
+      },
+      "colorTokens": [
+        "--z-ds-color-text-70",
+        "--z-ds-color-background-10",
+        "--z-ds-color-text-100",
+        "--z-ds-color-focus-100"
+      ],
+      "slots": [],
+      "rules": [
+        {
+          "id": "textbutton/label-verb",
+          "text": "Beschriftung beginnt mit einem Verb und nennt das Ergebnis.",
+          "why": "Man weiß vor dem Klick, was passiert.",
+          "check": null,
+          "herkunft": "Fundament-Regel, für ZDS noch zu bestätigen"
+        }
+      ],
+      "a11y": "Als <button> umsetzen. Die Variante On Image des ZDS ist in der Probe nicht übertragen.",
+      "element": "z-ds-text-button",
+      "impl": "Button",
+      "attrs": {
+        "size": {
+          "type": "enum",
+          "values": [
+            "default",
+            "slim",
+            "large"
+          ],
+          "default": "default"
+        },
+        "bold": {
+          "type": "boolean",
+          "default": false
+        },
+        "disabled": {
+          "type": "boolean",
+          "default": false
+        },
+        "state": {
+          "type": "enum",
+          "values": [
+            "default",
+            "hover",
+            "focus"
+          ],
+          "default": "default"
+        },
+        "label": {
+          "type": "text",
+          "default": "Merken"
+        }
+      },
+      "passthrough": [
+        "type",
+        "name",
+        "value"
       ],
       "slotNames": []
     }

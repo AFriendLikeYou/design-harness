@@ -59,46 +59,46 @@ class Base extends HTMLElement {
 class Button extends Base {
   // ARIA-Zustände, die an das innere <button> weitergereicht werden
   static aria = ['aria-pressed', 'aria-controls', 'aria-expanded', 'aria-label'];
-  build() { this.innerHTML = `<button class="${P}-button"><span class="${P}-button__label"></span></button>`; }
-  update() {
+  build() { const B = this.localName; this.innerHTML = `<button class="${B}"><span class="${B}__label"></span></button>`; }
+  update() { const B = this.localName;
     const b = this.q('button');
     this.reflect(b, ['disabled']);
     b.disabled = this.a('disabled'); b.type = this.getAttribute('type') || 'button';
     for (const n of ['name', 'value']) { const v = this.getAttribute(n); if (v === null) b.removeAttribute(n); else b.setAttribute(n, v); }
     for (const n of Button.aria) { const v = this.getAttribute(n); if (v === null) b.removeAttribute(n); else b.setAttribute(n, v); }
-    this.q(`.${P}-button__label`).textContent = this.a('label');
+    this.q(`.${B}__label`).textContent = this.a('label');
   }
 }
 
 class TextField extends Base {
-  build() {
+  build() { const B = this.localName;
     const id = this.uid;
-    this.innerHTML = `<div class="${P}-text-field"><label class="${P}-text-field__label" for="${id}"></label><div class="${P}-text-field__control"><input class="${P}-text-field__input" id="${id}"><span class="${P}-text-field__trailing"></span></div><span class="${P}-text-field__helper-text" id="${id}-h"></span><span class="${P}-text-field__error-text" id="${id}-e"></span></div>`;
-    this.q(`.${P}-text-field__trailing`).append(...this.slotted.trailing);
+    this.innerHTML = `<div class="${B}"><label class="${B}__label" for="${id}"></label><div class="${B}__control"><input class="${B}__input" id="${id}"><span class="${B}__trailing"></span></div><span class="${B}__helper-text" id="${id}-h"></span><span class="${B}__error-text" id="${id}-e"></span></div>`;
+    this.q(`.${B}__trailing`).append(...(this.slotted.trailing || []));
     this.q('input').value = this.getAttribute('value') ?? '';
   }
-  update() {
+  update() { const B = this.localName;
     const state = this.a('state'), input = this.q('input'), err = state === 'error';
-    this.q(`.${P}-text-field`).dataset.state = state;
+    this.q(`.${B}`).dataset.state = state;
     this.q('label').textContent = this.a('label');
     this.pass(input); if (!this.hasAttribute('type')) input.type = 'text';
     if (document.activeElement !== input && this.hasAttribute('value') && input.value !== this.getAttribute('value') && !this.dirty) input.value = this.getAttribute('value');
     input.disabled = state === 'disabled';
-    const help = this.q(`.${P}-text-field__helper-text`), error = this.q(`.${P}-text-field__error-text`);
+    const help = this.q(`.${B}__helper-text`), error = this.q(`.${B}__error-text`);
     help.textContent = this.a('helper-text'); error.textContent = this.a('error-text');
     help.hidden = err || !this.a('show-helper') || !this.a('helper-text'); error.hidden = !err;
     if (err) { input.setAttribute('aria-invalid', 'true'); input.setAttribute('aria-describedby', error.id); } else { input.removeAttribute('aria-invalid'); if (help.hidden) input.removeAttribute('aria-describedby'); else input.setAttribute('aria-describedby', help.id); }
-    this.q(`.${P}-text-field__trailing`).hidden = !this.a('show-trailing');
+    this.q(`.${B}__trailing`).hidden = !this.a('show-trailing');
     if (!this.listening) {
       this.listening = true; input.addEventListener('input', () => { this.dirty = true; });
       // Verhalten des Slots trailing: reveal schaltet die Sichtbarkeit des Passworts, clear leert das Feld
-      this.q(`.${P}-text-field__trailing`).addEventListener('click', (e) => {
+      this.q(`.${B}__trailing`).addEventListener('click', (e) => {
         const b = e.target.closest(`${P}-button`); const action = this.a('trailing-action'); if (!b || action === 'none') return;
         if (action === 'reveal') { const show = input.type === 'password'; input.type = show ? 'text' : 'password'; this.revealed = show; b.setAttribute('label', show ? 'Verbergen' : 'Anzeigen'); b.setAttribute('aria-pressed', String(show)); }
         if (action === 'clear') { input.value = ''; this.dirty = true; input.dispatchEvent(new Event('input', { bubbles: true })); input.focus(); }
       });
     }
-    if (this.a('trailing-action') === 'reveal') { input.type = this.revealed ? 'text' : 'password'; const b = this.q(`.${P}-text-field__trailing ${P}-button`); if (b && !b.hasAttribute('aria-pressed')) b.setAttribute('aria-pressed', 'false'); if (b) b.setAttribute('aria-controls', input.id); }
+    if (this.a('trailing-action') === 'reveal') { input.type = this.revealed ? 'text' : 'password'; const b = this.q(`.${B}__trailing ${P}-button`); if (b && !b.hasAttribute('aria-pressed')) b.setAttribute('aria-pressed', 'false'); if (b) b.setAttribute('aria-controls', input.id); }
   }
   get value() { return this.q('input')?.value ?? this.getAttribute('value') ?? ''; }
   set value(v) { if (this.ready) this.q('input').value = v; else this.setAttribute('value', v); }
@@ -106,13 +106,13 @@ class TextField extends Base {
 }
 
 class Checkbox extends Base {
-  build() { const id = this.uid; this.innerHTML = `<div class="${P}-checkbox-field"><label class="${P}-checkbox"><input class="${P}-checkbox__box" type="checkbox"><span class="${P}-checkbox__label"></span></label><span class="${P}-checkbox__helper-text" id="${id}-h"></span></div>`; this.q('input').checked = this.a('checked'); }
-  update() {
-    const input = this.q('input'), help = this.q(`.${P}-checkbox__helper-text`);
+  build() { const B = this.localName; const id = this.uid; this.innerHTML = `<div class="${B}-field"><label class="${B}"><input class="${B}__box" type="checkbox"><span class="${B}__label"></span></label><span class="${B}__helper-text" id="${id}-h"></span></div>`; this.q('input').checked = this.a('checked'); }
+  update() { const B = this.localName;
+    const input = this.q('input'), help = this.q(`.${B}__helper-text`);
     if (!this.touched) input.checked = this.a('checked');
     input.disabled = this.a('disabled'); this.pass(input);
-    const l = this.q(`.${P}-checkbox`); this.reflect(l, ['checked', 'disabled']);
-    this.q(`.${P}-checkbox__label`).textContent = this.a('label');
+    const l = this.q(`.${B}`); this.reflect(l, ['checked', 'disabled']);
+    this.q(`.${B}__label`).textContent = this.a('label');
     help.textContent = this.a('helper-text'); help.hidden = !this.a('show-helper') || !this.a('helper-text');
     if (help.hidden) input.removeAttribute('aria-describedby'); else input.setAttribute('aria-describedby', help.id);
     if (!this.listening) { this.listening = true; input.addEventListener('change', () => { this.touched = true; }); }
@@ -195,9 +195,9 @@ class LinkButton extends Base {
   update() { this.q(`.${P}-link-button__label`).textContent = this.a('label'); }
 }
 
-// Umsetzung je Komponentenname aus dem Vertrag. Toggle ist dieselbe Umsetzung wie Switch.
-const IMPL = { Button, TextField, Checkbox, Switch, Toggle: Switch, Badge, Alert, Card, Link, SignInForm, ConfirmAction, LinkButton };
+// Umsetzung je Komponentenname aus dem Vertrag. Heißt eine Komponente anders, nennt die Spec die Umsetzung im Feld "impl".
+const IMPL = { Button, TextField, Checkbox, Switch, Badge, Alert, Card, Link, SignInForm, ConfirmAction, LinkButton };
 for (const [tag, def] of Object.entries(ELEMENTS)) {
-  if (!IMPL[def.name]) { console.warn(`Für <${tag}> aus dem Vertrag fehlt die Umsetzung in fundament.js.`); continue; }
-  IMPL[def.name].define(tag);
+  if (!IMPL[def.impl || def.name]) { console.warn(`Für <${tag}> aus dem Vertrag fehlt die Umsetzung in fundament.js.`); continue; }
+  IMPL[def.impl || def.name].define(tag);
 }

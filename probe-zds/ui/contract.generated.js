@@ -1,5 +1,5 @@
 // Generiert aus specs/system.json – nicht von Hand bearbeiten.
-export const VERSION = "0.1.0";
+export const VERSION = "0.2.0";
 export const PREFIX = "z-ds";
 export const ELEMENTS = {
   "z-ds-button": {
@@ -88,6 +88,7 @@ export const ELEMENTS = {
   },
   "z-ds-toggle": {
     "name": "Toggle",
+    "impl": "Switch",
     "status": "stable",
     "deprecated": null,
     "attrs": {
@@ -118,6 +119,96 @@ export const ELEMENTS = {
     },
     "passthrough": [
       "name"
+    ],
+    "slots": []
+  },
+  "z-ds-input": {
+    "name": "Input",
+    "impl": "TextField",
+    "status": "stable",
+    "deprecated": null,
+    "attrs": {
+      "state": {
+        "type": "enum",
+        "values": [
+          "default",
+          "focus",
+          "error",
+          "disabled"
+        ],
+        "default": "default"
+      },
+      "label": {
+        "type": "text",
+        "default": "E-Mail-Adresse"
+      },
+      "value": {
+        "type": "text",
+        "default": "name@beispiel.de"
+      },
+      "helper-text": {
+        "type": "text",
+        "default": "Wir schicken dir einen Bestätigungslink."
+      },
+      "show-helper": {
+        "type": "boolean",
+        "default": true
+      },
+      "error-text": {
+        "type": "text",
+        "default": "Bitte gib eine gültige E-Mail-Adresse ein."
+      }
+    },
+    "passthrough": [
+      "name",
+      "type",
+      "autocomplete",
+      "inputmode",
+      "required"
+    ],
+    "slots": []
+  },
+  "z-ds-text-button": {
+    "name": "TextButton",
+    "impl": "Button",
+    "status": "stable",
+    "deprecated": null,
+    "attrs": {
+      "size": {
+        "type": "enum",
+        "values": [
+          "default",
+          "slim",
+          "large"
+        ],
+        "default": "default"
+      },
+      "bold": {
+        "type": "boolean",
+        "default": false
+      },
+      "disabled": {
+        "type": "boolean",
+        "default": false
+      },
+      "state": {
+        "type": "enum",
+        "values": [
+          "default",
+          "hover",
+          "focus"
+        ],
+        "default": "default"
+      },
+      "label": {
+        "type": "text",
+        "default": "Merken"
+      }
+    },
+    "passthrough": [
+      "type",
+      "name",
+      "value"
     ],
     "slots": []
   }

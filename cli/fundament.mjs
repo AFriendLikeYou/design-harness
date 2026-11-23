@@ -85,7 +85,8 @@ export function lint(spec = read('specs/system.json')) {
 export function check(files, C = read('generated/contracts.json')) {
   const P = C.cssPrefix; const findings = [];
   const add = (file, line, id, message, fix) => findings.push({ file, line, id, message, fix });
-  const byEl = Object.fromEntries(Object.entries(C.components).map(([name, c]) => [c.element, { name, ...c }]));
+  // name = Art der Komponente für die Regeln (bei "impl" die der Umsetzung), title = Name im System
+  const byEl = Object.fromEntries(Object.entries(C.components).map(([name, c]) => [c.element, { ...c, title: name, name: c.impl || name }]));
   const byClass = Object.fromEntries(Object.entries(C.components).map(([name, c]) => [c.class, { name, ...c }]));
   const GLOBAL = /^(id|class|slot|hidden|style|lang|dir|tabindex|data-.*|aria-.*)$/;
   const elList = Object.keys(byEl).filter((e) => byEl[e].status !== 'deprecated').map((e) => `<${e}>`).join(', ');
@@ -131,7 +132,7 @@ export function check(files, C = read('generated/contracts.json')) {
         if (!comp) add(file, line, 'components/unknown', `<${t}> gibt es nicht.`, `Vorhanden: ${elList}. Keine Komponenten erfinden; fehlt etwas, die Lücke melden.`);
       }
       if (comp) {
-        const v = (n) => { const d = comp.attrs[n]; const x = attrs[n]; if (d.type === 'boolean') return x === undefined ? d.default : x !== 'false'; if (d.type === 'enum') return x === undefined ? d.default : x; return x === undefined || x === true ? '' : x; };
+        const v = (n) => { const d = comp.attrs[n]; const x = attrs[n]; if (!d) return ''; if (d.type === 'boolean') return x === undefined ? d.default : x !== 'false'; if (d.type === 'enum') return x === undefined ? d.default : x; return x === undefined || x === true ? '' : x; };
         if (comp.status === 'deprecated') add(file, line, 'components/deprecated', `<${t}> ist veraltet seit ${comp.deprecated?.since}.`, `Ersetzen durch ${comp.deprecated?.use}; „fundament migrate <Pfad> --write“ erledigt das.`);
         for (const [a, x] of Object.entries(attrs)) {
           const d = comp.attrs[a];
@@ -154,7 +155,7 @@ export function check(files, C = read('generated/contracts.json')) {
         }
         if (comp.name === 'ConfirmAction' && !specimen && ++primary > 1) add(file, line, 'button/one-primary', 'Mehr als eine primäre Aktion in dieser Ansicht (ConfirmAction zählt als primär).', 'Weitere Aktionen mit variant="secondary" oder "ghost".');
         if (comp.name === 'TextField') {
-          if (v('trailing-action') !== 'none' && !(attrs['show-trailing'] !== undefined && attrs['show-trailing'] !== 'false')) add(file, line, 'textfield/trailing-slot', 'trailing-action ohne sichtbaren Slot.', 'show-trailing setzen und einen <fd-button slot="trailing" variant="ghost" size="sm"> einfügen.');
+          if (comp.attrs['trailing-action'] && v('trailing-action') !== 'none' && !(attrs['show-trailing'] !== undefined && attrs['show-trailing'] !== 'false')) add(file, line, 'textfield/trailing-slot', 'trailing-action ohne sichtbaren Slot.', 'show-trailing setzen und einen <fd-button slot="trailing" variant="ghost" size="sm"> einfügen.');
           if (v('state') === 'error' && !v('error-text').trim()) add(file, line, 'textfield/error-text', 'Fehlerzustand ohne error-text.', 'error-text="…" setzen und darin sagen, wie man den Fehler behebt.');
         }
         if (['Checkbox', 'Switch'].includes(comp.name) && v('disabled') && !(v('show-helper') && v('helper-text').trim())) add(file, line, `${comp.name.toLowerCase()}/disabled-reason`, `Deaktiviert ohne Erklärung.`, 'show-helper und helper-text="…" setzen und den Grund nennen.');

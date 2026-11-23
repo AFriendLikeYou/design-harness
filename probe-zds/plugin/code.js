@@ -4,7 +4,7 @@
 // Farben über semantische Variablen, Abstände/Radien/Rahmenstärken/Größen gebunden, Text über Text-Styles.
 const SPEC = {
   "name": "ZDS-Probe",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "cssPrefix": "z-ds",
   "codePackage": "@zeit/zds-probe",
   "fontFamily": "\"Tablet Gothic\", TabletGothic, system-ui, sans-serif",
@@ -23,7 +23,9 @@ const SPEC = {
         "accent-100": "#b91109",
         "accent-70": "#880d07",
         "focus-100": "#005fcc",
-        "general-white-100": "#ffffff"
+        "general-white-100": "#ffffff",
+        "text-55": "#69696c",
+        "error-70": "#bf4040"
       },
       "dark": {
         "background-0": "#121212",
@@ -37,7 +39,9 @@ const SPEC = {
         "accent-100": "#eb362e",
         "accent-70": "#880d07",
         "focus-100": "#54a3fe",
-        "general-white-100": "#ffffff"
+        "general-white-100": "#ffffff",
+        "text-55": "#999999",
+        "error-70": "#f13638"
       }
     },
     "dimension": [
@@ -45,6 +49,7 @@ const SPEC = {
       1,
       2,
       4,
+      6,
       8,
       10,
       12,
@@ -55,6 +60,7 @@ const SPEC = {
       32,
       44,
       48,
+      292,
       360
     ],
     "fontSize": [
@@ -194,6 +200,26 @@ const SPEC = {
         ],
         "why": "Festes Weiß: Beschriftung des Z+-Buttons, Haken der Checkbox, Knopf des Toggles.",
         "zds": "--z-ds-color-general-white-100"
+      },
+      "text/55": {
+        "light": "light/text-55",
+        "dark": "dark/text-55",
+        "scopes": [
+          "TEXT_FILL",
+          "STROKE_COLOR"
+        ],
+        "why": "Platzhalter im Input. Rahmen des Inputs im Fokus.",
+        "zds": "--z-ds-color-text-55"
+      },
+      "error/70": {
+        "light": "light/error-70",
+        "dark": "dark/error-70",
+        "scopes": [
+          "STROKE_COLOR",
+          "TEXT_FILL"
+        ],
+        "why": "Rahmen des Inputs im Fehlerzustand; in der Probe auch der Fehlertext.",
+        "zds": "--z-ds-color-error-70"
       }
     },
     "space": {
@@ -205,6 +231,10 @@ const SPEC = {
         "value": 4,
         "why": "Feinabstand."
       },
+      "6": {
+        "value": 6,
+        "why": "Innenabstand des schmalen Text-Buttons vertikal (--z-ds-space-6)."
+      },
       "8": {
         "value": 8,
         "why": "Abstand zwischen Bedienelement und Beschriftung."
@@ -212,6 +242,10 @@ const SPEC = {
       "10": {
         "value": 10,
         "why": "Innenabstand Button vertikal (--z-ds-space-10)."
+      },
+      "12": {
+        "value": 12,
+        "why": "Innenabstand des Inputs horizontal (--z-ds-space-s)."
       },
       "16": {
         "value": 16,
@@ -274,6 +308,10 @@ const SPEC = {
       "panel": {
         "value": 360,
         "why": "Höchstbreite schmaler Module (Annahme der Probe)."
+      },
+      "input": {
+        "value": 292,
+        "why": "Vorschaubreite des Inputs laut ZDS; im Layout füllt er seinen Container."
       }
     }
   },
@@ -414,6 +452,30 @@ const SPEC = {
       ],
       "min": 3,
       "why": "Fokus-Outline"
+    },
+    {
+      "fg": "text/55",
+      "on": [
+        "background/0"
+      ],
+      "min": 4.5,
+      "why": "Platzhalter im Input"
+    },
+    {
+      "fg": "error/70",
+      "on": [
+        "background/0"
+      ],
+      "min": 4.5,
+      "why": "Fehlertext unter dem Input (Probe)"
+    },
+    {
+      "fg": "text/70",
+      "on": [
+        "background/10"
+      ],
+      "min": 4.5,
+      "why": "Text-Button im Ruhezustand auf getönter Fläche"
     }
   ],
   "components": [
@@ -722,6 +784,186 @@ const SPEC = {
       ],
       "dont": [
         "„An“ oder „Aus“ als Beschriftung"
+      ],
+      "impl": "Switch"
+    },
+    {
+      "name": "Input",
+      "impl": "TextField",
+      "kind": "component",
+      "status": "stable",
+      "version": "0.1.0",
+      "purpose": "Einzeilige Texteingabe.",
+      "zds": {
+        "klasse": "z-input",
+        "quelle": "packages/components/src/input"
+      },
+      "props": [
+        {
+          "name": "state",
+          "type": "variant",
+          "values": [
+            "default",
+            "focus",
+            "error",
+            "disabled"
+          ],
+          "default": "default"
+        },
+        {
+          "name": "label",
+          "type": "text",
+          "default": "E-Mail-Adresse"
+        },
+        {
+          "name": "value",
+          "type": "text",
+          "default": "name@beispiel.de"
+        },
+        {
+          "name": "helperText",
+          "type": "text",
+          "default": "Wir schicken dir einen Bestätigungslink."
+        },
+        {
+          "name": "showHelper",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "errorText",
+          "type": "text",
+          "default": "Bitte gib eine gültige E-Mail-Adresse ein."
+        }
+      ],
+      "styles": {
+        "state=default": {
+          "bg": "background/0",
+          "fg": "text/100",
+          "border": "border/100",
+          "borderWidth": "default",
+          "helper": "text/70"
+        },
+        "state=focus": {
+          "border": "text/55"
+        },
+        "state=error": {
+          "border": "error/70",
+          "helper": "error/70"
+        },
+        "state=disabled": {
+          "fg": "text/40"
+        }
+      },
+      "rules": [
+        {
+          "id": "input/visible-label",
+          "text": "Der Input hat immer eine sichtbare Beschriftung.",
+          "why": "Das ZDS dokumentiert den Input nur mit Platzhalter und aria-label. Platzhalter verschwinden beim Tippen.",
+          "check": "required-prop",
+          "herkunft": "Lücke der ZDS-Doku, in der Probe ergänzt"
+        },
+        {
+          "id": "input/error-text",
+          "text": "Im Fehlerzustand erklärt errorText, wie man den Fehler behebt.",
+          "why": "Das ZDS färbt nur den Rahmen. Rot allein sagt nicht, was zu tun ist.",
+          "check": null,
+          "herkunft": "Lücke der ZDS-Doku, in der Probe ergänzt"
+        }
+      ],
+      "a11y": "<label for> mit dem Feld verknüpfen, Fehlertext per aria-describedby, Fehler mit aria-invalid. Der Fokus zeigt sich im ZDS nur als dunklerer Rahmen; die Extras Leading Icon und Dropdown sind in der Probe nicht übertragen.",
+      "do": [
+        "Beschriftung über dem Feld"
+      ],
+      "dont": [
+        "Platzhalter als einzige Beschriftung"
+      ]
+    },
+    {
+      "name": "TextButton",
+      "impl": "Button",
+      "kind": "component",
+      "status": "stable",
+      "version": "0.1.0",
+      "purpose": "Zurückhaltende Aktion ohne Fläche, etwa in Leisten und neben Inhalten.",
+      "zds": {
+        "klasse": "z-text-button",
+        "quelle": "packages/components/src/text-button"
+      },
+      "props": [
+        {
+          "name": "size",
+          "type": "variant",
+          "values": [
+            "default",
+            "slim",
+            "large"
+          ],
+          "default": "default"
+        },
+        {
+          "name": "bold",
+          "type": "variant",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        {
+          "name": "disabled",
+          "type": "variant",
+          "values": [
+            "false",
+            "true"
+          ],
+          "default": "false"
+        },
+        {
+          "name": "state",
+          "type": "variant",
+          "values": [
+            "default",
+            "hover",
+            "focus"
+          ],
+          "default": "default"
+        },
+        {
+          "name": "label",
+          "type": "text",
+          "default": "Merken"
+        }
+      ],
+      "styles": {
+        "state=default": {
+          "fg": "text/70"
+        },
+        "state=hover": {
+          "bg": "background/10",
+          "fg": "text/100"
+        },
+        "state=focus": {
+          "ring": "focus/100",
+          "ringWidth": "strong"
+        }
+      },
+      "rules": [
+        {
+          "id": "textbutton/label-verb",
+          "text": "Beschriftung beginnt mit einem Verb und nennt das Ergebnis.",
+          "why": "Man weiß vor dem Klick, was passiert.",
+          "check": null,
+          "herkunft": "Fundament-Regel, für ZDS noch zu bestätigen"
+        }
+      ],
+      "a11y": "Als <button> umsetzen. Die Variante On Image des ZDS ist in der Probe nicht übertragen.",
+      "do": [
+        "„Merken“",
+        "„Teilen“"
+      ],
+      "dont": [
+        "Text-Button als Hauptaktion einer Seite"
       ]
     }
   ],
@@ -772,6 +1014,10 @@ const SPEC = {
   ],
   "migrations": [],
   "changelog": [
+    {
+      "version": "0.2.0",
+      "text": "Input und Text-Button aufgenommen."
+    },
     {
       "version": "0.1.0",
       "text": "Probe mit Button, Checkbox und Toggle aus dem ZDS."
@@ -1145,6 +1391,7 @@ async function buildLink(page) {
     const st = Object.assign({}, style('Link', 'state=default'), style('Link', `state=${state}`));
     const c = newComponent(page, `state=${state}`);
     stack(c, 'HORIZONTAL'); radius(c, 'sm'); c.clipsContent = false;
+    bind(c, 'paddingTop', 'space/xs'); bind(c, 'paddingBottom', 'space/xs'); // Klickfläche wie im Code
     const t = await text('Alle Rechnungen ansehen', 'body/md', st.fg, 'label'); t.textDecoration = 'UNDERLINE'; c.appendChild(t);
     if (state === 'focus') focusRing(c, 'md', st);
     comps.push(c);

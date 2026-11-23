@@ -13,10 +13,14 @@
   --z-ds-color-accent-70: #880d07;
   --z-ds-color-focus-100: #005fcc;
   --z-ds-color-general-white-100: #ffffff;
+  --z-ds-color-text-55: #69696c;
+  --z-ds-color-error-70: #bf4040;
   --z-ds-space-2: 2px;
   --z-ds-space-4: 4px;
+  --z-ds-space-6: 6px;
   --z-ds-space-8: 8px;
   --z-ds-space-10: 10px;
+  --z-ds-space-12: 12px;
   --z-ds-space-16: 16px;
   --z-ds-space-24: 24px;
   --z-ds-space-32: 32px;
@@ -31,6 +35,7 @@
   --z-ds-size-toggle-thumb: 12px;
   --z-ds-size-touch-target: 44px;
   --z-ds-size-panel: 360px;
+  --z-ds-size-input: 292px;
   --z-ds-text-display: 700 28px/32px "Tablet Gothic", TabletGothic, system-ui, sans-serif;
   --z-ds-text-heading-lg: 700 20px/24px "Tablet Gothic", TabletGothic, system-ui, sans-serif;
   --z-ds-text-heading-md: 700 16px/20px "Tablet Gothic", TabletGothic, system-ui, sans-serif;
@@ -54,6 +59,8 @@
     --z-ds-color-accent-70: #880d07;
     --z-ds-color-focus-100: #54a3fe;
     --z-ds-color-general-white-100: #ffffff;
+    --z-ds-color-text-55: #999999;
+    --z-ds-color-error-70: #f13638;
   }
 }
 :root[data-theme="dark"], [data-theme="dark"] {
@@ -69,6 +76,8 @@
   --z-ds-color-accent-70: #880d07;
   --z-ds-color-focus-100: #54a3fe;
   --z-ds-color-general-white-100: #ffffff;
+  --z-ds-color-text-55: #999999;
+  --z-ds-color-error-70: #f13638;
 }
 [data-theme="light"] {
   --z-ds-color-background-0: #ffffff;
@@ -83,4 +92,6 @@
   --z-ds-color-accent-70: #880d07;
   --z-ds-color-focus-100: #005fcc;
   --z-ds-color-general-white-100: #ffffff;
+  --z-ds-color-text-55: #69696c;
+  --z-ds-color-error-70: #bf4040;
 }

@@ -8,6 +8,10 @@
       "$value": "{dimension.4}",
       "$description": "Feinabstand."
     },
+    "6": {
+      "$value": "{dimension.6}",
+      "$description": "Innenabstand des schmalen Text-Buttons vertikal (--z-ds-space-6)."
+    },
     "8": {
       "$value": "{dimension.8}",
       "$description": "Abstand zwischen Bedienelement und Beschriftung."
@@ -15,6 +19,10 @@
     "10": {
       "$value": "{dimension.10}",
       "$description": "Innenabstand Button vertikal (--z-ds-space-10)."
+    },
+    "12": {
+      "$value": "{dimension.12}",
+      "$description": "Innenabstand des Inputs horizontal (--z-ds-space-s)."
     },
     "16": {
       "$value": "{dimension.16}",
@@ -84,6 +92,10 @@
     "panel": {
       "$value": "{dimension.360}",
       "$description": "Höchstbreite schmaler Module (Annahme der Probe)."
+    },
+    "input": {
+      "$value": "{dimension.292}",
+      "$description": "Vorschaubreite des Inputs laut ZDS; im Layout füllt er seinen Container."
     }
   }
 }

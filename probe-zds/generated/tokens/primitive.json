@@ -133,6 +133,28 @@
           ],
           "hex": "#ffffff"
         }
+      },
+      "text-55": {
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.4118,
+            0.4118,
+            0.4235
+          ],
+          "hex": "#69696c"
+        }
+      },
+      "error-70": {
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.749,
+            0.251,
+            0.251
+          ],
+          "hex": "#bf4040"
+        }
       }
     },
     "dark": {
@@ -267,6 +289,28 @@
           ],
           "hex": "#ffffff"
         }
+      },
+      "text-55": {
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.6,
+            0.6,
+            0.6
+          ],
+          "hex": "#999999"
+        }
+      },
+      "error-70": {
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9451,
+            0.2118,
+            0.2196
+          ],
+          "hex": "#f13638"
+        }
       }
     }
   },
@@ -292,6 +336,12 @@
     "4": {
       "$value": {
         "value": 4,
+        "unit": "px"
+      }
+    },
+    "6": {
+      "$value": {
+        "value": 6,
         "unit": "px"
       }
     },
@@ -352,6 +402,12 @@
     "48": {
       "$value": {
         "value": 48,
+        "unit": "px"
+      }
+    },
+    "292": {
+      "$value": {
+        "value": 292,
         "unit": "px"
       }
     },

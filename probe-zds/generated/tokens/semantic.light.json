@@ -20,6 +20,10 @@
         "$value": "{color.light.text-40}",
         "$description": "Deaktivierter Text und deaktivierte angehakte Checkbox. Muss keinen Kontrast erfüllen."
       },
+      "55": {
+        "$value": "{color.light.text-55}",
+        "$description": "Platzhalter im Input. Rahmen des Inputs im Fokus."
+      },
       "70": {
         "$value": "{color.light.text-70}",
         "$description": "Sekundärer Text. Hover-Fläche des Primary-Buttons und der angehakten Checkbox."
@@ -59,6 +63,12 @@
       "white-100": {
         "$value": "{color.light.general-white-100}",
         "$description": "Festes Weiß: Beschriftung des Z+-Buttons, Haken der Checkbox, Knopf des Toggles."
+      }
+    },
+    "error": {
+      "70": {
+        "$value": "{color.light.error-70}",
+        "$description": "Rahmen des Inputs im Fehlerzustand; in der Probe auch der Fehlertext."
       }
     }
   }

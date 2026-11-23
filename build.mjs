@@ -126,16 +126,17 @@ if (failed.length) { for (const f of failed) console.error(`  ${f.mode}: ${f.fg}
 
 // 7) Web Components: Vertrag für die Elemente (ui/contract.generated.js) und Elementangaben in contracts.json
 // Attribute, die ein Element an sein inneres natives Element durchreicht (Umsetzungsdetail des Pakets)
-const PASSTHROUGH = { Link: ['href', 'target', 'rel'], Button: ['type', 'name', 'value'], TextField: ['name', 'type', 'autocomplete', 'inputmode', 'required'], Checkbox: ['name', 'value'], Switch: ['name'], Toggle: ['name'], SignInForm: [] };
+const PASSTHROUGH = { Link: ['href', 'target', 'rel'], Button: ['type', 'name', 'value'], TextField: ['name', 'type', 'autocomplete', 'inputmode', 'required'], Checkbox: ['name', 'value'], Switch: ['name'], SignInForm: [] };
 for (const c of spec.components) {
   const k = contracts.components[c.name];
   k.element = `${spec.cssPrefix}-${kebab(c.name)}`;
+  if (c.impl) k.impl = c.impl; // Umsetzung und Regeln einer anderen Komponente übernehmen (z. B. Toggle → Switch)
   k.attrs = Object.fromEntries(c.props.filter((p) => p.type !== 'instance').map((p) => [kebab(p.name), (p.type === 'variant' && !isBool(p)) || p.type === 'behavior' ? { type: 'enum', values: p.values, default: p.default } : p.type === 'variant' || p.type === 'boolean' ? { type: 'boolean', default: String(p.default) === 'true' } : { type: 'text', default: p.default }]));
-  k.passthrough = PASSTHROUGH[c.name] || [];
+  k.passthrough = PASSTHROUGH[c.impl || c.name] || [];
   k.slotNames = c.props.filter((p) => p.type === 'instance').map((p) => p.name);
 }
 writeFileSync('generated/contracts.json', JSON.stringify(contracts, null, 2) + '\n');
-const elements = Object.fromEntries(Object.entries(contracts.components).map(([name, k]) => [k.element, { name, status: k.status, deprecated: k.deprecated, attrs: k.attrs, passthrough: k.passthrough, slots: k.slotNames }]));
+const elements = Object.fromEntries(Object.entries(contracts.components).map(([name, k]) => [k.element, { name, ...(k.impl ? { impl: k.impl } : {}), status: k.status, deprecated: k.deprecated, attrs: k.attrs, passthrough: k.passthrough, slots: k.slotNames }]));
 writeFileSync('ui/contract.generated.js', `// Generiert aus specs/system.json – nicht von Hand bearbeiten.\nexport const VERSION = ${JSON.stringify(spec.version)};\nexport const PREFIX = ${JSON.stringify(spec.cssPrefix)};\nexport const ELEMENTS = ${JSON.stringify(elements, null, 2)};\n`);
 writeFileSync('ui/package.json', JSON.stringify({ name: spec.codePackage, version: spec.version, description: `${spec.name} Design System als Web Components`, type: 'module', main: './fundament.js', exports: { '.': './fundament.js', './tokens.css': './tokens.css', './components.css': './components.css', './contract': './contract.generated.js' }, files: ['fundament.js', 'contract.generated.js', 'tokens.css', 'components.css'], sideEffects: true }, null, 2) + '\n');
 console.log('gebaut: ui/contract.generated.js, ui/package.json,', Object.keys(elements).length, 'Elemente');

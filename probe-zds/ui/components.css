@@ -54,3 +54,27 @@ z-ds-button[fullwidth]:not([fullwidth="false"]) { display: block; }
 .z-ds-toggle__label { font: var(--z-ds-text-body-md); color: var(--z-ds-color-text-100); }
 .z-ds-toggle__helper-text { padding-left: calc(var(--z-ds-size-toggle-width) + var(--z-ds-space-8)); font: var(--z-ds-text-body-sm); color: var(--z-ds-color-text-70); }
 @media (prefers-reduced-motion: reduce) { .z-ds-toggle__track, .z-ds-toggle__thumb { transition: none; } }
+
+/* ---------- Input (z-input) ----------
+   [Probe] Im ZDS nur Feld mit Platzhalter und aria-label. Hier: sichtbare Beschriftung, Hilfs- und Fehlertext. */
+z-ds-input { display: block; }
+z-ds-text-button { display: inline-block; }
+.z-ds-input { display: flex; flex-direction: column; gap: var(--z-ds-space-4); max-width: var(--z-ds-size-input); }
+.z-ds-input__label { font: var(--z-ds-text-label-sm); color: var(--z-ds-color-text-100); }
+.z-ds-input__control { display: flex; align-items: center; gap: var(--z-ds-space-8); padding: 0 var(--z-ds-space-12); border: var(--z-ds-border-width-default) solid var(--z-ds-color-border-100); border-radius: var(--z-ds-radius-4); background-color: var(--z-ds-color-background-0); }
+.z-ds-input__input { flex: 1 1 0; min-width: 0; margin: 0; padding: var(--z-ds-space-10) 0; border: 0; outline: 0; background: transparent; font: var(--z-ds-text-body-md); color: var(--z-ds-color-text-100); }
+.z-ds-input__control:focus-within, .z-ds-input[data-state="focus"] .z-ds-input__control { border-color: var(--z-ds-color-text-55); }
+.z-ds-input__helper-text { font: var(--z-ds-text-body-sm); color: var(--z-ds-color-text-70); }
+.z-ds-input__error-text { font: var(--z-ds-text-body-sm); color: var(--z-ds-color-error-70); }
+.z-ds-input[data-state="error"] .z-ds-input__control { border-color: var(--z-ds-color-error-70); }
+.z-ds-input[data-state="disabled"] .z-ds-input__label, .z-ds-input[data-state="disabled"] .z-ds-input__input { color: var(--z-ds-color-text-40); }
+
+/* ---------- Text-Button (z-text-button) ---------- */
+.z-ds-text-button { display: inline-flex; align-items: center; gap: var(--z-ds-space-4); margin: 0; padding: var(--z-ds-space-8); border-width: 0; border-radius: var(--z-ds-radius-4); background-color: transparent; color: var(--z-ds-color-text-70); font: var(--z-ds-text-body-sm); white-space: nowrap; cursor: pointer; transition: background-color 200ms ease-out, color 200ms ease-out; }
+.z-ds-text-button[data-size="slim"] { padding-top: var(--z-ds-space-6); padding-bottom: var(--z-ds-space-6); }
+.z-ds-text-button[data-size="large"] { font: var(--z-ds-text-body-md); }
+.z-ds-text-button[data-bold] { font-weight: 700; }
+.z-ds-text-button:hover, .z-ds-text-button[data-state="hover"] { background-color: var(--z-ds-color-background-10); color: var(--z-ds-color-text-100); }
+.z-ds-text-button:focus-visible, .z-ds-text-button[data-state="focus"] { outline: var(--z-ds-border-width-strong) solid var(--z-ds-color-focus-100); }
+.z-ds-text-button:disabled { pointer-events: none; opacity: 0.5; }
+@media (prefers-reduced-motion: reduce) { .z-ds-text-button { transition: none; } }

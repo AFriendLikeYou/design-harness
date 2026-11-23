@@ -1,4 +1,4 @@
-# ZDS-Probe Design System 0.1.0
+# ZDS-Probe Design System 0.2.0
 
 > Komponenten und Tokens. Quelle: specs/system.json. Code-Paket: @zeit/zds-probe.
 
@@ -7,6 +7,8 @@
 - [Button](components/button.md): Löst eine Aktion aus.
 - [Checkbox](components/checkbox.md): Auswahl einer unabhängigen Option.
 - [Toggle](components/toggle.md): Schaltet eine Einstellung sofort ein oder aus.
+- [Input](components/input.md): Einzeilige Texteingabe.
+- [TextButton](components/text-button.md): Zurückhaltende Aktion ohne Fläche, etwa in Leisten und neben Inhalten.
 
 ## Tokens
 
