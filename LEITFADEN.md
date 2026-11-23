@@ -76,13 +76,13 @@ Jede Aussage hat genau einen Ort.
 
 ## Eine neue Komponente aufnehmen
 
-In dieser Reihenfolge. verify meldet, wenn ein Schritt fehlt.
+Der Entwurf beginnt in Figma. verify meldet, wenn ein Schritt fehlt.
 
-- **1 / Spec.** Zweck, Props mit Werten und Standard, styles je Variante, Regeln mit Warum, Barrierefreiheit, Do und Don't.
-- **2 / Bauen.** node build.mjs erzeugt Vertrag, Doku, Tokens. Der Build bricht ab, wenn ein Kontrastpaar durchfällt.
-- **3 / Umsetzen.** Element in ui/fundament.js, Styles in ui/components.css (nur Tokens aus dem Vertrag der Komponente), Builder im Plugin.
-- **4 / Prüfen.** node tooling/verify.mjs: Spec, Check, CLI-Test, Plugin, Verhalten im Browser, gerenderte Prüfung.
-- **5 / Figma.** Plugin in leerer Datei ausführen oder die Datei nachziehen, dann exportieren und abgleichen (Plugin „Fundament Export“, node tooling/figma-diff.mjs).
+- **1 / In Figma bauen.** Set mit Varianten, Properties mit den Namen aus dem Code, Farben und Maße an Variablen, Beschreibung nach dem Muster (Status, Zweck, Regeln mit ID, A11y).
+- **2 / Exportieren und abgleichen.** Plugin „Fundament Export“, dann node tooling/figma-diff.mjs --apply. Für eine neue Komponente legt der Abgleich ein Gerüst in der Spec an: Properties, Zweck, Regeln und A11y aus Figma.
+- **3 / Spec vervollständigen.** Was Figma nicht tragen kann: styles je Variante, das Warum jeder Regel, Checks, Do und Don’t. node cli/fundament.mjs lint zeigt jede Lücke.
+- **4 / Umsetzen.** Element in ui/fundament.js, Styles in ui/components.css. Erlaubt sind nur die Tokens aus dem Vertrag der Komponente.
+- **5 / Prüfen.** node tooling/verify.mjs: Figma-Stand gegen Spec, Check, Verhalten im Browser, gerenderte Prüfung.
 - **6 / Messen.** Eine Aufgabe, die die neue Komponente braucht, in evals/tasks.md ergänzen und einen Lauf machen.
 
 ## Was man lassen sollte

@@ -48,7 +48,14 @@ export function diff(snap, s = spec) {
   for (const f of snap.textStyles) { const w = WT.get(f[0]); if (!w) { add('Text-Style nur in Figma', f[0], `${f[2]}/${f[3]} ${f[1]}`, '', null); continue; } if (f[1] !== w[1] || f[2] !== w[2] || f[3] !== w[3]) add('Text-Style', f[0], `${f[2]}/${f[3]} ${f[1]}`, `${w[2]}/${w[3]} ${w[1]}`, (sp) => { const t = sp.textStyles.find((x) => x.name === f[0]); Object.assign(t, { weight: f[1], size: f[2], line: f[3] }); for (const [list, v] of [[sp.primitives.fontSize, f[2]], [sp.primitives.lineHeight, f[3]]]) if (!list.includes(v)) { list.push(v); list.sort((a, b) => a - b); } return true; }); }
   for (const w of want.textStyles) if (!snap.textStyles.some((f) => f[0] === w[0])) add('Text-Style fehlt in Figma', w[0], '', `${w[2]}/${w[3]} ${w[1]}`, null);
   const WC = new Map(want.components.map((c) => [c[0], c]));
-  for (const f of snap.components) { const w = WC.get(f[0]); if (!w) { add('Komponente nur in Figma', f[0], f[1].map((p) => p[0]).join(', '), '', null); continue; }
+  for (const f of snap.components) { const w = WC.get(f[0]); if (!w) { add('Komponente nur in Figma', f[0], f[1].map((p) => p[0]).join(', '), '', (sp) => {
+      // Gerüst aus Figma: Properties aus den Definitionen, Zweck, Regeln und A11y aus der Beschreibung nach dem Muster
+      const L = f[2].split('\n'); const line = (p) => (L.find((l) => l.startsWith(p)) || '').slice(p.length).trim(); const status = L[0].match(/^Status: (\w+) · v([\d.]+)/);
+      const rules = [...line('Regeln:').matchAll(/\s*(.+?) \[([\w/-]+)\]/g)].map((m) => ({ id: m[2], text: m[1].trim(), why: '', check: null }));
+      sp.components.push({ name: f[0], kind: 'component', status: status ? status[1] : 'beta', version: status ? status[2] : '0.1.0', purpose: status ? (L[1] || '') : '',
+        props: f[1].map((p) => p[1] === 'VARIANT' ? { name: p[0], type: 'variant', values: p[2].includes(p[3]) ? [p[3], ...p[2].filter((v) => v !== p[3])] : p[2], default: p[3] } : p[1] === 'TEXT' ? { name: p[0], type: 'text', default: p[2] } : p[1] === 'BOOLEAN' ? { name: p[0], type: 'boolean', default: p[2] } : { name: p[0], type: 'instance', default: 'Button' }),
+        rules, a11y: line('A11y:'), do: [], dont: [] });
+      return 'Gerüst angelegt. Es fehlen noch: styles je Variante, das Warum jeder Regel, Do und Don’t, die Umsetzung im Code. lint zeigt die Lücken'; }); continue; }
     const wp = new Map(w[1].map((p) => [p[0], p]));
     for (const p of f[1]) { const q = wp.get(p[0]); const where = `${f[0]}.${p[0]}`;
       if (!q) { add('Property nur in Figma', where, `${p[1]} ${JSON.stringify(p[2])}`, '', null); continue; }

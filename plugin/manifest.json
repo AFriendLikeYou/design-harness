@@ -1,9 +1,15 @@
 {
-  "name": "Fundament DS Generator",
-  "id": "fundament-ds-generator-example",
+  "name": "Fundament Start",
+  "id": "fundament-start",
   "api": "1.0.0",
   "main": "code.js",
-  "editorType": ["figma"],
+  "editorType": [
+    "figma"
+  ],
   "documentAccess": "dynamic-page",
-  "networkAccess": { "allowedDomains": ["none"] }
+  "networkAccess": {
+    "allowedDomains": [
+      "none"
+    ]
+  }
 }

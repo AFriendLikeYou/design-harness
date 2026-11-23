@@ -30,11 +30,13 @@ ui/                      Paket @fundament/ui
   examples/                Konto-Einstellungen und eine Seite mit allen Zuständen
 cli/fundament.mjs        lint (Spec), check (HTML/CSS/Svelte-Markup), migrate (Veraltetes ersetzen)
 mcp/server.mjs           MCP-Server über stdio, Eintrag in .mcp.json
-plugin/                  Figma-Plugin, das die Library in einer leeren Datei anlegt
+plugin/                  „Fundament Start“: legt in einer leeren Figma-Datei Variablen, Text-Styles und Seiten an
+plugin-export/           „Fundament Export“: liest den Stand einer Figma-Datei für den Abgleich aus
+specs/figma.snapshot.json letzter exportierter Stand aus Figma
 AGENTS.md                die Schleife für Agenten, ohne fest eingetragene Listen
 DESIGN.md, rubric.md     Grundsätze und Kritiker-Fragen für das, was kein Check sieht
 evals/                   Aufgaben, Läufe mit und ohne Harness, Auswertung
-tooling/                 verify.mjs (alles prüfen), Tests für CLI und Web Components, Plugin-Attrappe
+tooling/                 verify.mjs (alles prüfen), figma-diff.mjs (Abgleich), Tests für CLI, Web Components und das Start-Plugin
 .github/workflows/       CI-Gate
 ```
 
@@ -72,12 +74,12 @@ node evals/auswerten.mjs                     # Messläufe auswerten
 
 **Von Figma ins Repo (der normale Weg für Designer):** In Figma ändern, das Plugin `plugin-export/` ausführen, das Ergebnis als `specs/figma.snapshot.json` speichern, dann `node tooling/figma-diff.mjs`. Der Abgleich zeigt jede Abweichung als Vorschlag; `--apply` übernimmt die eindeutigen in die Spec.
 
-**Vom Repo nach Figma (neue Datei):**
+**Neue Datei beginnen:**
 
-Plugins → Entwicklung → Plugin aus Manifest importieren → `plugin/manifest.json`, in einer **leeren** Datei ausführen. Das Plugin bricht ab, wenn die Datei schon Variablen enthält.
+Plugins → Entwicklung → Plugin aus Manifest importieren → `plugin/manifest.json`, in einer **leeren** Datei ausführen. „Fundament Start“ legt Variablen, Text-Styles und die Seiten an und bricht ab, wenn die Datei schon Variablen enthält. Komponenten baut es nicht: Die entstehen in Figma und kommen über den Abgleich in die Spec.
 
 Bewusst manuell danach: Code Connect, Dev Resources, Library veröffentlichen.
 
 ## Eigene Marke
 
-Farben, Schrift, Namen und Komponenten in `specs/system.json` ändern, `node tooling/verify.mjs`, Plugin in einer neuen Datei ausführen. Neue Komponenten brauchen zusätzlich ihre Umsetzung in `ui/fundament.js`, `ui/components.css` und einen Builder im Plugin; `verify` meldet, wenn eines davon fehlt.
+Farben, Schrift, Namen und Komponenten in `specs/system.json` ändern, `node tooling/verify.mjs`, Plugin in einer neuen Datei ausführen. Neue Komponenten entstehen in Figma, kommen über den Abgleich als Gerüst in die Spec und brauchen ihre Umsetzung in `ui/fundament.js` und `ui/components.css`; `verify` meldet, wenn etwas fehlt.

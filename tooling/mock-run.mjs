@@ -1,4 +1,4 @@
-// Lässt plugin/code.js gegen eine Attrappe der Figma-API laufen und zählt, was entsteht.
+// Lässt plugin/code.js (Fundament Start) gegen eine Attrappe der Figma-API laufen: Variablen, Text-Styles, Seiten.
 // Findet Tippfehler, fehlende Variablen und Laufzeitfehler; ersetzt keinen Lauf in Figma.
 import { readFileSync } from 'node:fs';
 let id = 0; const warnings = []; let closed = null;
@@ -40,21 +40,16 @@ await new (Object.getPrototypeOf(async function () {}).constructor)('figma', cod
 await new Promise((r) => setTimeout(r, 200));
 console.warn = origWarn; console.log = origLog;
 const all = pages.flatMap((p) => p.findAll());
-const sets = all.filter((n) => n.type === 'COMPONENT_SET');
-const report = { meldung: closed, seiten: pages.map((p) => p.name), variablen: vars.length, textStyles: styles.length, sets: sets.map((s) => `${s.name}:${s.children.length}`), einzelkomponenten: all.filter((n) => n.type === 'COMPONENT' && n.parent.type !== 'COMPONENT_SET').map((n) => n.name), ungebundeneFarben: all.filter((n) => [...n.fills, ...n.strokes].some((p) => !p.boundVariables)).length, texteOhneStyle: all.filter((n) => n.type === 'TEXT' && !n.textStyleId && !(function up(x) { while (x) { if (x.type === 'INSTANCE') return true; x = x.parent; } })(n.parent)).length, hinweise: warnings };
-// Abgleich mit der Spec: jede Komponente, jeder Variantenwert, jede Property muss entstanden sein
 const spec = JSON.parse(readFileSync(new URL('../specs/system.json', import.meta.url), 'utf8'));
 const abweichungen = [];
-for (const c of spec.components) {
-  const node = all.find((n) => (n.type === 'COMPONENT_SET' || (n.type === 'COMPONENT' && n.parent.type !== 'COMPONENT_SET')) && n.name === c.name);
-  if (!node) { abweichungen.push(`${c.name} fehlt`); continue; }
-  const names = node.children.map((x) => x.name).join(' | '); const defs = Object.keys(node.componentPropertyDefinitions).map((k) => k.split('#')[0]);
-  for (const p of c.props) { if (p.type === 'variant') { for (const v of p.values) if (!names.includes(`${p.name}=${v}`)) abweichungen.push(`${c.name}: Variante ${p.name}=${v} fehlt`); } else if (p.type !== 'behavior' && p.type !== 'codeText' && !defs.includes(p.name)) abweichungen.push(`${c.name}: Property ${p.name} fehlt`); }
-  if (!node.description.includes(`v${c.version}`)) abweichungen.push(`${c.name}: Beschreibung ohne Version ${c.version}`);
-}
 const semCount = Object.values(spec.semantic).reduce((n, g) => n + Object.keys(g).length, 0); const primCount = Object.values(spec.primitives.color).reduce((n, g) => n + Object.keys(g).length, 0) + spec.primitives.dimension.length + spec.primitives.fontSize.length + spec.primitives.lineHeight.length;
 if (vars.length !== semCount + primCount) abweichungen.push(`Variablen: ${vars.length} statt ${semCount + primCount}`);
 if (styles.length !== spec.textStyles.length) abweichungen.push(`Text-Styles: ${styles.length} statt ${spec.textStyles.length}`);
-report.abweichungenZurSpec = abweichungen; warnings.push(...abweichungen);
+for (const v of vars) if (v.col.name === 'semantic' && !v.syntax) abweichungen.push(`${v.name} ohne Code-Syntax`);
+const want = spec.components.filter((c) => c.kind === 'component' && c.status !== 'deprecated').length + 5;
+if (pages.length !== want) abweichungen.push(`Seiten: ${pages.length} statt ${want}`);
+if (!pages[0].findOne((n) => n.name === 'readme')) abweichungen.push('Seite „Lies mich“ ist leer');
+const report = { meldung: closed, seiten: pages.length, variablen: vars.length, textStyles: styles.length, ungebundeneFarben: all.filter((n) => [...n.fills, ...n.strokes].some((p) => !p.boundVariables)).length, texteOhneStyle: all.filter((n) => n.type === 'TEXT' && !n.textStyleId).length, hinweise: warnings, abweichungenZurSpec: abweichungen };
+warnings.push(...abweichungen);
 console.log(JSON.stringify(report, null, 2));
 process.exit(warnings.length || !closed || closed.startsWith('Fehler') ? 1 : 0);
