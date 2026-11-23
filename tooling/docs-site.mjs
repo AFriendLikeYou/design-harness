@@ -52,7 +52,7 @@ ${c.do.length || c.dont.length ? `<div class="dodont"><div class="do"><h3>So</h3
   nav strong { margin: ${v('space-lg')} 0 ${v('space-xs')}; font: ${v('text-label-sm')}; color: ${v('color-text-secondary')}; } nav strong:first-child { margin-top: 0; }
   main { display: flex; flex-direction: column; gap: ${v('space-2xl')}; min-width: 0; }
   h1 { font: ${v('text-display')}; margin: 0; } h2 { font: ${v('text-heading-lg')}; margin: 0; } h3 { font: ${v('text-label-md')}; margin: ${v('space-xl')} 0 ${v('space-sm')}; }
-  p, ul { margin: 0; } ul { padding-left: ${v('space-xl')}; } li { margin-bottom: ${v('space-xs')}; }
+  p, ul { margin: 0; } p, li, strong, figcaption { overflow-wrap: anywhere; } .guide-item, .compare > div, .rule { min-width: 0; } ul { padding-left: ${v('space-xl')}; } li { margin-bottom: ${v('space-xs')}; }
   .lead { color: ${v('color-text-secondary')}; margin-top: ${v('space-sm')}; max-width: 68ch; }
   .meta { font: ${v('text-caption')}; color: ${v('color-text-secondary')}; margin-top: ${v('space-2xs')}; }
   .note { margin-top: ${v('space-sm')}; color: ${v('color-feedback-warning-fg')}; }
