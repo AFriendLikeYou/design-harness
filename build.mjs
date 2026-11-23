@@ -160,6 +160,9 @@ try {
   const g = JSON.parse(readFileSync('specs/leitfaden.json', 'utf8')); const L = ['<!-- Generiert aus specs/leitfaden.json – nicht von Hand bearbeiten. -->', '# ' + g.title, '', g.intro, ''];
   for (const s of g.sections) {
     L.push('## ' + s.title, ''); if (s.intro) L.push(s.intro, '');
+    if (s.pipeline) L.push(s.pipeline.map(([t, x]) => `**${t}** (${x})`).join(' → '), '');
+    (s.steps || s.checks || []).forEach(([t, x, code], i) => { L.push(`${i + 1}. **${t}.** ${x}${code ? ' `' + code.split('\n').join('`, `') + '`' : ''}`); }); if (s.steps || s.checks) L.push('');
+    if (s.signals) { L.push(`**${s.signalsTitle}**`, ''); for (const [, t, x] of s.signals) L.push(`- **${t}:** ${x}`); L.push(''); }
     (s.guards || []).forEach(([t, x, code], i) => { L.push(`${i + 1}. **${t}.** ${x}`); if (code) L.push('', '   ```', ...code.split('\n').map((l) => '   ' + l), '   ```', ''); }); if (s.note) L.push('', `> **${s.note[0]}.** ${s.note[1]}`, '');
     for (const h of s.homes || []) L.push(`- **${h.where}: ${h.what}.** ${h.list.join('; ')}. Datei: \`${h.file}\``); if (s.out) L.push('', `${s.out.title}: ${s.out.list.join(', ')}.`, '');
     for (const f of s.flows || []) { L.push('### ' + f.title, '', f.when || '', ''); f.steps.forEach(([who, t, d], i) => L.push(`${i + 1}. **${t}** (${who}): ${d}`)); L.push(''); if (f.loop) L.push('Wenn es hakt: ' + f.loop, ''); if (f.result) L.push('Am Ende: ' + f.result, ''); }

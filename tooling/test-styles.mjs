@@ -32,7 +32,7 @@ for (const theme of ['light', 'dark']) { document.documentElement.dataset.theme 
       border: ['Top', 'Left'].map((s) => parseFloat(cs['border' + s + 'Width']) > 0 && !clear(cs['border' + s + 'Color']) ? cs['border' + s + 'Color'] : null).find(Boolean) || null,
       ring: cs.outlineStyle !== 'none' && parseFloat(cs.outlineWidth) > 0 ? cs.outlineColor : null,
       body: textOf(q('.' + c.tag + '__description', '.' + c.tag + '__body')), helper: textOf(isErr ? q('.' + c.tag + '__error-text', '.' + c.tag + '__helper-text') : q('.' + c.tag + '__helper-text', '.' + c.tag + '__error-text')),
-      mark: mark && mark.content !== 'none' ? mark.borderBottomColor : null, thumb: (() => { const t = q('.' + c.tag + '__thumb'); return t ? getComputedStyle(t).backgroundColor : null; })(),
+      mark: mark && mark.content !== 'none' ? (parseFloat(mark.borderBottomWidth) > 0 ? mark.borderBottomColor : mark.backgroundColor) : null, thumb: (() => { const t = q('.' + c.tag + '__thumb'); return t ? getComputedStyle(t).backgroundColor : null; })(),
       borderWidth: sideOf ? cs['border' + sideOf + 'Width'] : null, ringWidth: cs.outlineStyle !== 'none' && parseFloat(cs.outlineWidth) > 0 ? cs.outlineWidth : null };
     // Fläche, Rahmen und Ring: Fehlt die Rolle in Figma, darf der Code sie auch nicht tragen. Die übrigen Rollen werden gemessen, wenn Figma sie liefert.
     for (const role of ['bg', 'fg', 'body', 'helper', 'border', 'mark', 'thumb', 'ring', 'borderWidth', 'ringWidth']) { const isW = /Width$/.test(role); const t = c.want[role]; const always = ['bg', 'border', 'ring'].includes(role); if (!t && !always) continue;

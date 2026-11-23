@@ -1,18 +1,67 @@
 <!-- Generiert aus specs/leitfaden.json – nicht von Hand bearbeiten. -->
 # So funktioniert es
 
-Wie Fundament aufgebaut ist und wie man es ändert, ohne dass Design und Code auseinanderlaufen.
+Design entsteht in Figma, Code im Repo. Diese Seite zeigt, wie beides zusammenkommt und woran man erkennt, dass der Code so aussieht wie die Vorlage.
 
-## Das Wichtigste in einer Minute
+## Das Ganze in einem Bild
 
-- **Jedes Wissen hat genau einen Ort.** Wie etwas aussieht, steht in Figma. Was es kann, steht im Code. Warum eine Regel gilt, steht in der Regeldatei. Niemand schreibt etwas doppelt.
-- **Ein Befehl prüft, ob alles zusammenpasst.** node tooling/verify.mjs vergleicht Figma, Code und Regeln. Weicht eine Seite ab, ist der Stand rot.
-- **Agenten lesen, statt zu raten.** Ein KI-Agent bekommt eine erzeugte Liste von allem, was es gibt. Er prüft seine Arbeit selbst und behebt, was der Check meldet.
-- **Lücken werden gemeldet, nicht überbaut.** Fehlt ein Baustein oder ein Wert, baut ihn niemand heimlich nach. Die Lücke kommt in den Bericht. So wächst das System an der richtigen Stelle.
+Ein Klick bringt den Stand aus Figma ins Repo. Dort wird nachgemessen.
 
-## Warum Agenten damit genau bauen
+**Figma** (Design zeichnet) → **Plugin** (ein Klick) → **Repo** (Code und Regeln) → **Prüfung** (misst nach) → **Ergebnis** (Bausteine, Doku, Seiten)
 
-Ein KI-Agent rät gern: Er erfindet Namen, nimmt irgendeine Farbe und schätzt Abstände. Sieben Dinge nehmen ihm das Raten ab.
+
+## Ich gestalte
+
+Du arbeitest nur in Figma. Ein Terminal brauchst du nicht.
+
+1. **In Figma bauen.** Farben und Abstände an Variablen binden. Properties so nennen, wie sie im Code heißen sollen.
+2. **Plugin starten.** „Fundament Export“ liest die Datei und prüft sie gegen den Code. In Figma ändert es nichts.
+3. **Übernehmen.** Ein Klick legt den Stand ins Repo.
+
+**Was das Plugin dir sagt**
+
+- **Passt:** Figma und Code stimmen überein.
+- **Im Code nachzuziehen:** Kein Fehler von dir. Die Entwicklung setzt es um. Bis dahin gilt der Baustein als Entwurf.
+- **In Figma beheben:** Zum Beispiel ein zu schwacher Kontrast. „Zeigen“ springt zur Stelle.
+
+
+> **Voraussetzung heute.** Auf dem Rechner läuft der lokale Server (node tooling/serve.mjs). Geplant ist, dass das Plugin stattdessen direkt einen Pull Request auf GitHub anlegt.
+
+
+## Ich entwickle
+
+Du setzt um, was der Abgleich meldet.
+
+1. **Abgleich lesen.** Zeigt, was in Figma neu oder anders ist, und sagt, was zu tun ist. `node tooling/figma-diff.mjs`
+2. **Umsetzen.** Attribute, Verhalten, Aussehen. Nur mit Tokens, nie mit festen Werten. `ui/elements.js`, `ui/fundament.js`, `ui/components.css`
+3. **Prüfen.** Grün heißt: Der Code sieht aus wie die Vorlage. `node tooling/verify.mjs`
+
+
+> **Und die Regeln?.** Wofür ein Baustein da ist und was für ihn gilt, steht in specs/rules.json. Jede Regel ist ein Satz mit Begründung.
+
+
+## So sieht der Code aus wie die Vorlage
+
+Drei Messungen. Jede läuft von selbst, bei jeder Änderung.
+
+1. **Werte werden nicht abgetippt.** Farben, Abstände, Radien und Schrift kommen aus Figma direkt ins CSS.
+2. **Jeder Baustein wird nachgemessen.** Ein Programm öffnet jede Variante im Browser und vergleicht Farben und Rahmenstärken mit Figma, hell und dunkel.
+3. **Jede Seite wird geprüft.** Erfundene Bausteine, feste Farbwerte und feste Abstände fallen auf. Am fertigen Bild werden Handybreite, Kontrast und Klickflächen gemessen.
+
+
+> **Was noch nicht gemessen wird.** Welchen Abstand, Radius oder Textstil ein Baustein an welcher Stelle nutzt. Die Werte selbst kommen aus Figma, aber ein falsch gewählter Innenabstand fiele heute nicht von selbst auf.
+
+
+## Wenn ein KI-Agent baut
+
+Ein Agent arbeitet in einer festen Schleife. Vier Dinge nehmen ihm dabei das Raten ab.
+
+1. **Lesen.** Die erzeugte Liste der Bausteine, Werte und Regeln laden.
+2. **Bauen.** Nur mit Bausteinen des Systems. Eigenes CSS nur fürs Layout.
+3. **Prüfen.** Den Check laufen lassen und jeden Befund beheben. `node cli/fundament.mjs check <Pfad>`
+4. **Am Bild messen.** Handybreite, Kontrast, Klickflächen, Namen. `node cli/fundament.mjs audit <Pfad>`
+5. **Höchstens drei Runden.** Danach berichten, was offen ist, statt weiter zu raten.
+6. **Lücken melden.** Fehlt ein Baustein, nicht nachbauen, sondern nennen.
 
 1. **Er bekommt eine Liste, keine Beschreibung.** Für jeden Baustein steht fest, wie er heißt, welche Einstellungen er hat und welche Werte erlaubt sind. Die Liste wird erzeugt. Niemand tippt sie ab, also veraltet sie nicht.
 
@@ -24,50 +73,22 @@ Ein KI-Agent rät gern: Er erfindet Namen, nimmt irgendeine Farbe und schätzt A
      label     Text
    ```
 
-2. **Was nicht auf der Liste steht, fällt auf.** Schreibt der Agent etwas Erfundenes, sagt ihm der Check, was falsch ist und was stattdessen gilt. Er muss nicht raten, wie er es behebt.
+2. **Der Check sagt, was falsch ist und was gilt.** Erfundene Bausteine, falsche Werte, feste Farben und feste Abstände fallen sofort auf. Jede Meldung nennt die Behebung.
 
    ```
    <fd-button variant="blue"> ist kein gültiger Wert.
        Behebung: Erlaubt: primary, secondary, ghost, danger (Standard: primary).
    
-   <fd-tooltip> gibt es nicht.
-       Behebung: Keine Komponenten erfinden; fehlt etwas, die Lücke melden.
-   ```
-
-3. **Farben und Abstände gibt es nur als Namen.** Der Agent schreibt nie einen Farbwert oder eine Pixelzahl. Er schreibt den Namen. Der Wert dahinter kommt aus Figma. Ändert das Design den Wert, ändert sich jede Seite mit.
-
-   ```
    Fester Farbwert #1f4fd8.
        Behebung: Durch ein semantisches Token ersetzen, var(--fd-color-…).
-   
-   Fester Abstand 13px in „margin“.
-       Behebung: var(--fd-space-…) verwenden.
    ```
 
-4. **Das Aussehen der Bausteine wird nachgemessen.** Ein Programm öffnet jeden Baustein in jeder Variante im Browser und vergleicht Farben und Rahmenstärken mit Figma, hell und dunkel. Weicht eine ab, ist der Stand rot. So kann der Code nicht unbemerkt vom Design abdriften.
-
-   ```
-   Switch [checked=false] / Schieber (dunkel)
-       Code:  rgb(255, 255, 255)
-       Figma: action/danger = rgb(192, 43, 43)
-   ```
-
-5. **Die fertige Seite wird angesehen.** Zum Schluss misst ein Programm die Seite so, wie Menschen sie sehen: Passt sie aufs Handy? Ist der Text lesbar? Sind die Klickflächen groß genug? Hat jedes Bedienelement einen Namen?
-
-   ```
-   node cli/fundament.mjs audit <Pfad>
-   ```
-
-6. **Regeln haben einen Grund.** Jede Regel ist ein kurzer Satz mit Begründung. Die Begründung hilft dem Agenten in Fällen, an die niemand gedacht hat.
+3. **Regeln haben einen Grund.** Jede Regel ist ein kurzer Satz mit Begründung. Die Begründung hilft dem Agenten in Fällen, an die niemand gedacht hat.
 
    ```
    Regel:  Höchstens ein primärer Button pro Ansicht.
    Warum:  Mehrere primäre Aktionen konkurrieren um Aufmerksamkeit.
    ```
-
-7. **Fehlt etwas, sagt er es.** Gibt es keinen passenden Baustein, baut der Agent keinen eigenen. Er nennt die Lücke im Bericht. Der Chip ist so entstanden: Die Regel für Badges verwies auf ihn, bevor es ihn gab.
-
-> **Was „genau“ hier heißt.** Gegen Figma gemessen werden heute die Farben und Rahmenstärken jeder Variante. Abstände, Radien und Schrift kommen aus denselben Tokens wie in Figma. Welches Token ein Baustein an welcher Stelle nutzt, wird aber noch nicht verglichen. Ein falscher Innenabstand in einem Baustein fiele also nicht von selbst auf.
 
 
 ## Was wohin gehört
@@ -81,9 +102,9 @@ Drei Orte. Jeder führt bei dem, was nur er wissen kann.
 Der Build setzt alles zusammen: CSS mit allen Tokens, Liste für Agenten, Diese Doku, HTML-Fassung.
 
 
-## Abläufe
+## Alle Abläufe Schritt für Schritt
 
-Vier Wege, die im Alltag vorkommen. Von oben nach unten lesen. Die Farbe zeigt, wer den Schritt macht.
+Von oben nach unten lesen. Die Farbe zeigt, wer den Schritt macht.
 
 ### Ein Design ändert sich
 
@@ -166,7 +187,7 @@ So steht eine Regel in specs/rules.json. Lässt sie sich nicht automatisch prüf
 | Der Fokus muss gut sichtbar sein. | Hover und Fokus kommen aus der Komponente, nie selbst gestaltet. |
 | Fehlt eine Komponente, improvisiere passend zum Stil. | Fehlt eine Komponente, nicht nachbauen. Die Lücke im Bericht nennen. |
 
-## Zwei Wege im Code
+## Ohne Web Components: nur HTML und CSS
 
 Die Bausteine gibt es als Web Components und als reines HTML mit CSS. Beide nutzen dasselbe CSS und dieselben Tokens. Die HTML-Fassung wird aus den Web Components erzeugt und im Browser nachgemessen: Sie sieht gleich aus.
 

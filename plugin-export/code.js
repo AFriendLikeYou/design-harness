@@ -27,7 +27,7 @@ const look = (c) => { const find = (...names) => { for (const nm of names) { con
   const surface = find('input', 'box', 'track') || c; const r = {}; const set = (k, v) => { if (v) r[k] = v; };
   set('bg', bound(surface.fills)); if (surface.strokes && surface.strokes.length) { set('border', bound(surface.strokes)); set('borderWidth', weight(surface)); }
   const fg = find('value', 'label', 'title'); if (fg) set('fg', bound(fg.fills)); const body = find('body', 'description'); if (body) set('body', bound(body.fills));
-  const helper = find('helperText', 'errorText'); if (helper) set('helper', bound(helper.fills)); const mark = find('check'); if (mark) set('mark', bound(mark.strokes)); const thumb = find('thumb'); if (thumb) set('thumb', bound(thumb.fills));
+  const helper = find('helperText', 'errorText'); if (helper) set('helper', bound(helper.fills)); const mark = find('check'); if (mark) set('mark', bound(mark.strokes) || bound(mark.fills)); // Haken ist gezeichnet (Strich), der Punkt im Radio gefüllt const thumb = find('thumb'); if (thumb) set('thumb', bound(thumb.fills));
   const ring = find('focusRing'); if (ring) { set('ring', bound(ring.strokes)); set('ringWidth', weight(ring)); }
   return Object.fromEntries(Object.keys(r).sort().map((k) => [k, r[k]])); };
 const styles = [];

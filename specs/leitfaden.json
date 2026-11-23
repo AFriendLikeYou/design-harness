@@ -1,33 +1,141 @@
 {
  "title": "So funktioniert es",
- "intro": "Wie Fundament aufgebaut ist und wie man es ändert, ohne dass Design und Code auseinanderlaufen.",
+ "intro": "Design entsteht in Figma, Code im Repo. Diese Seite zeigt, wie beides zusammenkommt und woran man erkennt, dass der Code so aussieht wie die Vorlage.",
  "sections": [
   {
-   "id": "kurz",
-   "title": "Das Wichtigste in einer Minute",
-   "items": [
+   "id": "bild",
+   "title": "Das Ganze in einem Bild",
+   "intro": "Ein Klick bringt den Stand aus Figma ins Repo. Dort wird nachgemessen.",
+   "pipeline": [
     [
-     "Jedes Wissen hat genau einen Ort",
-     "Wie etwas aussieht, steht in Figma. Was es kann, steht im Code. Warum eine Regel gilt, steht in der Regeldatei. Niemand schreibt etwas doppelt."
+     "Figma",
+     "Design zeichnet",
+     "Design"
     ],
     [
-     "Ein Befehl prüft, ob alles zusammenpasst",
-     "node tooling/verify.mjs vergleicht Figma, Code und Regeln. Weicht eine Seite ab, ist der Stand rot."
+     "Plugin",
+     "ein Klick",
+     "Design"
     ],
     [
-     "Agenten lesen, statt zu raten",
-     "Ein KI-Agent bekommt eine erzeugte Liste von allem, was es gibt. Er prüft seine Arbeit selbst und behebt, was der Check meldet."
+     "Repo",
+     "Code und Regeln",
+     "Entwicklung"
     ],
     [
-     "Lücken werden gemeldet, nicht überbaut",
-     "Fehlt ein Baustein oder ein Wert, baut ihn niemand heimlich nach. Die Lücke kommt in den Bericht. So wächst das System an der richtigen Stelle."
+     "Prüfung",
+     "misst nach",
+     "Automatisch"
+    ],
+    [
+     "Ergebnis",
+     "Bausteine, Doku, Seiten",
+     "Automatisch"
     ]
    ]
   },
   {
+   "id": "design",
+   "title": "Ich gestalte",
+   "intro": "Du arbeitest nur in Figma. Ein Terminal brauchst du nicht.",
+   "steps": [
+    [
+     "In Figma bauen",
+     "Farben und Abstände an Variablen binden. Properties so nennen, wie sie im Code heißen sollen."
+    ],
+    [
+     "Plugin starten",
+     "„Fundament Export“ liest die Datei und prüft sie gegen den Code. In Figma ändert es nichts."
+    ],
+    [
+     "Übernehmen",
+     "Ein Klick legt den Stand ins Repo."
+    ]
+   ],
+   "signalsTitle": "Was das Plugin dir sagt",
+   "signals": [
+    [
+     "success",
+     "Passt",
+     "Figma und Code stimmen überein."
+    ],
+    [
+     "warning",
+     "Im Code nachzuziehen",
+     "Kein Fehler von dir. Die Entwicklung setzt es um. Bis dahin gilt der Baustein als Entwurf."
+    ],
+    [
+     "danger",
+     "In Figma beheben",
+     "Zum Beispiel ein zu schwacher Kontrast. „Zeigen“ springt zur Stelle."
+    ]
+   ],
+   "note": [
+    "Voraussetzung heute",
+    "Auf dem Rechner läuft der lokale Server (node tooling/serve.mjs). Geplant ist, dass das Plugin stattdessen direkt einen Pull Request auf GitHub anlegt."
+   ]
+  },
+  {
+   "id": "dev",
+   "title": "Ich entwickle",
+   "intro": "Du setzt um, was der Abgleich meldet.",
+   "steps": [
+    [
+     "Abgleich lesen",
+     "Zeigt, was in Figma neu oder anders ist, und sagt, was zu tun ist.",
+     "node tooling/figma-diff.mjs"
+    ],
+    [
+     "Umsetzen",
+     "Attribute, Verhalten, Aussehen. Nur mit Tokens, nie mit festen Werten.",
+     "ui/elements.js\nui/fundament.js\nui/components.css"
+    ],
+    [
+     "Prüfen",
+     "Grün heißt: Der Code sieht aus wie die Vorlage.",
+     "node tooling/verify.mjs"
+    ]
+   ],
+   "note": [
+    "Und die Regeln?",
+    "Wofür ein Baustein da ist und was für ihn gilt, steht in specs/rules.json. Jede Regel ist ein Satz mit Begründung."
+   ]
+  },
+  {
+   "id": "gleich",
+   "title": "So sieht der Code aus wie die Vorlage",
+   "intro": "Drei Messungen. Jede läuft von selbst, bei jeder Änderung.",
+   "checks": [
+    [
+     "Werte werden nicht abgetippt",
+     "Farben, Abstände, Radien und Schrift kommen aus Figma direkt ins CSS."
+    ],
+    [
+     "Jeder Baustein wird nachgemessen",
+     "Ein Programm öffnet jede Variante im Browser und vergleicht Farben und Rahmenstärken mit Figma, hell und dunkel."
+    ],
+    [
+     "Jede Seite wird geprüft",
+     "Erfundene Bausteine, feste Farbwerte und feste Abstände fallen auf. Am fertigen Bild werden Handybreite, Kontrast und Klickflächen gemessen."
+    ]
+   ],
+   "proof": {
+    "component": "Button",
+    "variants": [
+     "variant=primary, size=md, disabled=false, state=default",
+     "variant=secondary, size=md, disabled=false, state=default",
+     "variant=danger, size=md, disabled=false, state=default"
+    ]
+   },
+   "note": [
+    "Was noch nicht gemessen wird",
+    "Welchen Abstand, Radius oder Textstil ein Baustein an welcher Stelle nutzt. Die Werte selbst kommen aus Figma, aber ein falsch gewählter Innenabstand fiele heute nicht von selbst auf."
+   ]
+  },
+  {
    "id": "agenten",
-   "title": "Warum Agenten damit genau bauen",
-   "intro": "Ein KI-Agent rät gern: Er erfindet Namen, nimmt irgendeine Farbe und schätzt Abstände. Sieben Dinge nehmen ihm das Raten ab.",
+   "title": "Wenn ein KI-Agent baut",
+   "intro": "Ein Agent arbeitet in einer festen Schleife. Vier Dinge nehmen ihm dabei das Raten ab.",
    "guards": [
     [
      "Er bekommt eine Liste, keine Beschreibung",
@@ -35,39 +143,43 @@
      "fd-button\n  variant   primary | secondary | ghost | danger\n  size      md | sm\n  disabled  ja | nein\n  label     Text"
     ],
     [
-     "Was nicht auf der Liste steht, fällt auf",
-     "Schreibt der Agent etwas Erfundenes, sagt ihm der Check, was falsch ist und was stattdessen gilt. Er muss nicht raten, wie er es behebt.",
-     "<fd-button variant=\"blue\"> ist kein gültiger Wert.\n    Behebung: Erlaubt: primary, secondary, ghost, danger (Standard: primary).\n\n<fd-tooltip> gibt es nicht.\n    Behebung: Keine Komponenten erfinden; fehlt etwas, die Lücke melden."
-    ],
-    [
-     "Farben und Abstände gibt es nur als Namen",
-     "Der Agent schreibt nie einen Farbwert oder eine Pixelzahl. Er schreibt den Namen. Der Wert dahinter kommt aus Figma. Ändert das Design den Wert, ändert sich jede Seite mit.",
-     "Fester Farbwert #1f4fd8.\n    Behebung: Durch ein semantisches Token ersetzen, var(--fd-color-…).\n\nFester Abstand 13px in „margin“.\n    Behebung: var(--fd-space-…) verwenden."
-    ],
-    [
-     "Das Aussehen der Bausteine wird nachgemessen",
-     "Ein Programm öffnet jeden Baustein in jeder Variante im Browser und vergleicht Farben und Rahmenstärken mit Figma, hell und dunkel. Weicht eine ab, ist der Stand rot. So kann der Code nicht unbemerkt vom Design abdriften.",
-     "Switch [checked=false] / Schieber (dunkel)\n    Code:  rgb(255, 255, 255)\n    Figma: action/danger = rgb(192, 43, 43)"
-    ],
-    [
-     "Die fertige Seite wird angesehen",
-     "Zum Schluss misst ein Programm die Seite so, wie Menschen sie sehen: Passt sie aufs Handy? Ist der Text lesbar? Sind die Klickflächen groß genug? Hat jedes Bedienelement einen Namen?",
-     "node cli/fundament.mjs audit <Pfad>"
+     "Der Check sagt, was falsch ist und was gilt",
+     "Erfundene Bausteine, falsche Werte, feste Farben und feste Abstände fallen sofort auf. Jede Meldung nennt die Behebung.",
+     "<fd-button variant=\"blue\"> ist kein gültiger Wert.\n    Behebung: Erlaubt: primary, secondary, ghost, danger (Standard: primary).\n\nFester Farbwert #1f4fd8.\n    Behebung: Durch ein semantisches Token ersetzen, var(--fd-color-…)."
     ],
     [
      "Regeln haben einen Grund",
      "Jede Regel ist ein kurzer Satz mit Begründung. Die Begründung hilft dem Agenten in Fällen, an die niemand gedacht hat.",
      "Regel:  Höchstens ein primärer Button pro Ansicht.\nWarum:  Mehrere primäre Aktionen konkurrieren um Aufmerksamkeit."
-    ],
-    [
-     "Fehlt etwas, sagt er es",
-     "Gibt es keinen passenden Baustein, baut der Agent keinen eigenen. Er nennt die Lücke im Bericht. Der Chip ist so entstanden: Die Regel für Badges verwies auf ihn, bevor es ihn gab.",
-     ""
     ]
    ],
-   "note": [
-    "Was „genau“ hier heißt",
-    "Gegen Figma gemessen werden heute die Farben und Rahmenstärken jeder Variante. Abstände, Radien und Schrift kommen aus denselben Tokens wie in Figma. Welches Token ein Baustein an welcher Stelle nutzt, wird aber noch nicht verglichen. Ein falscher Innenabstand in einem Baustein fiele also nicht von selbst auf."
+   "steps": [
+    [
+     "Lesen",
+     "Die erzeugte Liste der Bausteine, Werte und Regeln laden."
+    ],
+    [
+     "Bauen",
+     "Nur mit Bausteinen des Systems. Eigenes CSS nur fürs Layout."
+    ],
+    [
+     "Prüfen",
+     "Den Check laufen lassen und jeden Befund beheben.",
+     "node cli/fundament.mjs check <Pfad>"
+    ],
+    [
+     "Am Bild messen",
+     "Handybreite, Kontrast, Klickflächen, Namen.",
+     "node cli/fundament.mjs audit <Pfad>"
+    ],
+    [
+     "Höchstens drei Runden",
+     "Danach berichten, was offen ist, statt weiter zu raten."
+    ],
+    [
+     "Lücken melden",
+     "Fehlt ein Baustein, nicht nachbauen, sondern nennen."
+    ]
    ]
   },
   {
@@ -114,12 +226,13 @@
      "Diese Doku",
      "HTML-Fassung"
     ]
-   }
+   },
+   "fold": true
   },
   {
    "id": "ablaeufe",
-   "title": "Abläufe",
-   "intro": "Vier Wege, die im Alltag vorkommen. Von oben nach unten lesen. Die Farbe zeigt, wer den Schritt macht.",
+   "title": "Alle Abläufe Schritt für Schritt",
+   "intro": "Von oben nach unten lesen. Die Farbe zeigt, wer den Schritt macht.",
    "legend": [
     [
      "Design",
@@ -279,7 +392,8 @@
      "loop": "Schritt 3 und 4 wiederholen sich, höchstens drei Runden. Danach wird berichtet statt geraten.",
      "result": "Eine geprüfte Seite und eine Liste der Lücken."
     }
-   ]
+   ],
+   "fold": true
   },
   {
    "id": "regeln",
@@ -314,11 +428,12 @@
      "Fehlt eine Komponente, improvisiere passend zum Stil.",
      "Fehlt eine Komponente, nicht nachbauen. Die Lücke im Bericht nennen."
     ]
-   ]
+   ],
+   "fold": true
   },
   {
    "id": "html-css",
-   "title": "Zwei Wege im Code",
+   "title": "Ohne Web Components: nur HTML und CSS",
    "intro": "Die Bausteine gibt es als Web Components und als reines HTML mit CSS. Beide nutzen dasselbe CSS und dieselben Tokens. Die HTML-Fassung wird aus den Web Components erzeugt und im Browser nachgemessen: Sie sieht gleich aus.",
    "table": {
     "head": [
@@ -382,7 +497,8 @@
      "Mit CSS ohne Verhalten haben Agenten jedes Bedienelement selbst gebaut, eigenes Skript geschrieben und Schalter ohne Namen geliefert (probe-zds/ERGEBNIS.md). Die fertigen Vorlagen und check --html verkleinern diese Lücke. Das Verhalten ersetzen sie nicht."
     ]
    ],
-   "htmlExample": "Button"
+   "htmlExample": "Button",
+   "fold": true
   },
   {
    "id": "lassen",
@@ -404,7 +520,8 @@
      "Ausnahmen im Produkt",
      "Ein überschriebener Wert ist eine Regeländerung ohne Entscheidung. Kommt die Ausnahme wieder, fehlt eine Variante."
     ]
-   ]
+   ],
+   "fold": true
   }
  ]
 }
