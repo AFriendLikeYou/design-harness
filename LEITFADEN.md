@@ -91,6 +91,20 @@ Ein Agent arbeitet in einer festen Schleife. Vier Dinge nehmen ihm dabei das Rat
    ```
 
 
+## Woher die Regeln kommen
+
+Eine Regel entsteht aus einem Fehler, der wirklich passiert ist. Sie gilt erst, wenn sie im Repo steht.
+
+**Anlass** (ein echter Fehler) → **Vorschlag** (ein Satz mit Warum) → **Entscheidung** (im Pull Request) → **Prüfbar machen** (Check und Fehlerfall) → **Gilt** (Doku, Liste, Check)
+
+
+> **Stand heute.** Die Regeln in diesem Beispielsystem sind ein Startsatz: aus gemessenen Agentenläufen und aus üblicher Praxis für Barrierefreiheit. Wer im Team entscheidet, ist ein Vorschlag und noch nicht festgelegt.
+
+- **Wer schlägt vor.** Alle: Design, Entwicklung, Redaktion. Auch ein Agent, wenn er in seinem Bericht eine Lücke oder einen wiederkehrenden Fehler nennt.
+- **Wer schreibt.** Wer den Fehler gesehen hat, schreibt die Regel als Satz mit Begründung in specs/rules.json. Mehr braucht es für den Vorschlag nicht.
+- **Wer entscheidet.** Design und Entwicklung gemeinsam, im Pull Request. Ohne Zustimmung beider Seiten wird die Regel nicht zusammengeführt.
+- **Was der Rechner verlangt.** Jede Regel braucht eine Begründung und einen eindeutigen Namen. Verspricht sie einen Check, muss es ihn geben, samt Beispiel, das die Regel verletzt. Sonst ist der Stand rot.
+
 ## Was wohin gehört
 
 Drei Orte. Jeder führt bei dem, was nur er wissen kann.
